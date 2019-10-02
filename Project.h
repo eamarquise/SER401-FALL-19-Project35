@@ -7,15 +7,21 @@
 
 #ifndef PROJECT_H_
 #define PROJECT_H_
+#include <string>
+#include <vector>
 
 class Project {
-	int PROJECT_SKILLS_LENGTH; //will be initialized by an argument and will be used to initialize the skills required array
-	int STUDENTS_LENGTH; //will be initialized to 5 because projects can only have 5 students max
-	int* projectSkills; //this will point to an array of all the skills required.
-	int* students; //this will point to an array of the ID of each student that matches with this project
 public:
-	Project(int projectSkillsLength);
+	//attributes
+	std::vector<int> students;//students associated with the project
+	std::vector<std::string> projectSkills; //skills required by the project
+	char priority;//2 is top priority, 1 is medium priority, 0 is low priority
+
+	//methods
+	Project(char priorityInitializer, std::vector<std::string> skillsRequired);
 	virtual ~Project();
+	void addStudent(int studentID);
+	void removeStudent(int studentID);
 };
 
 #endif /* PROJECT_H_ */

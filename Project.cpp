@@ -10,24 +10,44 @@
 #include <string>
 using namespace std;
 
-Project::Project(int projectSkillsLength) {
-	STUDENTS_LENGTH = 5;
-	PROJECT_SKILLS_LENGTH = projectSkillsLength;
-
-	//initialize students array
-	students = new int[STUDENTS_LENGTH];
-	for(int i = 0; i < STUDENTS_LENGTH; i++) {
-		students[i] = 0;
+/*
+ * Set priority and skillsRequired to project.
+ */
+Project::Project(char priorityInitializer, vector<string> skillsRequired) {
+	if(priorityInitializer < 0) {
+		priority = 0;
+	} else if(priorityInitializer > 2) {
+		priority = 2;
+	} else {
+		priority = priorityInitializer;
 	}
-	//initialize the skills required array
-	projectSkills = new int[PROJECT_SKILLS_LENGTH];
-	for(int i = 0; i < PROJECT_SKILLS_LENGTH; i++) {
-		projectSkills[i] = 0;
-	}
+	projectSkills = skillsRequired;
 }
 
 Project::~Project() {
 	// TODO Auto-generated destructor stub
+}
+
+/*
+ * add studentID to vector<int> students
+ *
+ */
+void Project::addStudent(int studentID) {
+	students.push_back(studentID);
+}
+
+/*
+ * remove studentID from vector<int> students
+ *
+ */
+void Project::removeStudent(int studentID) {
+	for(unsigned i = 0; i < students.size(); i++) {
+		if(students.at(i) == studentID) {
+			students.erase(students.begin() + i);
+			break;
+		}
+	}
+
 }
 
 
