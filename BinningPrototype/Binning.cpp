@@ -10,17 +10,14 @@
 using namespace std;
 
 
-  static vector<Student> remainingStudents;
-  static vector<Project> project_set1;
-  static vector<Project> project_set2;
-  static vector<Project> allprojects;
+
 
 class Student {
 	public:
 		string name;
 		// 2D array of project # and skillscore for that project.
 
-		int projectxskill[6][2];
+		int projectxskill(*)[2];
 
 		vector <string> negative_affinity;
 		vector <string> positive_affinity;
@@ -42,7 +39,7 @@ class Project {
 		string name;
 		int project_num;
 		// skillsScores rank from 0(no knowledge)-4(expert)
-		vector <string> assignedStudents;
+		vector <Student> assignedStudents;
 		// O = online, C = on campus, N = not specified
 		string type;
 		Project();
@@ -52,6 +49,13 @@ class Project {
 			this->type = t;
 		}
 };
+
+
+  static vector<Student> remainingStudents;
+  static vector<Project> project_set1;
+  static vector<Project> project_set2;
+  static vector<Project> allprojects;
+  static vector<Project> assignedprojects;
 
 int randomnum()
 {
@@ -63,7 +67,7 @@ int randomnum()
 	    }
 }
 
-int[6][2] randskillscore()
+int(*)[2] randskillscore()
 {
 	int rand_matrix[6][2]=
 	{
@@ -75,50 +79,159 @@ int[6][2] randskillscore()
 			{6, randomnum()},
 	};
 
-	return
+	return rand_matrix;
 }
 //Searches over all the remaining students to find the student with the best
 //skill score for the project.
-Student find_bestStudent(int p_num)
+Student find_bestStudent(int p_num, vector<Student> studentlist)
 {  Student best_student;
 	int best_score = 0;
-	for(int i = 0; i < remainingStudents.size(); i++){
-		int score = remainingStudents[i].projectskill[p_num+1][1]
+	for(int i = 0; i < studentlist.size(); i++){
+		int score = studentlist[i].projectxskill[p_num+1][1];
 		if (score >= best_score){
 			best_score=score;
-			best_student = remainingStudents[i];
+			best_student = studentlist[i];
 		}
 	}
 
- return
+ return best_student;
 }
 
-void typecheck()
+bool typecheck(Student s, Project p)
 {
+ if (s.type.compare(p.type) == 0){
+	 return true;
+ }else if(p.type.compare("N") == 0){
+	 return true;}
+ else{
+	 return false;
+ }
 
 }
 
-void affintycheck()
+bool affinitycheck(Student s)
 {
+    return true;
 
 }
 
-void preferedtimecheck()
+bool preferedtimecheck(Student s)
 {
+  //to do
+	return true;
 
 }
-
-void project_team_threads()
+//run on a separate thread for each project
+void project_team_assignment(Project p)
 {
+  vector<Student> studentlist = remainingStudents;
+  Student student;
+	for(int i = 0; i < 4; i++){
+    student = find_bestStudent(p.project_num, studentlist);
+
+    	if(typecheck(student, p) == true){
+
+
+        }else{
+       		i--;
+       		int pos = find(studentlist.begin(), studentlist.end(), student) - studentlist.begin();
+       		studentlist.erase(studentlist.begin() + pos);
+       		continue;
+       	}
+    		if(affinitycheck(student) == true){
+
+
+    		}else{
+    			i--;
+    			int pos = find(studentlist.begin(), studentlist.end(), student) - studentlist.begin();
+    			studentlist.erase(studentlist.begin() + pos);
+    			continue;
+    		}
+    			if(preferedtimecheck(student) == true){
+
+    			}else{
+    				i--;
+    				int pos = find(studentlist.begin(), studentlist.end(), student) - studentlist.begin();
+    				studentlist.erase(studentlist.begin() + pos);
+    				continue;
+    			}
+            //assigns student to project.
+    		p.assignedStudents.push_back(student);
+	}
 
 }
 
+//threads for project set 1.
+Project set1_threads(){
+std::vector<std::thread> threads;
 
-void project_team_assessment()
-{
+       cout << "project set 1 threads" << endl;
+		for(int i = 0; i < project_set1.size(); i++){
 
+			  cout << "thread # " + i + " running" << endl;
+		    threads.push_back(std::thread(project_team_assignment ,project_set1));
 }
 
+		//join all threads.
+		for (auto& th : threads) th.join();
+
+
+		return project_team_evaluation(project_set1);
+}
+
+//threads for project set 2.
+
+Project set2_threads(){
+std::vector<std::thread> threads;
+
+        cout << "project set 2 threads" << endl;
+		for(int i = 0; i < project_set2.size(); i++){
+
+			cout << "thread # " + i + " running" << endl;
+		    threads.push_back(std::thread( project_team_assignment, project_set2));
+}
+
+		//join all threads.
+		for (auto& th : threads) th.join();
+
+
+		return project_team_evaluation(project_set2);
+}
+
+
+
+//to-do
+//right now, this just assigns the first project as the best one.
+//set1
+Project project_team_evaluation1(vector <Project> plist)
+{  Project best_project;
+
+
+  best_project = plist[0];
+  project_set1[1].assignedStudents.clear();
+  project_set1[2].assignedStudents.clear();
+
+  project_set1.erase(studentlist.begin())
+  return best_project;
+}
+
+//set2
+Project project_team_evaluation2(vector <Project> plist)
+{  Project best_project;
+
+
+  best_project = plist[0];
+  project_set2[1].assignedStudents.clear();
+  project_set2[2].assignedStudents.clear();
+
+  project_set2.erase(studentlist.begin())
+
+
+
+  return best_project;
+}
+
+void
 
 
 int main()
@@ -229,67 +342,32 @@ int main()
 		allprojects.push_back(p6);
 
 
-		// Assign Students to Projects
+		assignedprojects.push_back(set1_threads());
+		assignedprojects.push_back(set1_threads());
+		assignedprojects.push_back(set1_threads());
 
-		// assignedStudents will keep track of students that have already been selected for a project.
-		// each element is a student name (ie for st12, it would be 12)
-		vector<int> assignedStudents;
 
-		// firstStudent, secondStudent, thirdStudent, and fourthStudent will be Student name.
-		// 1 will be for st1, 12 for st12
-		// first, second, third, and fourth will store the values of the 4 highest scoring students per project.
-		// Students already selected for a previous project will be omitted.
-		int firstStudent, secondStudent, thirdStudent, fourthStudent;
-		int first, second, third, fourth;
+		assignedprojects.push_back(set2_threads());
+		assignedprojects.push_back(set2_threads());
+		assignedprojects.push_back(set2_threads());
 
-		// For each project
-		for (int i = 0; i < numProjects; i++){
-			firstStudent = secondStudent = thirdStudent = fourthStudent = first = second = third = fourth = -1;
-			// For each Student
-			for (int j = 0 ; j < numStudents; j++){
-				if (contains(assignedStudents, j+1) == true){
-					continue;
-				}
-				if (projectxstudent[i][j] > first){
-					fourth = third;
-					fourthStudent = thirdStudent;
-					third = second;
-					thirdStudent = secondStudent;
-					second = first;
-					secondStudent = firstStudent;
-					first = projectxstudent[i][j];
-					firstStudent = j+1;
-				}
-				else if (projectxstudent[i][j] > second){
-					fourth = third;
-					fourthStudent = thirdStudent;
-					third = second;
-					thirdStudent = secondStudent;
-					second = projectxstudent[i][j];
-					secondStudent = j+1;
-				}
-				else if (projectxstudent[i][j] > third){
-					fourth = third;
-					fourthStudent = thirdStudent;
-					third = projectxstudent[i][j];
-					thirdStudent = j+1;
-				}
-				else if (projectxstudent[i][j] > fourth){
-					fourth = projectxstudent[i][j];
-					fourthStudent = j+1;
-				}
-			} // end student loop
-			assignedStudents.push_back(firstStudent);
-			assignedStudents.push_back(secondStudent);
-			assignedStudents.push_back(thirdStudent);
-			assignedStudents.push_back(fourthStudent);
-			cout << "p" + to_string(i+1) + " team members" << endl;
-			cout << "1) st" + to_string(firstStudent) + "\t" + to_string(first) << endl;
-			cout << "2) st" + to_string(secondStudent) + "\t" + to_string(second) << endl;
-			cout << "3) st" + to_string(thirdStudent) + "\t" + to_string(third) << endl;
-			cout << "4) st" + to_string(fourthStudent) + "\t" + to_string(fourth) << endl;
-			cout << endl;
-		}//end project loop
+
+
+
+		//print out projects and assigned teams.
+		for(int i = 0; i < assignedprojects.size(); i++){
+			cout << "Project #" + assignedprojects[i] + " team members" << endl;
+
+			for(int j = 0; j < assignedprojects[i].assignedStudents.size(); j++){
+
+				cout << assignedprojects[i].assignedStudents[j].name <<endl ;
+
+
+
+			}
+		}
+
+		}
 
 		return 0;
 	}
