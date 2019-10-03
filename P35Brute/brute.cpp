@@ -131,11 +131,6 @@ int main(){
 			int skillScore = roll(0, 4);
 			tempSkills.skillScoreArray.push_back(skillScore);
 		}
-		int skillScore1 = roll(0, 4);
-		int skillScore2 = roll(0, 4);
-		int skillScore3 = roll(0, 4);
-		int skillScore4 = roll(0, 4);
-		int skillScore5 = roll(0, 4);
 		int timezone = roll(0,3);
 		bool online = (bool)roll(0,1);
 		Student tempStudent(studentName, tempSkills, timezone, online);
@@ -158,7 +153,7 @@ int main(){
 
 	// display random students for testing can delete later
 	cout << endl << "Random students in studentList2" << endl;
-	for (int i = 0; i < (signed)studentList2.allStudentList.size(); i++){
+	for (int i = 0; i < numStudents; i++){
 		string studentString = studentList2.allStudentList.at(i).name + "\t";
 		for (int j = 0; j < numSkills; j++){
 			studentString += "Skill" + to_string(i)+ ": " + to_string(studentList2.allStudentList.at(i).studentSkills.skillScoreArray.at(j)) + "\t";
@@ -170,7 +165,7 @@ int main(){
 
 	// display random projects for testing can delete later
 	cout << endl << "Random projects in projectList2" << endl;
-	for (int i = 0; i < (signed)projectList2.allProjectList.size(); i++){
+	for (int i = 0; i < numProjects ; i++){
 		string projectString = projectList2.allProjectList.at(i).name + "\t";
 		for (int j = 0; j < numSkills; j++){
 			projectString += "Skill" + to_string(i)+ ": " + to_string(projectList2.allProjectList.at(i).projectSkills.skillScoreArray.at(j)) + "\t";
@@ -191,7 +186,7 @@ int main(){
 	// Fill in SkillxStudent2 Matrix Automatically
 	int skillxstudent2[numSkills][numStudents] = {0};
 	for (int i = 0; i < numSkills; i++){
-		for (int j = 0; j < (signed)studentList2.allStudentList.size(); j++){
+		for (int j = 0; j < numStudents; j++){
 			skillxstudent2[i][j] = studentList2.allStudentList.at(j).studentSkills.skillScoreArray.at(i);
 		}
 	}
@@ -306,7 +301,7 @@ int main(){
 		} // end student loop
 
 		// need to get searchVector method working right so we can even check this vector during the iterations for matches.
-		// then we can uncomment this and delete the following lines using assignedStudents
+		// then we can uncomment this and delete the following lines pushing to <vector>assignedStudents
 //		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(firstStudent));
 //		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(secondStudent));
 //		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(thirdStudent));
