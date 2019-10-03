@@ -113,7 +113,8 @@ int main(){
 	int numProjects = 4;
 	int numSkills = 5;
 	// teamSize can be used after we figure out how to build teams recursively.
-	// int teamSize = 4;
+	// right now just being used for console display below
+	int teamSize = 5;
 	srand(time(0));
 
 	cout << "testing randomly generated students and projects" << endl;
@@ -229,17 +230,18 @@ int main(){
 	cout << endl;
 
 	// Assign Students to Projects
-
+	// firstStudent, secondStudent, thirdStudent, and fourthStudent will be Student name.
+	// 0 will be for st0, 12 for st12
+	// first, second, third, and fourth will store the values of the [teamSize] highest scoring students per project.
+	// Students already selected for a previous project will be omitted.
+	cout << "*************Beginning-of-Project-Team Report*************" << endl;
+	cout << endl;
+	int firstStudent, secondStudent, thirdStudent, fourthStudent, fifthStudent;
+	int first, second, third, fourth, fifth;
 	// assignedStudents will keep track of students that have already been selected for a project.
 	// each element is a student name (ie for st12, it would be 12)
 	vector<int> assignedStudents;
 
-	// firstStudent, secondStudent, thirdStudent, and fourthStudent will be Student name.
-	// 1 will be for st1, 12 for st12
-	// first, second, third, and fourth will store the values of the 4 highest scoring students per project.
-	// Students already selected for a previous project will be omitted.
-	int firstStudent, secondStudent, thirdStudent, fourthStudent, fifthStudent;
-	int first, second, third, fourth, fifth;
 
 	// For each project
 	for (int i = 0; i < numProjects; i++){
@@ -311,11 +313,20 @@ int main(){
 //		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(fourthStudent));
 //		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(fifthStudent));
 
+		// if a project team of 5 could not be filled out with available students, move on to next project.
+		if ((fifthStudent == -1) || (fourthStudent == -1) || (thirdStudent == -1) || (secondStudent == -1) || (firstStudent == -1))
+		{
+			cout << "Project" + to_string(i)+  " can not be filled by " + to_string(teamSize) + " Students, moving on to next project" << endl;
+			cout << endl;
+			continue;
+		}
+
 		assignedStudents.push_back(firstStudent);
 		assignedStudents.push_back(secondStudent);
 		assignedStudents.push_back(thirdStudent);
 		assignedStudents.push_back(fourthStudent);
 		assignedStudents.push_back(fifthStudent);
+
 
 		cout << "p" + to_string(i) + " team members" << endl;
 		cout << "1) " + studentList2.allStudentList.at(firstStudent).name + "\t" + to_string(first) << endl;
@@ -326,7 +337,8 @@ int main(){
 		cout << endl;
 
 	}//end project loop
-
+	cout << endl;
+	cout << "*******************End-of-Project-Team Report*************" << endl;
 	return 0;
 }
 
