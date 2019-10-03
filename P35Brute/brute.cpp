@@ -243,7 +243,7 @@ int main(){
 
 	// For each project
 	for (int i = 0; i < numProjects; i++){
-		firstStudent = secondStudent = thirdStudent = fourthStudent = fifthStudent= first = second = third = fourth = fifth = -1;
+		firstStudent = secondStudent = thirdStudent = fourthStudent = fifthStudent = first = second = third = fourth = fifth = -1;
 		// For each Student
 		for (int j = 0 ; j < numStudents; j++){
 			// check if student on this iteration has already been assigned to a project
@@ -258,7 +258,7 @@ int main(){
 			// check if the current iteration's project is local and if the current student is online.
 			// if project local and student is online, go to next student.
 			// presumption that an online project can be accomplished by local students too.
-			if (projectList2.allProjectList.at(i).online == 0 && studentList2.allStudentList.at(j).online == 1){
+			if (projectList2.allProjectList.at(i).online == true && studentList2.allStudentList.at(j).online == true){
 				continue;
 			}
 			if (projectxstudent2[i][j] > first){
