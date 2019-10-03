@@ -205,7 +205,7 @@ int main(){
 	for (int i = 0; i < numStudents; i++){
 		string studentString = studentList2.allStudentList.at(i).name + "\t";
 		for (int j = 0; j < numSkills; j++){
-			studentString += "Skill" + to_string(i)+ ": " + to_string(studentList2.allStudentList.at(i).studentSkills.skillScoreArray.at(j)) + "\t";
+			studentString += "Skill" + to_string(j)+ ": " + to_string(studentList2.allStudentList.at(i).studentSkills.skillScoreArray.at(j)) + "\t";
 		}
 		studentString += "Times Available: ";
 		for (int j = 0; j < numOfMeetingTimesToSelect; j++){
@@ -238,7 +238,7 @@ int main(){
 	for (int i = 0; i < numProjects ; i++){
 		string projectString = projectList2.allProjectList.at(i).name + "\t";
 		for (int j = 0; j < numSkills; j++){
-			projectString += "Skill" + to_string(i)+ ": " + to_string(projectList2.allProjectList.at(i).projectSkills.skillScoreArray.at(j)) + "\t";
+			projectString += "Skill" + to_string(j)+ ": " + to_string(projectList2.allProjectList.at(i).projectSkills.skillScoreArray.at(j)) + "\t";
 		}
 		projectString += "Online: " + to_string(projectList2.allProjectList.at(i).online);
 		cout << projectString << endl;
