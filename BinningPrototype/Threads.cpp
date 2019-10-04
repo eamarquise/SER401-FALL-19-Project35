@@ -68,9 +68,9 @@ int main()
 			project_set1.push_back(p3);
 
 			// Create Projects Set2 (lowest priority projects)
-			Project p4("p1", 1, "N");
-			Project p5("p2", 2, "N");
-			Project p6("p3", 3, "O");
+			Project p4("p4", 4, "N");
+			Project p5("p5", 5, "N");
+			Project p6("p6", 6, "O");
 			project_set2.push_back(p4);
 			project_set2.push_back(p5);
 			project_set2.push_back(p6);
@@ -93,17 +93,7 @@ int main()
 			for (auto& th : threads) th.join();
 
 
-			//checks to see which project in set 1 has the best team/project match
-			int best;
-			Project pA("p1", 1,  "O");
-			pA.assignmentScore = 0;
-			for(int i = 0; i < project_set1.size(); i++){
 
-			if (project_set1[i].assignmentScore > best){
-				best = project_set1[i].assignmentScore;
-				pA = project_set1[i];
-			}
-			}
 
 
 			             //Create threads for the project bins in set 2.
@@ -121,18 +111,19 @@ int main()
 						//join all set 2 threads.
 						for (auto& th2 : threads2) th2.join();
 
+
+
 						//checks to see which project in set 1 has the best team/project match
-						int best2;
-						Project pB("p1", 1,  "O");
-						pB.assignmentScore = 0;
-						for(int i = 0; i < project_set2.size(); i++){
+								int best;
+								Project pA("p1", 1,  "O");
+								pA.assignmentScore = 0;
+								for(int i = 0; i < project_set1.size(); i++){
 
-						if (project_set2[i].assignmentScore > best2){
-							best2 = project_set2[i].assignmentScore;
-							pB = project_set2[i];
-						}
-						}
-
+								if (project_set1[i].assignmentScore > best){
+									best = project_set1[i].assignmentScore;
+									pA = project_set1[i];
+								}
+								}
 						//Print results for project Set 1
 						cout << "Set 1 Projects"<<endl;
 						for(int i = 0; i < project_set1.size(); i++){
@@ -141,8 +132,20 @@ int main()
 						cout << "The selected: Project #" + to_string(pA.project_num) + " Assignment score: " + to_string(pA.assignmentScore) << endl;
 
 
+
+						//checks to see which project in set 2 has the best team/project match
+						best = 0;
+						Project pB("p1", 1,  "O");
+						pB.assignmentScore = 0;
+						for(int i = 0; i < project_set2.size(); i++){
+
+						if (project_set2[i].assignmentScore > best){
+							best = project_set2[i].assignmentScore;
+							pB = project_set2[i];
+						}
+						}
 						//Print results for project Set 2
-						cout << "Set 1 Projects"<<endl;
+						cout << "Set 2 Projects"<<endl;
 						for(int i = 0; i < project_set2.size(); i++){
 						cout << "Project #" + to_string(project_set2[i].project_num) + " Assignment score: " + to_string(project_set2[i].assignmentScore) << endl;
 						}
