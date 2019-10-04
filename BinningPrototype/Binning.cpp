@@ -1,9 +1,29 @@
-
-
+/*
+ * 	Binning.cpp
+ *
+ *  Created on: Oct. 2, 2019
+ *      Author: Myles Colina
+ *      Github username: mcolina
+ *
+ *      Description:
+ *      This is a prototype of the Binning Idea which uses threads.
+ *      It optimizes the team assignment process by running threads for each
+ *      project bin in the set. In this prototype, there are 2 sets each with
+ *      3 project bins. In each iteration, threads are run based on the number
+ *      of projects left in the set,(3, then 2, then 1). In each thread, team members
+ *      are assigned based on skill score, online/on-campus check, affinity check,
+ *      and preferred time check. The project bins are then evaluated to see which
+ *      team/project is the best match, and is then assigned. The other projects are
+ *      then reset, and the threads are run again with the remaining projects and
+ *      remaining students.
+ *
+ *     It prints out status of when each thread is run, and what number it is.
+ *     It also prints out the final team assignment for each project.
+ */
 #include <iostream>
 #include <thread>
 #include <vector>
-#include <string.h>
+#include <string>
 #include <fstream>
 #include <algorithm>
 #include <functional>
@@ -11,80 +31,42 @@
 
 using namespace std;
 
-
-int randomnum()
-{
-	 srand((unsigned)time(0));
-	    int random_num;
-	    for(int index=0; index<35; index++){
-	        random_num = (rand()%10)+1;
-	      return random_num;
-	    }
+//Matthew's roll function to generate random values.
+int roll(int min, int max){
+	int value = rand() % (max-min +1) + min;
+	return value;
 }
-
-int** randskillscore()
-{
-	int** rand_matrix;
-    for(int i=0; i<6; ++i){
-		for(int j=0; j<2; ++j) {
-			if (j==0){
-			rand_matrix[i][j] = i+1;
-			}else{
-		    rand_matrix[i][j] = randomnum();
-			}
-		}
-	}
-	//rand_matrix ={
-	//		{1, randomnum()},
-	//		{2, randomnum()},
-	//		{3, randomnum()},
-	//		{4, randomnum()},
-	//		{5, randomnum()},
-	//		{6, randomnum()}
-	//};
-
-	return rand_matrix;
-}
-
 
 class Student {
 	public:
 		string name;
-		// 2D array of project # and skillscore for that project.
-
+		// 2D array of project # and skill-score for that project.
 		int projectxskill[6][2];
 
 		vector <string> negative_affinity;
 		vector <string> positive_affinity;
-		// O = online, C = on campus, N = not specified
+		// O = online, C = on campus
 		string type;
 
 		Student();
 		Student(string n, vector <string> na, vector <string> pa, string t){
 			this->name = n;
-			//this->projectxskill = randskillscore();
 			this->negative_affinity = na;
 			this->positive_affinity = pa;
 			this->type = t;
 
-
+            //randomize skill score when creating student
 			    for(int i=0; i<6; ++i){
 					for(int j=0; j<2; ++j) {
 						if (j==0){
 							this->projectxskill[i][j] = i+1;
 						}else{
-							this->projectxskill[i][j] = randomnum();
-						}
-					}
-				}
-
-
+							this->projectxskill[i][j] = roll(0,35);
+						}	}	}
 		}
 
 		bool operator==(const Student &rhs) const {
-		        return rhs.name == name;
-		    }
-
+		        return rhs.name == name;		    }
 };
 
 class Project {
@@ -93,7 +75,7 @@ class Project {
 		int project_num;
 		// skillsScores rank from 0(no knowledge)-4(expert)
 		vector <Student> assignedStudents;
-		// O = online, C = on campus, N = not specified
+		// O = online, C = on campus, (N = not specified //to be done)
 		string type;
 		Project();
 		Project(string n, int p_num, string t){
@@ -104,6 +86,7 @@ class Project {
 };
 
 
+//List of static variables for use in the program.
   static vector<Student> remainingStudents;
   static vector<Project> project_set1;
   static vector<Project> project_set2;
@@ -113,94 +96,102 @@ class Project {
 
 //Searches over all the remaining students to find the student with the best
 //skill score for the project.
-Student find_bestStudent(int p_num, vector<Student> studentlist)
+Student find_bestStudent(int p_num, vector<Student>& studentlist)
 {  vector <string> no_affinity;
 	Student best_student("st1", no_affinity, no_affinity,"O");
 	int best_score = 0;
 	for(int i = 0; i < studentlist.size(); i++){
-		int score = studentlist[i].projectxskill[p_num+1][1];
+		int score = studentlist[i].projectxskill[p_num-1][1];
+
 		if (score >= best_score){
-			best_score=score;
+			best_score = score;
 			best_student = studentlist[i];
 		}
 	}
 
+
+ //cout << "Project: " + to_string(best_student.projectxskill[p_num-1][0]) << endl;
+ //cout << "Score: " + to_string(best_student.projectxskill[p_num-1][1])  << endl;
  return best_student;
 }
 
-bool typecheck(Student s, Project p)
+
+//Conducts a type check
+bool typecheck(Student& s, Project& p)
 {
  if (s.type.compare(p.type) == 0){
 	 return true;
- }else if(p.type.compare("N") == 0){
-	 return true;}
- else{
+ }else{
 	 return false;
  }
 
 }
 
+
+
+//Conducts an affinity check
+// to be done
 bool affinitycheck(Student s)
 {
     return true;
-
 }
 
+//Conducts a preferred time check
+//to be done
 bool preferedtimecheck(Student s)
 {
-  //to do
 	return true;
-
 }
-//run on a separate thread for each project
-void project_team_assignment(Project p)
+
+
+//runs on a separate thread for each project
+//assigns 5 students to each project
+void project_team_assignment(Project& p)
 {
+	//cout << "thread # " + to_string(p.project_num) + " running" << endl;
+
   vector<Student> studentlist = remainingStudents;
   vector <string> no_affinity;
   Student student("st1", no_affinity, no_affinity,"O");
-	for(int i = 0; i < 4; i++){
+	for(int i = 0; i < 5; i++){
     student = find_bestStudent(p.project_num, studentlist);
-   // p.assignedStudents.push_back(student);
 
-   // cout << "TEST" +  p.assignedStudents[0].name <<endl ;
     	if(typecheck(student, p) == true){
-
 
         }else{
        		i--;
-       		int pos = find(studentlist.begin(), studentlist.end(), student) - studentlist.begin();
-       		studentlist.erase(studentlist.begin() + pos);
+       		studentlist.erase(remove(studentlist.begin(), studentlist.end(), student), studentlist.end());
        		continue;
        	}
     		if(affinitycheck(student) == true){
 
-
     		}else{
     			i--;
-    			int pos = find(studentlist.begin(), studentlist.end(), student) - studentlist.begin();
-    			studentlist.erase(studentlist.begin() + pos);
+    	  		studentlist.erase(remove(studentlist.begin(), studentlist.end(), student), studentlist.end());
     			continue;
     		}
     			if(preferedtimecheck(student) == true){
 
     			}else{
     				i--;
-    				int pos = find(studentlist.begin(), studentlist.end(), student) - studentlist.begin();
-    				studentlist.erase(studentlist.begin() + pos);
+    		  		studentlist.erase(remove(studentlist.begin(), studentlist.end(), student), studentlist.end());
     				continue;
     			}
             //assigns student to project.
     		p.assignedStudents.push_back(student);
+    		studentlist.erase(remove(studentlist.begin(), studentlist.end(), student), studentlist.end());
 
-    	//	cout << "TEST" +  p.assignedStudents[0].name <<endl ;
 	}
 
 }
 
-//to-do
+//Project set 1 evaluation
+//Evaluates how good a match the team is to the project in the set.
+// it returns the best one, assigns those students to the project,
+//removes the selected project form the list, and resets the other projects.
 //right now, this just assigns the first project as the best one.
-//set1
-Project project_team_evaluation1(vector <Project> plist)
+
+Project project_team_evaluation1(vector <Project>& plist)
 {  Project best_project("p1", 3, "O");
 
 
@@ -209,9 +200,6 @@ Project project_team_evaluation1(vector <Project> plist)
  	       int pos = find(remainingStudents.begin(), remainingStudents.end(), project_set1[0].assignedStudents[i]) - remainingStudents.begin();
  	       remainingStudents.erase(remainingStudents.begin() + pos);
    			}
-
-  //cout << "chosen project #" + to_string(best_project.project_num)  << endl;
-
   project_set1[1].assignedStudents.clear();
   project_set1[2].assignedStudents.clear();
 
@@ -221,8 +209,13 @@ Project project_team_evaluation1(vector <Project> plist)
   return best_project;
 }
 
-//set2
-Project project_team_evaluation2(vector <Project> plist)
+//Project set 2 evaluation
+//Evaluates how good a match the team is to the project in the set.
+// it returns the best one, assigns those students to the project,
+//removes the selected project form the list, and resets the other projects.
+//right now, this just assigns the first project as the best one.
+
+Project project_team_evaluation2(vector <Project>& plist)
 {  Project best_project("p1", 2, "O");
 
 
@@ -231,9 +224,6 @@ Project project_team_evaluation2(vector <Project> plist)
 	       int pos = find(remainingStudents.begin(), remainingStudents.end(), project_set2[0].assignedStudents[i]) - remainingStudents.begin();
 	       remainingStudents.erase(remainingStudents.begin() + pos);
   			}
-
-  //cout << "chosen project #" + to_string(best_project.project_num)  << endl;
-
   project_set2[1].assignedStudents.clear();
   project_set2[2].assignedStudents.clear();
 
@@ -244,16 +234,19 @@ Project project_team_evaluation2(vector <Project> plist)
 }
 
 //threads for project set 1.
+//This is were the threads are created, run and join back up.
+// runs threads based on number of remaining projects in the set.
+// first 3, then 2 then 1.
 Project set1_threads(){
 vector<thread> threads;
 
        cout << "project set 1 threads" << endl;
 		for(int i = 0; i < project_set1.size(); i++){
 
-			  cout << "thread # " + to_string(i) + " running" << endl;
-				thread th = thread(project_team_assignment, project_set1[i]);
+			cout << "thread # " + to_string(i+1) + " running" << endl;
+				thread th = thread(project_team_assignment, ref(project_set1[i]));
 				 threads.push_back(move(th));
-			 threads.push_back(thread(project_team_assignment, project_set1[i]));
+			// threads.push_back(thread(project_team_assignment, ref(project_set1[i])));
 }
 
 		//join all threads.
@@ -264,17 +257,19 @@ vector<thread> threads;
 }
 
 //threads for project set 2.
-
+//This is were the threads are created, run and join back up.
+// runs threads based on number of remaining projects in the set.
+// first 3, then 2 then 1.
 Project set2_threads(){
 vector<thread> threads;
 
         cout << "project set 2 threads" << endl;
 		for(int i = 0; i < project_set2.size(); i++){
 
-			cout << "thread # " + to_string(i) + " running" << endl;
-			//thread th = thread(project_team_assignment, project_set2[i]);
-			//threads.push_back(move(th));
-		    threads.push_back(thread(project_team_assignment, project_set2[i]));
+			cout << "thread # " + to_string(i+1) + " running" << endl;
+			thread th = thread(project_team_assignment, ref(project_set2[i]));
+			threads.push_back(move(th));
+		    //threads.push_back(thread(project_team_assignment, ref(project_set2[i])));
 }
 
 		//join all threads.
@@ -290,23 +285,11 @@ vector<thread> threads;
 
 
 
+//main class
 
 
-
-int main(void)
+int main()
 {
-
-	//vector<Student> remainingStudents;
-	//vector<Project> project_set1;
-	//vector<Project> project_set2;
-	//vector<Project> allprojects;
-
-		// Important numbers
-		int numStudents = 30;
-		int numProjects = 3;
-		int numSkills = 5;
-		int teams = numStudents / numProjects;
-
 
 
 		// Create Students, 20 Online students and 10 on-campus students
@@ -376,18 +359,22 @@ int main(void)
 		remainingStudents.push_back(st30);
 
 
+		//cout << "Project: " + to_string(st1.projectxskill[0][0])  << endl;
+		// cout << "Score: " + to_string(st1.projectxskill[0][1])  << endl;
+
+
 		// Create Projects Set1 (highest priority projects)
 		Project p1("p1", 1, "O");
-		Project p2("p2", 2, "N");
+		Project p2("p2", 2, "O");
 		Project p3("p3", 3, "C");
 		project_set1.push_back(p1);
 		project_set1.push_back(p2);
 		project_set1.push_back(p3);
 
 		// Create Projects Set2 (lowest priority projects)
-		Project p4("p1", 1, "N");
-		Project p5("p2", 2, "N");
-		Project p6("p3", 3, "O");
+		Project p4("p4", 4, "O");
+		Project p5("p5", 5, "C");
+		Project p6("p6", 6, "O");
 		project_set2.push_back(p4);
 		project_set2.push_back(p5);
 		project_set2.push_back(p6);
@@ -402,7 +389,6 @@ int main(void)
 
 
 		//Call the threads to run
-
 		set1_threads();
 		set1_threads();
 		set1_threads();
@@ -411,22 +397,14 @@ int main(void)
 		set2_threads();
 		set2_threads();
 
-
-		//cout << "TEST: Project#" + to_string(assignedprojects[0].project_num)  << endl;
-		//assignedprojects.push_back(set2_threads());
-
-
-		//cout << "TEST: Project#" + to_string(assignedprojects[0].project_num)  << endl;
 
 		//print out projects and assigned teams.
 		for(int i = 0; i < assignedprojects.size(); i++){
-			cout << "Project #" + to_string(assignedprojects[i].project_num) + " team members" << endl;
+			cout << "Project Bin #" + to_string(assignedprojects[i].project_num) + " team members" << endl;
 
 			for(int j = 0; j < assignedprojects[i].assignedStudents.size(); j++){
 
-				cout << ":" + to_string(j) + assignedprojects[i].assignedStudents[j].name <<endl ;
-
-
+				cout << ": " + assignedprojects[i].assignedStudents[j].name <<endl ;
 
 			}
 		}
