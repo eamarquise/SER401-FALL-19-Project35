@@ -53,7 +53,7 @@ int roll(int min, int max){
 }
 
 // calc_min_team_size Function
-// Task #37 - Cristi DeLeo
+// Task #36 - Cristi DeLeo
 // Calculates the minimum team size.
 int calc_min_team_size(int teamSize){
     int minTeamSize;
@@ -372,8 +372,6 @@ int main(){
 		cout << endl;
 
 	}//end project loop
-
-	cout << "Min Team Size: " << calc_min_team_size(TEAM_SIZE) << endl;
 
 	cout << endl;
 	cout << "*******************End-of-Project-Team Report*************" << endl;
