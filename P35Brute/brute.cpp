@@ -289,16 +289,14 @@ int main(){
 	}
 	cout << endl;
 
+
+
+
 	// Assign Students to Projects
 	// firstStudent, secondStudent, thirdStudent, and fourthStudent will be Student name.
 	// 0 will be for st0, 12 for st12.
 	// first, second, third, and fourth will store the values of the [teamSize=5 currently] highest scoring students per project.
 	// Students already selected for a previous project will be skipped and we will look at the next student.
-
-
-
-
-
 	cout << "*************Beginning-of-Project-Team Report*************" << endl;
 	cout << endl;
 	int firstStudent, secondStudent, thirdStudent, fourthStudent, fifthStudent;
