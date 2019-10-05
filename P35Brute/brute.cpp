@@ -50,6 +50,24 @@ int roll(int min, int max){
 	int value = rand() % (max-min +1) + min;
 	return value;
 }
+
+// calc_projects Function
+// Task #7 - Cristi DeLeo
+// Calculates the number of projects required for any given
+// number of students.
+int calc_projects(int numStudents, int teamSize){
+    int numProjects
+    int numStudentsModTeamSize
+
+    numStudentsModTeamSize = numStudents%teamSize
+
+
+
+
+
+    return numProjects
+}
+
 class Skills {
 public:
 	vector<int> skillScoreArray;
@@ -112,9 +130,9 @@ int main(){
 	int numStudents = 20;
 	int numProjects = 4;
 	int numSkills = 5;
-	// teamSize can be used after we figure out how to build teams recursively.
+	// TEAM_SIZE can be used after we figure out how to build teams recursively.
 	// right now just being used for console display below
-	int teamSize = 5;
+	const int TEAM_SIZE = 5; // CHANGED TO CONSTANT - C. DeLeo
 	srand(time(0));
 
 	cout << "testing randomly generated students and projects" << endl;
@@ -227,7 +245,7 @@ int main(){
 	// Assign Students to Projects
 	// firstStudent, secondStudent, thirdStudent, and fourthStudent will be Student name.
 	// 0 will be for st0, 12 for st12
-	// first, second, third, and fourth will store the values of the [teamSize] highest scoring students per project.
+	// first, second, third, and fourth will store the values of the [TEAM_SIZE] highest scoring students per project.
 	// Students already selected for a previous project will be omitted.
 	cout << "*************Beginning-of-Project-Team Report*************" << endl;
 	cout << endl;
@@ -311,7 +329,7 @@ int main(){
 		// if a project team of 5 could not be filled out with available students, move on to next project.
 		if ((fifthStudent == -1) || (fourthStudent == -1) || (thirdStudent == -1) || (secondStudent == -1) || (firstStudent == -1))
 		{
-			cout << "Project" + to_string(i)+  " can not be filled by " + to_string(teamSize) + " Students, moving on to next project" << endl;
+			cout << "Project" + to_string(i)+  " can not be filled by " + to_string(TEAM_SIZE) + " Students, moving on to next project" << endl;
 			cout << endl;
 			continue;
 		}
