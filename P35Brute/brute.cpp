@@ -372,6 +372,9 @@ int main(){
 		cout << endl;
 
 	}//end project loop
+
+	cout << "Min Team Size: " << calc_min_team_size(TEAM_SIZE) << endl;
+
 	cout << endl;
 	cout << "*******************End-of-Project-Team Report*************" << endl;
 	return 0;
