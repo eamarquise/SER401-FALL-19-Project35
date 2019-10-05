@@ -62,7 +62,49 @@ int calc_min_team_size(int teamSize){
     minTeamSize = floor(percentFactor * teamSize);
 
     return minTeamSize;
-};
+}
+
+// calc_projects Function
+// Task #7 - Cristi DeLeo
+// Calculates the number of projects required for any given
+// number of students with a specified minimum team size.
+int calc_projects(int numStudents, int teamSize, int minTeamSize){
+    int numProjects;
+    int numStudentsModTeamSize;
+    int currentProjectCount;
+    int numStudentsNeeded;
+
+    numStudentsModTeamSize = numStudents % teamSize;
+
+    if(numStudentsModTeamSize == 0) {
+        numProjects = numStudents / teamSize;
+    } else if (numStudentsModTeamSize >= minTeamSize) {
+        numProjects = ((numStudents - numStudentsModTeamSize) / teamSize) + 1;
+    } else if (numStudentsModTeamSize < minTeamSize) {
+        // Calculation to determine number of projects needed when
+        // more than one team will be set at the minimum team size.
+        currentProjectCount = numStudents / teamSize;
+        numStudentsNeeded = minTeamSize - numStudentsModTeamSize;
+
+        // Determines whether there are enough students to evenly
+        // distribute projects based on the minimum team size
+        if(numStudentsNeeded > currentProjectCount){
+            if(teamSize > minTeamSize){
+                teamSize--;
+            } else if(teamSize == minTeamSize){
+                teamSize--;
+                minTeamSize--;
+            } else{
+                // Error catch
+            }
+            calc_projects(numStudents, teamSize, minTeamSize);
+        } else if(numStudentsNeeded <= currentProjectCount){
+            numProjects = ((numStudents - numStudentsModTeamSize) / teamSize) + 1;
+        }
+    }
+
+    return numProjects;
+}
 
 // calc_projects Function
 // Task #7 - Cristi DeLeo
@@ -72,6 +114,8 @@ int calc_projects(int numStudents, int teamSize){
     int numProjects;
     int numStudentsModTeamSize;
     int minTeamSize;
+    int currentProjectCount;
+    int numStudentsNeeded;
 
     minTeamSize = calc_min_team_size(teamSize);
 
@@ -82,13 +126,30 @@ int calc_projects(int numStudents, int teamSize){
     } else if (numStudentsModTeamSize >= minTeamSize) {
         numProjects = ((numStudents - numStudentsModTeamSize) / teamSize) + 1;
     } else if (numStudentsModTeamSize < minTeamSize) {
-        // Insert calculation here to determine number of projects
-        // needed when more than one team will be set at the minimum
-        // team size.
+        // Calculation to determine number of projects needed when
+        // more than one team will be set at the minimum team size.
+        currentProjectCount = numStudents / teamSize;
+        numStudentsNeeded = minTeamSize - numStudentsModTeamSize;
+
+        // Determines whether there are enough students to evenly
+        // distribute projects based on the minimum team size
+        if(numStudentsNeeded > currentProjectCount){
+            if(teamSize > minTeamSize){
+                teamSize--;
+            } else if(teamSize == minTeamSize){
+                teamSize--;
+                minTeamSize--;
+            } else{
+                // Error catch
+            }
+            calc_projects(numStudents, teamSize, minTeamSize);
+        } else if(numStudentsNeeded <= currentProjectCount){
+            numProjects = ((numStudents - numStudentsModTeamSize) / teamSize) + 1;
+        }
     }
 
     return numProjects;
-};
+}
 
 class Skills {
 public:
@@ -149,7 +210,7 @@ int main(){
 	cout << "************************************************************************************" << endl;
 
 	// Important numbers
-	int numStudents = 20;
+	int numStudents = 21;
 	int numProjects = 4;
 	int numSkills = 5;
 	// TEAM_SIZE can be used after we figure out how to build teams recursively.
@@ -277,7 +338,6 @@ int main(){
 	// each element is a student name (ie for st12, it would be 12)
 	vector<int> assignedStudents;
 
-
 	// For each project
 	for (int i = 0; i < numProjects; i++){
 		firstStudent = secondStudent = thirdStudent = fourthStudent = fifthStudent = first = second = third = fourth = fifth = -1;
@@ -372,6 +432,8 @@ int main(){
 		cout << endl;
 
 	}//end project loop
+
+    cout << "Number of projects: " << calc_projects(numStudents, TEAM_SIZE) << endl;
 
 	cout << endl;
 	cout << "*******************End-of-Project-Team Report*************" << endl;
