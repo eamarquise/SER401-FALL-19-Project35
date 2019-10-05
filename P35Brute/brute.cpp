@@ -13,6 +13,7 @@
 #include <fstream>
 #include <algorithm>
 #include <time.h>
+#include <math.h>
 
 using namespace std;
 
@@ -51,31 +52,43 @@ int roll(int min, int max){
 	return value;
 }
 
+// calc_min_team_size Function
+// Task #37 - Cristi DeLeo
+// Calculates the minimum team size.
+int calc_min_team_size(int teamSize){
+    int minTeamSize;
+    double percentFactor = 0.80; // 80%
+
+    minTeamSize = floor(percentFactor * teamSize);
+
+    return minTeamSize;
+};
+
 // calc_projects Function
 // Task #7 - Cristi DeLeo
 // Calculates the number of projects required for any given
 // number of students.
 int calc_projects(int numStudents, int teamSize){
-    int numProjects
-    int numStudentsModTeamSize
-    int minTeamSize
+    int numProjects;
+    int numStudentsModTeamSize;
+    int minTeamSize;
 
-    minTeamSize = calc_min_team_size
+    minTeamSize = calc_min_team_size(teamSize);
 
-    numStudentsModTeamSize = numStudents % teamSize
+    numStudentsModTeamSize = numStudents % teamSize;
 
     if(numStudentsModTeamSize == 0) {
-        numProjects = numStudents / teamSize
+        numProjects = numStudents / teamSize;
     } else if (numStudentsModTeamSize >= minTeamSize) {
-        numProjects = ((numStudents - numStudentsModTeamSize) / teamSize) + 1
+        numProjects = ((numStudents - numStudentsModTeamSize) / teamSize) + 1;
     } else if (numStudentsModTeamSize < minTeamSize) {
         // Insert calculation here to determine number of projects
         // needed when more than one team will be set at the minimum
         // team size.
     }
 
-    return numProjects
-}
+    return numProjects;
+};
 
 class Skills {
 public:
