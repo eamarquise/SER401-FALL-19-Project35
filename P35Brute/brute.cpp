@@ -58,12 +58,21 @@ int roll(int min, int max){
 int calc_projects(int numStudents, int teamSize){
     int numProjects
     int numStudentsModTeamSize
+    int minTeamSize
 
-    numStudentsModTeamSize = numStudents%teamSize
+    minTeamSize = calc_min_team_size
 
+    numStudentsModTeamSize = numStudents % teamSize
 
-
-
+    if(numStudentsModTeamSize == 0) {
+        numProjects = numStudents / teamSize
+    } else if (numStudentsModTeamSize >= minTeamSize) {
+        numProjects = ((numStudents - numStudentsModTeamSize) / teamSize) + 1
+    } else if (numStudentsModTeamSize < minTeamSize) {
+        // Insert calculation here to determine number of projects
+        // needed when more than one team will be set at the minimum
+        // team size.
+    }
 
     return numProjects
 }
