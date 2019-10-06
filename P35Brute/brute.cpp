@@ -8,11 +8,11 @@
  *
  */
 #include <iostream>
-#include <vector>
 #include <string.h>
 #include <fstream>
 #include <algorithm>
 #include <time.h>
+#include "Skills.h"
 
 using namespace std;
 
@@ -32,13 +32,6 @@ bool sortPairsDescending(const pair<string,int> &a, const pair<string, int> &b){
 // End External Functions
 
 // Begin Classes
-class Skills {
-public:
-	// Skills has an vector to store skillScores
-	// skillsScores rank from 0(no knowledge)-4(expert)
-	// currently under Important Numbers (main().
-	vector<int> skillScoreArray;
-};
 
 class PreferredMeetingTimes {
 	/* 	preferredMeetingTime: Based on MST
