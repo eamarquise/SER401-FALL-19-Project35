@@ -1,7 +1,7 @@
 /*
- * Affinity.cpp
+ * Student.cpp
  * Description:
- * 		A Class to describe project/student skills
+ * 		A Class to describe students & related
  *
  *  Created on: Sep. 30, 2019
  *      Author: mcilibra
@@ -28,11 +28,8 @@ class Student {
 		bool online;	//Online student:  0(false)-local student, 1(true)-online student
 
 		Student();
-
 		Student(std::string n, Skills s, PreferredMeetingTimes times, Affinity aff, bool online);
-
 		bool operator==(const Student &studentToCompare) const;
-
 		bool operator==(const Student *studentToCompare) const;
 
 };

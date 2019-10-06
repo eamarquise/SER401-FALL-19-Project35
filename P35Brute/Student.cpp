@@ -1,7 +1,7 @@
 /*
- * Affinity.cpp
+ * Student.cpp
  * Description:
- * 		A Class to describe project/student skills
+ * 		A Class to describe students & related
  *
  *  Created on: Sep. 30, 2019
  *      Author: mcilibra

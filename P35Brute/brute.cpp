@@ -16,6 +16,7 @@
 #include "Affinity.h"
 #include "PreferredMeetingTimes.h"
 #include "Student.h"
+#include "Project.h"
 
 using namespace std;
 
@@ -35,32 +36,6 @@ bool sortPairsDescending(const pair<string,int> &a, const pair<string, int> &b){
 // End External Functions
 
 // Begin Classes
-class Project {
-	public:
-		string name;
-		// online: 0(false)-local student, 1(true)-online student
-		bool online;
-		// projectSkills has a vector to store skillScores
-		// skillsScores rank from 0(no knowledge)-4(expert)
-		Skills projectSkills;
-
-		Project();
-		Project(string n, Skills s, bool o){
-			this->name = n;
-			this->online = o;
-			this->projectSkills = s;
-		}
-		bool operator==(const Project &projectToCompare) const {
-			if(this->name.compare(projectToCompare.name) == 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-
-
-};
-
 class StudentList {
 	public:
 		vector<Student> allStudentList;

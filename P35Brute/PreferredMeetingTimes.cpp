@@ -1,7 +1,7 @@
 /*
- * Affinity.cpp
+ * PreferredMeetingTimes.cpp
  * Description:
- * 		A Class to describe project/student skills
+ * 		A Class to give a student's meeting times
  *
  *  Created on: Sep. 30, 2019
  *      Author: mcilibra
