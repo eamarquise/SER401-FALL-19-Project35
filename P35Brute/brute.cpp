@@ -14,6 +14,8 @@
 #include <time.h>
 #include "Skills.h"
 #include "Affinity.h"
+#include "PreferredMeetingTimes.h"
+#include "Student.h"
 
 using namespace std;
 
@@ -33,55 +35,6 @@ bool sortPairsDescending(const pair<string,int> &a, const pair<string, int> &b){
 // End External Functions
 
 // Begin Classes
-
-class PreferredMeetingTimes {
-	/* 	preferredMeetingTime: Based on MST
-	 *  will take the 3 preferred meeting times for students in order of importance.
-	 * 	0)	Night-time: 12:00AM - 4:00AM
-	 *	1)	Early Morning: 4:00AM - 8:00AM
-	 *	2)	Morning: 8:00AM - 12:00PM
-	 *	3)	Afternoon: 12:00PM - 4:00PM
-	 *	4)	Early Evening: 4:00PM - 8:00PM
-	 *	5)  Evening: 8:00PM - 12:00AM
-	 */
-	public:
-		vector<int> meetingTimes;
-};
-
-class Student {
-	public:
-		string name;
-		Skills studentSkills;
-		PreferredMeetingTimes timesAvailable;
-		Affinity affinity;
-		// online: 0(false)-local student, 1(true)-online student
-		bool online;
-
-		Student();
-		Student(string n, Skills s, PreferredMeetingTimes times, Affinity aff, bool online){
-			this->name = n;
-			this->timesAvailable = times;
-			this->online = online;
-			this->studentSkills = s;
-			this->affinity = aff;
-		}
-		bool operator==(const Student &studentToCompare) const {
-			if(this->name.compare(studentToCompare.name) == 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		bool operator==(const Student *studentToCompare) const {
-			if(this->name.compare(studentToCompare->name) == 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-
-};
-
 class Project {
 	public:
 		string name;
