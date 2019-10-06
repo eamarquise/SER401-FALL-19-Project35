@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <time.h>
 #include "Skills.h"
+#include "Affinity.h"
 
 using namespace std;
 
@@ -45,12 +46,6 @@ class PreferredMeetingTimes {
 	 */
 	public:
 		vector<int> meetingTimes;
-};
-
-class Affinity {
-	public:
-		vector<string> preferredStudents;
-		vector<string> avoidedStudents;
 };
 
 class Student {
