@@ -3,6 +3,7 @@
 	<name>SER401-FALL-19-Project</name>
 	<comment></comment>
 	<projects>
+		<project>P35Brute</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -12,8 +12,7 @@
 
 #ifndef PROJECT_H_
 #define PROJECT_H_
-
-#include <string.h>
+#include <string>
 #include "Skills.h"
 
 class Project {

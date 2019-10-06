@@ -18,7 +18,7 @@ Project::Project(std::string n, Skills s, bool o){
 	this->projectSkills = s;
 }
 
-bool Project::operator ==(const Project &projectToCompare) const {
+bool Project::operator==(const Project &projectToCompare) const {
 	if(this->name.compare(projectToCompare.name) == 0) {
 		return true;
 	} else {
