@@ -466,7 +466,7 @@ int main(){
 			studentTeam.clear();
 			projectTeams.push_back(studentTeam);
 		} else {
-			cout << "p" << projectCounter << " :";
+			cout << endl << "p" << projectCounter << " results: ";
 			for (int count = 0; count < teamSize; count++){
 				cout << projectTeams.at(projectCounter).at(count).name << ", ";
 			}
