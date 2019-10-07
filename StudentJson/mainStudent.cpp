@@ -11,7 +11,8 @@
  */
 
 #include <iostream>
-#include "json/json.h"
+#include "StudentList.h"
+#include "dist/json/json.h"
 
 //#include "student.h"
 
@@ -22,7 +23,7 @@ int main(){
 
 	//load in the data from a Json file
 	StudentList student_list;
-	student_list.JsonLoad("nameofstudentfile.json");
+	student_list.JsonLoad2("nameofstudentfile.json");
 
 
 
