@@ -8,45 +8,25 @@
  *
  */
 #include <iostream>
-#include <vector>
 #include <string.h>
 #include <fstream>
 #include <algorithm>
 #include <time.h>
+#include "Skills.h"
+#include "Affinity.h"
+#include "PreferredMeetingTimes.h"
+#include "Student.h"
+#include "Project.h"
 #include <math.h>
 
 using namespace std;
 
-// Contains Function
-// function to check if a vector contains a certain int as an element.
-// returns true or false
-bool contains(vector<int> v, int x){
-	return ! (v.empty() || find(v.begin(), v.end(), x) == v.end());
-}
+// Begin External Functions
 
-// SearchVector Function - need to test!
-// Alternative function to search a vector<T> for element T.
-// this should be able to be used to search for Students or Project vectors.
-template <typename T>
-pair <bool, int> searchVector(const vector<T> &vectorToSearch, const T &elementToFind){
-
-	pair<bool, int> returnValue;
-
-	auto it = find(vectorToSearch.begin(), vectorToSearch.end(), elementToFind);
-
-	if (it != vectorToSearch.end()){
-		returnValue.first = true;
-		returnValue.second = distance(vectorToSearch.begin(), it);
-	} else {
-		returnValue.first = false;
-		returnValue.second = -1;
-	}
-	return returnValue;
-}
-
-// Role Function
-// will roll a random number between the min and max
-// will use this to create random Students and Projects.
+/* Roll function will return a random number between and including
+ * the supplied min and max.
+ * for example roll(0,4) will return 0,1,2,3,or 4.
+ */
 int roll(int min, int max){
 	int value = rand() % (max-min +1) + min;
 	return value;
@@ -90,49 +70,8 @@ int calc_projects(int numStudents, int teamSize){
     return numProjects;
 };
 
-class Skills {
-public:
-	vector<int> skillScoreArray;
-};
 
-class Student {
-	public:
-		string name;
-		// timezone: 0-pacific, 1-mountain, 2-central, 3-eastern
-		int timezone;
-		// online: 0(false)-local student, 1(true)-online student
-		bool online;
-		// studentSkills has an vector to store skillScores
-		// skillsScores rank from 0(no knowledge)-4(expert)
-		Skills studentSkills;
-
-		Student();
-		Student(string n, Skills s, int tz, bool o){
-			this->name = n;
-			this->timezone = tz;
-			this->online = o;
-			this->studentSkills = s;
-		}
-};
-
-class Project {
-	public:
-		string name;
-		// online: 0(false)-local student, 1(true)-online student
-		bool online;
-		// projectSkills has a vector to store skillScores
-		// skillsScores rank from 0(no knowledge)-4(expert)
-		Skills projectSkills;
-
-		Project();
-		Project(string n, Skills s, bool o){
-			this->name = n;
-			this->online = o;
-			this->projectSkills = s;
-		}
-
-};
-
+// Begin Classes
 class StudentList {
 	public:
 		vector<Student> allStudentList;
@@ -143,27 +82,26 @@ class ProjectList {
 	public:
 		vector<Project> allProjectList;
 };
+// End Classes
+
 
 int main(){
 	cout << "brute force project x student matrix application for student-project team allocation" << endl;
 	cout << "************************************************************************************" << endl;
 
-	// Important numbers
-	int numStudents = 20;
-	int numProjects = 4;
+	// Important Numbers
+	int numStudents = 100;
+	int numProjects = 35;
 	int numSkills = 5;
 	// TEAM_SIZE can be used after we figure out how to build teams recursively.
 	// right now just being used for console display below
 	const int TEAM_SIZE = 5; // CHANGED TO CONSTANT - C. DeLeo
 	srand(time(0));
 
-	cout << "testing randomly generated students and projects" << endl;
-	cout << endl;
 	StudentList studentList2; // using randomly generated students
 	ProjectList projectList2; // using randomly generated projects
 
-	// Create randomly generated Students and put them in
-	// StudentList2
+	// Create randomly generated Students and put them in StudentList2
 	for (int i = 0; i < numStudents ; i++){
 		string studentName = "st" + to_string(i);
 		Skills tempSkills;
@@ -171,14 +109,59 @@ int main(){
 			int skillScore = roll(0, 4);
 			tempSkills.skillScoreArray.push_back(skillScore);
 		}
-		int timezone = roll(0,3);
+		PreferredMeetingTimes times;
+		bool uniquetimes = false;
+		do {
+			for (int i = 0 ; i < numOfMeetingTimesToSelect ; i++){
+				int time = roll(0, (numMeetingTimesAvailable - 1));
+				times.meetingTimes.push_back(time);
+			}
+			if (times.meetingTimes.at(0) == times.meetingTimes.at(1)
+					|| times.meetingTimes.at(0) == times.meetingTimes.at(2)
+					|| times.meetingTimes.at(1) == times.meetingTimes.at(2)) {
+				times.meetingTimes.clear();
+				continue;
+			} else {
+				uniquetimes = true;
+			}
+		} while (uniquetimes == false);
 		bool online = (bool)roll(0,1);
-		Student tempStudent(studentName, tempSkills, timezone, online);
+		Affinity affinity;
+		int chanceForPositiveAffinity = roll(1,100);
+		int chanceForNegativeAffinity = roll(1,100);
+		int chanceForPreferredStudent = roll(1,20);
+		int chanceForAvoidedStudent = roll(1,20);
+		if (chanceForPreferredStudent >= chanceForPositiveAffinity){
+			int numPreferredStudents = roll(1,3);
+			for (int i = 0; i < numPreferredStudents; i++){
+				int preferredStudent = roll(0, (numStudents-1));
+				if (preferredStudent == i){
+					continue;
+				}
+				string preferredStudentName = "st" + to_string(preferredStudent);
+				affinity.preferredStudents.push_back(preferredStudentName);
+			}
+		}
+		if (chanceForAvoidedStudent >= chanceForNegativeAffinity){
+			int numAvoidedStudents = roll(1,3);
+			for (int i = 0; i < numAvoidedStudents; i++){
+				int avoidedStudent = roll(0, (numStudents-1));
+				if (avoidedStudent == i){
+					continue;
+				}
+				string avoidedStudentName = "st" + to_string(avoidedStudent);
+				if (find(affinity.preferredStudents.begin(), affinity.preferredStudents.end(), avoidedStudentName) != affinity.preferredStudents.end()){
+					continue;
+				} else {
+					affinity.avoidedStudents.push_back(avoidedStudentName);
+				}
+			}
+		}
+		Student tempStudent(studentName, tempSkills, times, affinity, online);
 		studentList2.allStudentList.push_back(tempStudent);
 	}
 
-	// Create randomly generated Projects and put them in
-	// ProjectList2
+	// Create randomly generated Projects and put them in ProjectList2
 	for (int i = 0; i < numProjects ; i++){
 		string projectName = "p" + to_string(i);
 		Skills tempSkills;
@@ -191,29 +174,49 @@ int main(){
 		projectList2.allProjectList.push_back(tempProject);
 	}
 
-	// display random students for testing can delete later
+	// display random students to console for testing; can delete later
 	cout << endl << "Random students in studentList2" << endl;
 	for (int i = 0; i < numStudents; i++){
 		string studentString = studentList2.allStudentList.at(i).name + "\t";
 		for (int j = 0; j < numSkills; j++){
-			studentString += "Skill" + to_string(i)+ ": " + to_string(studentList2.allStudentList.at(i).studentSkills.skillScoreArray.at(j)) + "\t";
+			studentString += "Skill" + to_string(j)+ ": " + to_string(studentList2.allStudentList.at(i).studentSkills.skillScoreArray.at(j)) + "\t";
 		}
-		studentString += "TimeZone: " + to_string(studentList2.allStudentList.at(i).timezone) + "\t";
+		studentString += "Times Available: ";
+		for (int j = 0; j < numOfMeetingTimesToSelect; j++){
+			studentString += to_string(studentList2.allStudentList.at(i).timesAvailable.meetingTimes.at(j)) + ", ";
+		}
+		studentString += "\t";
+		studentString += "PreferredStudents: ";
+		if(!studentList2.allStudentList.at(i).affinity.preferredStudents.empty()){
+			for (int j = 0; j < studentList2.allStudentList.at(i).affinity.preferredStudents.size(); j++){
+				studentString += studentList2.allStudentList.at(i).affinity.preferredStudents.at(j) + ", ";
+			}
+		} else {
+			studentString += "None\t\t";
+		}
+		studentString += "\t";
+		studentString += "AvoidedStudents: ";
+		if(!studentList2.allStudentList.at(i).affinity.avoidedStudents.empty()){
+			for (int j = 0; j < studentList2.allStudentList.at(i).affinity.avoidedStudents.size(); j++){
+				studentString += studentList2.allStudentList.at(i).affinity.avoidedStudents.at(j) + ", ";
+			}
+		} else {
+			studentString += "None\t\t";
+		}
+		studentString += "\t";
 		studentString += "Online: " + to_string(studentList2.allStudentList.at(i).online);
 		cout << studentString << endl;
 	}
-
-	// display random projects for testing can delete later
+	// display random projects to console for testing; can delete later
 	cout << endl << "Random projects in projectList2" << endl;
 	for (int i = 0; i < numProjects ; i++){
 		string projectString = projectList2.allProjectList.at(i).name + "\t";
 		for (int j = 0; j < numSkills; j++){
-			projectString += "Skill" + to_string(i)+ ": " + to_string(projectList2.allProjectList.at(i).projectSkills.skillScoreArray.at(j)) + "\t";
+			projectString += "Skill" + to_string(j)+ ": " + to_string(projectList2.allProjectList.at(i).projectSkills.skillScoreArray.at(j)) + "\t";
 		}
 		projectString += "Online: " + to_string(projectList2.allProjectList.at(i).online);
 		cout << projectString << endl;
 	}
-
 
 	// Fill in ProjectxSkillScore2 Matrix Automatically
 	int projectxskill2[numProjects][numSkills] = {0};
@@ -222,7 +225,6 @@ int main(){
 			projectxskill2[i][j] = projectList2.allProjectList.at(i).projectSkills.skillScoreArray.at(j);
 		}
 	}
-
 	// Fill in SkillxStudent2 Matrix Automatically
 	int skillxstudent2[numSkills][numStudents] = {0};
 	for (int i = 0; i < numSkills; i++){
@@ -242,17 +244,14 @@ int main(){
 	// Calculate Project x Student Matrix
 	// (Project x SkillScore Matrix) x (SkillScore x Student Matrix)
 	// (4x5)x(5x20)
-	int projectxstudent[numProjects][numStudents];
 	// porjectxstudent2 is keeping track of the randomized students and projects
 	int projectxstudent2[numProjects][numStudents];
-
 	for (int rows = 0; rows < numProjects; rows++){
 		// print project name to projectxstudent matrix
 		string p = to_string(rows);
 		cout << "p" + p + "\t";
 		// do the multiplication
 		for (int cols = 0; cols < numStudents; cols++){
-			projectxstudent[rows][cols] = {0};
 			projectxstudent2[rows][cols] = {0};
 			for (int inner = 0; inner < numSkills; inner++){
 				projectxstudent2[rows][cols] = projectxstudent2[rows][cols] +  projectxskill2[rows][inner] * skillxstudent2[inner][cols];
@@ -277,71 +276,240 @@ int main(){
 	// each element is a student name (ie for st12, it would be 12)
 	vector<int> assignedStudents;
 
-
-	// For each project
 	for (int i = 0; i < numProjects; i++){
-		firstStudent = secondStudent = thirdStudent = fourthStudent = fifthStudent = first = second = third = fourth = fifth = -1;
-		// For each Student
-		for (int j = 0 ; j < numStudents; j++){
-			// check if student on this iteration has already been assigned to a project
-			// if so, go to next student.
-			//pair<bool,int> searchResult = searchVector(studentList2.assignedStudentList, studentList2.allStudentList.at(j));
-			//if (searchResult.first){
-			//	continue;
-			//}
-			if (contains(assignedStudents, j) == true){
+		for (int j = 0; j < numStudents ; j++){
+			studentPair.first = "st" + to_string(j);
+			studentPair.second = projectxstudent2[i][j];
+			projectVector.push_back(studentPair);
+		}
+		vectorOfProjects.push_back(projectVector);
+		projectVector.clear();
+	}
+
+	// sort project vectors based on student score (second value stored in the studentPair)
+	for (int i = 0 ; i < numProjects ; i++){
+		projectVector = vectorOfProjects.at(i);
+		sort(projectVector.begin(), projectVector.end(), sortPairsDescending);
+		vectorOfProjectsSortedStudents.push_back(projectVector);
+	}
+	// print sorted students scores per project to console for testing - can delete later
+	cout << endl;
+	int projectPrintCounter = 0;
+	for (vector<vector<pair<string,int>>>::iterator it = vectorOfProjectsSortedStudents.begin(); it != vectorOfProjectsSortedStudents.end();++it){
+		cout << "p" << projectPrintCounter << ": ";
+		projectVector = *it;
+		for (vector<pair<string,int>>::iterator it2 = projectVector.begin(); it2 != projectVector.end(); ++it2){
+			studentPair = *it2;
+			cout << "(" << studentPair.first << "," << studentPair.second << ") ;";
+		}
+		cout << '\n';
+		projectPrintCounter++;
+	}
+
+	// Assign Teams 2 - new method to select student teams - can delete 'Assign Students To Projects' below, after tested.
+	// For every Project
+	for (int projectCounter = 0; projectCounter < numProjects; projectCounter++){
+		projectVector = vectorOfProjectsSortedStudents.at(projectCounter);
+		studentTeam.clear();
+		// For every student
+		for (int studentCounter = 0; studentCounter < numStudents; studentCounter++ ){
+			Student * cStudent;
+			bool assignStudentToTeam = false;
+			studentPair = projectVector.at(studentCounter);
+			// capture current student as Student object. Loop below will break and transfer control back
+			// to studentCounter loop once it pairs up the studentPair.first string with a Student.name string.
+			for (int studentMatchCounter = 0 ; studentMatchCounter < numStudents; studentMatchCounter++){
+				cStudent = &studentList2.allStudentList.at(studentMatchCounter);
+				if (cStudent->name.compare(studentPair.first) == 0){
+					break;
+				}
+			}
+			// check if student on this iteration has already been assigned to a project if so, go to next student.
+			bool studentAssigned = false;
+			for (int i = 0; i < studentList2.assignedStudentList.size(); i++){
+				if (cStudent->name.compare(studentList2.assignedStudentList.at(i).name) == 0){
+					studentAssigned = true;
+					break;
+				}
+			}
+			if (studentAssigned){
 				continue;
 			}
 			// check if the current iteration's project is local and if the current student is online.
 			// if project local and student is online, go to next student.
 			// presumption that an online project can be accomplished by local students too.
-			if (projectList2.allProjectList.at(i).online == true && studentList2.allStudentList.at(j).online == true){
+			if (projectList2.allProjectList.at(projectCounter).online == false && cStudent->online == true){
+				// cout << cStudent->name << " is an online student and can't work local project." << endl;
 				continue;
 			}
-			if (projectxstudent2[i][j] > first){
-				fifth = fourth;
-				fifthStudent = fourthStudent;
-				fourth = third;
-				fourthStudent = thirdStudent;
-				third = second;
-				thirdStudent = secondStudent;
-				second = first;
-				secondStudent = firstStudent;
-				first = projectxstudent2[i][j];
-				firstStudent = j;
-			}
-			else if (projectxstudent2[i][j] > second){
-				fifth = fourth;
-				fifthStudent = fourthStudent;
-				fourth = third;
-				fourthStudent = thirdStudent;
-				third = second;
-				thirdStudent = secondStudent;
-				second = projectxstudent2[i][j];
-				secondStudent = j;
-			}
-			else if (projectxstudent2[i][j] > third){
-				fifth = fourth;
-				fifthStudent = fourthStudent;
-				fourth = third;
-				fourthStudent = thirdStudent;
-				third = projectxstudent2[i][j];
-				thirdStudent = j;
-			}
-			else if (projectxstudent2[i][j] > fourth){
-				fifth = fourth;
-				fifthStudent = fourthStudent;
-				fourth = projectxstudent2[i][j];
-				fourthStudent = j;
-			}
-			else if (projectxstudent2[i][j] > fifth){
-				fifth = projectxstudent2[i][j];
-				fifthStudent = j;
-			}
-		} // end student loop
 
-		// need to get searchVector method working right so we can even check this vector during the iterations for matches.
-		// then we can uncomment this and delete the following lines pushing to <vector>assignedStudents
+			// if this is our first sorted student, place them in the studentTeam and to the assignedStudentList
+			// else we need to do some checks for meeting times and affinity.
+			Student copyStudent(cStudent->name, cStudent->studentSkills, cStudent->timesAvailable, cStudent->affinity, cStudent->online);
+			//cout << "copyStudent: " << copyStudent.name << endl;
+			if (studentTeam.empty()){
+				assignStudentToTeam = true;
+			} else {
+				// 1) check for negative affinity toward copyStudent by students already assigned to the studentTeam.
+				bool negativeAffinity = false;
+				for (int studentTeamCounter = 0; studentTeamCounter < studentTeam.size(); studentTeamCounter++){
+					if (studentTeam.at(studentTeamCounter).affinity.avoidedStudents.empty()){
+						continue;
+					} else {
+						for (int studentNegAffinityCounter = 0; studentNegAffinityCounter < studentTeam.at(studentTeamCounter).affinity.avoidedStudents.size(); studentNegAffinityCounter++ ){
+							if (studentTeam.at(studentTeamCounter).affinity.avoidedStudents.at(studentNegAffinityCounter).compare(copyStudent.name) == 0){
+								cout << studentTeam.at(studentTeamCounter).name << " , a current team member, wants to avoid s" << copyStudent.name << endl;
+								negativeAffinity = true;
+							}
+						}
+					}
+				}
+				// 1.5 check for negative affinity by copyStudent toward any member of current team
+				if (!(copyStudent.affinity.avoidedStudents.empty())){
+					for (int i = 0; i < copyStudent.affinity.avoidedStudents.size(); i++){
+						for (int j = 0; j < studentTeam.size(); j++){
+							if (copyStudent.affinity.avoidedStudents.at(i).compare(studentTeam.at(j).name) == 0){
+								cout << copyStudent.name << " wants to avoid a current team member, " << studentTeam.at(j).name << endl;
+								negativeAffinity = true;
+							}
+						}
+					}
+				}
+				// if negative affinity is found between a student assigned to the studentTeam and the currentStudent
+				// we will continue on to the next student in our sorted vector.
+				if (negativeAffinity){
+					continue;
+				}
+				// 2) check for matching meeting times
+				bool preferredTimeMatch = false;
+				for (int i = 0 ; i < copyStudent.timesAvailable.meetingTimes.size(); i++) {
+					if (preferredTimeMatch == true){
+						break;
+					}
+					int preferredMeetingTime = copyStudent.timesAvailable.meetingTimes.at(i);
+					for (int j = 0; j < studentTeam.at(0).timesAvailable.meetingTimes.size(); j++){
+						if (preferredMeetingTime == studentTeam.at(0).timesAvailable.meetingTimes.at(j)){
+							preferredTimeMatch = true;
+							break;
+						}
+					}
+				}
+				if (preferredTimeMatch){
+					assignStudentToTeam = true;
+				} else {
+					cout << copyStudent.name << " couldn't find a matching meeting time with team captain, " << studentTeam.at(0).name << endl;
+					continue;
+				}
+			}
+			if (assignStudentToTeam){
+				studentTeam.push_back(copyStudent);
+			}
+			// if our student team is full for this project break out and go to next project.
+			if (studentTeam.size() == teamSize){
+				for (int i = 0; i < teamSize; i++){
+					studentList2.assignedStudentList.push_back(studentTeam.at(i));
+				}
+				projectTeams.push_back(studentTeam);
+				break;
+			}
+		}
+
+		if (studentTeam.empty() || studentTeam.size() < teamSize){
+			cout << "p" << projectCounter << " could not be filled by a full student team." << endl;
+			studentTeam.clear();
+			projectTeams.push_back(studentTeam);
+		} else {
+			cout << endl << "p" << projectCounter << " results: ";
+			for (int count = 0; count < teamSize; count++){
+				cout << projectTeams.at(projectCounter).at(count).name << ", ";
+			}
+			cout << endl;
+		}
+	}
+
+
+
+
+	// Assign Students to Projects
+	// firstStudent, secondStudent, thirdStudent, and fourthStudent will be Student name.
+	// 0 will be for st0, 12 for st12.
+	// first, second, third, and fourth will store the values of the [teamSize=5 currently] highest scoring students per project.
+	// Students already selected for a previous project will be skipped and we will look at the next student.
+//	cout << "*************Beginning-of-Project-Team Report*************" << endl;
+//	cout << endl;
+//	int firstStudent, secondStudent, thirdStudent, fourthStudent, fifthStudent;
+//	int first, second, third, fourth, fifth;
+//
+//	// For each project
+//	for (int i = 0; i < numProjects; i++){
+//		firstStudent = secondStudent = thirdStudent = fourthStudent = fifthStudent = first = second = third = fourth = fifth = -1;
+//		// For each Student
+//		for (int j = 0 ; j < numStudents; j++){
+//			// check if student on this iteration has already been assigned to a project if so, go to next student.
+//			vector<Student>::iterator assignedStudentIterator;
+//			assignedStudentIterator = find(studentList2.assignedStudentList.begin(), studentList2.assignedStudentList.end(), studentList2.allStudentList.at(j));
+//			if (assignedStudentIterator != studentList2.assignedStudentList.end()){
+//				continue;
+//			}
+//			// check if the current iteration's project is local and if the current student is online.
+//			// if project local and student is online, go to next student.
+//			// presumption that an online project can be accomplished by local students too.
+//			if (projectList2.allProjectList.at(i).online == false && studentList2.allStudentList.at(j).online == true){
+//				continue;
+//			}
+//
+//			if (projectxstudent2[i][j] > first){
+//				fifth = fourth;
+//				fifthStudent = fourthStudent;
+//				fourth = third;
+//				fourthStudent = thirdStudent;
+//				third = second;
+//				thirdStudent = secondStudent;
+//				second = first;
+//				secondStudent = firstStudent;
+//				first = projectxstudent2[i][j];
+//				firstStudent = j;
+//			}
+//			else if (projectxstudent2[i][j] > second){
+//				fifth = fourth;
+//				fifthStudent = fourthStudent;
+//				fourth = third;
+//				fourthStudent = thirdStudent;
+//				third = second;
+//				thirdStudent = secondStudent;
+//				second = projectxstudent2[i][j];
+//				secondStudent = j;
+//			}
+//			else if (projectxstudent2[i][j] > third){
+//				fifth = fourth;
+//				fifthStudent = fourthStudent;
+//				fourth = third;
+//				fourthStudent = thirdStudent;
+//				third = projectxstudent2[i][j];
+//				thirdStudent = j;
+//			}
+//			else if (projectxstudent2[i][j] > fourth){
+//				fifth = fourth;
+//				fifthStudent = fourthStudent;
+//				fourth = projectxstudent2[i][j];
+//				fourthStudent = j;
+//			}
+//			else if (projectxstudent2[i][j] > fifth){
+//				fifth = projectxstudent2[i][j];
+//				fifthStudent = j;
+//			}
+//		} // end student loop
+//
+//		// if a project team of 5 could not be filled out with available students, move on to next project.
+//		if ((fifthStudent == -1) || (fourthStudent == -1) || (thirdStudent == -1) || (secondStudent == -1) || (firstStudent == -1))
+//		{
+//			cout << "Project" + to_string(i)+  " can not be filled by " + to_string(teamSize) + " Students, moving on to next project" << endl;
+//			cout << endl;
+//			continue;
+//		}
+//
+//		// these students have been assigned to the current project. We will push them
+//		// into a vector so we can compare already assigned students while iterating through the next project.
 //		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(firstStudent));
 //		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(secondStudent));
 //		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(thirdStudent));
@@ -355,6 +523,7 @@ int main(){
 			cout << endl;
 			continue;
 		}
+	}
 
 		assignedStudents.push_back(firstStudent);
 		assignedStudents.push_back(secondStudent);
@@ -374,7 +543,7 @@ int main(){
 	}//end project loop
 
 	cout << endl;
-	cout << "*******************End-of-Project-Team Report*************" << endl;
+//	cout << "*******************End-of-Project-Team Report*************" << endl;
 	return 0;
 }
 
