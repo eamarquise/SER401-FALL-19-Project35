@@ -1,0 +1,9 @@
+{ "students":
+  [{
+    "name": { "type": "string" },
+    "skills": { "type": "array" },
+    "preferredmeetingtimes": { "type": "array" },
+    "affinity": { "type": "array" },
+    "online": { "type": "boolean" },
+  }]
+}
