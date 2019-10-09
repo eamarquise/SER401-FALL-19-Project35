@@ -138,7 +138,7 @@ int main(){
 	cout << "************************************************************************************" << endl;
 
 	// Important Numbers
-	int numStudents = 100;
+	int numStudents = 120;
 	int numProjects = 35;
 	int numSkills = 5;
 	int teamSize = 5;
