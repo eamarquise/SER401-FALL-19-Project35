@@ -8,16 +8,11 @@
  *
  */
 #include <iostream>
+#include <vector>
 #include <string.h>
 #include <fstream>
 #include <algorithm>
 #include <time.h>
-#include "Skills.h"
-#include "Affinity.h"
-#include "PreferredMeetingTimes.h"
-#include "Student.h"
-#include "Project.h"
-#include <math.h>
 
 using namespace std;
 
@@ -31,47 +26,100 @@ int roll(int min, int max){
 	int value = rand() % (max-min +1) + min;
 	return value;
 }
-
-// calc_min_team_size Function
-// Task #36 - Cristi DeLeo
-// Calculates the minimum team size.
-int calc_min_team_size(int teamSize){
-    int minTeamSize;
-    double percentFactor = 0.80; // 80%
-
-    minTeamSize = floor(percentFactor * teamSize);
-
-    return minTeamSize;
-};
-
-// calc_projects Function
-// Task #7 - Cristi DeLeo
-// Calculates the number of projects required for any given
-// number of students.
-int calc_projects(int numStudents, int teamSize){
-    int numProjects;
-    int numStudentsModTeamSize;
-    int minTeamSize;
-
-    minTeamSize = calc_min_team_size(teamSize);
-
-    numStudentsModTeamSize = numStudents % teamSize;
-
-    if(numStudentsModTeamSize == 0) {
-        numProjects = numStudents / teamSize;
-    } else if (numStudentsModTeamSize >= minTeamSize) {
-        numProjects = ((numStudents - numStudentsModTeamSize) / teamSize) + 1;
-    } else if (numStudentsModTeamSize < minTeamSize) {
-        // Insert calculation here to determine number of projects
-        // needed when more than one team will be set at the minimum
-        // team size.
-    }
-
-    return numProjects;
-};
-
+bool sortPairsDescending(const pair<string,int> &a, const pair<string, int> &b){
+	return a.second > b.second;
+}
+// End External Functions
 
 // Begin Classes
+class Skills {
+public:
+	// Skills has an vector to store skillScores
+	// skillsScores rank from 0(no knowledge)-4(expert)
+	// currently under Important Numbers (main().
+	vector<int> skillScoreArray;
+};
+
+class PreferredMeetingTimes {
+	/* 	preferredMeetingTime: Based on MST
+	 *  will take the 3 preferred meeting times for students in order of importance.
+	 * 	0)	Night-time: 12:00AM - 4:00AM
+	 *	1)	Early Morning: 4:00AM - 8:00AM
+	 *	2)	Morning: 8:00AM - 12:00PM
+	 *	3)	Afternoon: 12:00PM - 4:00PM
+	 *	4)	Early Evening: 4:00PM - 8:00PM
+	 *	5)  Evening: 8:00PM - 12:00AM
+	 */
+	public:
+		vector<int> meetingTimes;
+};
+
+class Affinity {
+	public:
+		vector<string> preferredStudents;
+		vector<string> avoidedStudents;
+};
+
+class Student {
+	public:
+		string name;
+		Skills studentSkills;
+		PreferredMeetingTimes timesAvailable;
+		Affinity affinity;
+		// online: 0(false)-local student, 1(true)-online student
+		bool online;
+
+		Student();
+		Student(string n, Skills s, PreferredMeetingTimes times, Affinity aff, bool online){
+			this->name = n;
+			this->timesAvailable = times;
+			this->online = online;
+			this->studentSkills = s;
+			this->affinity = aff;
+		}
+		bool operator==(const Student &studentToCompare) const {
+			if(this->name.compare(studentToCompare.name) == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		bool operator==(const Student *studentToCompare) const {
+			if(this->name.compare(studentToCompare->name) == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+};
+
+class Project {
+	public:
+		string name;
+		// online: 0(false)-local student, 1(true)-online student
+		bool online;
+		// projectSkills has a vector to store skillScores
+		// skillsScores rank from 0(no knowledge)-4(expert)
+		Skills projectSkills;
+
+		Project();
+		Project(string n, Skills s, bool o){
+			this->name = n;
+			this->online = o;
+			this->projectSkills = s;
+		}
+		bool operator==(const Project &projectToCompare) const {
+			if(this->name.compare(projectToCompare.name) == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+
+};
+
 class StudentList {
 	public:
 		vector<Student> allStudentList;
@@ -541,4 +589,5 @@ int main(){
 //	cout << "*******************End-of-Project-Team Report*************" << endl;
 	return 0;
 }
+
 
