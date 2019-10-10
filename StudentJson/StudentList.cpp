@@ -1,5 +1,7 @@
 /*
- * Student.cpp
+ *
+ * Disregard this class (it is not being used)
+ * StudentList.cpp
  * Description:
  * 		A Class to describe students & related
  *
@@ -18,7 +20,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "dist/json/json.h"
+//#include "json/json.h"
 
 using namespace std;
 
@@ -26,21 +28,23 @@ Student::Student(){
 
 }
 
-Student::Student(string const &n, vector <string> const &s, vector <int> const &times, vector <string> const &xaff, vector <string> const &yaff, bool const &on){
+Student::Student(string const &n, vector <string> const &s, vector <int> const &times, vector <string> const &aff, bool const &on){
 	name_ = n;
 	preferredTimes_ = times;
 	online_ = on;
 	skills_ = s;
-	positiveaffinity_ = xaff;
-	negativeaffinity_ = yaff;
+	affinity_ = aff;
+	//positiveaffinity_ = xaff;
+	//negativeaffinity_ = yaff;
 }
 
 Student::Student(const Json::Value& jsonObj){
    string nameStr = "name";
-   string timesStr = "preferredTimes";
-   string skillsStr = "studentSkills";
-   string xaffStr = "positivAffinity";
-   string yaffStr = "negativeAffinity";
+   string timesStr = "preferredmeetingtimes";
+   string skillsStr = "skills";
+   string affStr = "affinity";
+   //string xaffStr = "positivAffinity";
+  // string yaffStr = "negativeAffinity";
    string onlineStr = "online";
    Json::Value::Members mbr = jsonObj.getMemberNames();
    for(vector<string>::const_iterator i = mbr.begin(); i!= mbr.end(); i++){
@@ -52,24 +56,20 @@ Student::Student(const Json::Value& jsonObj){
       }else if(timesStr.compare(*i)==0){
          preferredTimes_ = vector<int>();
          for(int i=0; i<jsonM.size(); i++){
-        	 preferredTimes_.push_back(jsonM[i].asString());}
+        	 preferredTimes_.push_back(jsonM[i].asInt());}
          }else if(skillsStr.compare(*i)==0){
-             skills_ = vector<int>();
+             skills_ = vector<string>();
              for(int i=0; i<jsonM.size(); i++){
             	 skills_.push_back(jsonM[i].asString());}
-             }else if(xaffStr.compare(*i)==0){
-                 positiveaffinity_ = vector<int>();
+             }else if(affStr.compare(*i)==0){
+                        affinity_ = vector<string>();
                  for(int i=0; i<jsonM.size(); i++){
-                	 positiveaffinity_.push_back(jsonM[i].asString());}
-                 }else if(yaffStr.compare(*i)==0){
-                	 negativeaffinity_ = vector<int>();
-                     for(int i=0; i<jsonM.size(); i++){
-                    	 negativeaffinity_.push_back(jsonM[i].asString());}
-                     }else if(onlineStr.compare(*i)==0){
-                         online_ = jsonM.asString();}
+                	    affinity_.push_back(jsonM[i].asString());}
+                 }else if(onlineStr.compare(*i)==0){
+                         online_ = jsonM.asBool();}
       }
    }
-}
+
 
 
 /*
@@ -97,14 +97,20 @@ Json::Value Student::ToJson() const{
       Json::Value tmp(Json::arrayValue);
       for (int i=0; i<preferredTimes_.size(); i++){
       	  tmp[i] =  preferredTimes_[i]; }
-      value["timesAvailable"] = tmp;
+      value["preferredmeetingtimes"] = tmp;
 
       Json::Value tmp1(Json::arrayValue);
       for (int i=0; i<skills_.size(); i++){
           tmp1[i] =  skills_[i]; }
-      value["studentSkils"] = tmp1;
+      value["skills"] = tmp1;
 
       Json::Value tmp2(Json::arrayValue);
+      for (int i=0; i<affinity_.size(); i++){
+             tmp2[i] =  affinity_[i]; }
+      value["positiveAffinity"] = tmp2;
+
+
+   /*   Json::Value tmp2(Json::arrayValue);
       for (int i=0; i<positiveaffinity_.size(); i++){
           tmp2[i] =  positiveaffinity_[i]; }
       value["positiveAffinity"] = tmp2;
@@ -112,7 +118,7 @@ Json::Value Student::ToJson() const{
       Json::Value tmp2(Json::arrayValue);
       for (int i=0; i<negativeaffinity_.size(); i++){
           tmp2[i] =  negativeaffinity_[i]; }
-      value["negativeAffinity"] = tmp2;
+      value["negativeAffinity"] = tmp2; */
 
       value["online"] = online_;
 
@@ -131,13 +137,15 @@ const vector<Student>& StudentList::students() const {
 	return students_;
 }
 
-
-void StudentList::AddStudentStudent(string const &n, vector <string> const &s, vector <int> const &times, vector <string> const &xaff, vector <string> const &yaff, bool const &on){
-	Student student( n, s, times, xaff, yaff, on);
-//	students_.push_back(student);
-
-
+void StudentList::AddStudent(Student s){
+	students_.push_back(s);
 }
+
+/*
+void StudentList::AddStudentStudent(string const &n, vector <string> const &s, vector <int> const &times, vector <string> const &aff, bool const &on){
+	Student student( n, s, times, aff, on);
+	students_.push_back(student);
+}*/
 /*
 void StudentList::JsonSave(const char* filename) {
 	ofstream out(filename, ofstream::out);
@@ -163,6 +171,8 @@ void StudentList::JsonLoad(const char* filename) {
   in.close();
 }
 
+
+//Json file reader.
 bool StudentList::JsonLoad2(string jsonFileName){
 	   bool ret = false;
 	   Json::Reader reader;
@@ -175,7 +185,8 @@ bool StudentList::JsonLoad2(string jsonFileName){
 	         //cout << *i << " " << endl;
 	        Json::Value jsonMedia = root[*i];
 	         Student * aStudent = new Student(jsonMedia);
-	         students_[*i] = *aStudent;
+	         //students_[*i] = *aStudent;
+	         AddStudent(*aStudent);
 	         //cout << "adding ";
 	         //aStudent->print();
 	      }

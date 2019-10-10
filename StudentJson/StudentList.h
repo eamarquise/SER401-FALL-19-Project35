@@ -1,4 +1,6 @@
 /*
+ * Disregard this class (it is not being used)
+ *
  * Student.cpp
  * Description:
  * 		A Class to describe students & related
@@ -20,7 +22,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include "dist/json/json.h"
+#include "json/json.h"
 
 using namespace std;
 
@@ -35,20 +37,21 @@ class Student {
 		//bool online;	//Online student:  0(false)-local student, 1(true)-online student
 
 	    string name_;
-	    vector <string> positiveaffinity_;
-	    vector <string> negativeaffinity_;
+	   // vector <string> positiveaffinity_;
+	    //vector <string> negativeaffinity_;
+	    vector <string> affinity_;
 	    vector <int> preferredTimes_;
 	    vector <string> skills_;
 	    bool online_;
 
 		Student();
-		Student(string const &n, vector <string> const &s, vector <int> const &times, vector <string> const &xaff, vector <string> const &yaff, bool const &on);
+		Student(string const &n, vector <string> const &s, vector <int> const &times, vector <string> const &aff, bool const &on);
 		Student(const Json::Value& jsonObj);
 		//bool operator==(const Student &studentToCompare) const;
 		//bool operator==(const Student *studentToCompare) const;
-		const string& name() const;
-		const vector<string>& xaff() const;
-		const vector<string>& yaff() const;
+		const string& n() const;
+		const vector<string>& aff() const;
+		//const vector<string>& yaff() const;
 		const vector<string>& s() const;
 		const vector<int>& times() const;
 		const bool& online() const;
@@ -59,7 +62,8 @@ class Student {
 
 
 class StudentList {
-
+private:
+	  //vector<Student> students_;
 public:
   vector<Student> students_;
   StudentList();
@@ -68,7 +72,8 @@ public:
   void JsonLoad(const char* filename);
   bool JsonLoad2(string jsonFileName);
 
-  void AddStudentStudent(string const &n, vector <string> const &s, vector <int> const &times, vector <string> const &xaff, vector <string> const &yaff, bool const &on);
+  void AddStudent(Student s);
+  //void AddStudentStudent(string const &name, vector <string> const &s, vector <int> const &times, vector <string> const &aff, bool const &on);
   const vector<Student>::iterator& begin();
   const vector<Student>::iterator& end();
 };
