@@ -8,6 +8,12 @@
  *
  */
 #include <iostream>
+#include <vector>
+#include <string.h>
+#include <fstream>
+#include <algorithm>
+#include <time.h>
+
 #include <string.h>
 #include <fstream>
 #include <algorithm>
@@ -27,51 +33,105 @@ using namespace std;
  * the supplied min and max.
  * for example roll(0,4) will return 0,1,2,3,or 4.
  */
+
 int roll(int min, int max){
 	int value = rand() % (max-min +1) + min;
 	return value;
 }
+bool sortPairsDescending(const pair<string,int> &a, const pair<string, int> &b){
+	return a.second > b.second;
+}
+// End External Functions
 
-// calc_min_team_size Function
-// Task #36 - Cristi DeLeo
-// Calculates the minimum team size.
-int calc_min_team_size(int teamSize){
-    int minTeamSize;
-    double percentFactor = 0.80; // 80%
-
-    minTeamSize = floor(percentFactor * teamSize);
-
-    return minTeamSize;
-};
-
-// calc_projects Function
-// Task #7 - Cristi DeLeo
-// Calculates the number of projects required for any given
-// number of students.
-int calc_projects(int numStudents, int teamSize){
-    int numProjects;
-    int numStudentsModTeamSize;
-    int minTeamSize;
-
-    minTeamSize = calc_min_team_size(teamSize);
-
-    numStudentsModTeamSize = numStudents % teamSize;
-
-    if(numStudentsModTeamSize == 0) {
-        numProjects = numStudents / teamSize;
-    } else if (numStudentsModTeamSize >= minTeamSize) {
-        numProjects = ((numStudents - numStudentsModTeamSize) / teamSize) + 1;
-    } else if (numStudentsModTeamSize < minTeamSize) {
-        // Insert calculation here to determine number of projects
-        // needed when more than one team will be set at the minimum
-        // team size.
-    }
-
-    return numProjects;
-};
-
-
-// Begin Classes
+//// Begin Classes
+//class Skills {
+//public:
+//	// Skills has an vector to store skillScores
+//	// skillsScores rank from 0(no knowledge)-4(expert)
+//	// currently under Important Numbers (main().
+//	vector<int> skillScoreArray;
+//};
+//
+//class PreferredMeetingTimes {
+//	/* 	preferredMeetingTime: Based on MST
+//	 *  will take the 3 preferred meeting times for students in order of importance.
+//	 * 	0)	Night-time: 12:00AM - 4:00AM
+//	 *	1)	Early Morning: 4:00AM - 8:00AM
+//	 *	2)	Morning: 8:00AM - 12:00PM
+//	 *	3)	Afternoon: 12:00PM - 4:00PM
+//	 *	4)	Early Evening: 4:00PM - 8:00PM
+//	 *	5)  Evening: 8:00PM - 12:00AM
+//	 */
+//	public:
+//		vector<int> meetingTimes;
+//};
+//
+//class Affinity {
+//	public:
+//		vector<string> preferredStudents;
+//		vector<string> avoidedStudents;
+//};
+//
+//class Student {
+//	public:
+//		string name;
+//		Skills studentSkills;
+//		PreferredMeetingTimes timesAvailable;
+//		Affinity affinity;
+//		// online: 0(false)-local student, 1(true)-online student
+//		bool online;
+//
+//		Student();
+//		Student(string n, Skills s, PreferredMeetingTimes times, Affinity aff, bool online){
+//			this->name = n;
+//			this->timesAvailable = times;
+//			this->online = online;
+//			this->studentSkills = s;
+//			this->affinity = aff;
+//		}
+//		bool operator==(const Student &studentToCompare) const {
+//			if(this->name.compare(studentToCompare.name) == 0) {
+//				return true;
+//			} else {
+//				return false;
+//			}
+//		}
+//		bool operator==(const Student *studentToCompare) const {
+//			if(this->name.compare(studentToCompare->name) == 0) {
+//				return true;
+//			} else {
+//				return false;
+//			}
+//		}
+//
+//};
+//
+//class Project {
+//	public:
+//		string name;
+//		// online: 0(false)-local student, 1(true)-online student
+//		bool online;
+//		// projectSkills has a vector to store skillScores
+//		// skillsScores rank from 0(no knowledge)-4(expert)
+//		Skills projectSkills;
+//
+//		Project();
+//		Project(string n, Skills s, bool o){
+//			this->name = n;
+//			this->online = o;
+//			this->projectSkills = s;
+//		}
+//		bool operator==(const Project &projectToCompare) const {
+//			if(this->name.compare(projectToCompare.name) == 0) {
+//				return true;
+//			} else {
+//				return false;
+//			}
+//		}
+//
+//
+//};
+//
 class StudentList {
 	public:
 		vector<Student> allStudentList;
@@ -93,9 +153,9 @@ int main(){
 	int numStudents = 100;
 	int numProjects = 35;
 	int numSkills = 5;
-	// TEAM_SIZE can be used after we figure out how to build teams recursively.
-	// right now just being used for console display below
-	const int TEAM_SIZE = 5; // CHANGED TO CONSTANT - C. DeLeo
+	int teamSize = 5;
+	int numMeetingTimesAvailable = 6;
+	int numOfMeetingTimesToSelect = 3;
 	srand(time(0));
 
 	StudentList studentList2; // using randomly generated students
@@ -263,18 +323,17 @@ int main(){
 	}
 	cout << endl;
 
-	// Assign Students to Projects
-	// firstStudent, secondStudent, thirdStudent, and fourthStudent will be Student name.
-	// 0 will be for st0, 12 for st12
-	// first, second, third, and fourth will store the values of the [TEAM_SIZE] highest scoring students per project.
-	// Students already selected for a previous project will be omitted.
-	cout << "*************Beginning-of-Project-Team Report*************" << endl;
-	cout << endl;
-	int firstStudent, secondStudent, thirdStudent, fourthStudent, fifthStudent;
-	int first, second, third, fourth, fifth;
-	// assignedStudents will keep track of students that have already been selected for a project.
-	// each element is a student name (ie for st12, it would be 12)
-	vector<int> assignedStudents;
+	// Assign Students to Projects 2
+	// take projectxstudent2[][] and put it into a vector<vector<pair<string,int>>>
+	// This will allow us to sort each vector<pair<string,int>> representing the values of
+	// each students score to a given project. The pair<string,int> will be the students name
+	// and the students score for that project.
+	pair<string,int> studentPair;
+	vector<pair<string,int>> projectVector;
+	vector<vector<pair<string,int>>> vectorOfProjects;
+	vector<vector<pair<string,int>>> vectorOfProjectsSortedStudents;
+	vector<Student> studentTeam;
+	vector<vector<Student>> projectTeams;
 
 	for (int i = 0; i < numProjects; i++){
 		for (int j = 0; j < numStudents ; j++){
@@ -515,32 +574,34 @@ int main(){
 //		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(thirdStudent));
 //		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(fourthStudent));
 //		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(fifthStudent));
-
-		// if a project team of 5 could not be filled out with available students, move on to next project.
-		if ((fifthStudent == -1) || (fourthStudent == -1) || (thirdStudent == -1) || (secondStudent == -1) || (firstStudent == -1))
-		{
-			cout << "Project" + to_string(i)+  " can not be filled by " + to_string(TEAM_SIZE) + " Students, moving on to next project" << endl;
-			cout << endl;
-			continue;
+//
+//		// print project team to console
+//		cout << "p" + to_string(i) + "\tStudent\tOnline:" + to_string(projectList2.allProjectList.at(i).online) << endl;
+//		cout << "1)\t" + studentList2.allStudentList.at(firstStudent).name + "\tScore: " + to_string(first)   << endl;
+//		cout << "2)\t" + studentList2.allStudentList.at(secondStudent).name + "\tScore: " + to_string(second)  << endl;
+//		cout << "3)\t" + studentList2.allStudentList.at(thirdStudent).name + "\tScore: " + to_string(third)  << endl;
+//		cout << "4)\t" + studentList2.allStudentList.at(fourthStudent).name + "\tScore: " + to_string(fourth)   << endl;
+//		cout << "5)\t" + studentList2.allStudentList.at(fifthStudent).name + "\tScore: " + to_string(fifth) << endl;
+//		cout << endl;
+//
+//	}//end project loop
+//
+	// check if all students assigned
+	vector<Student>::iterator assignedStudentIterator;
+	for (int i = 0 ; i < numStudents; i++){
+		bool foundAssignedStudent = false;
+		for (int j = 0; j < studentList2.assignedStudentList.size(); j++){
+			if (studentList2.allStudentList.at(i).name.compare(studentList2.assignedStudentList.at(j).name)){
+				foundAssignedStudent = true;
+			}
+			if(foundAssignedStudent){
+					//	cout << "Student " + studentList2.allStudentList.at(i).name + " is assigned."<< endl;
+			} else {
+						cout << "WARNING! Student " + studentList2.allStudentList.at(i).name + " is not assigned to a project." << endl;
+			}
 		}
+
 	}
-
-		assignedStudents.push_back(firstStudent);
-		assignedStudents.push_back(secondStudent);
-		assignedStudents.push_back(thirdStudent);
-		assignedStudents.push_back(fourthStudent);
-		assignedStudents.push_back(fifthStudent);
-
-
-		cout << "p" + to_string(i) + " team members" << endl;
-		cout << "1) " + studentList2.allStudentList.at(firstStudent).name + "\t" + to_string(first) << endl;
-		cout << "2) " + studentList2.allStudentList.at(secondStudent).name + "\t" + to_string(second) << endl;
-		cout << "3) " + studentList2.allStudentList.at(thirdStudent).name + "\t" + to_string(third) << endl;
-		cout << "4) " + studentList2.allStudentList.at(fourthStudent).name + "\t" + to_string(fourth) << endl;
-		cout << "5) " + studentList2.allStudentList.at(fifthStudent).name + "\t" + to_string(fifth) << endl;
-		cout << endl;
-
-	}//end project loop
 
 	cout << endl;
 //	cout << "*******************End-of-Project-Team Report*************" << endl;
