@@ -90,13 +90,15 @@ int main(){
 	cout << "************************************************************************************" << endl;
 
 	// Important Numbers
+	// Important Numbers
 	int numStudents = 100;
 	int numProjects = 35;
 	int numSkills = 5;
-	// TEAM_SIZE can be used after we figure out how to build teams recursively.
-	// right now just being used for console display below
-	const int TEAM_SIZE = 5; // CHANGED TO CONSTANT - C. DeLeo
+	int teamSize = 5;
+	int numMeetingTimesAvailable = 6;
+	int numOfMeetingTimesToSelect = 3;
 	srand(time(0));
+
 
 	StudentList studentList2; // using randomly generated students
 	ProjectList projectList2; // using randomly generated projects
