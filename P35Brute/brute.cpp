@@ -90,7 +90,6 @@ int main(){
 	cout << "************************************************************************************" << endl;
 
 	// Important Numbers
-	// Important Numbers
 	int numStudents = 100;
 	int numProjects = 35;
 	int numSkills = 5;
@@ -98,7 +97,6 @@ int main(){
 	int numMeetingTimesAvailable = 6;
 	int numOfMeetingTimesToSelect = 3;
 	srand(time(0));
-
 
 	StudentList studentList2; // using randomly generated students
 	ProjectList projectList2; // using randomly generated projects
@@ -265,18 +263,17 @@ int main(){
 	}
 	cout << endl;
 
-	// Assign Students to Projects
-	// firstStudent, secondStudent, thirdStudent, and fourthStudent will be Student name.
-	// 0 will be for st0, 12 for st12
-	// first, second, third, and fourth will store the values of the [TEAM_SIZE] highest scoring students per project.
-	// Students already selected for a previous project will be omitted.
-	cout << "*************Beginning-of-Project-Team Report*************" << endl;
-	cout << endl;
-	int firstStudent, secondStudent, thirdStudent, fourthStudent, fifthStudent;
-	int first, second, third, fourth, fifth;
-	// assignedStudents will keep track of students that have already been selected for a project.
-	// each element is a student name (ie for st12, it would be 12)
-	vector<int> assignedStudents;
+	// Assign Students to Projects 2
+	// take projectxstudent2[][] and put it into a vector<vector<pair<string,int>>>
+	// This will allow us to sort each vector<pair<string,int>> representing the values of
+	// each students score to a given project. The pair<string,int> will be the students name
+	// and the students score for that project.
+	pair<string,int> studentPair;
+	vector<pair<string,int>> projectVector;
+	vector<vector<pair<string,int>>> vectorOfProjects;
+	vector<vector<pair<string,int>>> vectorOfProjectsSortedStudents;
+	vector<Student> studentTeam;
+	vector<vector<Student>> projectTeams;
 
 	for (int i = 0; i < numProjects; i++){
 		for (int j = 0; j < numStudents ; j++){
@@ -517,36 +514,31 @@ int main(){
 //		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(thirdStudent));
 //		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(fourthStudent));
 //		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(fifthStudent));
-
-		// if a project team of 5 could not be filled out with available students, move on to next project.
-		if ((fifthStudent == -1) || (fourthStudent == -1) || (thirdStudent == -1) || (secondStudent == -1) || (firstStudent == -1))
-		{
-			cout << "Project" + to_string(i)+  " can not be filled by " + to_string(TEAM_SIZE) + " Students, moving on to next project" << endl;
-			cout << endl;
-			continue;
+//
+//		// print project team to console
+//		cout << "p" + to_string(i) + "\tStudent\tOnline:" + to_string(projectList2.allProjectList.at(i).online) << endl;
+//		cout << "1)\t" + studentList2.allStudentList.at(firstStudent).name + "\tScore: " + to_string(first)   << endl;
+//		cout << "2)\t" + studentList2.allStudentList.at(secondStudent).name + "\tScore: " + to_string(second)  << endl;
+//		cout << "3)\t" + studentList2.allStudentList.at(thirdStudent).name + "\tScore: " + to_string(third)  << endl;
+//		cout << "4)\t" + studentList2.allStudentList.at(fourthStudent).name + "\tScore: " + to_string(fourth)   << endl;
+//		cout << "5)\t" + studentList2.allStudentList.at(fifthStudent).name + "\tScore: " + to_string(fifth) << endl;
+//		cout << endl;
+//
+//	}//end project loop
+//
+	// check if all students assigned
+	vector<Student>::iterator assignedStudentIterator;
+	for (int i = 0 ; i < numStudents; i++){
+		assignedStudentIterator = find(studentList2.assignedStudentList.begin(), studentList2.assignedStudentList.end(), studentList2.allStudentList.at(i));
+		if(assignedStudentIterator != studentList2.assignedStudentList.end()){
+		//	cout << "Student " + studentList2.allStudentList.at(i).name + " is assigned."<< endl;
+		} else {
+			cout << "WARNING! Student " + studentList2.allStudentList.at(i).name + " is not assigned to a project." << endl;
 		}
 	}
-
-		assignedStudents.push_back(firstStudent);
-		assignedStudents.push_back(secondStudent);
-		assignedStudents.push_back(thirdStudent);
-		assignedStudents.push_back(fourthStudent);
-		assignedStudents.push_back(fifthStudent);
-
-
-		cout << "p" + to_string(i) + " team members" << endl;
-		cout << "1) " + studentList2.allStudentList.at(firstStudent).name + "\t" + to_string(first) << endl;
-		cout << "2) " + studentList2.allStudentList.at(secondStudent).name + "\t" + to_string(second) << endl;
-		cout << "3) " + studentList2.allStudentList.at(thirdStudent).name + "\t" + to_string(third) << endl;
-		cout << "4) " + studentList2.allStudentList.at(fourthStudent).name + "\t" + to_string(fourth) << endl;
-		cout << "5) " + studentList2.allStudentList.at(fifthStudent).name + "\t" + to_string(fifth) << endl;
-		cout << endl;
-
-	}//end project loop
 
 	cout << endl;
 //	cout << "*******************End-of-Project-Team Report*************" << endl;
 	return 0;
 }
-
 
