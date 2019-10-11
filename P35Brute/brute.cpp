@@ -14,6 +14,17 @@
 #include <algorithm>
 #include <time.h>
 
+#include <string.h>
+#include <fstream>
+#include <algorithm>
+#include <time.h>
+#include "Skills.h"
+#include "Affinity.h"
+#include "PreferredMeetingTimes.h"
+#include "Student.h"
+#include "Project.h"
+#include <math.h>
+
 using namespace std;
 
 // Begin External Functions
@@ -22,103 +33,205 @@ using namespace std;
  * the supplied min and max.
  * for example roll(0,4) will return 0,1,2,3,or 4.
  */
+
 int roll(int min, int max){
 	int value = rand() % (max-min +1) + min;
 	return value;
 }
+
 bool sortPairsDescending(const pair<string,int> &a, const pair<string, int> &b){
 	return a.second > b.second;
 }
 // End External Functions
 
-// Begin Classes
-class Skills {
-public:
-	// Skills has an vector to store skillScores
-	// skillsScores rank from 0(no knowledge)-4(expert)
-	// currently under Important Numbers (main().
-	vector<int> skillScoreArray;
-};
+//// Begin Classes
+//class Skills {
+//public:
+//	// Skills has an vector to store skillScores
+//	// skillsScores rank from 0(no knowledge)-4(expert)
+//	// currently under Important Numbers (main().
+//	vector<int> skillScoreArray;
+//};
+//
+//class PreferredMeetingTimes {
+//	/* 	preferredMeetingTime: Based on MST
+//	 *  will take the 3 preferred meeting times for students in order of importance.
+//	 * 	0)	Night-time: 12:00AM - 4:00AM
+//	 *	1)	Early Morning: 4:00AM - 8:00AM
+//	 *	2)	Morning: 8:00AM - 12:00PM
+//	 *	3)	Afternoon: 12:00PM - 4:00PM
+//	 *	4)	Early Evening: 4:00PM - 8:00PM
+//	 *	5)  Evening: 8:00PM - 12:00AM
+//	 */
+//	public:
+//		vector<int> meetingTimes;
+//};
+//
+//class Affinity {
+//	public:
+//		vector<string> preferredStudents;
+//		vector<string> avoidedStudents;
+//};
+//
+//class Student {
+//	public:
+//		string name;
+//		Skills studentSkills;
+//		PreferredMeetingTimes timesAvailable;
+//		Affinity affinity;
+//		// online: 0(false)-local student, 1(true)-online student
+//		bool online;
+//
+//		Student();
+//		Student(string n, Skills s, PreferredMeetingTimes times, Affinity aff, bool online){
+//			this->name = n;
+//			this->timesAvailable = times;
+//			this->online = online;
+//			this->studentSkills = s;
+//			this->affinity = aff;
+//		}
+//		bool operator==(const Student &studentToCompare) const {
+//			if(this->name.compare(studentToCompare.name) == 0) {
+//				return true;
+//			} else {
+//				return false;
+//			}
+//		}
+//		bool operator==(const Student *studentToCompare) const {
+//			if(this->name.compare(studentToCompare->name) == 0) {
+//				return true;
+//			} else {
+//				return false;
+//			}
+//		}
+//
+//};
+//
+//class Project {
+//	public:
+//		string name;
+//		// online: 0(false)-local student, 1(true)-online student
+//		bool online;
+//		// projectSkills has a vector to store skillScores
+//		// skillsScores rank from 0(no knowledge)-4(expert)
+//		Skills projectSkills;
+//
+//		Project();
+//		Project(string n, Skills s, bool o){
+//			this->name = n;
+//			this->online = o;
+//			this->projectSkills = s;
+//		}
+//		bool operator==(const Project &projectToCompare) const {
+//			if(this->name.compare(projectToCompare.name) == 0) {
+//				return true;
+//			} else {
+//				return false;
+//			}
+//		}
+//
+//
+//};
+//
 
-class PreferredMeetingTimes {
-	/* 	preferredMeetingTime: Based on MST
-	 *  will take the 3 preferred meeting times for students in order of importance.
-	 * 	0)	Night-time: 12:00AM - 4:00AM
-	 *	1)	Early Morning: 4:00AM - 8:00AM
-	 *	2)	Morning: 8:00AM - 12:00PM
-	 *	3)	Afternoon: 12:00PM - 4:00PM
-	 *	4)	Early Evening: 4:00PM - 8:00PM
-	 *	5)  Evening: 8:00PM - 12:00AM
-	 */
-	public:
-		vector<int> meetingTimes;
-};
+// calc_min_team_size Function
+// Task #36 - Cristi DeLeo
+// Calculates the minimum team size.
+int calc_min_team_size(int teamSize){
+    int minTeamSize;
+    double percentFactor = 0.80; // 80%
 
-class Affinity {
-	public:
-		vector<string> preferredStudents;
-		vector<string> avoidedStudents;
-};
+    minTeamSize = floor(percentFactor * teamSize);
 
-class Student {
-	public:
-		string name;
-		Skills studentSkills;
-		PreferredMeetingTimes timesAvailable;
-		Affinity affinity;
-		// online: 0(false)-local student, 1(true)-online student
-		bool online;
+    return minTeamSize;
+}
 
-		Student();
-		Student(string n, Skills s, PreferredMeetingTimes times, Affinity aff, bool online){
-			this->name = n;
-			this->timesAvailable = times;
-			this->online = online;
-			this->studentSkills = s;
-			this->affinity = aff;
-		}
-		bool operator==(const Student &studentToCompare) const {
-			if(this->name.compare(studentToCompare.name) == 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		bool operator==(const Student *studentToCompare) const {
-			if(this->name.compare(studentToCompare->name) == 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
+// calc_projects Function
+// Task #7 - Cristi DeLeo
+// Calculates the number of projects required for any given
+// number of students with a specified minimum team size.
+int calc_projects(int numStudents, int teamSize, int minTeamSize){
+    int numProjects;
+    int numStudentsModTeamSize;
+    int currentProjectCount;
+    int numStudentsNeeded;
 
-};
+    numStudentsModTeamSize = numStudents % teamSize;
 
-class Project {
-	public:
-		string name;
-		// online: 0(false)-local student, 1(true)-online student
-		bool online;
-		// projectSkills has a vector to store skillScores
-		// skillsScores rank from 0(no knowledge)-4(expert)
-		Skills projectSkills;
+    if(numStudentsModTeamSize == 0) {
+        numProjects = numStudents / teamSize;
+    } else if (numStudentsModTeamSize >= minTeamSize) {
+        numProjects = ((numStudents - numStudentsModTeamSize) / teamSize) + 1;
+    } else if (numStudentsModTeamSize < minTeamSize) {
+        // Calculation to determine number of projects needed when
+        // more than one team will be set at the minimum team size.
+        currentProjectCount = numStudents / teamSize;
+        numStudentsNeeded = minTeamSize - numStudentsModTeamSize;
 
-		Project();
-		Project(string n, Skills s, bool o){
-			this->name = n;
-			this->online = o;
-			this->projectSkills = s;
-		}
-		bool operator==(const Project &projectToCompare) const {
-			if(this->name.compare(projectToCompare.name) == 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
+        // Determines whether there are enough students to evenly
+        // distribute projects based on the minimum team size
+        if(numStudentsNeeded > currentProjectCount){
+            if(teamSize > minTeamSize){
+                teamSize--;
+            } else if(teamSize == minTeamSize){
+                teamSize--;
+                minTeamSize--;
+            } else{
+                // Error catch
+            }
+            calc_projects(numStudents, teamSize, minTeamSize);
+        } else if(numStudentsNeeded <= currentProjectCount){
+            numProjects = ((numStudents - numStudentsModTeamSize) / teamSize) + 1;
+        }
+    }
 
+    return numProjects;
+}
 
-};
+// calc_projects Function
+// Task #7 - Cristi DeLeo
+// Calculates the number of projects required for any given
+// number of students.
+int calc_projects(int numStudents, int teamSize){
+    int numProjects;
+    int numStudentsModTeamSize;
+    int minTeamSize;
+    int currentProjectCount;
+    int numStudentsNeeded;
+
+    minTeamSize = calc_min_team_size(teamSize);
+
+    numStudentsModTeamSize = numStudents % teamSize;
+
+    if(numStudentsModTeamSize == 0) {
+        numProjects = numStudents / teamSize;
+    } else if (numStudentsModTeamSize >= minTeamSize) {
+        numProjects = ((numStudents - numStudentsModTeamSize) / teamSize) + 1;
+    } else if (numStudentsModTeamSize < minTeamSize) {
+        // Calculation to determine number of projects needed when
+        // more than one team will be set at the minimum team size.
+        currentProjectCount = numStudents / teamSize;
+        numStudentsNeeded = minTeamSize - numStudentsModTeamSize;
+
+        // Determines whether there are enough students to evenly
+        // distribute projects based on the minimum team size
+        if(numStudentsNeeded > currentProjectCount){
+            if(teamSize > minTeamSize){
+                teamSize--;
+            } else if(teamSize == minTeamSize){
+                teamSize--;
+                minTeamSize--;
+            } else{
+                // Error catch
+            }
+            calc_projects(numStudents, teamSize, minTeamSize);
+        } else if(numStudentsNeeded <= currentProjectCount){
+            numProjects = ((numStudents - numStudentsModTeamSize) / teamSize) + 1;
+        }
+    }
+
+    return numProjects;
+}
 
 class StudentList {
 	public:
@@ -466,7 +579,7 @@ int main(){
 			studentTeam.clear();
 			projectTeams.push_back(studentTeam);
 		} else {
-			cout << "p" << projectCounter << " :";
+			cout << endl << "p" << projectCounter << " results: ";
 			for (int count = 0; count < teamSize; count++){
 				cout << projectTeams.at(projectCounter).at(count).name << ", ";
 			}
@@ -577,13 +690,21 @@ int main(){
 	// check if all students assigned
 	vector<Student>::iterator assignedStudentIterator;
 	for (int i = 0 ; i < numStudents; i++){
-		assignedStudentIterator = find(studentList2.assignedStudentList.begin(), studentList2.assignedStudentList.end(), studentList2.allStudentList.at(i));
-		if(assignedStudentIterator != studentList2.assignedStudentList.end()){
-		//	cout << "Student " + studentList2.allStudentList.at(i).name + " is assigned."<< endl;
-		} else {
-			cout << "WARNING! Student " + studentList2.allStudentList.at(i).name + " is not assigned to a project." << endl;
+		bool foundAssignedStudent = false;
+		for (int j = 0; j < studentList2.assignedStudentList.size(); j++){
+			if (studentList2.allStudentList.at(i).name.compare(studentList2.assignedStudentList.at(j).name)){
+				foundAssignedStudent = true;
+			}
+			if(foundAssignedStudent){
+					//	cout << "Student " + studentList2.allStudentList.at(i).name + " is assigned."<< endl;
+			} else {
+						cout << "WARNING! Student " + studentList2.allStudentList.at(i).name + " is not assigned to a project." << endl;
+			}
 		}
+
 	}
+
+    cout << "Number of projects: " << calc_projects(numStudents, teamSize) << endl;
 
 	cout << endl;
 //	cout << "*******************End-of-Project-Team Report*************" << endl;

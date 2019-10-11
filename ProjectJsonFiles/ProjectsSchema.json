@@ -1,0 +1,7 @@
+{ "projects":
+  [{
+    "skills": "[]",
+    "priority": "integer",
+    "online/on-campus": "integer"
+  }]
+}
