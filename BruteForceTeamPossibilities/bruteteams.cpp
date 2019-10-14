@@ -44,10 +44,10 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 			if (assignedStudents[i] == true)
 			{
 				cout<<a[i]<<" ";
-				possiblities++;
 			}
 		}
-		cout<<"\n";
+		possiblities++;
+		cout<<endl;
 		return;
 	}
 	// If startIndex equals to totalNumStudents then return. No elements left.
@@ -67,7 +67,7 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 int main()
 {
 	int teamSize = 5;
-	int numStudents = 50;
+	int numStudents = 8;
 
 	bool assignedStudents[numStudents];
 
