@@ -8,10 +8,9 @@
 #include <vector>
 #include <fstream>
 #include <algorithm>
-#include <time.h>
+#include <time>
 #include <string>
-#include <algorithm>
-#include <math.h>
+#include <math>
 
 using namespace std;
 
@@ -156,7 +155,8 @@ class ProjectList {
 };
 // End Classes
 
-int main(){
+int main()
+{
 	cout << "brute force project x student matrix application for student-project team allocation" << endl;
 	cout << "************************************************************************************" << endl;
 
@@ -497,106 +497,6 @@ int main(){
 		}
 	}
 
-
-
-
-	// Assign Students to Projects
-	// firstStudent, secondStudent, thirdStudent, and fourthStudent will be Student name.
-	// 0 will be for st0, 12 for st12.
-	// first, second, third, and fourth will store the values of the [teamSize=5 currently] highest scoring students per project.
-	// Students already selected for a previous project will be skipped and we will look at the next student.
-//	cout << "*************Beginning-of-Project-Team Report*************" << endl;
-//	cout << endl;
-//	int firstStudent, secondStudent, thirdStudent, fourthStudent, fifthStudent;
-//	int first, second, third, fourth, fifth;
-//
-//	// For each project
-//	for (int i = 0; i < numProjects; i++){
-//		firstStudent = secondStudent = thirdStudent = fourthStudent = fifthStudent = first = second = third = fourth = fifth = -1;
-//		// For each Student
-//		for (int j = 0 ; j < numStudents; j++){
-//			// check if student on this iteration has already been assigned to a project if so, go to next student.
-//			vector<Student>::iterator assignedStudentIterator;
-//			assignedStudentIterator = find(studentList2.assignedStudentList.begin(), studentList2.assignedStudentList.end(), studentList2.allStudentList.at(j));
-//			if (assignedStudentIterator != studentList2.assignedStudentList.end()){
-//				continue;
-//			}
-//			// check if the current iteration's project is local and if the current student is online.
-//			// if project local and student is online, go to next student.
-//			// presumption that an online project can be accomplished by local students too.
-//			if (projectList2.allProjectList.at(i).online == false && studentList2.allStudentList.at(j).online == true){
-//				continue;
-//			}
-//
-//			if (projectxstudent2[i][j] > first){
-//				fifth = fourth;
-//				fifthStudent = fourthStudent;
-//				fourth = third;
-//				fourthStudent = thirdStudent;
-//				third = second;
-//				thirdStudent = secondStudent;
-//				second = first;
-//				secondStudent = firstStudent;
-//				first = projectxstudent2[i][j];
-//				firstStudent = j;
-//			}
-//			else if (projectxstudent2[i][j] > second){
-//				fifth = fourth;
-//				fifthStudent = fourthStudent;
-//				fourth = third;
-//				fourthStudent = thirdStudent;
-//				third = second;
-//				thirdStudent = secondStudent;
-//				second = projectxstudent2[i][j];
-//				secondStudent = j;
-//			}
-//			else if (projectxstudent2[i][j] > third){
-//				fifth = fourth;
-//				fifthStudent = fourthStudent;
-//				fourth = third;
-//				fourthStudent = thirdStudent;
-//				third = projectxstudent2[i][j];
-//				thirdStudent = j;
-//			}
-//			else if (projectxstudent2[i][j] > fourth){
-//				fifth = fourth;
-//				fifthStudent = fourthStudent;
-//				fourth = projectxstudent2[i][j];
-//				fourthStudent = j;
-//			}
-//			else if (projectxstudent2[i][j] > fifth){
-//				fifth = projectxstudent2[i][j];
-//				fifthStudent = j;
-//			}
-//		} // end student loop
-//
-//		// if a project team of 5 could not be filled out with available students, move on to next project.
-//		if ((fifthStudent == -1) || (fourthStudent == -1) || (thirdStudent == -1) || (secondStudent == -1) || (firstStudent == -1))
-//		{
-//			cout << "Project" + to_string(i)+  " can not be filled by " + to_string(teamSize) + " Students, moving on to next project" << endl;
-//			cout << endl;
-//			continue;
-//		}
-//
-//		// these students have been assigned to the current project. We will push them
-//		// into a vector so we can compare already assigned students while iterating through the next project.
-//		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(firstStudent));
-//		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(secondStudent));
-//		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(thirdStudent));
-//		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(fourthStudent));
-//		studentList2.assignedStudentList.push_back((Student)studentList2.allStudentList.at(fifthStudent));
-//
-//		// print project team to console
-//		cout << "p" + to_string(i) + "\tStudent\tOnline:" + to_string(projectList2.allProjectList.at(i).online) << endl;
-//		cout << "1)\t" + studentList2.allStudentList.at(firstStudent).name + "\tScore: " + to_string(first)   << endl;
-//		cout << "2)\t" + studentList2.allStudentList.at(secondStudent).name + "\tScore: " + to_string(second)  << endl;
-//		cout << "3)\t" + studentList2.allStudentList.at(thirdStudent).name + "\tScore: " + to_string(third)  << endl;
-//		cout << "4)\t" + studentList2.allStudentList.at(fourthStudent).name + "\tScore: " + to_string(fourth)   << endl;
-//		cout << "5)\t" + studentList2.allStudentList.at(fifthStudent).name + "\tScore: " + to_string(fifth) << endl;
-//		cout << endl;
-//
-//	}//end project loop
-//
 	// check if all students assigned
 	vector<Student>::iterator assignedStudentIterator;
 	for (int i = 0 ; i < numStudents; i++){
