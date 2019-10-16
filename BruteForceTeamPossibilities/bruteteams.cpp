@@ -27,7 +27,11 @@
 #include <math.h>
 
 using namespace std;
-int possiblities = 0;
+
+// GLOBAL VARIABLES
+int possibilityCount = 0;
+int teamSize = 5;
+int numStudents = 15;
 
 // A function to print all combination of a given length from the given array.
 void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSize, bool assignedStudents[], int totalNumStudents)
@@ -46,7 +50,7 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 				cout<<a[i]<<" ";
 			}
 		}
-		possiblities++;
+		possibilityCount++;
 		cout<<endl;
 		return;
 	}
@@ -66,8 +70,7 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 
 int main()
 {
-	int teamSize = 5;
-	int numStudents = 8;
+
 
 	bool assignedStudents[numStudents];
 
@@ -78,7 +81,7 @@ int main()
 	}
 
 	getCombinations(studentList, teamSize, 0, 0, assignedStudents, numStudents);
-	cout << endl << "possiblities: " << possiblities;
+	cout << endl << "possiblities: " << possibilityCount;
 
 	return 0;
 }
