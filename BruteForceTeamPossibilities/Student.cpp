@@ -12,12 +12,14 @@
 
 #include "Student.h"
 
-Student::Student(std::string n, Skills s, PreferredMeetingTimes times, Affinity aff, bool online){
+Student::Student(std::string n, int Id, Skills s, PreferredMeetingTimes times, Affinity aff, bool online, vector <int> skillsList){
 	this->name = n;
+	this->sId = Id;
 	this->timesAvailable = times;
 	this->online = online;
 	this->studentSkills = s;
 	this->affinity = aff;
+	this->skillScores= skillsList;
 }
 
 bool Student::operator==(const Student &studentToCompare) const {

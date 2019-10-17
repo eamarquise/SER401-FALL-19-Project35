@@ -12,8 +12,9 @@
 
 #include "Project.h"
 
-Project::Project(std::string n, Skills s, bool o){
+Project::Project(std::string n, int id, Skills s, bool o){
 	this->name = n;
+	this->pId = id;
 	this->online = o;
 	this->projectSkills = s;
 }
