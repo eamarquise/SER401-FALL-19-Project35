@@ -105,17 +105,17 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 
 		tempTeam.teamScore = score;
 
-		tempTeam.teamID = teamIDincrementor;
+		//tempTeam.teamID = teamIDincrementor;
 		tempTeam.projectID = p.pId;
         p.teams.push_back(tempTeam);
-        teamIDincrementor++;
+        //teamIDincrementor++;
 
 		return;
 	}
 	// If startIndex equals to totalNumStudents then return. No elements left.
 	if (startIndex == totalNumStudents)
 	{
-		teamIDincrementor=0;
+		//teamIDincrementor=0;
 
 
 		return;
@@ -252,7 +252,7 @@ int main()
 	//Prints all teams and team scores for a given project.
 	cout << endl << "Project #2: all Team combinations and Team scores.";
 	for (int i=0; i< projectList.allProjectList[2].teams.size(); i++){
-           cout << "Team #" + to_string(projectList.allProjectList[2].teams[i].teamID) + " ";
+           cout << "Team # " + to_string(i) + " ";
 		for (int j=0; j<5; j++){
 			cout <<  to_string(projectList.allProjectList[2].teams[i].studentIDs[j])+ " ";
 
