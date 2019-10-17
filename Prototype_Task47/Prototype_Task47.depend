@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1571277656 source:/home/cristi/Desktop/SER401-FALL-19-Project35/Prototype_Task47/main.cpp
+	"Project.h"
+	<iostream>
+	<math.h>
+
+1571277966 /home/cristi/Desktop/SER401-FALL-19-Project35/Prototype_Task47/src//Project.h
+	<string>
+
