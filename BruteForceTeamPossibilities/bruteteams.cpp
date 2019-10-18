@@ -18,6 +18,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <chrono>
 
 #include <string.h>
 #include <fstream>
@@ -31,8 +32,10 @@
 #include "ProjectGroup.h"
 #include "Team.h"
 #include <math.h>
+#include <bits/stdc++.h>
 
 using namespace std;
+//using namespace std::chrono;
 
 // GLOBAL VARIABLES
 // Important Numbers
@@ -51,6 +54,8 @@ vector <Project> allProjects;
 
 //global list of project groups
 vector <ProjectGroup> allProjectGroups;
+
+vector<vector<Team> > allProjectsallTeams(numProjects, vector<Team>());
 
 int roll(int min, int max){
 	int value = rand() % (max-min +1) + min;
@@ -115,7 +120,8 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 		//tempTeam.teamID = teamIDincrementor;
 		tempTeam.projectID = p.pId;
         p.teams.push_back(tempTeam);
-        //teamIDincrementor++;
+        allProjectsallTeams[p.pId].push_back(tempTeam);
+		//teamIDincrementor++;
 
 		return;
 	}
@@ -138,75 +144,62 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 
 
 
-// A function to print all combination of a given length from the given array.
-void getProjectCombos(int a[], int numofProjects, int startIndex, int currentProject, int numOfTeams, bool assignedStudents[], int totalNumTeams)
+
+// function to print combinations that contain
+// one element from each of the given arrays
+void projectCombos(vector<vector<Team> >& arr)
 {
+    // number of arrays
+    int n = arr.size();
 
-    //ProjectGroup tempPG( 0 );
-	// Return if the currLen is more than the required length.
-	if(currentProject > numofProjects)
-	return;
-	// If currLen is equal to required length then print the sequence.
-	else if (currentProject== numofProjects)
-	{
-		for (int j=0; j< numofProjects; j++){
+    // to keep track of next element in each of
+    // the n arrays
+    int* indices = new int[n];
 
-		for (int i = 0; i < totalNumTeams; i++)
-		{
-			//tempPG.projects.push_back(allProjects[j]);
-			if (assignedStudents[i] == true)
-			{
-				//int x= allStudents[i].sId;
-				//cout<<" " + to_string(allProjects[currentProject].teams[i].teamScore)+ " ";
+    // initialize with first element's index
+    for (int i = 0; i < n; i++)
+        indices[i] = 0;
 
-			//	tempPG.teams.push_back(allProjects[j].teams[i]);
-				//cout<<a[i]<<" ";
-			}
-		}
-		}
-		//cout<<endl;
-		//int score = 0;
-		//for (int i = 0; i < tempPG.teams.size(); i++){
+    while (1) {
 
-		//	score += allStudents[tempTeam.studentIDs[i]].skillScores[p.pId];
+        // print current combination
+        for (int i = 0; i < n; i++){
+        	arr[i][indices[i]];
+        }
+            //cout << to_string(arr[i][indices[i]].teamScore) << " ";
+        //cout << endl;
 
-			//	}
+        // find the rightmost array that has more
+        // elements left after the current element
+        // in that array
+        int next = n - 1;
+        while (next >= 0 &&
+              (indices[next] + 1 >= arr[next].size()))
+            next--;
 
-		//tempTeam.teamScore = score;
+        // no such array is found so no more
+        // combinations left
+        if (next < 0)
+            return;
 
-		//tempTeam.teamID = teamIDincrementor;
-		//tempPG.pgroupId = ;
-        //allProjectGroups.push_back(tempPG);
-        //teamIDincrementor++;
-		//}
-		//after last project is iterated over.
+        // if found move to next element in that
+        // array
+        indices[next]++;
 
-
-    	return;
-    	}
-    	// If startIndex equals to totalNumStudents then return. No elements left.
-    	if (startIndex == totalNumTeams)
-    	{
-    		//teamIDincrementor=0;
-
-
-    		return;
-    	}
-
-    	// If we select the student, put true into assignedStudents, increment our currentTeamSize and startIndex.
-    	assignedStudents[startIndex] = true;
-    	getProjectCombos(a, numofProjects, startIndex + 1, currentProject + 1, numOfTeams, assignedStudents,totalNumTeams);
-    	// If we dont select the student, put false in the assignedStudents and increment our startIndex.
-    	assignedStudents[startIndex] = false;
-    	getProjectCombos(a, numofProjects, startIndex + 1, currentProject, numOfTeams, assignedStudents, totalNumTeams);
+        // for all arrays to the right of this
+        // array current index again points to
+        // first element
+        for (int i = next + 1; i < n; i++)
+            indices[i] = 0;
     }
-
+}
 
 
 
 int main()
 {
-
+	clock_t start, end;
+	 start = clock();
 		int numMeetingTimesAvailable = 6;
 		int numOfMeetingTimesToSelect = 3;
 		srand(time(0));
@@ -321,6 +314,13 @@ cout << endl << "working 1 ";
     //project groupings
     cout << endl << "working 2 ";
     allProjects = projectList.allProjectList;
+
+
+    projectCombos(allProjectsallTeams);
+
+
+    //vector<vector<Project> > allProjectsallTeams(numProjects, vector<Project>());
+
 /*
     bool assignedTeams[projectList.allProjectList[0].teams.size()];
     	int projects[numProjects];
@@ -345,8 +345,13 @@ cout << endl << "working 1 ";
 		}
 			cout << " Score: " + to_string(projectList.allProjectList[2].teams[i].teamScore) << endl;
 	}*/
+	end = clock();
 
 
-
+	double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
+	    cout << "Time taken by program is : " << fixed
+	         << time_taken << setprecision(5);
+	    cout << " sec " << endl;
+	    return 0;
 	return 0;
 }
