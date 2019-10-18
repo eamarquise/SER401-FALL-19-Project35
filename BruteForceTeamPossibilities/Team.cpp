@@ -17,7 +17,7 @@ Team::Team(int id, int pId ){
 }
 
 bool Team::operator==(const Team &teamToCompare) const {
-	if(this->teamID==teamToCompare.teamID == 0) {
+	if(this->teamID==teamToCompare.teamID) {
 		return true;
 	} else {
 		return false;

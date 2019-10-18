@@ -86,54 +86,43 @@ class TeamList {
 // A function to print all combination of a given length from the given array.
 void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSize, bool assignedStudents[], int totalNumStudents, Project& p)
 {
-
 	Team tempTeam(teamIDincrementor, p.pId);
 	tempTeam.studentIDs.clear();
 	// Return if the currLen is more than the required length.
 	if(currentTeamSize > sizeofteam)
 	return;
 	// If currLen is equal to required length then print the sequence.
-	else if (currentTeamSize == sizeofteam)
-	{
+	else if (currentTeamSize == sizeofteam) {
 		cout<<"\t";
 		for (int i = 0; i < totalNumStudents; i++)
 		{
 			if (assignedStudents[i] == true)
 			{
 				int x= allStudents[i].sId;
-               tempTeam.studentIDs.push_back(x);
+				tempTeam.studentIDs.push_back(x);
 				//cout<<a[i]<<" ";
 			}
 		}
 		possibilityCount++;
-
 		//cout<<endl;
 		int score = 0;
 		for (unsigned int i = 0; i < tempTeam.studentIDs.size(); i++){
-
 			score += allStudents[tempTeam.studentIDs[i]].skillScores[p.pId];
-
-				}
-
+		}
 		tempTeam.teamScore = score;
-
 		//tempTeam.teamID = teamIDincrementor;
 		tempTeam.projectID = p.pId;
         p.teams.push_back(tempTeam);
         allProjectsallTeams[p.pId].push_back(tempTeam);
 		//teamIDincrementor++;
-
 		return;
 	}
 	// If startIndex equals to totalNumStudents then return. No elements left.
 	if (startIndex == totalNumStudents)
 	{
 		//teamIDincrementor=0;
-
-
 		return;
 	}
-
 	// If we select the student, put true into assignedStudents, increment our currentTeamSize and startIndex.
 	assignedStudents[startIndex] = true;
 	getCombinations(a, sizeofteam, startIndex + 1, currentTeamSize + 1, assignedStudents, totalNumStudents, p);
@@ -161,7 +150,6 @@ void projectCombos(vector<vector<Team> >& arr)
         indices[i] = 0;
 
     while (1) {
-
         // print current combination
         for (int i = 0; i < n; i++){
         	arr[i][indices[i]];
@@ -199,104 +187,100 @@ void projectCombos(vector<vector<Team> >& arr)
 int main()
 {
 	clock_t start, end;
-	 start = clock();
-		int numMeetingTimesAvailable = 6;
-		int numOfMeetingTimesToSelect = 3;
-		srand(time(0));
+	start = clock();
+	int numMeetingTimesAvailable = 6;
+	int numOfMeetingTimesToSelect = 3;
+	srand(time(0));
 
-		StudentList studentList; // using randomly generated students
-		ProjectList projectList; // using randomly generated projects
+	StudentList studentList; // using randomly generated students
+	ProjectList projectList; // using randomly generated projects
 
-		// Create randomly generated Students and put them in StudentList2
-		for (int i = 0; i < numStudents ; i++){
-			string studentName = "st" + to_string(i);
-			int sID = i;
-			Skills tempSkills;
-			for (int j = 0 ; j < numSkills; j++){
-				int skillScore = roll(0, 4);
-				tempSkills.skillScoreArray.push_back(skillScore);
+	// Create randomly generated Students and put them in StudentList2
+	for (int i = 0; i < numStudents ; i++){
+		string studentName = "st" + to_string(i);
+		int sID = i;
+		Skills tempSkills;
+		for (int j = 0 ; j < numSkills; j++){
+			int skillScore = roll(0, 4);
+			tempSkills.skillScoreArray.push_back(skillScore);
+		}
+		PreferredMeetingTimes times;
+		bool uniquetimes = false;
+		do {
+			for (int i = 0 ; i < numOfMeetingTimesToSelect ; i++){
+				int time = roll(0, (numMeetingTimesAvailable - 1));
+				times.meetingTimes.push_back(time);
 			}
-			PreferredMeetingTimes times;
-			bool uniquetimes = false;
-			do {
-				for (int i = 0 ; i < numOfMeetingTimesToSelect ; i++){
-					int time = roll(0, (numMeetingTimesAvailable - 1));
-					times.meetingTimes.push_back(time);
+			if (times.meetingTimes.at(0) == times.meetingTimes.at(1)
+					|| times.meetingTimes.at(0) == times.meetingTimes.at(2)
+					|| times.meetingTimes.at(1) == times.meetingTimes.at(2)) {
+				times.meetingTimes.clear();
+				continue;
+			} else {
+				uniquetimes = true;
+			}
+		} while (uniquetimes == false);
+		bool online = (bool)roll(0,1);
+		Affinity affinity;
+		int chanceForPositiveAffinity = roll(1,100);
+		int chanceForNegativeAffinity = roll(1,100);
+		int chanceForPreferredStudent = roll(1,20);
+		int chanceForAvoidedStudent = roll(1,20);
+		if (chanceForPreferredStudent >= chanceForPositiveAffinity){
+			int numPreferredStudents = roll(1,3);
+			for (int i = 0; i < numPreferredStudents; i++){
+				int preferredStudent = roll(0, (numStudents-1));
+				if (preferredStudent == i){
+					continue;
 				}
-				if (times.meetingTimes.at(0) == times.meetingTimes.at(1)
-						|| times.meetingTimes.at(0) == times.meetingTimes.at(2)
-						|| times.meetingTimes.at(1) == times.meetingTimes.at(2)) {
-					times.meetingTimes.clear();
+				string preferredStudentName = "st" + to_string(preferredStudent);
+				affinity.preferredStudents.push_back(preferredStudentName);
+			}
+		}
+		if (chanceForAvoidedStudent >= chanceForNegativeAffinity){
+			int numAvoidedStudents = roll(1,3);
+			for (int i = 0; i < numAvoidedStudents; i++){
+				int avoidedStudent = roll(0, (numStudents-1));
+				if (avoidedStudent == i){
+					continue;
+				}
+				string avoidedStudentName = "st" + to_string(avoidedStudent);
+				if (find(affinity.preferredStudents.begin(), affinity.preferredStudents.end(), avoidedStudentName) != affinity.preferredStudents.end()){
 					continue;
 				} else {
-					uniquetimes = true;
+					affinity.avoidedStudents.push_back(avoidedStudentName);
 				}
-			} while (uniquetimes == false);
-			bool online = (bool)roll(0,1);
-					Affinity affinity;
-					int chanceForPositiveAffinity = roll(1,100);
-					int chanceForNegativeAffinity = roll(1,100);
-					int chanceForPreferredStudent = roll(1,20);
-					int chanceForAvoidedStudent = roll(1,20);
-					if (chanceForPreferredStudent >= chanceForPositiveAffinity){
-						int numPreferredStudents = roll(1,3);
-						for (int i = 0; i < numPreferredStudents; i++){
-							int preferredStudent = roll(0, (numStudents-1));
-							if (preferredStudent == i){
-								continue;
-							}
-							string preferredStudentName = "st" + to_string(preferredStudent);
-							affinity.preferredStudents.push_back(preferredStudentName);
-						}
-					}
-					if (chanceForAvoidedStudent >= chanceForNegativeAffinity){
-						int numAvoidedStudents = roll(1,3);
-						for (int i = 0; i < numAvoidedStudents; i++){
-							int avoidedStudent = roll(0, (numStudents-1));
-							if (avoidedStudent == i){
-								continue;
-							}
-							string avoidedStudentName = "st" + to_string(avoidedStudent);
-							if (find(affinity.preferredStudents.begin(), affinity.preferredStudents.end(), avoidedStudentName) != affinity.preferredStudents.end()){
-								continue;
-							} else {
-								affinity.avoidedStudents.push_back(avoidedStudentName);
-							}
-						}
-					}
-					vector <int> skillscores;
-					for (int i=0; i < numProjects; i++){
+			}
+		}
+		vector <int> skillscores;
+		for (int i=0; i < numProjects; i++){
 
-						int x = roll(0,35);
-						skillscores.push_back(x);
-
-					}
-
-
-					Student tempStudent(studentName, sID, tempSkills, times, affinity, online, skillscores);
-					studentList.allStudentList.push_back(tempStudent);
-				}
+			int x = roll(0,35);
+			skillscores.push_back(x);
+		}
+		Student tempStudent(studentName, sID, tempSkills, times, affinity, online, skillscores);
+		studentList.allStudentList.push_back(tempStudent);
+	}// End create Students
 
 
 	// Create randomly generated Projects and put them in ProjectList2
-		for (int i = 0; i < numProjects ; i++){
-			int pId = i;
-			string projectName = "p" + to_string(i);
-			Skills tempSkills;
-			for (int j = 0 ; j < numSkills; j++){
-				int skillScore = roll(0, 4);
-				tempSkills.skillScoreArray.push_back(skillScore);
-			}
-			bool online = (bool)roll(0,1);
-			Project tempProject(projectName, pId, tempSkills, online);
-			projectList.allProjectList.push_back(tempProject);
+	for (int i = 0; i < numProjects ; i++){
+		int pId = i;
+		string projectName = "p" + to_string(i);
+		Skills tempSkills;
+		for (int j = 0 ; j < numSkills; j++){
+			int skillScore = roll(0, 4);
+			tempSkills.skillScoreArray.push_back(skillScore);
 		}
+		bool online = (bool)roll(0,1);
+		Project tempProject(projectName, pId, tempSkills, online);
+		projectList.allProjectList.push_back(tempProject);
+	}
+
+	allStudents=studentList.allStudentList;
 
 
-		allStudents=studentList.allStudentList;
-
-
-cout << endl << "working 1 ";
+	cout << endl << "working 1 ";
 	bool assignedStudents[numStudents];
 	int students[numStudents];
 	for (int i = 0; i < numStudents; i++){
