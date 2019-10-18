@@ -89,22 +89,21 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 	Team tempTeam(teamIDincrementor, p.pId);
 	tempTeam.studentIDs.clear();
 	// Return if the currLen is more than the required length.
-	if(currentTeamSize > sizeofteam)
-	return;
+	if(currentTeamSize > sizeofteam){
+		return;
+	}
 	// If currLen is equal to required length then print the sequence.
 	else if (currentTeamSize == sizeofteam) {
 		cout<<"\t";
-		for (int i = 0; i < totalNumStudents; i++)
-		{
-			if (assignedStudents[i] == true)
-			{
+		for (int i = 0; i < totalNumStudents; i++) {
+			if (assignedStudents[i] == true) {
 				int x= allStudents[i].sId;
 				tempTeam.studentIDs.push_back(x);
-				//cout<<a[i]<<" ";
+				cout<<a[i]<<" ";
 			}
 		}
 		possibilityCount++;
-		//cout<<endl;
+		cout<<endl;
 		int score = 0;
 		for (unsigned int i = 0; i < tempTeam.studentIDs.size(); i++){
 			score += allStudents[tempTeam.studentIDs[i]].skillScores[p.pId];
@@ -287,21 +286,13 @@ int main()
 		assignedStudents[i]= false;
 		students[i] = i;
 	}
-
     for (int i=0; i< numProjects; i++){
-
-	getCombinations(students, teamSize, 0, 0, assignedStudents, numStudents, projectList.allProjectList[i]);
-
+    	getCombinations(students, teamSize, 0, 0, assignedStudents, numStudents, projectList.allProjectList[i]);
     }
-
-
     //project groupings
     cout << endl << "working 2 ";
     allProjects = projectList.allProjectList;
-
-
     projectCombos(allProjectsallTeams);
-
 
     //vector<vector<Project> > allProjectsallTeams(numProjects, vector<Project>());
 
