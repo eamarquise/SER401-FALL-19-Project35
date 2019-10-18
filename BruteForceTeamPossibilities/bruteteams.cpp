@@ -28,6 +28,7 @@
 #include "PreferredMeetingTimes.h"
 #include "Student.h"
 #include "Project.h"
+#include "ProjectGroup.h"
 #include "Team.h"
 #include <math.h>
 
@@ -44,6 +45,12 @@ int teamIDincrementor = 0;
 
 ///global list of students
 vector <Student> allStudents;
+
+///global list of projects
+vector <Project> allProjects;
+
+//global list of project groups
+vector <ProjectGroup> allProjectGroups;
 
 int roll(int min, int max){
 	int value = rand() % (max-min +1) + min;
@@ -97,7 +104,7 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 
 		//cout<<endl;
 		int score = 0;
-		for (int i = 0; i < tempTeam.studentIDs.size(); i++){
+		for (unsigned int i = 0; i < tempTeam.studentIDs.size(); i++){
 
 			score += allStudents[tempTeam.studentIDs[i]].skillScores[p.pId];
 
@@ -130,6 +137,69 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 }
 
 
+
+// A function to print all combination of a given length from the given array.
+void getProjectCombos(int a[], int numofProjects, int startIndex, int currentProject, int numOfTeams, bool assignedStudents[], int totalNumTeams)
+{
+
+    //ProjectGroup tempPG( 0 );
+	// Return if the currLen is more than the required length.
+	if(currentProject > numofProjects)
+	return;
+	// If currLen is equal to required length then print the sequence.
+	else if (currentProject== numofProjects)
+	{
+		for (int j=0; j< numofProjects; j++){
+
+		for (int i = 0; i < totalNumTeams; i++)
+		{
+			//tempPG.projects.push_back(allProjects[j]);
+			if (assignedStudents[i] == true)
+			{
+				//int x= allStudents[i].sId;
+				//cout<<" " + to_string(allProjects[currentProject].teams[i].teamScore)+ " ";
+
+			//	tempPG.teams.push_back(allProjects[j].teams[i]);
+				//cout<<a[i]<<" ";
+			}
+		}
+		}
+		//cout<<endl;
+		//int score = 0;
+		//for (int i = 0; i < tempPG.teams.size(); i++){
+
+		//	score += allStudents[tempTeam.studentIDs[i]].skillScores[p.pId];
+
+			//	}
+
+		//tempTeam.teamScore = score;
+
+		//tempTeam.teamID = teamIDincrementor;
+		//tempPG.pgroupId = ;
+        //allProjectGroups.push_back(tempPG);
+        //teamIDincrementor++;
+		//}
+		//after last project is iterated over.
+
+
+    	return;
+    	}
+    	// If startIndex equals to totalNumStudents then return. No elements left.
+    	if (startIndex == totalNumTeams)
+    	{
+    		//teamIDincrementor=0;
+
+
+    		return;
+    	}
+
+    	// If we select the student, put true into assignedStudents, increment our currentTeamSize and startIndex.
+    	assignedStudents[startIndex] = true;
+    	getProjectCombos(a, numofProjects, startIndex + 1, currentProject + 1, numOfTeams, assignedStudents,totalNumTeams);
+    	// If we dont select the student, put false in the assignedStudents and increment our startIndex.
+    	assignedStudents[startIndex] = false;
+    	getProjectCombos(a, numofProjects, startIndex + 1, currentProject, numOfTeams, assignedStudents, totalNumTeams);
+    }
 
 
 
@@ -233,6 +303,7 @@ int main()
 		allStudents=studentList.allStudentList;
 
 
+cout << endl << "working 1 ";
 	bool assignedStudents[numStudents];
 	int students[numStudents];
 	for (int i = 0; i < numStudents; i++){
@@ -246,11 +317,26 @@ int main()
 
     }
 
-	cout << endl << "possiblities: " << possibilityCount/numProjects;
-	cout << endl << "working ";
 
-	//Prints all teams and team scores for a given project.
-	cout << endl << "Project #2: all Team combinations and Team scores.";
+    //project groupings
+    cout << endl << "working 2 ";
+    allProjects = projectList.allProjectList;
+/*
+    bool assignedTeams[projectList.allProjectList[0].teams.size()];
+    	int projects[numProjects];
+    	for (int i = 0; i < numProjects; i++){
+    		assignedTeams[i]= false;
+    		projects[i] = i;
+    	}
+
+    getProjectCombos(projects, numProjects, 0, 0, projectList.allProjectList[0].teams.size(), assignedTeams, projectList.allProjectList[0].teams.size());
+*/
+
+	cout << endl << "possiblities: " << possibilityCount/numProjects;
+	cout << endl << "working 3 ";
+
+	/*Prints all teams and team scores for a given project.
+	cout << endl << "Project #2: all Team combinations and Team scores." << endl;
 	for (int i=0; i< projectList.allProjectList[2].teams.size(); i++){
            cout << "Team # " + to_string(i) + " ";
 		for (int j=0; j<5; j++){
@@ -258,7 +344,7 @@ int main()
 
 		}
 			cout << " Score: " + to_string(projectList.allProjectList[2].teams[i].teamScore) << endl;
-	}
+	}*/
 
 
 
