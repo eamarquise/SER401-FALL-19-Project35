@@ -42,7 +42,7 @@ using namespace std;
 int numStudents = 6;
 int numProjects = 2;
 int numSkills = 7;
-int teamSize = 5;
+int teamSize = 3;
 int possibilityCount = 0;
 int teamIDincrementor = 0;
 int groupCounter = 0;
@@ -91,15 +91,15 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 	}
 	// If currentTeamSize is equal to required length then print the sequence.
 	else if (currentTeamSize == sizeofteam) {
-		//cout<<"\t";
+		cout<<"\t";
 		for (int i = 0; i < totalNumStudents; i++) {
 			if (assignedStudents[i] == true) {
 				tempTeam.studentIDs.push_back(allStudents[i].sId);
-				//cout << allStudents[i].sId << " ";
+				cout << allStudents[i].sId << " ";
 				//cout<<a[i]<<" ";
 			}
 		}
-		//cout << endl;
+		cout << endl;
 		possibilityCount++;
 		int score = 0;
 		for (unsigned int i = 0; i < tempTeam.studentIDs.size(); i++){
@@ -142,7 +142,6 @@ void projectCombos(vector<vector<Team>>& arr) {
 
     while (1) {
     	int projectScore = 0;
-    	int projectGroupID = 0;
     	vector<int> teamIDsInProjectGroup;
     	teamIDsInProjectGroup.clear();
         // print current combination
@@ -281,9 +280,10 @@ int main()
 		projectList.allProjectList.push_back(tempProject);
 	} // End create projects
 
+	// Start Calculations
 	allStudents=studentList.allStudentList;
 
-
+	// Display all student team combinations
 	cout << endl << "working 1 " << endl;
 	bool assignedStudents[numStudents];
 	int students[numStudents];
@@ -298,7 +298,7 @@ int main()
 	cout << endl << "student combination possibilities per project: " << combinations << endl;
 
     // print teams, project ID, teamScore and students in team
-    cout << endl;
+    cout << endl << "working 2 " << endl;
     for (int i = 0; i < (signed)allProjectsallTeams.size(); i++){
     	for (int j = 0 ; j < (signed)allProjectsallTeams.at(i).size(); j++){
     		cout << "TeamID: " << allProjectsallTeams.at(i).at(j).teamID
@@ -312,12 +312,12 @@ int main()
     	}
     }
     //project groupings
-    cout << endl << "working 2 " << endl;
+    cout << endl << "working 3 " << endl;
     //allProjects = projectList.allProjectList;
     projectCombos(allProjectsallTeams);
 
     // project group scores
-    cout << endl << "working 3 " << endl;
+    cout << endl << "working 4 " << endl;
     for (unsigned i = 0 ; i < allProjectGroups.size() ; i++){
     	cout << "\tGroupID: "<< allProjectGroups.at(i).pgroupId
     			<< "\t GroupScore: " << allProjectGroups.at(i).groupScore
@@ -328,6 +328,7 @@ int main()
     	cout << endl;
     }
 
+    // Sort all the group projects according to group score.
     sort(allProjectGroups.begin(), allProjectGroups.end(), sortGroupsDescending);
 
     cout << endl << "working 3 sort" << endl;
@@ -341,6 +342,7 @@ int main()
     	cout << endl;
     }
 
+    // create project groups with unique combinations per project
 
 
 
