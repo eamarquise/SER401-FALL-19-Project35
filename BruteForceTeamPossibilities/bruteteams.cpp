@@ -39,8 +39,8 @@ using namespace std;
 
 // GLOBAL VARIABLES
 // Important Numbers
-int numStudents = 15;
-int numProjects = 3;
+int numStudents = 6;
+int numProjects = 2;
 int numSkills = 7;
 int teamSize = 5;
 int possibilityCount = 0;
@@ -77,8 +77,7 @@ class TeamList {
 
 
 // A function to print all combination of a given length from the given array.
-void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSize, bool assignedStudents[], int totalNumStudents, Project& p)
-{
+void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSize, bool assignedStudents[], int totalNumStudents, Project& p){
 	Team tempTeam(teamIDincrementor, p.pId);
 	tempTeam.studentIDs.clear();
 	// Return if the currentTeamSize is more than the required length.
@@ -90,13 +89,13 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 		cout<<"\t";
 		for (int i = 0; i < totalNumStudents; i++) {
 			if (assignedStudents[i] == true) {
-				int x= allStudents[i].sId;
-				tempTeam.studentIDs.push_back(x);
-				//cout<<a[i]<<" ";
+				tempTeam.studentIDs.push_back(allStudents[i].sId);
+				//cout << allStudents[i].sId << " ";
+				cout<<a[i]<<" ";
 			}
 		}
+		cout << endl;
 		possibilityCount++;
-		//cout<<endl;
 		int score = 0;
 		for (unsigned int i = 0; i < tempTeam.studentIDs.size(); i++){
 			score += allStudents[tempTeam.studentIDs[i]].skillScores[p.pId];
@@ -271,7 +270,7 @@ int main()
 	allStudents=studentList.allStudentList;
 
 
-	cout << endl << "working 1 ";
+	cout << endl << "working 1 " << endl;
 	bool assignedStudents[numStudents];
 	int students[numStudents];
 	for (int i = 0; i < numStudents; i++){
