@@ -55,6 +55,7 @@ vector <Project> allProjects;
 
 //global list of project groups
 vector <ProjectGroup> allProjectGroups;
+vector<ProjectGroup> allProjectGroupsSorted;
 
 vector<vector<Team> > allProjectsallTeams(numProjects, vector<Team>());
 
@@ -76,7 +77,9 @@ class TeamList {
 	vector<Team> allTeams;
 };
 
-
+bool sortGroupsDescending(const ProjectGroup &a, const ProjectGroup &b){
+	return a.groupScore > b.groupScore;
+}
 
 // A function to print all combination of a given length from the given array.
 void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSize, bool assignedStudents[], int totalNumStudents, Project& p){
@@ -313,17 +316,33 @@ int main()
     //allProjects = projectList.allProjectList;
     projectCombos(allProjectsallTeams);
 
+    // project group scores
     cout << endl << "working 3 " << endl;
-    for (signed i = 0 ; i < allProjectGroups.size() ; i++){
-
+    for (unsigned i = 0 ; i < allProjectGroups.size() ; i++){
     	cout << "\tGroupID: "<< allProjectGroups.at(i).pgroupId
     			<< "\t GroupScore: " << allProjectGroups.at(i).groupScore
 				<< "\t TeamsInGroup: ";
-    	for (signed j = 0 ; j < allProjectGroups.at(i).teamIDsInGroup.size() ; j++){
+    	for (unsigned j = 0 ; j < allProjectGroups.at(i).teamIDsInGroup.size() ; j++){
     		cout << allProjectGroups.at(i).teamIDsInGroup.at(j) << ", ";
     	}
     	cout << endl;
     }
+
+    sort(allProjectGroups.begin(), allProjectGroups.end(), sortGroupsDescending);
+
+    cout << endl << "working 3 sort" << endl;
+    for (unsigned i = 0 ; i < allProjectGroups.size() ; i++){
+    	cout << "\tGroupID: "<< allProjectGroups.at(i).pgroupId
+    			<< "\t GroupScore: " << allProjectGroups.at(i).groupScore
+				<< "\t TeamsInGroup: ";
+    	for (unsigned j = 0 ; j < allProjectGroups.at(i).teamIDsInGroup.size() ; j++){
+    		cout << allProjectGroups.at(i).teamIDsInGroup.at(j) << ", ";
+    	}
+    	cout << endl;
+    }
+
+
+
 
 	//cout << endl << "working 3 ";
 
@@ -337,9 +356,9 @@ int main()
 		}
 			cout << " Score: " + to_string(projectList.allProjectList[2].teams[i].teamScore) << endl;
 	}*/
+
+
 	end = clock();
-
-
 	double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
 	    cout << "Time taken by program is : " << fixed
 	         << time_taken << setprecision(5);
