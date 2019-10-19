@@ -55,7 +55,7 @@ vector <Project> allProjects;
 
 //global list of project groups
 vector <ProjectGroup> allProjectGroups;
-vector<ProjectGroup> allProjectGroupsSorted;
+vector <ProjectGroup> allUniqueProjectGroups;
 
 vector<vector<Team> > allProjectsallTeams(numProjects, vector<Team>());
 
@@ -344,20 +344,8 @@ int main()
 
 
 
-	//cout << endl << "working 3 ";
 
-	/*Prints all teams and team scores for a given project.
-	cout << endl << "Project #2: all Team combinations and Team scores." << endl;
-	for (int i=0; i< projectList.allProjectList[2].teams.size(); i++){
-           cout << "Team # " + to_string(i) + " ";
-		for (int j=0; j<5; j++){
-			cout <<  to_string(projectList.allProjectList[2].teams[i].studentIDs[j])+ " ";
-
-		}
-			cout << " Score: " + to_string(projectList.allProjectList[2].teams[i].teamScore) << endl;
-	}*/
-
-
+    // End keeping track of time
 	end = clock();
 	double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
 	    cout << "Time taken by program is : " << fixed
