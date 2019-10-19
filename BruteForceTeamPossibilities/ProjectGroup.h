@@ -23,6 +23,7 @@ class ProjectGroup {
 		int groupScore;
 		vector <Project> projects;
 		vector <Team> teams;
+		vector<int> teamIDsInGroup;
 
 		//Methods
 		ProjectGroup(int x);

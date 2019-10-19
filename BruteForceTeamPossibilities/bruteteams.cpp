@@ -45,6 +45,7 @@ int numSkills = 7;
 int teamSize = 5;
 int possibilityCount = 0;
 int teamIDincrementor = 0;
+int groupCounter = 0;
 
 ///global list of students
 vector <Student> allStudents;
@@ -76,6 +77,7 @@ class TeamList {
 };
 
 
+
 // A function to print all combination of a given length from the given array.
 void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSize, bool assignedStudents[], int totalNumStudents, Project& p){
 	Team tempTeam(teamIDincrementor, p.pId);
@@ -86,15 +88,15 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 	}
 	// If currentTeamSize is equal to required length then print the sequence.
 	else if (currentTeamSize == sizeofteam) {
-		cout<<"\t";
+		//cout<<"\t";
 		for (int i = 0; i < totalNumStudents; i++) {
 			if (assignedStudents[i] == true) {
 				tempTeam.studentIDs.push_back(allStudents[i].sId);
-				cout << allStudents[i].sId << " ";
+				//cout << allStudents[i].sId << " ";
 				//cout<<a[i]<<" ";
 			}
 		}
-		cout << endl;
+		//cout << endl;
 		possibilityCount++;
 		int score = 0;
 		for (unsigned int i = 0; i < tempTeam.studentIDs.size(); i++){
@@ -136,12 +138,26 @@ void projectCombos(vector<vector<Team>>& arr) {
         indices[i] = 0;
 
     while (1) {
+    	int projectScore = 0;
+    	int projectGroupID = 0;
+    	vector<int> teamIDsInProjectGroup;
+    	teamIDsInProjectGroup.clear();
         // print current combination
         for (int i = 0; i < n; i++){
-        	//arr[i][indices[i]];
-            cout << "projectID: "<< arr[i][indices[i]].projectID<< " Score: "<<to_string(arr[i][indices[i]].teamScore) << " ";
+        	cout << "\tPID: " << arr[i][indices[i]].projectID
+        			<< "\tTID: " <<  arr[i][indices[i]].teamID
+					<< "\tTS: " << arr[i][indices[i]].teamScore
+					<< "\t|";
+        	projectScore += arr[i][indices[i]].teamScore;
+        	teamIDsInProjectGroup.push_back(arr[i][indices[i]].teamID);
         }
         cout << endl;
+        ProjectGroup projectGroup(groupCounter);
+        projectGroup.groupScore = projectScore / numProjects;
+        projectGroup.teamIDsInGroup = teamIDsInProjectGroup;
+        allProjectGroups.push_back(projectGroup);
+        groupCounter++;
+
         // find the rightmost array that has more
         // elements left after the current element
         // in that array
@@ -275,6 +291,9 @@ int main()
     for (int i=0; i< numProjects; i++){
     	getCombinations(students, teamSize, 0, 0, assignedStudents, numStudents, projectList.allProjectList[i]);
     }
+    int combinations = possibilityCount/numProjects;
+	cout << endl << "student combination possibilities per project: " << combinations << endl;
+
     // print teams, project ID, teamScore and students in team
     cout << endl;
     for (int i = 0; i < (signed)allProjectsallTeams.size(); i++){
@@ -290,24 +309,22 @@ int main()
     	}
     }
     //project groupings
-//    cout << endl << "working 2 " << endl;
-//    allProjects = projectList.allProjectList;
-//    projectCombos(allProjectsallTeams);
+    cout << endl << "working 2 " << endl;
+    //allProjects = projectList.allProjectList;
+    projectCombos(allProjectsallTeams);
 
-    //vector<vector<Project> > allProjectsallTeams(numProjects, vector<Project>());
+    cout << endl << "working 3 " << endl;
+    for (signed i = 0 ; i < allProjectGroups.size() ; i++){
 
-/*
-    bool assignedTeams[projectList.allProjectList[0].teams.size()];
-    	int projects[numProjects];
-    	for (int i = 0; i < numProjects; i++){
-    		assignedTeams[i]= false;
-    		projects[i] = i;
+    	cout << "\tGroupID: "<< allProjectGroups.at(i).pgroupId
+    			<< "\t GroupScore: " << allProjectGroups.at(i).groupScore
+				<< "\t TeamsInGroup: ";
+    	for (signed j = 0 ; j < allProjectGroups.at(i).teamIDsInGroup.size() ; j++){
+    		cout << allProjectGroups.at(i).teamIDsInGroup.at(j) << ", ";
     	}
+    	cout << endl;
+    }
 
-    getProjectCombos(projects, numProjects, 0, 0, projectList.allProjectList[0].teams.size(), assignedTeams, projectList.allProjectList[0].teams.size());
-*/
-
-	//cout << endl << "possiblities: " << possibilityCount/numProjects;
 	//cout << endl << "working 3 ";
 
 	/*Prints all teams and team scores for a given project.
