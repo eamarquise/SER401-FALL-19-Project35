@@ -65,18 +65,11 @@ int roll(int min, int max){
 class StudentList {
 	public:
 		vector<Student> allStudentList;
-
 };
-
-
 class ProjectList {
 	public:
 		vector<Project> allProjectList;
 };
-
-
-
-
 class TeamList {
 	public:
 	vector<Team> allTeams;
