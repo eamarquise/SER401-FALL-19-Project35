@@ -90,8 +90,8 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 		for (int i = 0; i < totalNumStudents; i++) {
 			if (assignedStudents[i] == true) {
 				tempTeam.studentIDs.push_back(allStudents[i].sId);
-				//cout << allStudents[i].sId << " ";
-				cout<<a[i]<<" ";
+				cout << allStudents[i].sId << " ";
+				//cout<<a[i]<<" ";
 			}
 		}
 		cout << endl;
@@ -101,16 +101,15 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 			score += allStudents[tempTeam.studentIDs[i]].skillScores[p.pId];
 		}
 		tempTeam.teamScore = score;
-		//tempTeam.teamID = teamIDincrementor;
+		tempTeam.teamID = teamIDincrementor;
 		tempTeam.projectID = p.pId;
         p.teams.push_back(tempTeam);
         allProjectsallTeams[p.pId].push_back(tempTeam);
-		//teamIDincrementor++;
+		teamIDincrementor++;
 		return;
 	}
 	// If startIndex equals to totalNumStudents then return. No elements left.
-	if (startIndex == totalNumStudents)
-	{
+	if (startIndex == totalNumStudents){
 		//teamIDincrementor=0;
 		return;
 	}
@@ -122,13 +121,9 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 	getCombinations(a, sizeofteam, startIndex + 1, currentTeamSize, assignedStudents, totalNumStudents, p);
 }
 
-
-
-
 // function to print combinations that contain
 // one element from each of the given arrays
-void projectCombos(vector<vector<Team>>& arr)
-{
+void projectCombos(vector<vector<Team>>& arr) {
     // number of arrays
     int n = arr.size();
 
@@ -152,7 +147,7 @@ void projectCombos(vector<vector<Team>>& arr)
         // in that array
         int next = n - 1;
         while (next >= 0 &&
-              (indices[next] + 1 >= arr[next].size()))
+              (indices[next] + 1 >= (signed)arr[next].size()))
             next--;
 
         // no such array is found so no more
@@ -265,7 +260,7 @@ int main()
 		bool online = (bool)roll(0,1);
 		Project tempProject(projectName, pId, tempSkills, online);
 		projectList.allProjectList.push_back(tempProject);
-	}
+	} // End create projects
 
 	allStudents=studentList.allStudentList;
 
@@ -280,10 +275,24 @@ int main()
     for (int i=0; i< numProjects; i++){
     	getCombinations(students, teamSize, 0, 0, assignedStudents, numStudents, projectList.allProjectList[i]);
     }
+    // print teams, project ID, teamScore and students in team
+    cout << endl;
+    for (int i = 0; i < (signed)allProjectsallTeams.size(); i++){
+    	for (int j = 0 ; j < (signed)allProjectsallTeams.at(i).size(); j++){
+    		cout << "TeamID: " << allProjectsallTeams.at(i).at(j).teamID
+    				<< "\tProjectID: " << allProjectsallTeams.at(i).at(j).projectID
+    				<< "\tTeamScore: " << allProjectsallTeams.at(i).at(j).teamScore
+					<< "\tStudents: ";
+    		for (int k = 0; k < (signed)allProjectsallTeams.at(i).at(j).studentIDs.size(); k++){
+    			cout << allProjectsallTeams.at(i).at(j).studentIDs.at(k) << ", ";
+    		}
+    		cout << endl;
+    	}
+    }
     //project groupings
-    cout << endl << "working 2 ";
-    allProjects = projectList.allProjectList;
-    projectCombos(allProjectsallTeams);
+//    cout << endl << "working 2 " << endl;
+//    allProjects = projectList.allProjectList;
+//    projectCombos(allProjectsallTeams);
 
     //vector<vector<Project> > allProjectsallTeams(numProjects, vector<Project>());
 
