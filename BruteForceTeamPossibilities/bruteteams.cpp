@@ -88,22 +88,22 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 {
 	Team tempTeam(teamIDincrementor, p.pId);
 	tempTeam.studentIDs.clear();
-	// Return if the currLen is more than the required length.
+	// Return if the currentTeamSize is more than the required length.
 	if(currentTeamSize > sizeofteam){
 		return;
 	}
-	// If currLen is equal to required length then print the sequence.
+	// If currentTeamSize is equal to required length then print the sequence.
 	else if (currentTeamSize == sizeofteam) {
 		cout<<"\t";
 		for (int i = 0; i < totalNumStudents; i++) {
 			if (assignedStudents[i] == true) {
 				int x= allStudents[i].sId;
 				tempTeam.studentIDs.push_back(x);
-				cout<<a[i]<<" ";
+				//cout<<a[i]<<" ";
 			}
 		}
 		possibilityCount++;
-		cout<<endl;
+		//cout<<endl;
 		int score = 0;
 		for (unsigned int i = 0; i < tempTeam.studentIDs.size(); i++){
 			score += allStudents[tempTeam.studentIDs[i]].skillScores[p.pId];
@@ -152,7 +152,7 @@ void projectCombos(vector<vector<Team>>& arr)
         // print current combination
         for (int i = 0; i < n; i++){
         	//arr[i][indices[i]];
-            cout << to_string(arr[i][indices[i]].teamScore) << " ";
+            cout << "projectID: "<< arr[i][indices[i]].projectID<< " Score: "<<to_string(arr[i][indices[i]].teamScore) << " ";
         }
         cout << endl;
         // find the rightmost array that has more
@@ -306,8 +306,8 @@ int main()
     getProjectCombos(projects, numProjects, 0, 0, projectList.allProjectList[0].teams.size(), assignedTeams, projectList.allProjectList[0].teams.size());
 */
 
-	cout << endl << "possiblities: " << possibilityCount/numProjects;
-	cout << endl << "working 3 ";
+	//cout << endl << "possiblities: " << possibilityCount/numProjects;
+	//cout << endl << "working 3 ";
 
 	/*Prints all teams and team scores for a given project.
 	cout << endl << "Project #2: all Team combinations and Team scores." << endl;
@@ -326,6 +326,5 @@ int main()
 	    cout << "Time taken by program is : " << fixed
 	         << time_taken << setprecision(5);
 	    cout << " sec " << endl;
-	    return 0;
 	return 0;
 }
