@@ -135,7 +135,7 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 
 // function to print combinations that contain
 // one element from each of the given arrays
-void projectCombos(vector<vector<Team> >& arr)
+void projectCombos(vector<vector<Team>>& arr)
 {
     // number of arrays
     int n = arr.size();
@@ -151,11 +151,10 @@ void projectCombos(vector<vector<Team> >& arr)
     while (1) {
         // print current combination
         for (int i = 0; i < n; i++){
-        	arr[i][indices[i]];
+        	//arr[i][indices[i]];
+            cout << to_string(arr[i][indices[i]].teamScore) << " ";
         }
-            //cout << to_string(arr[i][indices[i]].teamScore) << " ";
-        //cout << endl;
-
+        cout << endl;
         // find the rightmost array that has more
         // elements left after the current element
         // in that array
