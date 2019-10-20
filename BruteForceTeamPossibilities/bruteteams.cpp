@@ -342,12 +342,14 @@ int main()
     	cout << endl;
     }
 
-//    // create project groups with unique combinations per project
-//    if(allProjectGroups.size() > 1){
-//        for (unsigned i = 0 ; i < allProjectGroups.size() ; i++){
-//
-//        }
-//    }
+    // create project groups with unique combinations per project
+	ProjectGroup projectGroupA = allProjectGroups.at(0);
+
+    if(allProjectGroups.size() > 1){
+        for (unsigned i = 1 ; i < allProjectGroups.size() ; i++){
+
+        }
+    }
 
 
 
