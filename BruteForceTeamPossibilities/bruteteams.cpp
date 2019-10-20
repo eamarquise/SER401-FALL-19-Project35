@@ -47,23 +47,6 @@ int possibilityCount = 0;
 int teamIDincrementor = 0;
 int groupCounter = 0;
 
-///global list of students
-vector <Student> allStudents;
-
-///global list of projects
-vector <Project> allProjects;
-
-//global list of project groups
-vector <ProjectGroup> allProjectGroups;
-vector <ProjectGroup> allUniqueProjectGroups;
-
-vector<vector<Team> > allProjectsallTeams(numProjects, vector<Team>());
-
-int roll(int min, int max){
-	int value = rand() % (max-min +1) + min;
-	return value;
-}
-
 class StudentList {
 	public:
 		vector<Student> allStudentList;
@@ -76,6 +59,23 @@ class TeamList {
 	public:
 	vector<Team> allTeams;
 };
+
+///global list of students
+vector <Student> allStudents;
+
+///global list of projects
+vector <Project> allProjects;
+
+//global list of project groups
+vector <ProjectGroup> allProjectGroups;
+vector <ProjectGroup> allUniqueProjectGroups;
+vector<vector<Team> > allProjectsallTeams(numProjects, vector<Team>());
+
+
+int roll(int min, int max){
+	int value = rand() % (max-min +1) + min;
+	return value;
+}
 
 bool sortGroupsDescending(const ProjectGroup &a, const ProjectGroup &b){
 	return a.groupScore > b.groupScore;
@@ -183,6 +183,95 @@ void projectCombos(vector<vector<Team>>& arr) {
         for (int i = next + 1; i < n; i++)
             indices[i] = 0;
     }
+}
+
+// The main function that receives a vector of studentID vectors as parameter and
+// returns a vector containing intersection of all sets
+vector <int> getIntersectionOfStudents(vector < vector <int> > &studentTeams)
+{
+	vector <int> duplicateStudentsVector; // To store the duplicate student vector
+	unsigned smallSetInd = 0; // Initialize index of smallest set
+	unsigned minSize = studentTeams[0].size(); // Initialize size of smallest set
+
+	// sort all the sets, and also find the smallest set
+	for (unsigned i = 1 ; i < studentTeams.size() ; i++)
+	{
+		// sort this set
+		sort(studentTeams[i].begin(), studentTeams[i].end());
+
+		// update minSize, if needed
+		if (minSize > studentTeams[i].size())
+		{
+			minSize = studentTeams[i].size();
+			smallSetInd = i;
+		}
+	}
+
+	map<int,int> studentMap;
+
+	// Add all the students of smallest vector to a map, if already present,
+	// update the frequency
+	for (unsigned i = 0; i < studentTeams[smallSetInd].size(); i++)
+	{
+		if (studentMap.find( studentTeams[smallSetInd][i] ) == studentMap.end())
+			studentMap[ studentTeams[smallSetInd][i] ] = 1;
+		else
+			studentMap[ studentTeams[smallSetInd][i] ]++;
+	}
+
+	// iterate through the map students to see if they are present in
+	// remaining studentTeams
+	map<int,int>::iterator it;
+	for (it = studentMap.begin(); it != studentMap.end(); ++it)
+	{
+		int currentStudentID = it->first;
+		int studentIDFrequency = it->second;
+
+		bool bFound = true;
+
+		// Iterate through all studentTeams
+		for (unsigned j = 0 ; j < studentTeams.size() ; j++)
+		{
+			// If this vector is not the smallest vector, then do binary search in it
+			if (j != smallSetInd)
+			{
+				// If the element is found in this vector, then find its frequency
+				if (binary_search( studentTeams[j].begin(), studentTeams[j].end(), currentStudentID ))
+				{
+				int lInd = lower_bound(studentTeams[j].begin(), studentTeams[j].end(), currentStudentID)
+															- studentTeams[j].begin();
+				int rInd = upper_bound(studentTeams[j].begin(), studentTeams[j].end(), currentStudentID)
+															- studentTeams[j].begin();
+
+				// Update the minimum frequency, if needed
+				if ((rInd - lInd) < studentIDFrequency)
+					studentIDFrequency = rInd - lInd;
+				}
+				// If the student is not present in any vector, then no need
+				// to proceed for this student.
+				else
+				{
+					bFound = false;
+					break;
+				}
+			}
+		}
+
+		// If student was found in all vector, then add it to result 'freq' times
+		if (bFound)
+		{
+			for (int k = 0; k < studentIDFrequency; k++)
+				duplicateStudentsVector.push_back(currentStudentID);
+		}
+	}
+	return duplicateStudentsVector;
+}
+
+// A utility function to print a set of elements
+void printset(vector <int> set)
+{
+	for (unsigned i = 0 ; i < set.size() ; i++)
+		cout<<set[i]<<" ";
 }
 
 
@@ -376,13 +465,32 @@ int main()
 			} // end return studentsID in team #teamIDToFind
     	} // end iterate through each project groups teamIDs
     	// find intersection in studentsInTeamsVector
-    	// IMPLEMENT HERE
+    	vector<int> dupStudents = getIntersectionOfStudents(studentsInTeamsVector);
+    	cout << endl;
+    	if (dupStudents.empty()){
+    		cout << "******** Unique Student Group ********";
+    		uniqueProjectGroups.push_back(allProjectGroups.at(projectGroupCounter));
+    	} else {
+        	cout << "\tDuplicate Students: ";
+        	printset(dupStudents);
+    	}
     } // end iterate through each project group
 
 
 
 	cout << endl;
-
+	// Display unique Project Groups
+	cout << "Unique Project Groups" << endl;
+	cout << "*********************" << endl;
+	for (unsigned projectGroupCounter = 0; projectGroupCounter < uniqueProjectGroups.size(); projectGroupCounter++){
+		cout << "ProjectGroup #" << uniqueProjectGroups.at(projectGroupCounter).pgroupId
+				<< "\tScore: " << uniqueProjectGroups.at(projectGroupCounter).groupScore
+				<< "\tTeams: ";
+		for (unsigned projectGroupTeamCounter = 0; projectGroupTeamCounter < uniqueProjectGroups.at(projectGroupCounter).teamIDsInGroup.size(); projectGroupTeamCounter++){
+			cout << uniqueProjectGroups.at(projectGroupCounter).teamIDsInGroup.at(projectGroupTeamCounter) << ", ";
+		}
+		cout << endl;
+	}
 
 
 
