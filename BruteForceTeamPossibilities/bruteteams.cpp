@@ -342,14 +342,18 @@ int main()
     	cout << endl;
     }
 
+    cout << endl << "working task 86" << endl;
     // create project groups with unique combinations per project
-	ProjectGroup projectGroupA = allProjectGroups.at(0);
+	for (unsigned i = 0 ; i < allProjectGroups.size() ; i++){
+		ProjectGroup pG = allProjectGroups.at(i);
+		vector<int> teamsIDsInPG = pG.teamIDsInGroup;
+		for (unsigned j = 0 ; j < teamsIDsInPG.size() ; j++){
+			cout << teamsIDsInPG.at(j) << " ";
+		}
+		cout << endl;
+	}
+	cout << endl;
 
-    if(allProjectGroups.size() > 1){
-        for (unsigned i = 1 ; i < allProjectGroups.size() ; i++){
-
-        }
-    }
 
 
 
