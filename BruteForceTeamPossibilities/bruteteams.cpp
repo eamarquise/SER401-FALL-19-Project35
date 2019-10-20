@@ -301,10 +301,10 @@ int main()
     cout << endl << "working 2 " << endl;
     for (int i = 0; i < (signed)allProjectsallTeams.size(); i++){
     	for (int j = 0 ; j < (signed)allProjectsallTeams.at(i).size(); j++){
-    		cout << "TeamID: " << allProjectsallTeams.at(i).at(j).teamID
-    				<< "\tProjectID: " << allProjectsallTeams.at(i).at(j).projectID
-    				<< "\tTeamScore: " << allProjectsallTeams.at(i).at(j).teamScore
-					<< "\tStudents: ";
+    		cout << "teamID: " << allProjectsallTeams.at(i).at(j).teamID
+    				<< "\tprojectID: " << allProjectsallTeams.at(i).at(j).projectID
+    				<< "\tteamScore: " << allProjectsallTeams.at(i).at(j).teamScore
+					<< "\tStudentsIDs: ";
     		for (int k = 0; k < (signed)allProjectsallTeams.at(i).at(j).studentIDs.size(); k++){
     			cout << allProjectsallTeams.at(i).at(j).studentIDs.at(k) << ", ";
     		}
@@ -342,8 +342,12 @@ int main()
     	cout << endl;
     }
 
-    // create project groups with unique combinations per project
-
+//    // create project groups with unique combinations per project
+//    if(allProjectGroups.size() > 1){
+//        for (unsigned i = 0 ; i < allProjectGroups.size() ; i++){
+//
+//        }
+//    }
 
 
 
