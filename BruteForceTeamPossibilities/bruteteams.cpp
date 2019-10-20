@@ -41,8 +41,8 @@ using namespace std;
 // Important Numbers
 int numStudents = 6;
 int numProjects = 2;
-int numSkills = 7;
 int teamSize = 3;
+int numSkills = 7;
 int possibilityCount = 0;
 int teamIDincrementor = 0;
 int groupCounter = 0;
@@ -480,7 +480,7 @@ int main()
 
 	cout << endl;
 	// Display unique Project Groups
-	cout << "Unique Project Groups" << endl;
+	cout << endl << "Unique Project Groups" << endl;
 	cout << "*********************" << endl;
 	for (unsigned projectGroupCounter = 0; projectGroupCounter < uniqueProjectGroups.size(); projectGroupCounter++){
 		cout << "ProjectGroup #" << uniqueProjectGroups.at(projectGroupCounter).pgroupId
