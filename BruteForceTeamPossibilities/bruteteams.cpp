@@ -331,7 +331,7 @@ int main()
     // Sort all the group projects according to group score.
     sort(allProjectGroups.begin(), allProjectGroups.end(), sortGroupsDescending);
 
-    cout << endl << "working 3 sort" << endl;
+    cout << endl << "working 4 sort" << endl;
     for (unsigned i = 0 ; i < allProjectGroups.size() ; i++){
     	cout << "\tGroupID: "<< allProjectGroups.at(i).pgroupId
     			<< "\t GroupScore: " << allProjectGroups.at(i).groupScore
@@ -344,14 +344,43 @@ int main()
 
     cout << endl << "working task 86" << endl;
     // create project groups with unique combinations per project
-	for (unsigned i = 0 ; i < allProjectGroups.size() ; i++){
-		ProjectGroup pG = allProjectGroups.at(i);
-		vector<int> teamsIDsInPG = pG.teamIDsInGroup;
-		for (unsigned j = 0 ; j < teamsIDsInPG.size() ; j++){
-			cout << teamsIDsInPG.at(j) << " ";
-		}
-		cout << endl;
-	}
+
+//    cout << "Group 0 ID: " << allProjectGroups.at(0).pgroupId << endl;
+//    cout << "Group 0 Teams: " << allProjectGroups.at(0).teamIDsInGroup.at(0) << " "<< allProjectGroups.at(0).teamIDsInGroup.at(1) <<  endl;
+//    cout << "allProjectsallTeams teamID at 1,4: " << allProjectsallTeams.at(1).at(4).teamID;
+//    cout << endl;
+
+    int teamIDToFind;
+    teamIDToFind = 2;
+    vector<vector<int>> studentsInTeamsVector;
+    vector<ProjectGroup> uniqueProjectGroups;
+    uniqueProjectGroups.clear();
+    // iterate through each project group
+    for (unsigned projectGroupCounter = 0 ; projectGroupCounter < allProjectGroups.size(); projectGroupCounter++){
+    	cout << endl << "ProjectGroup #" << allProjectGroups.at(projectGroupCounter).pgroupId << endl;
+    	studentsInTeamsVector.clear();
+    	// iterate through each project groups teamIDs
+    	for (unsigned projectGroupTeamCounter = 0; projectGroupTeamCounter < allProjectGroups.at(projectGroupCounter).teamIDsInGroup.size(); projectGroupTeamCounter++){
+    		cout << "\tTeam #" << allProjectGroups.at(projectGroupCounter).teamIDsInGroup.at(projectGroupTeamCounter) << " Students: ";
+    		teamIDToFind = allProjectGroups.at(projectGroupCounter).teamIDsInGroup.at(projectGroupTeamCounter);
+			// return studentsID in team #teamIDToFind
+			for (unsigned projectCounter = 0; projectCounter < allProjectsallTeams.size() ; projectCounter++){
+				for (unsigned teamCounter = 0 ; teamCounter < allProjectsallTeams.at(projectCounter).size() ; teamCounter++){
+					if (allProjectsallTeams.at(projectCounter).at(teamCounter).teamID == teamIDToFind){
+						for (unsigned studentIDCounter = 0 ; studentIDCounter < allProjectsallTeams.at(projectCounter).at(teamCounter).studentIDs.size(); studentIDCounter++){
+							cout << allProjectsallTeams.at(projectCounter).at(teamCounter).studentIDs.at(studentIDCounter) << ", ";
+							studentsInTeamsVector.push_back(allProjectsallTeams.at(projectCounter).at(teamCounter).studentIDs);
+						}
+					}
+				}
+			} // end return studentsID in team #teamIDToFind
+    	} // end iterate through each project groups teamIDs
+    	// find intersection in studentsInTeamsVector
+
+    } // end iterate through each project group
+
+
+
 	cout << endl;
 
 
