@@ -46,8 +46,9 @@ struct ClassSection {
     int id;
     int type;
     int minNumProjects;
+    int classSize;
     std::vector<int> roster();
-    std::vector<Project> project();
+    std::vector<int> projects();
 };
 
 struct Student {
@@ -202,6 +203,7 @@ int main()
     {
         classSection.id = i + 1; // Sequentially assigns Class Section ID
         classSection.type = currentType; // Class Sections can only be Online-0 or Ground-1
+        classSection.classSize = 0;
 
         if (currentType == 1){
             currentType = 0;
@@ -228,12 +230,13 @@ int main()
     std::cout << numOnlineStudents << std::endl;
     std::cout << numOnlineProjects << std::endl;
 
-    // ASSIGN EACH STUDENT TO A CLASS SECTION
+    // ASSIGN EACH ONLINE STUDENT TO AN ONLINE CLASS SECTION
     while (i < numOnlineStudents) {
         if (j >= numOnlineClassSections) {
             j = 0;
         } else if (j < numOnlineClassSections) {
             studentPool[i].classID = &classSectionPool[j].id;
+            classSectionPool[j].classSize++;
             i++;
             j++;
         };
@@ -242,24 +245,61 @@ int main()
     i = numOnlineStudents;
     j = numOnlineClassSections;
 
+    // ASSIGN EACH GROUND STUDENT TO A GROUND CLASS SECTION
     while (i < NUM_STUDENTS) {
         if (j >= NUM_CLASS_SECTIONS) {
             j = numOnlineClassSections;
         } else if (j < NUM_CLASS_SECTIONS) {
             studentPool[i].classID = &classSectionPool[j].id;
+            classSectionPool[j].classSize++;
             i++;
             j++;
         };
     }
 
-    for (int i = 0; i < NUM_STUDENTS; i++)
-    {
-        std::cout << studentPool[i].id << "   ";
-        std::cout << studentPool[i].type << "   ";
-        std::cout << *(studentPool[i].classID) << "   ";
-        std::cout << std::endl;
+    int minNumProjectsAllSections = 0;
+
+    for (int i = 0; i < NUM_CLASS_SECTIONS; i++) {
+        classSectionPool[i].minNumProjects = classSectionPool[i].classSize / TEAM_SIZE;
+        minNumProjectsAllSections = minNumProjectsAllSections + classSectionPool[i].minNumProjects;
     }
 
+    int k = 0;
+    i = 0;
+
+    // ASSIGN EACH ONLINE PROJECT TO AN ONLINE CLASS SECTION
+    while (i < numOnlineProjects) {
+        if (j >= numOnlineClassSections) {
+            j = 0;
+        } else if (j < numOnlineClassSections) {
+            projectPool[i].classID = &classSectionPool[j].id;
+            i++;
+            j++;
+        };
+    }
+
+    i = numOnlineProjects;
+    j = numOnlineClassSections;
+
+    // ASSIGN EACH GROUND PROJECT TO A GROUND CLASS SECTION
+    while (i < NUM_PROJECTS) {
+        if (j >= NUM_CLASS_SECTIONS) {
+            j = numOnlineClassSections;
+        } else if (j < NUM_CLASS_SECTIONS) {
+            projectPool[i].classID = &classSectionPool[j].id;
+            i++;
+            j++;
+        };
+    }
+
+    for (int i = 0; i < NUM_PROJECTS; i++)
+    {
+        std::cout << projectPool[i].id << "   ";
+        std::cout << projectPool[i].type << "   ";
+        std::cout << projectPool[i].priority << "   ";
+        std::cout << *projectPool[i].classID << "   ";
+        std::cout << std::endl;
+    }
 
     return 0;
 }
