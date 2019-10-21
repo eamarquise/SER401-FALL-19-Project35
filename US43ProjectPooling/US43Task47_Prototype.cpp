@@ -53,7 +53,7 @@ struct ClassSection {
 struct Student {
     int id;
     int type;
-    int classID;
+    int* classID;
     int skills();
 };
 
@@ -62,131 +62,86 @@ int getRandomInt(int min, int max) {
 	return value;
 }
 
-/*int getUniqueInt(int min, int max, int *generatedValues[NUM_STUDENTS]) {
-    int value = getRandomInt(min, max);
-    for (int i = 0; i < NUM_STUDENTS; i++) {
-        while (std::find(*generatedValues, *(generatedValues + NUM_STUDENTS), value) != *(generatedValues + NUM_STUDENTS)) {
-            value = getRandomInt(min, max);
-        }
-        *(generatedValues + i) = value;
+void classSectionTypePartition(ClassSection arr[], int n, int lowVal, int highVal) {
+    int start = 0;
+    int end = n - 1;
+
+    for (int i = 0; i <=end; ) {
+        if (arr[i].type == lowVal) {
+            std::swap(arr[i++], arr[start++]);
+        } else if (arr[i].type == highVal) {
+            std::swap(arr[i], arr[end--]);
+        } else {
+            i++;
+        };
+    }
+}
+
+void studentTypePartition(Student arr[], int n, int lowVal, int highVal) {
+    int start = 0;
+    int end = n - 1;
+
+    for (int i = 0; i <=end; ) {
+        if (arr[i].type < lowVal) {
+            std::swap(arr[i++], arr[start++]);
+        } else if (arr[i].type > highVal) {
+            std::swap(arr[i], arr[end--]);
+        } else {
+            i++;
+        };
+    }
+}
+
+void projectTypePartition(Project arr[], int n, int lowVal, int highVal) {
+    int start = 0;
+    int end = n - 1;
+
+    for (int i = 0; i <=end; ) {
+        if (arr[i].type < lowVal) {
+            std::swap(arr[i++], arr[start++]);
+        } else if (arr[i].type > highVal) {
+            std::swap(arr[i], arr[end--]);
+        } else {
+            i++;
+        };
+    }
+}
+
+int getNumOnlineClassSections(ClassSection arr[NUM_CLASS_SECTIONS]) {
+    int value = 0;
+    int i = 0;
+
+    while (arr[i].type == 0 && i < NUM_CLASS_SECTIONS) {
+        value++;
+        i++;
     }
 
     return value;
-}*/
-
-/*int getPartitionSize(std::vector<Project> pool, int x)
-{
-    int partitionSize;
-
-    if (x == 0) {
-        partitionSize = count_if(pool.begin(), pool.end(), [](Project p){
-        return p.type == 0;
-        });
-    } else if (x == 1) {
-        partitionSize = count_if(pool.begin(), pool.end(), [](Project p){
-        return p.type == 1;
-        });
-    } else if (x == 2) {
-        partitionSize = count_if(pool.begin(), pool.end(), [](Project p){
-        return p.type == 2;
-        });
-    };
-
-    return partitionSize;
 }
 
-int getPartitionSize(std::vector<ClassSection> pool, int x)
-{
-    int partitionSize;
+int getNumOnlineStudents(Student arr[NUM_STUDENTS]) {
+    int value = 0;
+    int i = 0;
 
-    if (x == 0) {
-        partitionSize = count_if(pool.begin(), pool.end(), [](ClassSection c){
-        return c.type == 0;
-        });
-    } else if (x == 1) {
-        partitionSize = count_if(pool.begin(), pool.end(), [](ClassSection c){
-        return c.type == 1;
-        });
-    };
-
-    return partitionSize;
-}
-
-int getPartitionSize(std::vector<Student> pool, int x)
-{
-    int partitionSize;
-
-    if (x == 0) {
-        partitionSize = count_if(pool.begin(), pool.end(), [](Student s){
-        return s.type == 0;
-        });
-    } else if (x == 1) {
-        partitionSize = count_if(pool.begin(), pool.end(), [](Student s){
-        return s.type == 1;
-        });
-    };
-
-    return partitionSize;
-}
-
-ClassSection[NUM_CLASS_SECTIONS] generateClassSectionPool()
-{
-    ClassSection pool[NUM_CLASS_SECTIONS];
-    ClassSection classSection;
-
-    for (int i = 0; i < NUM_CLASS_SECTIONS; i++)
-    {
-        classSection.id = i + 1; // Sequentially assigns Class Section ID
-        classSection.type = getRandomInt(0, 1); // Class Sections can only be Online-0 or Ground-1
-
-        pool[i] = classSection;
+    while (arr[i].type == 0 && i < NUM_STUDENTS) {
+        value++;
+        i++;
     }
 
-    return pool;
+    return value;
 }
 
-Project[NUM_PROJECTS] generateProjectPool()
-{
-    Project pool[NUM_PROJECTS];
-    Project project;
+int getNumOnlineProjects(Project arr[NUM_PROJECTS]) {
+    int value = 0;
+    int i = 0;
 
-    for (int i = 0; i < NUM_PROJECTS; i++)
-    {
-        project.id = i + 1; // Sequentially assigns Project ID
-        project.sponsorID = getRandomInt(1, (NUM_PROJECTS + 1);
-        project.type = getRandomInt(0, 2);
-        project.priority = getRandomInt(0, 1);
-
-        pool[i] = project;
+    while (arr[i].type == 0 && i < NUM_PROJECTS) {
+        value++;
+        i++;
     }
 
-    return pool;
+    return value;
 }
-
-Student[NUM_STUDENTS] generateStudentPool()
-{
-    Student pool[NUM_STUDENTS];
-    Student student;
-
-    int min = MIN_STUDENT_ID;
-    int max = MAX_STUDENT_ID;
-    int generatedValues[NUM_STUDENTS];
-    int value = getRandomInt(min, max);
-
-    for (int i = 0; i < NUM_STUDENTS; i++) {
-        while (std::find(generatedValues[0], generatedValues[NUM_STUDENTS]), value)
-        != generatedValues[NUM_STUDENTS]) {
-            value = getRandomInt(min, max);
-        }
-        student.id = value;
-        student.type = getRandomInt(0, 1); // Students can only be Online (0) or Ground (1)
-        pool[i] = student;
-    }
-
-    delete[] generatedValues;
-
-    return pool;
-}*/
 
 int main()
 {
@@ -234,19 +189,107 @@ int main()
         studentPool[i] = student;
     }
 
+    // DEALLOCATE MEMORY GENERATED BY VECTOR
+    generatedValues.clear();
+    std::vector<int>().swap(generatedValues);
+
     // INITIALIZE CLASS SECTION POOL
     ClassSection classSectionPool[NUM_CLASS_SECTIONS];
     ClassSection classSection;
+    int currentType = 0;
 
     for (int i = 0; i < NUM_CLASS_SECTIONS; i++)
     {
         classSection.id = i + 1; // Sequentially assigns Class Section ID
-        classSection.type = getRandomInt(0, 1); // Class Sections can only be Online-0 or Ground-1
+        classSection.type = currentType; // Class Sections can only be Online-0 or Ground-1
+
+        if (currentType == 1){
+            currentType = 0;
+        } else if (currentType == 0){
+            currentType = 1;
+        };
 
         classSectionPool[i] = classSection;
     }
 
-    std::cout << "Begin Project Partition 0 (Initial Pooling of Projects)" << std::endl;
+    // PARTITION POOLS
+    classSectionTypePartition(classSectionPool, NUM_CLASS_SECTIONS, 0, 1);
+    studentTypePartition(studentPool, NUM_STUDENTS, 1, 1);
+    projectTypePartition(projectPool, NUM_PROJECTS, 1, 1);
+
+    int i = 0;
+    int j = 0;
+
+    numOnlineClassSections = getNumOnlineClassSections(classSectionPool);
+    numOnlineStudents = getNumOnlineStudents(studentPool);
+    numOnlineProjects = getNumOnlineProjects(projectPool);
+
+    std::cout << numOnlineClassSections << std::endl;
+    std::cout << numOnlineStudents << std::endl;
+    std::cout << numOnlineProjects << std::endl;
+
+    // ASSIGN EACH STUDENT TO A CLASS SECTION
+    while (i < numOnlineStudents) {
+        if (j >= numOnlineClassSections) {
+            j = 0;
+        } else if (j < numOnlineClassSections) {
+            studentPool[i].classID = &classSectionPool[j].id;
+            i++;
+            j++;
+        };
+    }
+
+    i = numOnlineStudents;
+    j = numOnlineClassSections;
+
+    while (i < NUM_STUDENTS) {
+        if (j >= NUM_CLASS_SECTIONS) {
+            j = numOnlineClassSections;
+        } else if (j < NUM_CLASS_SECTIONS) {
+            studentPool[i].classID = &classSectionPool[j].id;
+            i++;
+            j++;
+        };
+    }
+
+    for (int i = 0; i < NUM_STUDENTS; i++)
+    {
+        std::cout << studentPool[i].id << "   ";
+        std::cout << studentPool[i].type << "   ";
+        std::cout << *(studentPool[i].classID) << "   ";
+        std::cout << std::endl;
+    }
+
+
+    return 0;
+}
+
+/*
+std::cout << "Begin Class Section Pool:" << std::endl;
+    std::cout << "Class Section ID" << " ";
+    std::cout << "Type" << " ";
+    std::cout << std::endl;
+
+    for (int i = 0; i < NUM_CLASS_SECTIONS; i++)
+    {
+        std::cout << classSectionPool[i].id << "   ";
+        std::cout << classSectionPool[i].type << "   ";
+        std::cout << std::endl;
+    }
+
+    std::cout << "Begin Student Pool" << std::endl;
+    std::cout << "Student ID" << " ";
+    std::cout << "Type" << " ";
+    std::cout << std::endl;
+
+    for (int i = 0; i < NUM_STUDENTS; i++)
+    {
+        std::cout << studentPool[i].id << "   ";
+        std::cout << studentPool[i].type << "   ";
+        std::cout << std::endl;
+    }
+
+    std::cout << "Begin Project Pool" << std::endl;
     std::cout << "Project ID" << " ";
     std::cout << "Sponsor ID" << " ";
     std::cout << "Type" << " ";
@@ -262,41 +305,7 @@ int main()
         std::cout << std::endl;
     }
 
-    std::cout << "Begin Student Partition 0 (Initial Pooling of Projects)" << std::endl;
-    std::cout << "Student ID" << " ";
-    std::cout << "Type" << " ";
-    std::cout << std::endl;
-
-    for (int i = 0; i < NUM_STUDENTS; i++)
-    {
-        std::cout << studentPool[i].id << "   ";
-        std::cout << studentPool[i].type << "   ";
-        std::cout << std::endl;
-    }
-
-    std::cout << "Begin Class Section Partition 0 (Initial Pooling of Projects)" << std::endl;
-    std::cout << "Class Section ID" << " ";
-    std::cout << "Type" << " ";
-    std::cout << "Mininum Number of Projects" << " ";
-    std::cout << std::endl;
-
-    for (int i = 0; i < NUM_CLASS_SECTIONS; i++)
-    {
-        std::cout << classSectionPool[i].id << "   ";
-        std::cout << classSectionPool[i].type << "   ";
-        std::cout << std::endl;
-    }
-
-    // Project Partition 1 separates out Online projects
-    /*auto projectPartition1 = std::partition(projectPool.begin(), projectPool.end(), [](Project p){
-        return p.type == 0;
-    });
-
-    // Project Partition 2 separates out Ground projects
-    auto projectPartition2 = std::partition(projectPartition1, projectPool.end(), [](Project p){
-        return p.type == 1;
-    });
-
+    /*
     numOnlineProjects = getPartitionSize(projectPool, 0);
     numGroundProjects = getPartitionSize(projectPool, 1);
     numHybridProjects = getPartitionSize(projectPool, 2);
@@ -398,6 +407,3 @@ int main()
         std::cout << projectPool[i].classID << " ";
         std::cout << std::endl;
     }*/
-
-    return 0;
-}
