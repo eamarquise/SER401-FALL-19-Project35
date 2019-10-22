@@ -21,8 +21,8 @@ class ProjectGroup {
 
 		int pgroupId;        //Project id
 		int groupScore;
-		vector <Project> projects;
-		vector <Team> teams;
+		//vector <Project> projects;
+		//vector <Team> teams;
 		vector<int> teamIDsInGroup;
 
 		//Methods

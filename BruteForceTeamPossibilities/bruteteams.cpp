@@ -39,9 +39,9 @@ using namespace std;
 
 // GLOBAL VARIABLES
 // Important Numbers
-int numStudents = 6;
+int numStudents = 15;
 int numProjects = 2;
-int teamSize = 3;
+int teamSize = 5;
 int numSkills = 7;
 int possibilityCount = 0;
 int teamIDincrementor = 0;
