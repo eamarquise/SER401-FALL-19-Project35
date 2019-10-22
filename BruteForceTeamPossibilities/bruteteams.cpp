@@ -39,7 +39,7 @@ using namespace std;
 
 // GLOBAL VARIABLES
 // Important Numbers
-int numStudents = 15;
+int numStudents = 10;
 int numProjects = 2;
 int teamSize = 5;
 int numSkills = 7;
@@ -130,14 +130,14 @@ void getCombinations(int a[], int sizeofteam, int startIndex, int currentTeamSiz
 // one element from each of the given arrays
 void projectCombos(vector<vector<Team>>& arr) {
     // number of arrays
-    unsigned long long n = arr.size();
+    long long n = arr.size();
 
     // to keep track of next element in each of
     // the n arrays
-    unsigned long long* indices = new unsigned long long[n];
+    long long* indices = new long long[n];
 
     // initialize with first element's index
-    for (unsigned long long i = 0; i < n; i++)
+    for (long long i = 0; i < n; i++)
         indices[i] = 0;
 
     while (1) {
@@ -145,7 +145,7 @@ void projectCombos(vector<vector<Team>>& arr) {
     	vector<int> teamIDsInProjectGroup;
     	teamIDsInProjectGroup.clear();
         // print current combination
-        for (unsigned long long i = 0; i < n; i++){
+        for (long long i = 0; i < n; i++){
         	cout << "\tPID: " << arr[i][indices[i]].projectID
         			<< "\tTID: " <<  arr[i][indices[i]].teamID
 					<< "\tTS: " << arr[i][indices[i]].teamScore
@@ -163,9 +163,9 @@ void projectCombos(vector<vector<Team>>& arr) {
         // find the rightmost array that has more
         // elements left after the current element
         // in that array
-        unsigned long long next = n - 1;
+        long long next = n - 1;
         while (next >= 0 &&
-              (indices[next] + 1 >= (unsigned long long)arr[next].size()))
+              (indices[next] + 1 >= arr[next].size()))
             next--;
 
         // no such array is found so no more
@@ -180,7 +180,7 @@ void projectCombos(vector<vector<Team>>& arr) {
         // for all arrays to the right of this
         // array current index again points to
         // first element
-        for (unsigned long long i = next + 1; i < n; i++)
+        for (long long i = next + 1; i < n; i++)
             indices[i] = 0;
     }
 }
