@@ -19,18 +19,6 @@ const int NUM_CLASS_SECTIONS = 4;
 const int MIN_STUDENT_ID = 1000;
 const int MAX_STUDENT_ID = 9999;
 
-/*template <class ForwardIt>
-    void quicksort(ForwardIt first, ForwardIt last)
-    {
-        if(first==last) return;
-        auto pivot = *std::next(first, std::distance(first,last)/2);
-        ForwardIt middle1 = std::partition(first, last, [pivot](const auto& em){return em < pivot;});
-        ForwardIt middle2 = std::partition(middle1, last,
-                            [pivot](const auto& em){return !(pivot < em);});
-        quicksort(first, middle1);
-        quicksort(middle2, last);
-}*/
-
 struct Project {
     int id;
     int sponsorID;
@@ -47,6 +35,7 @@ struct ClassSection {
     int type;
     int minNumProjects;
     int classSize;
+    double sizeRatio;
     std::vector<int> roster();
     std::vector<int> projects();
 };
@@ -144,6 +133,30 @@ int getNumOnlineProjects(Project arr[NUM_PROJECTS]) {
     return value;
 }
 
+int getNumGroundProjects(Project arr[NUM_PROJECTS], int partitionStart) {
+    int value = 0;
+    int i = partitionStart;
+
+    while (arr[i].type == 1 && i < NUM_PROJECTS) {
+        value++;
+        i++;
+    }
+
+    return value;
+}
+
+int getNumHybridProjects(Project arr[NUM_PROJECTS], int partitionStart) {
+    int value = 0;
+    int i = partitionStart;
+
+    while (arr[i].type == 2 && i < NUM_PROJECTS) {
+        value++;
+        i++;
+    }
+
+    return value;
+}
+
 int main()
 {
     auto start = high_resolution_clock::now();
@@ -155,6 +168,8 @@ int main()
     int numGroundStudents = 0;
     int numOnlineClassSections = 0;
     int numGroundClassSections = 0;
+
+    int countProjectsAssignedClass = 0;
 
     // INITIALIZE PROJECT POOLS
     Project projectPool[NUM_PROJECTS];
@@ -225,10 +240,8 @@ int main()
     numOnlineClassSections = getNumOnlineClassSections(classSectionPool);
     numOnlineStudents = getNumOnlineStudents(studentPool);
     numOnlineProjects = getNumOnlineProjects(projectPool);
-
-    std::cout << numOnlineClassSections << std::endl;
-    std::cout << numOnlineStudents << std::endl;
-    std::cout << numOnlineProjects << std::endl;
+    numGroundProjects = getNumGroundProjects(projectPool, numOnlineProjects);
+    numHybridProjects = getNumGroundProjects(projectPool, numGroundProjects);
 
     // ASSIGN EACH ONLINE STUDENT TO AN ONLINE CLASS SECTION
     while (i < numOnlineStudents) {
@@ -264,186 +277,107 @@ int main()
         minNumProjectsAllSections = minNumProjectsAllSections + classSectionPool[i].minNumProjects;
     }
 
-    int k = 0;
+    for (int i = 0; i < NUM_CLASS_SECTIONS; i++) {
+        classSectionPool[i].sizeRatio = (static_cast<double>(classSectionPool[i].minNumProjects) / minNumProjectsAllSections);
+    }
+
+    int currentSectionNumOnlineProjects = 0;
+    j = 0;
     i = 0;
 
-    // ASSIGN EACH ONLINE PROJECT TO AN ONLINE CLASS SECTION
     while (i < numOnlineProjects) {
-        if (j >= numOnlineClassSections) {
-            j = 0;
-        } else if (j < numOnlineClassSections) {
-            projectPool[i].classID = &classSectionPool[j].id;
-            i++;
+        if (j < numOnlineClassSections) {
+            currentSectionNumOnlineProjects = classSectionPool[j].sizeRatio * numOnlineProjects;
+
+            for (int k = 0; k < currentSectionNumOnlineProjects; k++) {
+                projectPool[i].classID = &classSectionPool[j].id;
+                i++;
+                countProjectsAssignedClass++;
+            }
             j++;
+        } else if (j >= numOnlineClassSections) {
+            j = 0;
+            while (i < numOnlineProjects) {
+                if (j >= numOnlineClassSections) {
+                    j = 0;
+                } else if (j < numOnlineClassSections) {
+                    projectPool[i].classID = &classSectionPool[j].id;
+                    i++;
+                    j++;
+                    countProjectsAssignedClass++;
+                };
+            }
         };
     }
 
-    i = numOnlineProjects;
     j = numOnlineClassSections;
+    int currentSectionNumGroundProjects = 0;
+    i = numOnlineProjects;
 
-    // ASSIGN EACH GROUND PROJECT TO A GROUND CLASS SECTION
-    while (i < NUM_PROJECTS) {
-        if (j >= NUM_CLASS_SECTIONS) {
-            j = numOnlineClassSections;
-        } else if (j < NUM_CLASS_SECTIONS) {
-            projectPool[i].classID = &classSectionPool[j].id;
-            i++;
+    while (i < (numOnlineProjects + numGroundProjects)) {
+        if (j >= numOnlineClassSections && j < NUM_CLASS_SECTIONS) {
+            currentSectionNumGroundProjects = classSectionPool[j].sizeRatio * numGroundProjects;
+
+            for (int k = 0; k < currentSectionNumGroundProjects; k++) {
+                projectPool[i].classID = &classSectionPool[j].id;
+                i++;
+                countProjectsAssignedClass++;
+            }
             j++;
+        } else {
+            j = numOnlineClassSections;
+            while (i < (numOnlineProjects + numGroundProjects)) {
+                if (j < numOnlineClassSections || j >= NUM_CLASS_SECTIONS) {
+                    j = numOnlineClassSections;
+                } else if (j >= numOnlineClassSections && j < NUM_CLASS_SECTIONS) {
+                    projectPool[i].classID = &classSectionPool[j].id;
+                    i++;
+                    j++;
+                    countProjectsAssignedClass++;
+                };
+            }
+        };
+    }
+
+    int currentSectionNumHybridProjects = 0;
+    j = 0;
+
+    while (i < NUM_PROJECTS) {
+        if (j < NUM_CLASS_SECTIONS) {
+            currentSectionNumHybridProjects = classSectionPool[j].sizeRatio * numHybridProjects;
+
+            for (int k = 0; k < currentSectionNumHybridProjects; k++) {
+                projectPool[i].classID = &classSectionPool[j].id;
+                i++;
+                countProjectsAssignedClass++;
+            }
+            j++;
+        } else {
+            j = 0;
+            while (i < NUM_PROJECTS) {
+                if (j >= NUM_CLASS_SECTIONS) {
+                    j = 0;
+                } else if (j < NUM_CLASS_SECTIONS) {
+                    projectPool[i].classID = &classSectionPool[j].id;
+                    i++;
+                    j++;
+                    countProjectsAssignedClass++;
+                };
+            }
         };
     }
 
     for (int i = 0; i < NUM_PROJECTS; i++)
     {
-        std::cout << projectPool[i].id << "   ";
-        std::cout << projectPool[i].type << "   ";
-        std::cout << projectPool[i].priority << "   ";
-        std::cout << *projectPool[i].classID << "   ";
+        std::cout << "ID: " << projectPool[i].id << "   ";
+        std::cout << "Type: " << projectPool[i].type << "   ";
+        std::cout << "Priority: " << projectPool[i].priority << "   ";
+        std::cout << "Class ID: " << *projectPool[i].classID << "   ";
         std::cout << std::endl;
     }
+
+    std::cout<< "Total Number of Projects Assigned a Class Id: " << countProjectsAssignedClass << std::endl;
 
     return 0;
 }
 
-/*
-std::cout << "Begin Class Section Pool:" << std::endl;
-    std::cout << "Class Section ID" << " ";
-    std::cout << "Type" << " ";
-    std::cout << std::endl;
-
-    for (int i = 0; i < NUM_CLASS_SECTIONS; i++)
-    {
-        std::cout << classSectionPool[i].id << "   ";
-        std::cout << classSectionPool[i].type << "   ";
-        std::cout << std::endl;
-    }
-
-    std::cout << "Begin Student Pool" << std::endl;
-    std::cout << "Student ID" << " ";
-    std::cout << "Type" << " ";
-    std::cout << std::endl;
-
-    for (int i = 0; i < NUM_STUDENTS; i++)
-    {
-        std::cout << studentPool[i].id << "   ";
-        std::cout << studentPool[i].type << "   ";
-        std::cout << std::endl;
-    }
-
-    std::cout << "Begin Project Pool" << std::endl;
-    std::cout << "Project ID" << " ";
-    std::cout << "Sponsor ID" << " ";
-    std::cout << "Type" << " ";
-    std::cout << "Priority" << " ";
-    std::cout << std::endl;
-
-    for (int i = 0; i < NUM_PROJECTS; i++)
-    {
-        std::cout << projectPool[i].id << "   ";
-        std::cout << projectPool[i].sponsorID << "   ";
-        std::cout << projectPool[i].type << "   ";
-        std::cout << projectPool[i].priority << "   ";
-        std::cout << std::endl;
-    }
-
-    /*
-    numOnlineProjects = getPartitionSize(projectPool, 0);
-    numGroundProjects = getPartitionSize(projectPool, 1);
-    numHybridProjects = getPartitionSize(projectPool, 2);
-
-    std::cout << "Num Online Projects: " << numOnlineProjects << std::endl;
-    std::cout << "Num Ground Projects: " << numGroundProjects << std::endl;
-    std::cout << "Num Hybrid Projects: " << numHybridProjects << std::endl;
-
-    std::cout << "Begin partitioned Project Pool:" << std::endl;
-
-    for (int i = 0; i < NUM_PROJECTS; i++)
-    {
-        std::cout << projectPool[i].id << " ";
-        std::cout << projectPool[i].sponsorID << " ";
-        std::cout << projectPool[i].type << " ";
-        std::cout << projectPool[i].priority << " ";
-        std::cout << std::endl;
-    }
-
-    // Student Partition 1 separates out Online students
-    auto studentPartition1 = std::partition(studentPool.begin(),
-    studentPool.end(), [](Student s){
-        return s.type == 0;
-    });
-
-    // Student Partition 2 separates out Ground students
-    auto studentPartition2 = std::partition(studentPool.begin(),
-    studentPool.end(), [](Student s){
-        return s.type == 1;
-    });
-
-    numOnlineStudents = getPartitionSize(studentPool, 0);
-    numGroundStudents = getPartitionSize(studentPool, 1);
-
-    std::cout << "Num Online Students: " << numOnlineStudents << std::endl;
-    std::cout << "Num Ground Students: " << numGroundStudents << std::endl;
-
-    std::cout << "Begin partitioned Class Section Pool:" << std::endl;
-
-    for (int i = 0; i < NUM_CLASS_SECTIONS; i++)
-    {
-        std::cout << classSectionPool[i].id << " ";
-        std::cout << classSectionPool[i].type << " ";
-        std::cout << std::endl;
-    }
-
-    // Class Section Partition 1 separates out Online class sections
-    auto classSectionPartition1 = std::partition(classSectionPool.begin(),
-    classSectionPool.end(), [](ClassSection c){
-        return c.type == 0;
-    });
-
-    // Class Section Partition 2 separates out Ground class sections
-    auto classSectionPartition2 = std::partition(classSectionPool.begin(),
-    classSectionPool.end(), [](ClassSection c){
-        return c.type == 1;
-    });
-
-    numOnlineClassSections = getPartitionSize(classSectionPool, 0);
-    numGroundClassSections = getPartitionSize(classSectionPool, 1);
-
-    std::cout << "Num Online Class Sections: " << numOnlineClassSections << std::endl;
-    std::cout << "Num Ground Class Sections: " << numGroundClassSections << std::endl;
-
-    std::cout << "Begin partitioned Class Section Pool:" << std::endl;
-
-    for (int i = 0; i < NUM_CLASS_SECTIONS; i++)
-    {
-        std::cout << classSectionPool[i].id << " ";
-        std::cout << classSectionPool[i].type << " ";
-        std::cout << std::endl;
-    }
-
-    int j = 0;
-    int k = 0;
-
-    for (int i = 0; i < numOnlineProjects; i++) {
-        if (j >= numOnlineClassSections) {
-            j = 0;
-        }
-        projectPool[i].classID = classSectionPool[j].id;
-        j++;
-    }
-
-    j = numOnlineClassSections;
-
-    for (int i = numOnlineProjects; i < numGroundProjects; i++) {
-        if (j >= numGroundClassSections) {
-            j = numOnlineClassSections;
-        }
-        projectPool[i].classID = classSectionPool[j].id;
-        j++;
-    }
-
-    for (int i = 0; i < NUM_PROJECTS; i++)
-    {
-        std::cout << projectPool[i].id << " ";
-        std::cout << projectPool[i].type << " ";
-        std::cout << projectPool[i].classID << " ";
-        std::cout << std::endl;
-    }*/
