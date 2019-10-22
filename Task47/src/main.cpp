@@ -1,3 +1,14 @@
+/*
+ * main.cpp
+ *
+ *  Created on: Oct 22, 2019
+ *      Author: cristi
+ */
+
+#include "Project.h"
+#include "Student.h"
+#include "ClassSection.h"
+
 #include <algorithm>
 #include <iostream>
 #include <iterator>
@@ -10,7 +21,7 @@
 using namespace std::chrono;
 
 // CONSTANT VARIABLE DECLARATION
-const int NUM_PROJECTS = 100;
+const int NUM_PROJECTS = 200;
 const int NUM_PROJECT_ATTRIBUTES = 5;
 const int NUM_SKILLS = 7;
 const int NUM_STUDENTS = 500;
@@ -19,7 +30,7 @@ const int NUM_CLASS_SECTIONS = 4;
 const int MIN_STUDENT_ID = 1000;
 const int MAX_STUDENT_ID = 9999;
 
-struct Project {
+/*struct Project {
     int id;
     int sponsorID;
     int type; // 0 = Online | 1 = Ground | 2 = Hybrid
@@ -46,11 +57,11 @@ struct Student {
     int* classID;
     int skills();
 };
-
+*/
 int getRandomInt(int min, int max) {
 	int value = rand() % (max-min +1) + min;
 	return value;
-}
+};
 
 void classSectionTypePartition(ClassSection arr[], int n, int lowVal, int highVal) {
     int start = 0;
@@ -65,7 +76,7 @@ void classSectionTypePartition(ClassSection arr[], int n, int lowVal, int highVa
             i++;
         };
     }
-}
+};
 
 void studentTypePartition(Student arr[], int n, int lowVal, int highVal) {
     int start = 0;
@@ -80,7 +91,7 @@ void studentTypePartition(Student arr[], int n, int lowVal, int highVal) {
             i++;
         };
     }
-}
+};
 
 void projectTypePartition(Project arr[], int n, int lowVal, int highVal) {
     int start = 0;
@@ -380,4 +391,7 @@ int main()
 
     return 0;
 }
+
+
+
 
