@@ -39,13 +39,13 @@ using namespace std;
 
 // GLOBAL VARIABLES
 // Important Numbers
-int numStudents = 10;
+int numStudents = 6;
 int numProjects = 2;
-int teamSize = 5;
+int teamSize = 3;
 int numSkills = 7;
-int possibilityCount = 0;
-int teamIDincrementor = 0;
-int groupCounter = 0;
+long long possibilityCount = 0;
+long long teamIDincrementor = 0;
+long long groupCounter = 0;
 
 class StudentList {
 	public:
@@ -402,7 +402,7 @@ int main()
     }
     //project groupings
     cout << endl << "working 3 " << endl;
-    //allProjects = projectList.allProjectList;
+    allProjects = projectList.allProjectList;
     projectCombos(allProjectsallTeams);
 
     // project group scores
