@@ -1,22 +1,12 @@
-IDIR =../include
 CC=g++
-CFLAGS=-I$(IDIR)
-
-ODIR=obj
-LDIR =../lib
-
-LIBS=-lm
-
-_DEPS = Project.h Student.h ClassSection.h
-DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
-
-_OBJ = main.o
-OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
+CFLAGS=-I.
+DEPS = Project.h Student.h ClassSection.h
+OBJ = BruteForce.o Project.o Student.o ClassSection.o
 
 $(ODIR)/%.o: %.cpp $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+	$(CC) -g -o $@ $< $(CFLAGS)
 
-main: $(OBJ)
+BruteForce: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 	
 .PHONY: clean

@@ -22,6 +22,9 @@ class Project {
 	    Project();
 	    Project(int projID, int spID, int t, int p, int* clID, int cRating);
 	    Project* initializeProjectPool(Project pool[]);
+	    void swapProjects(Project* p1, Project* p2);
+	    int getRandomInt(int min, int max);
+	    void projectTypePartition(Project arr[], int n, int lowVal, int highVal);
 };
 
 #endif /* PROJECT_H_ */

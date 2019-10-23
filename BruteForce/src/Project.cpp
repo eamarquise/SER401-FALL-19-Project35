@@ -6,9 +6,9 @@
  */
 
 #include "Project.h"
-#include "Utility.h"
+#include "Utilities.h"
 
-extern int NUM_PROJECTS;
+#include <algorithm>
 
 Project::Project(){
 	id = 0;
@@ -21,18 +21,29 @@ Project::Project(){
 	compatibilityRating = 0;
 }
 
-Project::initializeProjectPool(Project pool[]) {
-	Project project;
 
-	for (int i = 0; i < NUM_PROJECTS; i++)
-	{
-	    project.id = i + 1; // Sequentially assigns Project ID
-	    project.sponsorID = getRandomInt(1, (NUM_PROJECTS + 1));
-	    project.type = getRandomInt(0, 2);
-	    project.priority = getRandomInt(0, 1);
-
-	    pool[i] = project;
-	}
+void Project::swapProjects(Project* p1, Project* p2) {
+	Project* tempP = p1;
+	p1 = p2;
+	p2 = tempP;
 }
 
+
+
+
+
+void Project::projectTypePartition(Project arr[], int n, int lowVal, int highVal) {
+    int start = 0;
+    int end = n - 1;
+
+    for (int i = 0; i <=end; ) {
+        if (arr[i].type < lowVal) {
+        	swapProjects(&arr[i++], &arr[start++]);
+        } else if (arr[i].type > highVal) {
+        	swapProjects(&arr[i], &arr[end--]);
+        } else {
+            i++;
+        };
+    }
+}
 
