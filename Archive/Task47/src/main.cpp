@@ -69,9 +69,9 @@ void classSectionTypePartition(ClassSection arr[], int n, int lowVal, int highVa
 
     for (int i = 0; i <=end; ) {
         if (arr[i].type == lowVal) {
-            std::swap(arr[i++], arr[start++]);
+            std::swap(arr[i++], arr[start++]); // @suppress("Invalid arguments")
         } else if (arr[i].type == highVal) {
-            std::swap(arr[i], arr[end--]);
+            std::swap(arr[i], arr[end--]); // @suppress("Invalid arguments")
         } else {
             i++;
         };
@@ -84,9 +84,9 @@ void studentTypePartition(Student arr[], int n, int lowVal, int highVal) {
 
     for (int i = 0; i <=end; ) {
         if (arr[i].type < lowVal) {
-            std::swap(arr[i++], arr[start++]);
+            std::swap(arr[i++], arr[start++]); // @suppress("Invalid arguments")
         } else if (arr[i].type > highVal) {
-            std::swap(arr[i], arr[end--]);
+            std::swap(arr[i], arr[end--]); // @suppress("Invalid arguments")
         } else {
             i++;
         };
@@ -99,9 +99,9 @@ void projectTypePartition(Project arr[], int n, int lowVal, int highVal) {
 
     for (int i = 0; i <=end; ) {
         if (arr[i].type < lowVal) {
-            std::swap(arr[i++], arr[start++]);
+            std::swap(arr[i++], arr[start++]); // @suppress("Invalid arguments")
         } else if (arr[i].type > highVal) {
-            std::swap(arr[i], arr[end--]);
+            std::swap(arr[i], arr[end--]); // @suppress("Invalid arguments")
         } else {
             i++;
         };
