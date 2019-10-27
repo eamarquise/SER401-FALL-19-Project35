@@ -6,12 +6,23 @@
  */
 
 #include <iostream>
+#include <utility>
+#include <algorithm>
+#include <vector>
 
+#include "Student.h"
+#include "Project.h"
+#include "ClassSection.h"
+#include "Test.h"
 using namespace std;
 
 
 int main(){
 	cout << "Hi Team 35" << endl;
+
+	// Task#97 Testing for
+	   Test t;
+	   t.StructTest();
 
 	// Drivers to read in Json
 	// ex - readJSon("filename.json");
