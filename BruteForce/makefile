@@ -1,15 +1,36 @@
-CC=g++
-CFLAGS=-I.
-DEPS = Project.h Student.h ClassSection.h
-OBJ = BruteForce.o Project.o Student.o ClassSection.o
+TARGET_EXEC ?= main.exe
 
-$(ODIR)/%.o: %.cpp $(DEPS)
-	$(CC) -g -o $@ $< $(CFLAGS)
+BUILD_DIR ?= ./build
+SRC_DIRS ?= ./src/main
 
-BruteForce: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
-	
+CXX := -c++
+LDFLAGS := -L/usr/lib -lstdc++ -lm
+SRCS := $(shell find $(SRC_DIRS) -name *.cpp -or -name *.c -or -name *.s)
+OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+DEPS := $(OBJS:.o=.d)
+
+INC_DIRS ?= ./includes
+INC_FLAGS := $(addprefix -I,$(INC_DIRS))
+
+CPPFLAGS ?= $(INC_FLAGS) -MMD -MP
+
+$(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
+	$(CC) $(OBJS) -o $@ $(LDFLAGS)
+
+$(BUILD_DIR)/%.cpp.o: %.cpp
+	$(MKDIR_P) $(dir $@)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+
 .PHONY: clean
 
 clean:
-	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~
+	$(RM) -r $(BUILD_DIR)
+
+run:
+	./build/main.exe $(ARGS)
+	
+
+-include $(DEPS)
+
+MKDIR_P ?= mkdir -p

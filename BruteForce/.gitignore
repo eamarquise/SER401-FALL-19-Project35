@@ -1,4 +1,7 @@
+/Debug/
 /.metadata/
+*.project
+*.cproject
 
 # Prerequisites
 *.d
