@@ -44,10 +44,9 @@ struct Student
 	int Availability[4];
 
 	//Constructor
-	Student(int stID, int id, int cID, int s[], vector< pair <int, bool> > aff,  int times[]){
+	Student(int stID, int cID, int s[], vector< pair <int, bool> > aff,  int times[]){
 
 		StudentID = stID;
-		StID = id;
         ClassID = cID;
         for (int i = 0; i < 7; i++){
         	Skills[i] = s[i];
@@ -59,6 +58,10 @@ struct Student
         for (int i = 0; i < 4; i++){
         	Availability[i] = times[i];
                	 }
+
+	}
+
+	Student(){
 
 	}
 

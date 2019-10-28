@@ -66,7 +66,7 @@ void Test::StructTest() {
 	    int times[4] = { 0,1,2,3};
 
 		//call student constructor
-		 Student s1(123456, 0, 1, s,  aff,  times);
+		 Student s1(123456, 1, s,  aff,  times);
 
 
 	     //print Student results
