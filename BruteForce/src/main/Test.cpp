@@ -19,6 +19,7 @@
 #include <vector>
 #include <array>
 
+
 #include "Student.h"
 #include "Project.h"
 #include "ClassSection.h"
@@ -50,30 +51,24 @@ void Test::StructTest() {
 	    //Student Struct test
 		//creating student object
 
-
-		 Student<count> s1;
-		 //Ids
-		 s1.StudentID = 123456;
-		 s1.StID = 0;
-		 //skills
+		//skills
 		 int s[7] = {1,0,2,0,3,2,2};
-		 for (int i = 0; i < 7; i++){
-			 s1.Skills[i] = s[i];
-		 }
-		 //Availability
-		 int times[4] = { 0,1,2,3};
-			 for (int i = 0; i < 4; i++){
-				 s1.Availability[i] = times[i];
-			 }
-	     //StudentAffinity
-	     for (int i = 0; i < count; i++){
-	    	 s1.StudentAffinity[i].first = 456789+i;
-	    	 if(i>=5){
-	    		 s1.StudentAffinity[i].second = true;}
-	    	 else{
-	    		 s1.StudentAffinity[i].second = false;
-	    	 }
-	     }
+		 //StudentAffinity
+			     vector< pair <int, bool> > aff;
+			     for (int i = 0; i < count; i++){
+			    	 pair <int, bool> x = {12310+i,true};
+			    	 aff.push_back(x);
+			    	 if(i>=5){
+			    		 pair <int, bool> x= {12310+i,false};
+			    		 aff.push_back(x);}
+			    	 }
+	    //Availability
+	    int times[4] = { 0,1,2,3};
+
+		//call student constructor
+		 Student s1(123456, 0, 1, s,  aff,  times);
+
+
 	     //print Student results
 		 cout <<"Student Info " << endl;
 		 cout <<"-------------------------" << endl;
@@ -97,16 +92,8 @@ void Test::StructTest() {
 	        //Project Struct test
 	     	//creating Project object
 
-	     	 Project p1;
-
-	     	 p1.ProjectID = 35;
-	     	 p1.Type = 'O';
-	     	 p1.Priority = 1;
-	     	 //skills
-	     	 int pskills[7] = {1,0,0,0,1,2,2};
-	     	 for (int i = 0; i < 7; i++){
-	     		 p1.Skills[i] = pskills[i];
-	     	 }
+	         int pskills[7] = {1,0,0,0,1,2,2};
+	     	 Project p1( 35,'O', 1, pskills);
 
 	     	//print Project results
 	     		 cout <<"Project Info " << endl;
@@ -128,16 +115,13 @@ void Test::StructTest() {
 	     	const int NumOfStudents = 15;
 	     	const int NumOfProjects = 3;
 
-	     	 ClassSection< NumOfStudents, NumOfProjects> c1;
-
-	     	 c1.ClassSectionID = 1;
-	     	 c1.Type = 'O';
+	     	 ClassSection< NumOfStudents> c1(1, 'O');
 
 	     	for (int i = 0; i < NumOfStudents; i++){
 	     	 c1.Enrollment[i]=i;}
 
 	     	for (int i = 0; i < NumOfProjects; i++){
-	     	 c1.ProjectPool[i]=i;}
+	     	 c1.ProjectPool.push_back(i);}
 
 	     	//print Project results
 	     		 cout <<"Class Section Info " << endl;

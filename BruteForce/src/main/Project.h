@@ -21,6 +21,18 @@ struct Project
 	// 0 = does not have to be assigned | 1 = preferred to be assigned | 2 = must be assigned
 	int Priority;
 	int Skills[7]; //for each skill, 0 = not required | 1 = nice to have skill | 2 = required skill
+
+	//Constructor
+	Project(int pID, char t, int priority, int pskills[]){
+
+		ProjectID = pID;
+		Type = t;
+		Priority = priority;
+		for (int i = 0; i < 7; i++){
+		      Skills[i] = pskills[i];
+		       	 }
+
+	}
 };
 
 #endif /* BRUTEFORCE_SRC_MAIN_PROJECT_H_ */

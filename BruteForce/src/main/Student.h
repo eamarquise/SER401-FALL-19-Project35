@@ -13,11 +13,12 @@
 #define BRUTEFORCE_SRC_MAIN_STUDENT_H_
 #include <iostream>
 #include <utility>
+#include <vector>
 #include <array>
 
 using namespace std;
 
-template <int Count>
+//template <int Count>
 struct Student
 {
 	int StudentID; //student's ID. unique for each student
@@ -29,8 +30,8 @@ struct Student
 	//[0]PeerID | 0 = negative affinity | 1 = positive affinity
 	//COUNT will be the maximum number of peer preferences read in from the JSON file amongst students.
 	//2D array: int StudentAffinity[Count][2];
-	pair <int, bool> StudentAffinity[Count];
-
+	//pair <int, bool> StudentAffinity[Count];
+	 vector< pair <int, bool> > StudentAffinity;
 
 
 	//[0] Primary Weekday | [1] Secondary Weekday | [2] Primary Weekend | [3] Secondary Weekend
@@ -41,6 +42,25 @@ struct Student
 	//Each student chooses four out of the six possible time-frames
 	//(two selections for weekday availability; two selections for weekend availability)
 	int Availability[4];
+
+	//Constructor
+	Student(int stID, int id, int cID, int s[], vector< pair <int, bool> > aff,  int times[]){
+
+		StudentID = stID;
+		StID = id;
+        ClassID = cID;
+        for (int i = 0; i < 7; i++){
+        	Skills[i] = s[i];
+       	 }
+        for (int i = 0; i < aff.size(); i++){
+        	pair <int, bool> x = {aff[i].first, aff[i].second};
+        	StudentAffinity.push_back(x);
+               	 }
+        for (int i = 0; i < 4; i++){
+        	Availability[i] = times[i];
+               	 }
+
+	}
 
 };
 #endif /* BRUTEFORCE_SRC_MAIN_STUDENT_H_ */
