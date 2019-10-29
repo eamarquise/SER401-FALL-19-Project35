@@ -37,7 +37,7 @@ int main(){
 	// Then right-click properties, and copy the path next to (parent folder).
 
 	  StudentJson SJson;
-	   SJson.StudentReader("/home/myles/git/project35/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/students.json");
+	   SJson.StudentReader("/home/mcilibra/git/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/students.json");
 
 
 
