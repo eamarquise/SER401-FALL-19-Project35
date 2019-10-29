@@ -2,7 +2,15 @@
  * ProjectJson.cpp
  *
  *  Created on: Oct 29, 2019
- *      Author: myles
+ *      Revised by: Myles Colina
+ *
+ *      File revised from archive the file: SecondProject.cpp
+ *      Author:Sean Rogers
+ *
+ *      Description:
+ *      A class to store all the functions for Project Json data.
+ *      Includes reading in Project Json Files.
+ *
  */
 #include <iostream>
 #include <fstream>
@@ -16,6 +24,7 @@
 #include "json/json.h"
 #include "ProjectJson.h"
 
+
 ProjectJson::ProjectJson() {
 	// TODO Auto-generated constructor stub
 
@@ -27,6 +36,7 @@ ProjectJson::~ProjectJson() {
 
 void ProjectJson::ProjectWriter(string filename){
 
+	//to be implemented in a later sprint.
 }
 
 void ProjectJson::ProjectReader(string filename){
@@ -38,25 +48,17 @@ void ProjectJson::ProjectReader(string filename){
 		reader.parse(ifs, obj);
 
 
-		//all projects
-		vector<Project> allProjects;
-
-
-		cout <<endl;
-			cout<<"STUDENT JSON FILE READER TEST"<<endl;
 		//get the size of the "projects" array in the json file, then store that into numberOfProjects
 		const int numberOfProjects = obj["projects"].size();
-		cout << "number of Projects: " << numberOfProjects << endl;
 
-		int skills[7];
 		int numberOfSkills = 0;
+		int skills[7];
 		int ProjectID;
 		int Priority = 0;
 		char Type;
 
-//Json File Reader Test
-//*********************************************
-		// for each project in the json file, store the information into a Project object, then push that object to vector<Project> projects
+		// for each project in the json file, store the information into a Project object,
+		//then push that object to vector<Project> allProjects
 		for(int i = 0; i < numberOfProjects; i++) {
 
 			// read in the ProjectID
@@ -80,9 +82,15 @@ void ProjectJson::ProjectReader(string filename){
 		    Project p( ProjectID, Type, Priority, skills);
 			allProjects.push_back(p);
 		}
-
+//Json File Reader Test
+//*********************************************
+		cout <<endl;
+	    cout <<"PROJECT JSON FILE READER TEST"<<endl;
+	    cout <<endl;
+	    cout << "Number of Projects: " + to_string(allProjects.size())<<endl;
+	    cout <<endl;
 		// for each Project object, print its information to ensure success
-		for(unsigned int i = 0; i < allProjects.size(); i++) {
+		    for(unsigned int i = 0; i < allProjects.size(); i++) {
 			cout << "Project ";
 			cout << allProjects.at(i).ProjectID<< endl;
 			cout << "Skills: ";
@@ -94,8 +102,8 @@ void ProjectJson::ProjectReader(string filename){
 			cout << "Priority: ";
 			cout << allProjects.at(i).Priority << endl;
 			cout << "Type:  " ;
-				     	     cout.put(allProjects.at(i).Type);
-				     	    		 cout << endl;
+		    cout.put(allProjects.at(i).Type);
+			cout << endl;
 			cout << endl;
 		}
 //*********************************************

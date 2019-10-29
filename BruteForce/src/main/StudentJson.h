@@ -8,10 +8,12 @@
 #ifndef BRUTEFORCE_SRC_MAIN_STUDENTJSON_H_
 #define BRUTEFORCE_SRC_MAIN_STUDENTJSON_H_
 #include <string>
+#include "Student.h"
 using namespace std;
 
 class StudentJson {
 public:
+	vector <Student> allStudents;
 	StudentJson();
 	virtual ~StudentJson();
 	void StudentReader(string filename);

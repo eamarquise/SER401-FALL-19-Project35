@@ -8,10 +8,12 @@
 #ifndef BRUTEFORCE_SRC_MAIN_PROJECTJSON_H_
 #define BRUTEFORCE_SRC_MAIN_PROJECTJSON_H_
 #include <string>
+#include "Project.h"
 using namespace std;
 
 class ProjectJson {
 public:
+	vector <Project> allProjects;
 	ProjectJson();
 	virtual ~ProjectJson();
 	void ProjectReader(string filename);
