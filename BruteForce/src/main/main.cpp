@@ -20,6 +20,7 @@
 #include "Test.h"
 #include "json/json.h"
 #include "StudentJson.h"
+#include "ProjectJson.h"
 //#include "Global.h"
 using namespace std;
 
@@ -31,7 +32,7 @@ int main(){
 	     Test t;
 	    t.StructTest();
 
-	//Task#99 esting Student Json file reader
+	//Task#99 testing Student Json file reader
     // To use, you need to copy-paste the location of the Json file on your Computer.
 	// To get it, find the file through the (files) app in the virtual box.
 	// Then right-click properties, and copy the path next to (parent folder).
@@ -39,7 +40,8 @@ int main(){
 	  StudentJson SJson;
 	   SJson.StudentReader("/home/myles/git/project35/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/students.json");
 
-
+	  ProjectJson PJson;
+	   PJson.ProjectReader("/home/myles/git/project35/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/projects.json");
 
 	// Drivers to read in Json
 	// ex - readJSon("filename.json");
