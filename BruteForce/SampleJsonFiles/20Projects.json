@@ -1,105 +1,104 @@
 { 
 "projects":[
-
   {"projectID": 001,
    "Priority": 1,
    "Skills": [1,2,0,3,0,1,2],
-   "Type": O }
-   
+   "Type": "O" } 
+
   {"projectID": 002,
    "Priority": 0,
    "Skills": [1,2,2,0,4,3,1],
-   "Type": O }
+   "Type": "O" } 
 
   {"projectID": 003,
    "Priority": 0,
    "Skills": [1,2,1,1,3,2,4],
-   "Type": G }
-   
+   "Type": "G" } 
+
   {"projectID": 004,
    "Priority": 2,
    "Skills": [0,2,3,2,0,4,2],
-   "Type": G }
-   
+   "Type": "G" } 
+
   {"projectID": 005,
    "Priority": 0,
    "Skills": [3,4,2,3,1,1,2],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 006,
    "Priority": 0,
    "Skills": [3,1,4,4,2,3,4],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 007,
    "Priority": 2,
    "Skills": [0,3,1,1,0,1,3],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 008,
    "Priority": 2,
    "Skills": [0,1,1,0,0,4,2],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 009,
    "Priority": 2,
    "Skills": [0,1,4,3,2,4,0],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 010,
    "Priority": 0,
    "Skills": [0,4,2,4,4,3,0],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 011,
    "Priority": 1,
    "Skills": [3,1,3,3,4,3,1],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 012,
    "Priority": 2,
    "Skills": [4,2,0,1,3,4,2],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 013,
    "Priority": 1,
    "Skills": [1,4,4,0,0,4,3],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 014,
    "Priority": 2,
    "Skills": [1,2,2,2,2,2,1],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 015,
    "Priority": 1,
    "Skills": [0,1,1,0,4,4,4],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 016,
    "Priority": 1,
    "Skills": [4,1,2,2,1,1,0],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 017,
    "Priority": 0,
    "Skills": [2,2,1,2,3,1,0],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 018,
    "Priority": 1,
    "Skills": [3,4,4,3,1,2,4],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 019,
    "Priority": 0,
    "Skills": [4,0,3,3,0,0,4],
-   "Type": H }
+   "Type": "H" }
 
   {"projectID": 020,
    "Priority": 0,
    "Skills": [3,3,0,1,1,1,0],
-   "Type": H }
+   "Type": "H" }
 
   ]
 }
