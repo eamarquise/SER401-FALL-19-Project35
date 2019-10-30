@@ -19,11 +19,13 @@
 #include <vector>
 #include <array>
 
-
 #include "Student.h"
 #include "Project.h"
 #include "ClassSection.h"
 #include "Test.h"
+#include "json/json.h"
+#include "StudentJson.h"
+#include "ProjectJson.h"
 using namespace std;
 
 Test::Test() {
