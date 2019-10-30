@@ -4,668 +4,668 @@
    {"StudentID": 0000001,
     "ClassID": 0,
     "Skills": [3,1,2,0,3,0,1],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [0,3,1,2] },
 
    {"StudentID": 0000002,
     "ClassID": 0,
     "Skills": [2,0,4,3,1,0,1],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [4,4,5,2] },
 
    {"StudentID": 0000003,
     "ClassID": 0,
     "Skills": [2,4,2,0,2,3,2],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [1,5,0,0] },
 
    {"StudentID": 0000004,
     "ClassID": 0,
     "Skills": [3,4,2,3,1,1,2],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [3,3,3,5] },
 
    {"StudentID": 0000005,
     "ClassID": 0,
     "Skills": [4,2,3,4,0,0,3],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [4,1,2,2] },
 
    {"StudentID": 0000006,
     "ClassID": 0,
     "Skills": [3,2,0,1,1,0,0],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [2,3,2,5] },
 
    {"StudentID": 0000007,
     "ClassID": 0,
     "Skills": [1,4,3,2,4,0,2],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [3,2,3,2] },
 
    {"StudentID": 0000008,
     "ClassID": 0,
     "Skills": [4,3,0,2,3,1,3],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [2,0,3,5] },
 
    {"StudentID": 0000009,
     "ClassID": 0,
     "Skills": [4,4,2,0,1,3,4],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [4,4,0,0] },
 
    {"StudentID": 0000010,
     "ClassID": 0,
     "Skills": [4,0,0,4,3,2,1],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [5,2,3,0] },
 
    {"StudentID": 0000011,
     "ClassID": 0,
     "Skills": [2,1,1,0,1,1,0],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [5,4,5,4] },
 
    {"StudentID": 0000012,
     "ClassID": 0,
     "Skills": [4,1,2,2,1,1,0],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [3,1,3,4] },
 
    {"StudentID": 0000013,
     "ClassID": 0,
     "Skills": [2,3,1,0,1,3,4],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [2,4,3,2] },
 
    {"StudentID": 0000014,
     "ClassID": 0,
     "Skills": [4,3,4,0,3,3,0],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [4,3,0,5] },
 
    {"StudentID": 0000015,
     "ClassID": 0,
     "Skills": [3,0,1,1,1,0,4],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [4,2,2,1] },
 
    {"StudentID": 0000016,
     "ClassID": 0,
     "Skills": [0,3,0,4,4,4,4],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [5,2,3,3] },
 
    {"StudentID": 0000017,
     "ClassID": 0,
     "Skills": [2,0,4,1,2,1,2],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [4,5,5,0] },
 
    {"StudentID": 0000018,
     "ClassID": 0,
     "Skills": [1,3,0,4,2,0,3],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [2,2,3,3] },
 
    {"StudentID": 0000019,
     "ClassID": 0,
     "Skills": [3,4,1,4,3,3,3],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [2,2,4,4] },
 
    {"StudentID": 0000020,
     "ClassID": 0,
     "Skills": [3,3,3,4,2,2,1],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [2,3,0,5] },
 
    {"StudentID": 0000021,
     "ClassID": 0,
     "Skills": [0,4,2,0,4,0,0],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [5,2,4,3] },
 
    {"StudentID": 0000022,
     "ClassID": 0,
     "Skills": [2,2,4,2,2,0,4],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [2,5,2,0] },
 
    {"StudentID": 0000023,
     "ClassID": 0,
     "Skills": [4,3,1,3,0,2,1],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [4,3,1,1] },
 
    {"StudentID": 0000024,
     "ClassID": 0,
     "Skills": [0,3,0,0,1,4,1],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [0,5,2,4] },
 
    {"StudentID": 0000025,
     "ClassID": 0,
     "Skills": [2,3,4,2,2,4,0],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [0,2,5,3] },
 
    {"StudentID": 0000026,
     "ClassID": 0,
     "Skills": [0,3,1,3,1,1,0],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [1,2,4,3] },
 
    {"StudentID": 0000027,
     "ClassID": 0,
     "Skills": [4,1,4,1,4,3,3],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [0,2,1,2] },
 
    {"StudentID": 0000028,
     "ClassID": 0,
     "Skills": [1,4,0,0,4,1,2],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [0,1,3,0] },
 
    {"StudentID": 0000029,
     "ClassID": 0,
     "Skills": [4,3,2,2,3,2,4],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [3,2,2,0] },
 
    {"StudentID": 0000030,
     "ClassID": 0,
     "Skills": [2,1,1,3,2,1,0],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [5,1,3,2] },
 
    {"StudentID": 0000031,
     "ClassID": 0,
     "Skills": [4,1,0,2,0,3,2],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [2,0,4,0] },
 
    {"StudentID": 0000032,
     "ClassID": 0,
     "Skills": [4,2,4,1,1,0,4],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [4,0,2,2] },
 
    {"StudentID": 0000033,
     "ClassID": 0,
     "Skills": [0,0,2,4,0,2,3],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [5,2,2,0] },
 
    {"StudentID": 0000034,
     "ClassID": 0,
     "Skills": [0,4,1,4,1,2,0],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [2,4,5,5] },
 
    {"StudentID": 0000035,
     "ClassID": 0,
     "Skills": [3,1,0,0,0,2,4],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [4,1,1,5] },
 
    {"StudentID": 0000036,
     "ClassID": 0,
     "Skills": [2,4,3,1,4,1,4],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [4,4,4,2] },
 
    {"StudentID": 0000037,
     "ClassID": 0,
     "Skills": [4,1,2,3,3,4,2],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [0,0,0,0] },
 
    {"StudentID": 0000038,
     "ClassID": 0,
     "Skills": [3,3,3,3,3,3,3],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [0,0,1,0] },
 
    {"StudentID": 0000039,
     "ClassID": 0,
     "Skills": [3,4,0,1,3,2,4],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [4,1,1,3] },
 
    {"StudentID": 0000040,
     "ClassID": 0,
     "Skills": [2,3,2,1,0,2,1],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [1,2,3,3] },
 
    {"StudentID": 0000041,
     "ClassID": 0,
     "Skills": [1,0,4,1,0,4,3],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [1,2,2,4] },
 
    {"StudentID": 0000042,
     "ClassID": 0,
     "Skills": [2,4,2,4,3,4,2],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [0,3,2,5] },
 
    {"StudentID": 0000043,
     "ClassID": 0,
     "Skills": [2,3,4,1,0,4,4],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [2,3,3,0] },
 
    {"StudentID": 0000044,
     "ClassID": 0,
     "Skills": [4,4,4,0,4,3,0],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [3,4,4,5] },
 
    {"StudentID": 0000045,
     "ClassID": 0,
     "Skills": [4,4,2,3,2,0,3],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [0,3,4,0] },
 
    {"StudentID": 0000046,
     "ClassID": 0,
     "Skills": [0,1,4,1,2,1,2],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [0,3,3,5] },
 
    {"StudentID": 0000047,
     "ClassID": 0,
     "Skills": [1,4,0,0,1,2,2],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [0,0,4,4] },
 
    {"StudentID": 0000048,
     "ClassID": 0,
     "Skills": [2,4,3,0,3,2,1],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [4,0,0,0] },
 
    {"StudentID": 0000049,
     "ClassID": 0,
     "Skills": [1,2,3,4,1,0,2],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [4,3,0,5] },
 
    {"StudentID": 0000050,
     "ClassID": 0,
     "Skills": [3,2,2,2,1,4,0],
-    "StudentAffinity": null
+    "StudentAffinity": null,
     "Availability": [2,2,0,3] },
 
-   {StudentID: 0000051,
-    ClassID: 0,
-    Skills: [0,4,4,4,0,1,0],
-    StudentAffinity: null
-    Availability: [3,3,4,4] },
+   {"StudentID": 0000051,
+    "ClassID": 0,
+    "Skills": [0,4,4,4,0,1,0],
+    "StudentAffinity": null,
+    "Availability": [3,3,4,4] },
 
-   {StudentID: 0000052,
-    ClassID: 0,
-    Skills: [1,0,4,1,2,1,0],
-    StudentAffinity: null
-    Availability: [1,5,3,1] },
+   {"StudentID": 0000052,
+    "ClassID": 0,
+    "Skills": [1,0,4,1,2,1,0],
+    "StudentAffinity": null,
+    "Availability": [1,5,3,1] },
 
-   {StudentID: 0000053,
-    ClassID: 0,
-    Skills: [2,3,0,3,3,3,3],
-    StudentAffinity: null
-    Availability: [5,3,1,1] },
+   {"StudentID": 0000053,
+    "ClassID": 0,
+    "Skills": [2,3,0,3,3,3,3],
+    "StudentAffinity": null,
+    "Availability": [5,3,1,1] },
 
-   {StudentID: 0000054,
-    ClassID: 0,
-    Skills: [3,2,4,1,4,0,4],
-    StudentAffinity: null
-    Availability: [2,4,5,0] },
+   {"StudentID": 0000054,
+    "ClassID": 0,
+    "Skills": [3,2,4,1,4,0,4],
+    "StudentAffinity": null,
+    "Availability": [2,4,5,0] },
 
-   {StudentID: 0000055,
-    ClassID: 0,
-    Skills: [4,3,2,1,3,3,0],
-    StudentAffinity: null
-    Availability: [1,1,1,5] },
+   {"StudentID": 0000055,
+    "ClassID": 0,
+    "Skills": [4,3,2,1,3,3,0],
+    "StudentAffinity": null,
+    "Availability": [1,1,1,5] },
 
-   {StudentID: 0000056,
-    ClassID: 0,
-    Skills: [3,2,4,3,2,1,2],
-    StudentAffinity: null
-    Availability: [0,2,2,1] },
+   {"StudentID": 0000056,
+    "ClassID": 0,
+    "Skills": [3,2,4,3,2,1,2],
+    "StudentAffinity": null,
+    "Availability": [0,2,2,1] },
 
-   {StudentID: 0000057,
-    ClassID: 0,
-    Skills: [2,0,1,2,4,1,2],
-    StudentAffinity: null
-    Availability: [1,3,1,5] },
+   {"StudentID": 0000057,
+    "ClassID": 0,
+    "Skills": [2,0,1,2,4,1,2],
+    "StudentAffinity": null,
+    "Availability": [1,3,1,5] },
 
-   {StudentID: 0000058,
-    ClassID: 0,
-    Skills: [0,4,0,3,0,1,1],
-    StudentAffinity: null
-    Availability: [4,4,3,3] },
+   {"StudentID": 0000058,
+    "ClassID": 0,
+    "Skills": [0,4,0,3,0,1,1],
+    "StudentAffinity": null,
+    "Availability": [4,4,3,3] },
 
-   {StudentID: 0000059,
-    ClassID: 0,
-    Skills: [1,4,3,0,3,1,0],
-    StudentAffinity: null
-    Availability: [0,4,3,3] },
+   {"StudentID": 0000059,
+    "ClassID": 0,
+    "Skills": [1,4,3,0,3,1,0],
+    "StudentAffinity": null,
+    "Availability": [0,4,3,3] },
 
-   {StudentID: 0000060,
-    ClassID: 0,
-    Skills: [0,1,4,1,3,2,4],
-    StudentAffinity: null
-    Availability: [3,4,3,3] },
+   {"StudentID": 0000060,
+    "ClassID": 0,
+    "Skills": [0,1,4,1,3,2,4],
+    "StudentAffinity": null,
+    "Availability": [3,4,3,3] },
 
-   {StudentID: 0000061,
-    ClassID: 0,
-    Skills: [2,0,1,0,3,0,3],
-    StudentAffinity: null
-    Availability: [3,2,3,5] },
+   {"StudentID": 0000061,
+    "ClassID": 0,
+    "Skills": [2,0,1,0,3,0,3],
+    "StudentAffinity": null,
+    "Availability": [3,2,3,5] },
 
-   {StudentID: 0000062,
-    ClassID: 0,
-    Skills: [4,1,0,0,4,4,3],
-    StudentAffinity: null
-    Availability: [3,2,3,4] },
+   {"StudentID": 0000062,
+    "ClassID": 0,
+    "Skills": [4,1,0,0,4,4,3],
+    "StudentAffinity": null,
+    "Availability": [3,2,3,4] },
 
-   {StudentID: 0000063,
-    ClassID: 0,
-    Skills: [2,2,2,0,3,4,1],
-    StudentAffinity: null
-    Availability: [1,0,3,5] },
+   {"StudentID": 0000063,
+    "ClassID": 0,
+    "Skills": [2,2,2,0,3,4,1],
+    "StudentAffinity": null,
+    "Availability": [1,0,3,5] },
 
-   {StudentID: 0000064,
-    ClassID: 0,
-    Skills: [4,4,3,4,2,2,0],
-    StudentAffinity: null
-    Availability: [2,3,2,2] },
+   {"StudentID": 0000064,
+    "ClassID": 0,
+    "Skills": [4,4,3,4,2,2,0],
+    "StudentAffinity": null,
+    "Availability": [2,3,2,2] },
 
-   {StudentID: 0000065,
-    ClassID: 0,
-    Skills: [4,2,1,0,2,1,3],
-    StudentAffinity: null
-    Availability: [5,1,2,3] },
+   {"StudentID": 0000065,
+    "ClassID": 0,
+    "Skills": [4,2,1,0,2,1,3],
+    "StudentAffinity": null,
+    "Availability": [5,1,2,3] },
 
-   {StudentID: 0000066,
-    ClassID: 0,
-    Skills: [1,0,3,2,1,3,0],
-    StudentAffinity: null
-    Availability: [4,2,0,0] },
+   {"StudentID": 0000066,
+    "ClassID": 0,
+    "Skills": [1,0,3,2,1,3,0],
+    "StudentAffinity": null,
+    "Availability": [4,2,0,0] },
 
-   {StudentID: 0000067,
-    ClassID: 0,
-    Skills: [1,1,3,0,4,3,4],
-    StudentAffinity: null
-    Availability: [1,5,4,0] },
+   {"StudentID": 0000067,
+    "ClassID": 0,
+    "Skills": [1,1,3,0,4,3,4],
+    "StudentAffinity": null,
+    "Availability": [1,5,4,0] },
 
-   {StudentID: 0000068,
-    ClassID: 0,
-    Skills: [3,0,1,0,4,4,0],
-    StudentAffinity: null
-    Availability: [1,2,1,3] },
+   {"StudentID": 0000068,
+    "ClassID": 0,
+    "Skills": [3,0,1,0,4,4,0],
+    "StudentAffinity": null,
+    "Availability": [1,2,1,3] },
 
-   {StudentID: 0000069,
-    ClassID: 0,
-    Skills: [1,1,0,0,1,0,0],
-    StudentAffinity: null
-    Availability: [0,3,0,2] },
+   {"StudentID": 0000069,
+    "ClassID": 0,
+    "Skills": [1,1,0,0,1,0,0],
+    "StudentAffinity": null,
+    "Availability": [0,3,0,2] },
 
-   {StudentID: 0000070,
-    ClassID: 0,
-    Skills: [1,4,1,0,4,2,2],
-    StudentAffinity: null
-    Availability: [0,4,3,2] },
+   {"StudentID": 0000070,
+    "ClassID": 0,
+    "Skills": [1,4,1,0,4,2,2],
+    "StudentAffinity": null,
+    "Availability": [0,4,3,2] },
 
-   {StudentID: 0000071,
-    ClassID: 0,
-    Skills: [3,0,3,2,0,0,3],
-    StudentAffinity: null
-    Availability: [2,1,0,3] },
+   {"StudentID": 0000071,
+    "ClassID": 0,
+    "Skills": [3,0,3,2,0,0,3],
+    "StudentAffinity": null,
+    "Availability": [2,1,0,3] },
 
-   {StudentID: 0000072,
-    ClassID: 0,
-    Skills: [4,2,0,2,4,4,3],
-    StudentAffinity: null
-    Availability: [2,0,2,4] },
+   {"StudentID": 0000072,
+    "ClassID": 0,
+    "Skills": [4,2,0,2,4,4,3],
+    "StudentAffinity": null,
+    "Availability": [2,0,2,4] },
 
-   {StudentID: 0000073,
-    ClassID: 0,
-    Skills: [4,2,2,3,1,3,3],
-    StudentAffinity: null
-    Availability: [2,4,0,0] },
+   {"StudentID": 0000073,
+    "ClassID": 0,
+    "Skills": [4,2,2,3,1,3,3],
+    "StudentAffinity": null,
+    "Availability": [2,4,0,0] },
 
-   {StudentID: 0000074,
-    ClassID: 0,
-    Skills: [0,1,2,0,2,1,1],
-    StudentAffinity: null
-    Availability: [3,4,5,1] },
+   {"StudentID": 0000074,
+    "ClassID": 0,
+    "Skills": [0,1,2,0,2,1,1],
+    "StudentAffinity": null,
+    "Availability": [3,4,5,1] },
 
-   {StudentID: 0000075,
-    ClassID: 0,
-    Skills: [3,3,2,4,3,1,2],
-    StudentAffinity: null
-    Availability: [0,0,0,0] },
+   {"StudentID": 0000075,
+    "ClassID": 0,
+    "Skills": [3,3,2,4,3,1,2],
+    "StudentAffinity": null,
+    "Availability": [0,0,0,0] },
 
-   {StudentID: 0000076,
-    ClassID: 0,
-    Skills: [3,1,1,3,0,2,1],
-    StudentAffinity: null
-    Availability: [3,5,2,0] },
+   {"StudentID": 0000076,
+    "ClassID": 0,
+    "Skills": [3,1,1,3,0,2,1],
+    "StudentAffinity": null,
+    "Availability": [3,5,2,0] },
 
-   {StudentID: 0000077,
-    ClassID: 0,
-    Skills: [1,4,4,4,0,3,4],
-    StudentAffinity: null
-    Availability: [3,5,4,0] },
+   {"StudentID": 0000077,
+    "ClassID": 0,
+    "Skills": [1,4,4,4,0,3,4],
+    "StudentAffinity": null,
+    "Availability": [3,5,4,0] },
 
-   {StudentID: 0000078,
-    ClassID: 0,
-    Skills: [4,1,2,2,3,2,1],
-    StudentAffinity: null
-    Availability: [2,2,1,3] },
+   {"StudentID": 0000078,
+    "ClassID": 0,
+    "Skills": [4,1,2,2,3,2,1],
+    "StudentAffinity": null,
+    "Availability": [2,2,1,3] },
 
-   {StudentID: 0000079,
-    ClassID: 0,
-    Skills: [0,4,0,4,0,1,3],
-    StudentAffinity: null
-    Availability: [3,2,5,1] },
+   {"StudentID": 0000079,
+    "ClassID": 0,
+    "Skills": [0,4,0,4,0,1,3],
+    "StudentAffinity": null,
+    "Availability": [3,2,5,1] },
 
-   {StudentID: 0000080,
-    ClassID: 0,
-    Skills: [3,0,3,2,1,2,0],
-    StudentAffinity: null
-    Availability: [4,3,4,4] },
+   {"StudentID": 0000080,
+    "ClassID": 0,
+    "Skills": [3,0,3,2,1,2,0],
+    "StudentAffinity": null,
+    "Availability": [4,3,4,4] },
 
-   {StudentID: 0000081,
-    ClassID: 0,
-    Skills: [2,1,2,2,4,1,1],
-    StudentAffinity: null
-    Availability: [1,1,2,3] },
+   {"StudentID": 0000081,
+    "ClassID": 0,
+    "Skills": [2,1,2,2,4,1,1],
+    "StudentAffinity": null,
+    "Availability": [1,1,2,3] },
 
-   {StudentID: 0000082,
-    ClassID: 0,
-    Skills: [4,2,2,3,1,4,2],
-    StudentAffinity: null
-    Availability: [1,3,0,2] },
+   {"StudentID": 0000082,
+    "ClassID": 0,
+    "Skills": [4,2,2,3,1,4,2],
+    "StudentAffinity": null,
+    "Availability": [1,3,0,2] },
 
-   {StudentID: 0000083,
-    ClassID: 0,
-    Skills: [1,1,3,0,2,1,0],
-    StudentAffinity: null
-    Availability: [4,5,4,0] },
+   {"StudentID": 0000083,
+    "ClassID": 0,
+    "Skills": [1,1,3,0,2,1,0],
+    "StudentAffinity": null,
+    "Availability": [4,5,4,0] },
 
-   {StudentID: 0000084,
-    ClassID: 0,
-    Skills: [3,4,1,1,0,2,0],
-    StudentAffinity: null
-    Availability: [0,1,5,0] },
+   {"StudentID": 0000084,
+    "ClassID": 0,
+    "Skills": [3,4,1,1,0,2,0],
+    "StudentAffinity": null,
+    "Availability": [0,1,5,0] },
 
-   {StudentID: 0000085,
-    ClassID: 0,
-    Skills: [1,0,3,3,2,3,2],
-    StudentAffinity: null
-    Availability: [3,0,1,4] },
+   {"StudentID": 0000085,
+    "ClassID": 0,
+    "Skills": [1,0,3,3,2,3,2],
+    "StudentAffinity": null,
+    "Availability: [3,0,1,4] },
 
-   {StudentID: 0000086,
-    ClassID: 0,
-    Skills: [0,0,0,2,3,3,2],
-    StudentAffinity: null
-    Availability: [3,4,3,3] },
+   {"StudentID": 0000086,
+    "ClassID": 0,
+    "Skills": [0,0,0,2,3,3,2],
+    "StudentAffinity": null,
+    "Availability": [3,4,3,3] },
 
-   {StudentID: 0000087,
-    ClassID: 0,
-    Skills: [2,1,4,1,1,4,0],
-    StudentAffinity: null
-    Availability: [0,3,2,0] },
+   {"StudentID": 0000087,
+    "ClassID": 0,
+    "Skills": [2,1,4,1,1,4,0],
+    "StudentAffinity": null,
+    "Availability": [0,3,2,0] },
 
-   {StudentID: 0000088,
-    ClassID: 0,
-    Skills: [0,3,2,0,1,4,2],
-    StudentAffinity: null
-    Availability: [1,5,3,5] },
+   {"StudentID": 0000088,
+    "ClassID": 0,
+    "Skills": [0,3,2,0,1,4,2],
+    "StudentAffinity": null,
+    "Availability": [1,5,3,5] },
 
-   {StudentID: 0000089,
-    ClassID: 0,
-    Skills: [2,1,2,2,1,0,3],
-    StudentAffinity: null
-    Availability: [2,2,3,0] },
+   {"StudentID": 0000089,
+    "ClassID": 0,
+    "Skills": [2,1,2,2,1,0,3],
+    "StudentAffinity": null,
+    "Availability": [2,2,3,0] },
 
-   {StudentID: 0000090,
-    ClassID: 0,
-    Skills: [0,1,3,4,3,3,3],
-    StudentAffinity: null
-    Availability: [4,3,1,4] },
+   {"StudentID": 0000090,
+    "ClassID": 0,
+    "Skills": [0,1,3,4,3,3,3],
+    "StudentAffinity": null,
+    "Availability": [4,3,1,4] },
 
-   {StudentID: 0000091,
-    ClassID: 0,
-    Skills: [4,0,0,0,2,3,2],
-    StudentAffinity: null
-    Availability: [1,0,5,5] },
+   {"StudentID": 0000091,
+    "ClassID": 0,
+    "Skills": [4,0,0,0,2,3,2],
+    "StudentAffinity": null,
+    "Availability": [1,0,5,5] },
 
-   {StudentID: 0000092,
-    ClassID: 0,
-    Skills: [4,4,4,1,4,0,2],
-    StudentAffinity: null
-    Availability: [2,5,2,4] },
+   {"StudentID": 0000092,
+    "ClassID": 0,
+    "Skills": [4,4,4,1,4,0,2],
+    "StudentAffinity": null,
+    "Availability": [2,5,2,4] },
 
-   {StudentID: 0000093,
-    ClassID: 0,
-    Skills: [1,1,2,0,2,2,4],
-    StudentAffinity: null
-    Availability: [3,0,5,3] },
+   {"StudentID": 0000093,
+    "ClassID": 0,
+    "Skills": [1,1,2,0,2,2,4],
+    "StudentAffinity": null,
+    "Availability": [3,0,5,3] },
 
-   {StudentID: 0000094,
-    ClassID: 0,
-    Skills: [1,1,4,0,3,1,2],
-    StudentAffinity: null
-    Availability: [5,5,5,4] },
+   {"StudentID": 0000094,
+    "ClassID": 0,
+    "Skills": [1,1,4,0,3,1,2],
+    "StudentAffinity": null,
+    "Availability": [5,5,5,4] },
 
-   {StudentID: 0000095,
-    ClassID: 0,
-    Skills: [1,0,2,1,0,1,0],
-    StudentAffinity: null
-    Availability: [0,1,1,5] },
+   {"StudentID": 0000095,
+    "ClassID": 0,
+    "Skills": [1,0,2,1,0,1,0],
+    "StudentAffinity": null,
+    "Availability": [0,1,1,5] },
 
-   {StudentID: 0000096,
-    ClassID: 0,
-    Skills: [2,1,3,1,2,0,1],
-    StudentAffinity: null
-    Availability: [0,3,0,3] },
+   {"StudentID": 0000096,
+    "ClassID"": 0,
+    "Skills": [2,1,3,1,2,0,1],
+    "StudentAffinity": null,
+    "Availability": [0,3,0,3] },
 
-   {StudentID: 0000097,
-    ClassID: 0,
-    Skills: [2,4,4,0,4,1,2],
-    StudentAffinity: null
-    Availability: [2,5,4,2] },
+   {"StudentID": 0000097,
+    "ClassID": 0,
+    "Skills": [2,4,4,0,4,1,2],
+    "StudentAffinity": null,
+    "Availability": [2,5,4,2] },
 
-   {StudentID: 0000098,
-    ClassID: 0,
-    Skills: [1,4,0,4,4,0,4],
-    StudentAffinity: null
-    Availability: [0,2,5,3] },
+   {"StudentID": 0000098,
+    "ClassID": 0,
+    "Skills": [1,4,0,4,4,0,4],
+    "StudentAffinity": null,
+    "Availability": [0,2,5,3] },
 
-   {StudentID: 0000099,
-    ClassID: 0,
-    Skills: [4,0,2,1,3,0,4],
-    StudentAffinity: null
-    Availability: [5,1,1,2] },
+   {"StudentID": 0000099,
+    "ClassID": 0,
+    "Skills": [4,0,2,1,3,0,4],
+    "StudentAffinity": null,
+    "Availability": [5,1,1,2] },
 
-   {StudentID: 0000100,
-    ClassID: 0,
-    Skills: [0,3,0,2,3,3,3],
-    StudentAffinity: null
-    Availability: [3,5,5,1] },
+   {"StudentID": 0000100,
+    "ClassID": 0,
+    "Skills": [0,3,0,2,3,3,3],
+    "StudentAffinity": null,
+    "Availability": [3,5,5,1] },
 
-   {StudentID: 0000101,
-   ClassID: 1,
-    Skills: [3,1,0,3,3,1,1],
-    StudentAffinity: null
-    Availability: [4,5,4,3] },
+   {"StudentID": 0000101,
+    "ClassID": 1,
+    "Skills": [3,1,0,3,3,1,1],
+    "StudentAffinity": null,
+    "Availability": [4,5,4,3] },
 
-   {StudentID: 0000102,
-   ClassID: 1,
-    Skills: [1,1,0,3,0,0,4],
-    StudentAffinity: null
-    Availability: [3,4,4,2] },
+   {"StudentID": 0000102,
+    "ClassID": 1,
+    "Skills": [1,1,0,3,0,0,4],
+    "StudentAffinity": null,
+    "Availability": [3,4,4,2] },
 
-   {StudentID: 0000103,
-   ClassID: 1,
-    Skills: [4,4,4,4,4,3,1],
-    StudentAffinity: null
-    Availability: [0,1,5,3] },
+   {"StudentID": 0000103,
+    "ClassID": 1,
+    "Skills": [4,4,4,4,4,3,1],
+    "StudentAffinity": null,
+    "Availability": [0,1,5,3] },
 
-   {StudentID: 0000104,
-   ClassID: 1,
-    Skills: [3,4,1,1,0,1,1],
-    StudentAffinity: null
-    Availability: [5,4,2,5] },
+   {"StudentID": 0000104,
+    "ClassID": 1,
+    "Skills": [3,4,1,1,0,1,1],
+    "StudentAffinity": null,
+    "Availability": [5,4,2,5] },
 
-   {StudentID: 0000105,
-   ClassID: 1,
-    Skills: [2,3,1,2,4,2,3],
-    StudentAffinity: null
-    Availability: [0,5,5,1] },
+   {"StudentID": 0000105,
+    "ClassID": 1,
+    "Skills": [2,3,1,2,4,2,3],
+    "StudentAffinity": null,
+    "Availability": [0,5,5,1] },
 
-   {StudentID: 0000106,
-   ClassID: 1,
-    Skills: [2,3,2,2,0,3,2],
-    StudentAffinity: null
-    Availability: [0,0,3,5] },
+   {"StudentID": 0000106,
+    "ClassID": 1,
+    "Skills": [2,3,2,2,0,3,2],
+    "StudentAffinity": null,
+    "Availability": [0,0,3,5] },
 
-   {StudentID: 0000107,
-   ClassID: 1,
-    Skills: [1,4,0,3,0,3,0],
-    StudentAffinity: null
-    Availability: [2,3,5,4] },
+   {"StudentID": 0000107,
+    "ClassID": 1,
+    "Skills": [1,4,0,3,0,3,0],
+    "StudentAffinity": null,
+    "Availability": [2,3,5,4] },
 
-   {StudentID: 0000108,
-   ClassID: 1,
-    Skills: [0,2,4,4,0,1,2],
-    StudentAffinity: null
-    Availability: [4,4,2,5] },
+   {"StudentID": 0000108,
+    "ClassID": 1,
+    "Skills": [0,2,4,4,0,1,2],
+    "StudentAffinity": null,
+    "Availability": [4,4,2,5] },
 
-   {StudentID: 0000109,
-   ClassID: 1,
-    Skills: [4,0,3,3,3,2,3],
-    StudentAffinity: null
-    Availability: [3,0,2,5] },
+   {"StudentID": 0000109,
+    "ClassID": 1,
+    "Skills": [4,0,3,3,3,2,3],
+    "StudentAffinity": null,
+    "Availability": [3,0,2,5] },
 
-   {StudentID: 0000110,
-   ClassID: 1,
-    Skills: [0,3,1,3,0,1,2],
-    StudentAffinity: null
-    Availability: [3,5,0,3] },
+   {"StudentID": 0000110,
+    "ClassID": 1,
+    "Skills": [0,3,1,3,0,1,2],
+    "StudentAffinity": null,
+    "Availability": [3,5,0,3] },
 
-   {StudentID: 0000111,
-   ClassID: 1,
-    Skills: [0,4,4,3,4,1,4],
-    StudentAffinity: null
-    Availability: [0,5,4,5] },
+   {"StudentID": 0000111,
+    "ClassID": 1,
+    "Skills": [0,4,4,3,4,1,4],
+    "StudentAffinity": null,
+    "Availability": [0,5,4,5] },
 
    {StudentID: 0000112,
    ClassID: 1,
