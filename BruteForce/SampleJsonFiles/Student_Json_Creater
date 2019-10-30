@@ -36,7 +36,7 @@ int main()
         if(j <= 100) {cout << " \"ClassID\": 0,\n";}
         if(j >= 101 && j<= 200) {cout << " \"ClassID\": 1,\n";}
         if(j >= 201 && j<= 300) {cout << " \"ClassID\": 2,\n";}
-        if(j >= 400) {cout << " \"ClassID\": 3,\n";}
+        if(j >= 301 && j<= 400) {cout << " \"ClassID\": 3,\n";}
         
         
         /*Prints out schema: "Skills": [(skills)],
@@ -53,7 +53,29 @@ int main()
         
         /*Prints out schema: "StudentAffinity": null,
          */
-        cout << " \"StudentAffinity\": null,\n";
+        cout << " \"StudentAffinity\": ";
+        if(j %3 == 0) {
+            cout << "[ ";
+            if(j <= 100) {cout << setw(7) << setfill('0') << rand() % (100 + 1) << ", false],\n";}
+            if(j >= 101 && j<= 200) {cout << setw(7) << setfill('0') << rand() % (200-100 + 1) +100 << ", false],\n";}
+            if(j >= 201 && j<= 300) {cout << setw(7) << setfill('0') << rand() % (300-200 + 1) +200 << ", false],\n";}
+            if(j >= 301 && j<= 400) {cout << setw(7) << setfill('0') << rand() % (400-300 + 1) +300 << ", false],\n";}
+        }
+        else if ( j %4 == 0) {
+            cout << "[ ";
+            if(j <= 100) {cout << setw(7) << setfill('0') << rand() % (100 + 1) << ", true],\n";}
+            if(j >= 101 && j<= 200) {cout << setw(7) << setfill('0') << rand() % (200-100 + 1) +100 << ", true],\n";}
+            if(j >= 201 && j<= 300) {cout << setw(7) << setfill('0') << rand() % (300-200 + 1) +200 << ", true],\n";}
+            if(j >= 301 && j<= 400) {cout << setw(7) << setfill('0') << rand() % (400-300 + 1) +300 << ", true],\n";}
+        }
+        else if ( j %5 == 0) {
+            cout << "[ ";
+            if(j <= 100) {cout << setw(7) << setfill('0') << rand() % (100 + 1) << ", true],\n";}
+            if(j >= 101 && j<= 200) {cout << setw(7) << setfill('0') << rand() % (200-100 + 1) +100 << ", true],\n";}
+            if(j >= 201 && j<= 300) {cout << setw(7) << setfill('0') << rand() % (300-200 + 1) +200 << ", true],\n";}
+            if(j >= 301 && j<= 400) {cout << setw(7) << setfill('0') << rand() % (400-300 + 1) +300 << ", true],\n";}
+        }
+        else { cout << "null,\n"; }
         
         
         /*Prints out schema: "Availability": [(Availability)] }
