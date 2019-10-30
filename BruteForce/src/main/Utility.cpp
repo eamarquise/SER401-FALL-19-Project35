@@ -34,7 +34,7 @@ vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<P
 			projectXskill[i][j] = projects.at(i).Skills[j];
 		}
 	}
-	// create skillXstudent matrix
+	// create skillXstudent matrix transposing skills and students
 	int skillXstudent[numSkills][numStudents] = {0};
 	for (int i = 0; i < numSkills; i++){
 		for (int j = 0; j < numStudents; j++){
