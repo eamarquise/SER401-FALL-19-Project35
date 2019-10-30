@@ -16,13 +16,13 @@
    {"StudentID": 0000003,
     "ClassID": 0,
     "Skills": [2,4,2,0,2,3,2],
-    "StudentAffinity": [ 0000010, false]
+    "StudentAffinity": [ 0000010, false],
     "Availability": [5,0,0,0] },
 
    {"StudentID": 0000004,
     "ClassID": 0,
     "Skills": [4,2,3,1,1,2,4],
-    "StudentAffinity": [ 0000001, true]
+    "StudentAffinity": [ 0000000, true]
     "Availability": [3,5,2,1] },
 
    {"StudentID": 0000005,
@@ -34,7 +34,7 @@
    {"StudentID": 0000006,
     "ClassID": 0,
     "Skills": [1,1,0,0,4,2,1],
-    "StudentAffinity": [ 0000005, false]
+    "StudentAffinity": [ 0000005, false],
     "Availability": [4,3,1,5] },
 
    {"StudentID": 0000007,
@@ -52,7 +52,7 @@
    {"StudentID": 0000009,
     "ClassID": 0,
     "Skills": [3,4,2,1,1,4,4],
-    "StudentAffinity": [ 0000076, false]
+    "StudentAffinity": [ 0000076, false],
     "Availability": [4,2,4,5] },
 
    {"StudentID": 0000010,
@@ -70,7 +70,7 @@
    {"StudentID": 0000012,
     "ClassID": 0,
     "Skills": [4,2,2,1,2,3,1],
-    "StudentAffinity": [ 0000067, false]
+    "StudentAffinity": [ 0000067, false],
     "Availability": [4,5,5,2] },
 
    {"StudentID": 0000013,
@@ -88,7 +88,7 @@
    {"StudentID": 0000015,
     "ClassID": 0,
     "Skills": [4,3,1,0,3,0,4],
-    "StudentAffinity": [ 0000081, false]
+    "StudentAffinity": [ 0000081, false],
     "Availability": [0,4,5,2] },
 
    {"StudentID": 0000016,
@@ -106,7 +106,7 @@
    {"StudentID": 0000018,
     "ClassID": 0,
     "Skills": [1,3,4,1,4,3,3],
-    "StudentAffinity": [ 0000061, false]
+    "StudentAffinity": [ 0000061, false],
     "Availability": [2,2,4,4] },
 
    {"StudentID": 0000019,
@@ -124,7 +124,7 @@
    {"StudentID": 0000021,
     "ClassID": 0,
     "Skills": [2,4,2,2,0,4,3],
-    "StudentAffinity": [ 0000056, false]
+    "StudentAffinity": [ 0000056, false],
     "Availability": [2,0,5,3] },
 
    {"StudentID": 0000022,
@@ -142,7 +142,7 @@
    {"StudentID": 0000024,
     "ClassID": 0,
     "Skills": [4,2,2,4,0,1,2],
-    "StudentAffinity": [ 0000010, false]
+    "StudentAffinity": [ 0000010, false],
     "Availability": [3,4,2,5] },
 
    {"StudentID": 0000025,
@@ -160,7 +160,7 @@
    {"StudentID": 0000027,
     "ClassID": 0,
     "Skills": [4,1,2,1,2,0,1],
-    "StudentAffinity": [ 0000016, false]
+    "StudentAffinity": [ 0000016, false],
     "Availability": [0,5,2,4] },
 
    {"StudentID": 0000028,
@@ -178,7 +178,7 @@
    {"StudentID": 0000030,
     "ClassID": 0,
     "Skills": [2,0,4,3,0,4,2],
-    "StudentAffinity": [ 0000007, false]
+    "StudentAffinity": [ 0000007, false],
     "Availability": [2,1,0,2] },
 
    {"StudentID": 0000031,
@@ -196,7 +196,7 @@
    {"StudentID": 0000033,
     "ClassID": 0,
     "Skills": [4,4,4,3,1,0,0],
-    "StudentAffinity": [ 0000074, false]
+    "StudentAffinity": [ 0000074, false],
     "Availability": [4,5,4,1] },
 
    {"StudentID": 0000034,
@@ -214,7 +214,7 @@
    {"StudentID": 0000036,
     "ClassID": 0,
     "Skills": [1,3,3,3,3,3,3],
-    "StudentAffinity": [ 0000097, false]
+    "StudentAffinity": [ 0000097, false],
     "Availability": [0,0,1,0] },
 
    {"StudentID": 0000037,
@@ -232,7 +232,7 @@
    {"StudentID": 0000039,
     "ClassID": 0,
     "Skills": [1,0,4,1,0,4,3],
-    "StudentAffinity": [ 0000066, false]
+    "StudentAffinity": [ 0000066, false],
     "Availability": [2,2,4,2] },
 
    {"StudentID": 0000040,
@@ -250,7 +250,7 @@
    {"StudentID": 0000042,
     "ClassID": 0,
     "Skills": [4,0,4,3,0,2,0],
-    "StudentAffinity": [ 0000086, false]
+    "StudentAffinity": [ 0000086, false],
     "Availability": [5,5,3,5] },
 
    {"StudentID": 0000043,
@@ -268,7 +268,7 @@
    {"StudentID": 0000045,
     "ClassID": 0,
     "Skills": [1,2,2,4,0,1,4],
-    "StudentAffinity": [ 0000019, false]
+    "StudentAffinity": [ 0000019, false],
     "Availability": [2,2,3,2] },
 
    {"StudentID": 0000046,
@@ -286,7 +286,7 @@
    {"StudentID": 0000048,
     "ClassID": 0,
     "Skills": [4,0,2,0,2,4,0],
-    "StudentAffinity": [ 0000024, false]
+    "StudentAffinity": [ 0000024, false],
     "Availability": [3,2,5,5] },
 
    {"StudentID": 0000049,
@@ -304,7 +304,7 @@
    {"StudentID": 0000051,
     "ClassID": 0,
     "Skills": [2,4,3,2,3,2,4],
-    "StudentAffinity": [ 0000051, false]
+    "StudentAffinity": [ 0000051, false],
     "Availability": [3,0,1,2] },
 
    {"StudentID": 0000052,
@@ -322,7 +322,7 @@
    {"StudentID": 0000054,
     "ClassID": 0,
     "Skills": [2,1,2,0,1,2,4],
-    "StudentAffinity": [ 0000072, false]
+    "StudentAffinity": [ 0000072, false],
     "Availability": [1,1,3,1] },
 
    {"StudentID": 0000055,
@@ -340,7 +340,7 @@
    {"StudentID": 0000057,
     "ClassID": 0,
     "Skills": [1,4,1,3,2,4,2],
-    "StudentAffinity": [ 0000004, false]
+    "StudentAffinity": [ 0000004, false],
     "Availability": [3,3,5,4] },
 
    {"StudentID": 0000058,
@@ -358,7 +358,7 @@
    {"StudentID": 0000060,
     "ClassID": 0,
     "Skills": [2,0,3,4,1,3,1],
-    "StudentAffinity": [ 0000009, false]
+    "StudentAffinity": [ 0000009, false],
     "Availability": [5,0,2,3] },
 
    {"StudentID": 0000061,
@@ -376,7 +376,7 @@
    {"StudentID": 0000063,
     "ClassID": 0,
     "Skills": [2,1,3,0,0,3,0],
-    "StudentAffinity": [ 0000058, false]
+    "StudentAffinity": [ 0000058, false],
     "Availability": [5,3,3,3] },
 
    {"StudentID": 0000064,
@@ -394,7 +394,7 @@
    {"StudentID": 0000066,
     "ClassID": 0,
     "Skills": [0,3,1,2,2,1,4],
-    "StudentAffinity": [ 0000017, false]
+    "StudentAffinity": [ 0000017, false],
     "Availability": [2,2,4,5] },
 
    {"StudentID": 0000067,
@@ -406,13 +406,13 @@
    {"StudentID": 0000068,
     "ClassID": 0,
     "Skills": [4,4,2,2,4,2,0],
-    "StudentAffinity": [ 0000069, true]
+    "StudentAffinity": [ 0000068, true]
     "Availability": [4,4,3,2] },
 
    {"StudentID": 0000069,
     "ClassID": 0,
     "Skills": [1,0,3,4,2,2,3],
-    "StudentAffinity": [ 0000057, false]
+    "StudentAffinity": [ 0000057, false],
     "Availability": [4,1,2,4] },
 
    {"StudentID": 0000070,
@@ -430,7 +430,7 @@
    {"StudentID": 0000072,
     "ClassID": 0,
     "Skills": [4,3,1,1,3,0,2],
-    "StudentAffinity": [ 0000054, false]
+    "StudentAffinity": [ 0000054, false],
     "Availability": [3,5,2,0] },
 
    {"StudentID": 0000073,
@@ -448,7 +448,7 @@
    {"StudentID": 0000075,
     "ClassID": 0,
     "Skills": [0,4,0,4,0,1,3],
-    "StudentAffinity": [ 0000087, false]
+    "StudentAffinity": [ 0000087, false],
     "Availability": [2,5,1,3] },
 
    {"StudentID": 0000076,
@@ -466,7 +466,7 @@
    {"StudentID": 0000078,
     "ClassID": 0,
     "Skills": [2,3,1,4,2,4,2],
-    "StudentAffinity": [ 0000082, false]
+    "StudentAffinity": [ 0000082, false],
     "Availability": [2,3,0,1] },
 
    {"StudentID": 0000079,
@@ -484,7 +484,7 @@
    {"StudentID": 0000081,
     "ClassID": 0,
     "Skills": [2,3,2,1,0,0,3],
-    "StudentAffinity": [ 0000082, false]
+    "StudentAffinity": [ 0000082, false],
     "Availability": [5,4,3,5] },
 
    {"StudentID": 0000082,
@@ -502,7 +502,7 @@
    {"StudentID": 0000084,
     "ClassID": 0,
     "Skills": [4,2,1,2,2,4,2],
-    "StudentAffinity": [ 0000042, false]
+    "StudentAffinity": [ 0000042, false],
     "Availability": [4,1,5,1] },
 
    {"StudentID": 0000085,
@@ -520,7 +520,7 @@
    {"StudentID": 0000087,
     "ClassID": 0,
     "Skills": [2,2,1,3,4,4,4],
-    "StudentAffinity": [ 0000096, false]
+    "StudentAffinity": [ 0000096, false],
     "Availability": [5,5,3,2] },
 
    {"StudentID": 0000088,
@@ -538,7 +538,7 @@
    {"StudentID": 0000090,
     "ClassID": 0,
     "Skills": [4,3,1,0,2,1,0],
-    "StudentAffinity": [ 0000009, false]
+    "StudentAffinity": [ 0000009, false],
     "Availability": [0,0,1,1] },
 
    {"StudentID": 0000091,
@@ -556,7 +556,7 @@
    {"StudentID": 0000093,
     "ClassID": 0,
     "Skills": [1,4,0,4,4,0,4],
-    "StudentAffinity": [ 0000046, false]
+    "StudentAffinity": [ 0000046, false],
     "Availability": [2,5,3,1] },
 
    {"StudentID": 0000094,
@@ -574,7 +574,7 @@
    {"StudentID": 0000096,
     "ClassID": 0,
     "Skills": [0,3,3,1,1,3,2],
-    "StudentAffinity": [ 0000024, false]
+    "StudentAffinity": [ 0000024, false],
     "Availability": [3,3,5,2] },
 
    {"StudentID": 0000097,
@@ -592,7 +592,7 @@
    {"StudentID": 0000099,
     "ClassID": 0,
     "Skills": [1,0,1,1,2,2,2],
-    "StudentAffinity": [ 0000013, false]
+    "StudentAffinity": [ 0000013, false],
     "Availability": [0,2,1,2] },
 
    {"StudentID": 0000100,
@@ -610,7 +610,7 @@
    {"StudentID": 0000102,
     "ClassID": 1,
     "Skills": [3,0,0,4,4,3,0],
-    "StudentAffinity": [ 0000177, false]
+    "StudentAffinity": [ 0000177, false],
     "Availability": [4,1,0,5] },
 
    {"StudentID": 0000103,
@@ -622,13 +622,13 @@
    {"StudentID": 0000104,
     "ClassID": 1,
     "Skills": [3,1,0,0,0,0,3],
-    "StudentAffinity": [ 0000166, true]
+    "StudentAffinity": [ 0000166, true],
     "Availability": [0,4,3,3] },
 
    {"StudentID": 0000105,
     "ClassID": 1,
     "Skills": [4,1,0,3,0,4,4],
-    "StudentAffinity": [ 0000197, false]
+    "StudentAffinity": [ 0000197, false],
     "Availability": [0,0,5,0] },
 
    {"StudentID": 0000106,
@@ -646,7 +646,7 @@
    {"StudentID": 0000108,
     "ClassID": 1,
     "Skills": [1,4,3,2,2,2,3],
-    "StudentAffinity": [ 0000139, false]
+    "StudentAffinity": [ 0000139, false],
     "Availability": [3,4,4,0] },
 
    {"StudentID": 0000109,
@@ -658,19 +658,19 @@
    {"StudentID": 0000110,
     "ClassID": 1,
     "Skills": [4,4,4,0,0,2,3],
-    "StudentAffinity": [ 0000173, true]
+    "StudentAffinity": [ 0000173, true],
     "Availability": [2,5,4,1] },
 
    {"StudentID": 0000111,
     "ClassID": 1,
     "Skills": [2,4,0,0,0,4,1],
-    "StudentAffinity": [ 0000104, false]
+    "StudentAffinity": [ 0000104, false],
     "Availability": [5,1,4,0] },
 
    {"StudentID": 0000112,
     "ClassID": 1,
     "Skills": [1,2,0,3,4,1,3],
-    "StudentAffinity": [ 0000128, true]
+    "StudentAffinity": [ 0000128, true],
     "Availability": [3,0,5,2] },
 
    {"StudentID": 0000113,
@@ -682,25 +682,25 @@
    {"StudentID": 0000114,
     "ClassID": 1,
     "Skills": [2,2,2,4,1,0,0],
-    "StudentAffinity": [ 0000183, false]
+    "StudentAffinity": [ 0000183, false],
     "Availability": [0,0,5,5] },
 
    {"StudentID": 0000115,
     "ClassID": 1,
     "Skills": [3,4,2,2,1,2,4],
-    "StudentAffinity": [ 0000200, true]
+    "StudentAffinity": [ 0000200, true],
     "Availability": [2,2,1,3] },
 
    {"StudentID": 0000116,
     "ClassID": 1,
     "Skills": [0,2,1,0,4,4,1],
-    "StudentAffinity": [ 0000131, true]
+    "StudentAffinity": [ 0000131, true],
     "Availability": [2,5,4,1] },
 
    {"StudentID": 0000117,
     "ClassID": 1,
     "Skills": [3,2,1,4,2,1,3],
-    "StudentAffinity": [ 0000187, false]
+    "StudentAffinity": [ 0000187, false],
     "Availability": [0,4,2,3] },
 
    {"StudentID": 0000118,
@@ -718,7 +718,7 @@
    {"StudentID": 0000120,
     "ClassID": 1,
     "Skills": [1,3,3,0,0,0,1],
-    "StudentAffinity": [ 0000121, false]
+    "StudentAffinity": [ 0000121, false],
     "Availability": [4,2,0,1] },
 
    {"StudentID": 0000121,
@@ -736,25 +736,25 @@
    {"StudentID": 0000123,
     "ClassID": 1,
     "Skills": [4,0,0,2,2,1,4],
-    "StudentAffinity": [ 0000191, false]
+    "StudentAffinity": [ 0000191, false],
     "Availability": [1,5,3,4] },
 
    {"StudentID": 0000124,
     "ClassID": 1,
     "Skills": [2,1,2,0,1,0,4],
-    "StudentAffinity": [ 0000144, true]
+    "StudentAffinity": [ 0000144, true],
     "Availability": [3,0,2,5] },
 
    {"StudentID": 0000125,
     "ClassID": 1,
     "Skills": [1,0,4,3,0,4,3],
-    "StudentAffinity": [ 0000119, true]
+    "StudentAffinity": [ 0000119, true],
     "Availability": [4,3,1,5] },
 
    {"StudentID": 0000126,
     "ClassID": 1,
     "Skills": [1,0,4,4,0,1,2],
-    "StudentAffinity": [ 0000118, false]
+    "StudentAffinity": [ 0000118, false],
     "Availability": [3,3,5,1] },
 
    {"StudentID": 0000127,
@@ -766,19 +766,19 @@
    {"StudentID": 0000128,
     "ClassID": 1,
     "Skills": [1,3,3,2,4,3,3],
-    "StudentAffinity": [ 0000197, true]
+    "StudentAffinity": [ 0000197, true],
     "Availability": [0,4,2,4] },
 
    {"StudentID": 0000129,
     "ClassID": 1,
     "Skills": [1,3,2,3,3,0,0],
-    "StudentAffinity": [ 0000144, false]
+    "StudentAffinity": [ 0000144, false],
     "Availability": [1,4,0,4] },
 
    {"StudentID": 0000130,
     "ClassID": 1,
     "Skills": [0,2,3,3,1,2,3],
-    "StudentAffinity": [ 0000177, true]
+    "StudentAffinity": [ 0000177, true],
     "Availability": [2,0,2,0] },
 
    {"StudentID": 0000131,
@@ -790,7 +790,7 @@
    {"StudentID": 0000132,
     "ClassID": 1,
     "Skills": [4,4,1,1,4,3,0],
-    "StudentAffinity": [ 0000105, false]
+    "StudentAffinity": [ 0000105, false],
     "Availability": [0,3,1,5] },
 
    {"StudentID": 0000133,
@@ -808,13 +808,13 @@
    {"StudentID": 0000135,
     "ClassID": 1,
     "Skills": [2,1,4,4,2,4,1],
-    "StudentAffinity": [ 0000163, false]
+    "StudentAffinity": [ 0000163, false],
     "Availability": [3,3,4,0] },
 
    {"StudentID": 0000136,
     "ClassID": 1,
     "Skills": [2,3,1,0,2,1,4],
-    "StudentAffinity": [ 0000159, true]
+    "StudentAffinity": [ 0000159, true],
     "Availability": [4,4,3,2] },
 
    {"StudentID": 0000137,
@@ -826,7 +826,7 @@
    {"StudentID": 0000138,
     "ClassID": 1,
     "Skills": [1,3,3,2,3,1,2],
-    "StudentAffinity": [ 0000151, false]
+    "StudentAffinity": [ 0000151, false],
     "Availability": [0,1,0,4] },
 
    {"StudentID": 0000139,
@@ -838,13 +838,13 @@
    {"StudentID": 0000140,
     "ClassID": 1,
     "Skills": [3,2,2,1,2,1,0],
-    "StudentAffinity": [ 0000162, true]
+    "StudentAffinity": [ 0000162, true],
     "Availability": [5,4,3,1] },
 
    {"StudentID": 0000141,
     "ClassID": 1,
     "Skills": [4,3,0,3,2,2,0],
-    "StudentAffinity": [ 0000152, false]
+    "StudentAffinity": [ 0000152, false],
     "Availability": [1,0,3,2] },
 
    {"StudentID": 0000142,
@@ -862,13 +862,13 @@
    {"StudentID": 0000144,
     "ClassID": 1,
     "Skills": [1,0,3,1,3,3,4],
-    "StudentAffinity": [ 0000171, false]
+    "StudentAffinity": [ 0000171, false],
     "Availability": [1,0,0,1] },
 
    {"StudentID": 0000145,
     "ClassID": 1,
     "Skills": [1,2,2,1,0,1,3],
-    "StudentAffinity": [ 0000146, true]
+    "StudentAffinity": [ 0000146, true],
     "Availability": [3,4,5,5] },
 
    {"StudentID": 0000146,
@@ -880,13 +880,13 @@
    {"StudentID": 0000147,
     "ClassID": 1,
     "Skills": [2,0,2,4,0,3,0],
-    "StudentAffinity": [ 0000149, false]
+    "StudentAffinity": [ 0000149, false],
     "Availability": [0,3,3,1] },
 
    {"StudentID": 0000148,
     "ClassID": 1,
     "Skills": [0,2,2,4,4,0,2],
-    "StudentAffinity": [ 0000179, true]
+    "StudentAffinity": [ 0000179, true],
     "Availability": [2,3,5,3] },
 
    {"StudentID": 0000149,
@@ -898,7 +898,7 @@
    {"StudentID": 0000150,
     "ClassID": 1,
     "Skills": [0,1,1,2,0,2,3],
-    "StudentAffinity": [ 0000189, false]
+    "StudentAffinity": [ 0000189, false],
     "Availability": [5,2,5,0] },
 
    {"StudentID": 0000151,
@@ -910,13 +910,13 @@
    {"StudentID": 0000152,
     "ClassID": 1,
     "Skills": [0,3,3,3,2,3,0],
-    "StudentAffinity": [ 0000144, true]
+    "StudentAffinity": [ 0000144, true],
     "Availability": [4,2,0,1] },
 
    {"StudentID": 0000153,
     "ClassID": 1,
     "Skills": [3,3,2,4,3,2,1],
-    "StudentAffinity": [ 0000161, false]
+    "StudentAffinity": [ 0000161, false],
     "Availability": [3,2,4,0] },
 
    {"StudentID": 0000154,
@@ -928,13 +928,13 @@
    {"StudentID": 0000155,
     "ClassID": 1,
     "Skills": [3,1,3,1,3,3,4],
-    "StudentAffinity": [ 0000107, true]
+    "StudentAffinity": [ 0000107, true],
     "Availability": [2,5,3,4] },
 
    {"StudentID": 0000156,
     "ClassID": 1,
     "Skills": [0,1,3,3,0,0,0],
-    "StudentAffinity": [ 0000189, false]
+    "StudentAffinity": [ 0000189, false],
     "Availability": [4,0,2,5] },
 
    {"StudentID": 0000157,
@@ -952,13 +952,13 @@
    {"StudentID": 0000159,
     "ClassID": 1,
     "Skills": [4,3,3,1,2,0,3],
-    "StudentAffinity": [ 0000170, false]
+    "StudentAffinity": [ 0000170, false],
     "Availability": [5,0,1,2] },
 
    {"StudentID": 0000160,
     "ClassID": 1,
     "Skills": [4,3,0,0,1,0,4],
-    "StudentAffinity": [ 0000180, true]
+    "StudentAffinity": [ 0000180, true],
     "Availability": [2,4,0,0] },
 
    {"StudentID": 0000161,
@@ -970,7 +970,7 @@
    {"StudentID": 0000162,
     "ClassID": 1,
     "Skills": [2,4,3,3,4,3,0],
-    "StudentAffinity": [ 0000124, false]
+    "StudentAffinity": [ 0000124, false],
     "Availability": [2,0,0,2] },
 
    {"StudentID": 0000163,
@@ -982,13 +982,13 @@
    {"StudentID": 0000164,
     "ClassID": 1,
     "Skills": [4,2,0,3,1,4,2],
-    "StudentAffinity": [ 0000176, true]
+    "StudentAffinity": [ 0000176, true],
     "Availability": [3,3,2,4] },
 
    {"StudentID": 0000165,
     "ClassID": 1,
     "Skills": [4,3,2,2,0,2,4],
-    "StudentAffinity": [ 0000198, false]
+    "StudentAffinity": [ 0000198, false],
     "Availability": [4,0,2,0] },
 
    {"StudentID": 0000166,
@@ -1006,7 +1006,7 @@
    {"StudentID": 0000168,
     "ClassID": 1,
     "Skills": [3,2,3,2,2,3,1],
-    "StudentAffinity": [ 0000153, false]
+    "StudentAffinity": [ 0000153, false],
     "Availability": [1,4,3,4] },
 
    {"StudentID": 0000169,
@@ -1018,19 +1018,19 @@
    {"StudentID": 0000170,
     "ClassID": 1,
     "Skills": [4,4,4,0,1,0,2],
-    "StudentAffinity": [ 0000167, true]
+    "StudentAffinity": [ 0000167, true],
     "Availability": [2,4,5,3] },
 
    {"StudentID": 0000171,
     "ClassID": 1,
     "Skills": [1,1,4,0,0,0,2],
-    "StudentAffinity": [ 0000168, false]
+    "StudentAffinity": [ 0000168, false],
     "Availability": [3,0,1,1] },
 
    {"StudentID": 0000172,
     "ClassID": 1,
     "Skills": [4,3,2,1,0,1,1],
-    "StudentAffinity": [ 0000142, true]
+    "StudentAffinity": [ 0000142, true],
     "Availability": [4,1,1,4] },
 
    {"StudentID": 0000173,
@@ -1042,25 +1042,25 @@
    {"StudentID": 0000174,
     "ClassID": 1,
     "Skills": [0,4,0,2,1,1,3],
-    "StudentAffinity": [ 0000199, false]
+    "StudentAffinity": [ 0000199, false],
     "Availability": [3,4,0,1] },
 
    {"StudentID": 0000175,
     "ClassID": 1,
     "Skills": [3,2,1,4,2,2,1],
-    "StudentAffinity": [ 0000115, true]
+    "StudentAffinity": [ 0000115, true],
     "Availability": [2,1,1,0] },
 
    {"StudentID": 0000176,
     "ClassID": 1,
     "Skills": [0,1,2,3,0,1,0],
-    "StudentAffinity": [ 0000132, true]
+    "StudentAffinity": [ 0000132, true],
     "Availability": [4,3,1,0] },
 
    {"StudentID": 0000177,
     "ClassID": 1,
     "Skills": [4,4,0,3,0,1,1],
-    "StudentAffinity": [ 0000156, false]
+    "StudentAffinity": [ 0000156, false],
     "Availability": [0,5,2,4] },
 
    {"StudentID": 0000178,
@@ -1078,7 +1078,7 @@
    {"StudentID": 0000180,
     "ClassID": 1,
     "Skills": [4,2,4,2,3,4,4],
-    "StudentAffinity": [ 0000181, false]
+    "StudentAffinity": [ 0000181, false],
     "Availability": [1,3,4,5] },
 
    {"StudentID": 0000181,
@@ -1096,25 +1096,25 @@
    {"StudentID": 0000183,
     "ClassID": 1,
     "Skills": [3,3,4,4,3,3,4],
-    "StudentAffinity": [ 0000157, false]
+    "StudentAffinity": [ 0000157, false],
     "Availability": [1,3,1,1] },
 
    {"StudentID": 0000184,
     "ClassID": 1,
     "Skills": [2,1,2,4,2,0,0],
-    "StudentAffinity": [ 0000117, true]
+    "StudentAffinity": [ 0000117, true],
     "Availability": [5,0,3,1] },
 
    {"StudentID": 0000185,
     "ClassID": 1,
     "Skills": [2,1,3,1,2,0,3],
-    "StudentAffinity": [ 0000168, true]
+    "StudentAffinity": [ 0000168, true],
     "Availability": [2,1,2,2] },
 
    {"StudentID": 0000186,
     "ClassID": 1,
     "Skills": [3,3,0,4,4,2,4],
-    "StudentAffinity": [ 0000170, false]
+    "StudentAffinity": [ 0000170, false],
     "Availability": [1,1,5,3] },
 
    {"StudentID": 0000187,
@@ -1126,19 +1126,19 @@
    {"StudentID": 0000188,
     "ClassID": 1,
     "Skills": [2,3,3,1,1,1,0],
-    "StudentAffinity": [ 0000104, true]
+    "StudentAffinity": [ 0000104, true],
     "Availability": [3,3,1,5] },
 
    {"StudentID": 0000189,
     "ClassID": 1,
     "Skills": [0,4,4,4,1,3,2],
-    "StudentAffinity": [ 0000200, false]
+    "StudentAffinity": [ 0000200, false],
     "Availability": [0,1,1,0] },
 
    {"StudentID": 0000190,
     "ClassID": 1,
     "Skills": [2,4,2,1,4,0,4],
-    "StudentAffinity": [ 0000175, true]
+    "StudentAffinity": [ 0000175, true],
     "Availability": [3,1,0,4] },
 
    {"StudentID": 0000191,
@@ -1150,7 +1150,7 @@
    {"StudentID": 0000192,
     "ClassID": 1,
     "Skills": [4,3,0,0,2,0,3],
-    "StudentAffinity": [ 0000168, false]
+    "StudentAffinity": [ 0000168, false],
     "Availability": [5,2,3,2] },
 
    {"StudentID": 0000193,
@@ -1168,13 +1168,13 @@
    {"StudentID": 0000195,
     "ClassID": 1,
     "Skills": [0,1,1,0,4,1,2],
-    "StudentAffinity": [ 0000128, false]
+    "StudentAffinity": [ 0000128, false],
     "Availability": [5,0,3,4] },
 
    {"StudentID": 0000196,
     "ClassID": 1,
     "Skills": [4,3,2,0,1,3,2],
-    "StudentAffinity": [ 0000103, true]
+    "StudentAffinity": [ 0000103, true],
     "Availability": [2,0,5,2] },
 
    {"StudentID": 0000197,
@@ -1186,7 +1186,7 @@
    {"StudentID": 0000198,
     "ClassID": 1,
     "Skills": [0,3,4,1,0,0,4],
-    "StudentAffinity": [ 0000119, false]
+    "StudentAffinity": [ 0000119, false],
     "Availability": [4,1,0,3] },
 
    {"StudentID": 0000199,
@@ -1198,13 +1198,13 @@
    {"StudentID": 0000200,
     "ClassID": 1,
     "Skills": [3,0,3,4,0,1,2],
-    "StudentAffinity": [ 0000109, true]
+    "StudentAffinity": [ 0000109, true],
     "Availability": [2,2,0,1] },
 
    {"StudentID": 0000201,
     "ClassID": 2,
     "Skills": [2,3,3,4,2,2,0],
-    "StudentAffinity": [ 0000284, false]
+    "StudentAffinity": [ 0000284, false],
     "Availability": [2,0,0,0] },
 
    {"StudentID": 0000202,
@@ -1222,13 +1222,13 @@
    {"StudentID": 0000204,
     "ClassID": 2,
     "Skills": [2,3,3,2,1,3,3],
-    "StudentAffinity": [ 0000296, false]
+    "StudentAffinity": [ 0000296, false],
     "Availability": [1,5,4,5] },
 
    {"StudentID": 0000205,
     "ClassID": 2,
     "Skills": [2,2,2,2,4,1,4],
-    "StudentAffinity": [ 0000217, true]
+    "StudentAffinity": [ 0000217, true],
     "Availability": [2,3,0,3] },
 
    {"StudentID": 0000206,
@@ -1240,13 +1240,13 @@
    {"StudentID": 0000207,
     "ClassID": 2,
     "Skills": [3,3,3,4,3,0,0],
-    "StudentAffinity": [ 0000280, false]
+    "StudentAffinity": [ 0000280, false],
     "Availability": [3,5,4,0] },
 
    {"StudentID": 0000208,
     "ClassID": 2,
     "Skills": [2,0,3,2,0,0,0],
-    "StudentAffinity": [ 0000230, true]
+    "StudentAffinity": [ 0000230, true],
     "Availability": [4,2,5,0] },
 
    {"StudentID": 0000209,
@@ -1258,7 +1258,7 @@
    {"StudentID": 0000210,
     "ClassID": 2,
     "Skills": [1,4,1,3,0,4,3],
-    "StudentAffinity": [ 0000239, false]
+    "StudentAffinity": [ 0000239, false],
     "Availability": [3,0,1,3] },
 
    {"StudentID": 0000211,
@@ -1270,13 +1270,13 @@
    {"StudentID": 0000212,
     "ClassID": 2,
     "Skills": [3,4,4,2,4,2,3],
-    "StudentAffinity": [ 0000283, true]
+    "StudentAffinity": [ 0000283, true],
     "Availability": [4,2,5,1] },
 
    {"StudentID": 0000213,
     "ClassID": 2,
     "Skills": [4,1,4,3,1,4,2],
-    "StudentAffinity": [ 0000251, false]
+    "StudentAffinity": [ 0000251, false],
     "Availability": [3,0,5,4] },
 
    {"StudentID": 0000214,
@@ -1288,13 +1288,13 @@
    {"StudentID": 0000215,
     "ClassID": 2,
     "Skills": [3,2,2,3,0,3,2],
-    "StudentAffinity": [ 0000236, true]
+    "StudentAffinity": [ 0000236, true],
     "Availability": [2,4,0,1] },
 
    {"StudentID": 0000216,
     "ClassID": 2,
     "Skills": [1,4,0,3,3,1,2],
-    "StudentAffinity": [ 0000253, false]
+    "StudentAffinity": [ 0000253, false],
     "Availability": [3,3,5,4] },
 
    {"StudentID": 0000217,
@@ -1312,13 +1312,13 @@
    {"StudentID": 0000219,
     "ClassID": 2,
     "Skills": [3,2,0,2,4,4,3],
-    "StudentAffinity": [ 0000252, false]
+    "StudentAffinity": [ 0000252, false],
     "Availability": [3,2,0,2] },
 
    {"StudentID": 0000220,
     "ClassID": 2,
     "Skills": [3,1,3,0,2,4,2],
-    "StudentAffinity": [ 0000254, true]
+    "StudentAffinity": [ 0000254, true],
     "Availability": [4,4,5,2] },
 
    {"StudentID": 0000221,
@@ -1330,7 +1330,7 @@
    {"StudentID": 0000222,
     "ClassID": 2,
     "Skills": [2,0,2,3,1,3,4],
-    "StudentAffinity": [ 0000243, false]
+    "StudentAffinity": [ 0000243, false],
     "Availability": [0,4,3,1] },
 
    {"StudentID": 0000223,
@@ -1342,13 +1342,13 @@
    {"StudentID": 0000224,
     "ClassID": 2,
     "Skills": [2,1,0,2,0,1,3],
-    "StudentAffinity": [ 0000270, true]
+    "StudentAffinity": [ 0000270, true],
     "Availability": [5,4,0,4] },
 
    {"StudentID": 0000225,
     "ClassID": 2,
     "Skills": [0,3,4,4,3,2,4],
-    "StudentAffinity": [ 0000228, false]
+    "StudentAffinity": [ 0000228, false],
     "Availability": [3,1,3,3] },
 
    {"StudentID": 0000226,
@@ -1366,7 +1366,7 @@
    {"StudentID": 0000228,
     "ClassID": 2,
     "Skills": [3,2,0,2,1,4,1],
-    "StudentAffinity": [ 0000261, false]
+    "StudentAffinity": [ 0000261, false],
     "Availability": [0,3,2,2] },
 
    {"StudentID": 0000229,
@@ -1378,19 +1378,19 @@
    {"StudentID": 0000230,
     "ClassID": 2,
     "Skills": [4,4,3,2,3,2,3],
-    "StudentAffinity": [ 0000288, true]
+    "StudentAffinity": [ 0000288, true],
     "Availability": [3,4,0,4] },
 
    {"StudentID": 0000231,
     "ClassID": 2,
     "Skills": [4,1,2,2,2,4,1],
-    "StudentAffinity": [ 0000204, false]
+    "StudentAffinity": [ 0000204, false],
     "Availability": [2,5,1,2] },
 
    {"StudentID": 0000232,
     "ClassID": 2,
     "Skills": [1,3,1,4,2,2,1],
-    "StudentAffinity": [ 0000208, true]
+    "StudentAffinity": [ 0000208, true],
     "Availability": [0,1,2,0] },
 
    {"StudentID": 0000233,
@@ -1402,25 +1402,25 @@
    {"StudentID": 0000234,
     "ClassID": 2,
     "Skills": [4,0,0,4,2,0,0],
-    "StudentAffinity": [ 0000265, false]
+    "StudentAffinity": [ 0000265, false],
     "Availability": [0,4,1,5] },
 
    {"StudentID": 0000235,
     "ClassID": 2,
     "Skills": [3,2,3,2,3,3,0],
-    "StudentAffinity": [ 0000276, true]
+    "StudentAffinity": [ 0000276, true],
     "Availability": [2,0,3,3] },
 
    {"StudentID": 0000236,
     "ClassID": 2,
     "Skills": [1,4,3,2,1,2,3],
-    "StudentAffinity": [ 0000263, true]
+    "StudentAffinity": [ 0000263, true],
     "Availability": [1,0,4,4] },
 
    {"StudentID": 0000237,
     "ClassID": 2,
     "Skills": [0,2,3,2,1,3,4],
-    "StudentAffinity": [ 0000241, false]
+    "StudentAffinity": [ 0000241, false],
     "Availability": [2,4,5,4] },
 
    {"StudentID": 0000238,
@@ -1438,7 +1438,7 @@
    {"StudentID": 0000240,
     "ClassID": 2,
     "Skills": [3,2,4,4,4,2,4],
-    "StudentAffinity": [ 0000211, false]
+    "StudentAffinity": [ 0000211, false],
     "Availability": [2,2,4,1] },
 
    {"StudentID": 0000241,
@@ -1456,25 +1456,25 @@
    {"StudentID": 0000243,
     "ClassID": 2,
     "Skills": [2,2,2,2,2,3,1],
-    "StudentAffinity": [ 0000238, false]
+    "StudentAffinity": [ 0000238, false],
     "Availability": [4,4,1,4] },
 
    {"StudentID": 0000244,
     "ClassID": 2,
     "Skills": [3,1,0,2,4,3,0],
-    "StudentAffinity": [ 0000250, true]
+    "StudentAffinity": [ 0000250, true],
     "Availability": [0,1,5,0] },
 
    {"StudentID": 0000245,
     "ClassID": 2,
     "Skills": [2,1,3,4,4,2,4],
-    "StudentAffinity": [ 0000233, true]
+    "StudentAffinity": [ 0000233, true],
     "Availability": [4,3,2,2] },
 
    {"StudentID": 0000246,
     "ClassID": 2,
     "Skills": [2,0,2,2,2,4,4],
-    "StudentAffinity": [ 0000206, false]
+    "StudentAffinity": [ 0000206, false],
     "Availability": [3,0,0,0] },
 
    {"StudentID": 0000247,
@@ -1486,19 +1486,19 @@
    {"StudentID": 0000248,
     "ClassID": 2,
     "Skills": [0,4,3,1,0,2,2],
-    "StudentAffinity": [ 0000298, true]
+    "StudentAffinity": [ 0000298, true],
     "Availability": [5,3,4,3] },
 
    {"StudentID": 0000249,
     "ClassID": 2,
     "Skills": [1,1,2,2,4,1,4],
-    "StudentAffinity": [ 0000227, false]
+    "StudentAffinity": [ 0000227, false],
     "Availability": [0,1,3,5] },
 
    {"StudentID": 0000250,
     "ClassID": 2,
     "Skills": [1,2,3,0,3,0,4],
-    "StudentAffinity": [ 0000269, true]
+    "StudentAffinity": [ 0000269, true],
     "Availability": [3,2,0,0] },
 
    {"StudentID": 0000251,
@@ -1510,7 +1510,7 @@
    {"StudentID": 0000252,
     "ClassID": 2,
     "Skills": [1,2,4,2,0,0,3],
-    "StudentAffinity": [ 0000266, false]
+    "StudentAffinity": [ 0000266, false],
     "Availability": [1,5,3,5] },
 
    {"StudentID": 0000253,
@@ -1528,13 +1528,13 @@
    {"StudentID": 0000255,
     "ClassID": 2,
     "Skills": [0,2,4,0,2,1,4],
-    "StudentAffinity": [ 0000219, false]
+    "StudentAffinity": [ 0000219, false],
     "Availability": [1,4,0,1] },
 
    {"StudentID": 0000256,
     "ClassID": 2,
     "Skills": [3,4,1,4,4,2,3],
-    "StudentAffinity": [ 0000236, true]
+    "StudentAffinity": [ 0000236, true],
     "Availability": [5,2,3,1] },
 
    {"StudentID": 0000257,
@@ -1546,7 +1546,7 @@
    {"StudentID": 0000258,
     "ClassID": 2,
     "Skills": [2,2,0,0,2,1,1],
-    "StudentAffinity": [ 0000256, false]
+    "StudentAffinity": [ 0000256, false],
     "Availability": [5,2,4,4] },
 
    {"StudentID": 0000259,
@@ -1558,13 +1558,13 @@
    {"StudentID": 0000260,
     "ClassID": 2,
     "Skills": [0,4,3,2,2,3,3],
-    "StudentAffinity": [ 0000261, true]
+    "StudentAffinity": [ 0000261, true],
     "Availability": [5,4,2,3] },
 
    {"StudentID": 0000261,
     "ClassID": 2,
     "Skills": [4,1,1,3,0,4,3],
-    "StudentAffinity": [ 0000269, false]
+    "StudentAffinity": [ 0000269, false],
     "Availability": [1,3,2,2] },
 
    {"StudentID": 0000262,
@@ -1582,13 +1582,13 @@
    {"StudentID": 0000264,
     "ClassID": 2,
     "Skills": [1,0,3,4,3,3,1],
-    "StudentAffinity": [ 0000291, false]
+    "StudentAffinity": [ 0000291, false],
     "Availability": [4,4,2,1] },
 
    {"StudentID": 0000265,
     "ClassID": 2,
     "Skills": [1,0,0,0,3,2,3],
-    "StudentAffinity": [ 0000211, true]
+    "StudentAffinity": [ 0000211, true],
     "Availability": [5,4,5,5] },
 
    {"StudentID": 0000266,
@@ -1600,13 +1600,13 @@
    {"StudentID": 0000267,
     "ClassID": 2,
     "Skills": [3,2,3,1,0,4,0],
-    "StudentAffinity": [ 0000202, false]
+    "StudentAffinity": [ 0000202, false],
     "Availability": [4,2,4,2] },
 
    {"StudentID": 0000268,
     "ClassID": 2,
     "Skills": [0,4,0,3,1,1,4],
-    "StudentAffinity": [ 0000213, true]
+    "StudentAffinity": [ 0000213, true],
     "Availability": [5,3,3,1] },
 
    {"StudentID": 0000269,
@@ -1618,7 +1618,7 @@
    {"StudentID": 0000270,
     "ClassID": 2,
     "Skills": [0,4,1,4,1,3,4],
-    "StudentAffinity": [ 0000206, false]
+    "StudentAffinity": [ 0000206, false],
     "Availability": [2,1,1,4] },
 
    {"StudentID": 0000271,
@@ -1630,13 +1630,13 @@
    {"StudentID": 0000272,
     "ClassID": 2,
     "Skills": [3,0,2,2,0,2,4],
-    "StudentAffinity": [ 0000203, true]
+    "StudentAffinity": [ 0000203, true],
     "Availability": [1,1,5,0] },
 
    {"StudentID": 0000273,
     "ClassID": 2,
     "Skills": [4,4,3,2,2,3,1],
-    "StudentAffinity": [ 0000252, false]
+    "StudentAffinity": [ 0000252, false],
     "Availability": [2,0,4,4] },
 
    {"StudentID": 0000274,
@@ -1648,13 +1648,13 @@
    {"StudentID": 0000275,
     "ClassID": 2,
     "Skills": [2,0,2,0,2,2,4],
-    "StudentAffinity": [ 0000293, true]
+    "StudentAffinity": [ 0000293, true],
     "Availability": [5,0,1,5] },
 
    {"StudentID": 0000276,
     "ClassID": 2,
     "Skills": [2,1,1,4,4,2,0],
-    "StudentAffinity": [ 0000212, false]
+    "StudentAffinity": [ 0000212, false],
     "Availability": [0,0,1,2] },
 
    {"StudentID": 0000277,
@@ -1672,13 +1672,13 @@
    {"StudentID": 0000279,
     "ClassID": 2,
     "Skills": [0,3,0,2,2,3,3],
-    "StudentAffinity": [ 0000216, false]
+    "StudentAffinity": [ 0000216, false],
     "Availability": [0,3,0,3] },
 
    {"StudentID": 0000280,
     "ClassID": 2,
     "Skills": [1,3,1,3,4,3,2],
-    "StudentAffinity": [ 0000271, true]
+    "StudentAffinity": [ 0000271, true],
     "Availability": [5,2,0,0] },
 
    {"StudentID": 0000281,
@@ -1690,7 +1690,7 @@
    {"StudentID": 0000282,
     "ClassID": 2,
     "Skills": [4,2,0,3,4,2,2],
-    "StudentAffinity": [ 0000200, false]
+    "StudentAffinity": [ 0000200, false],
     "Availability": [2,3,1,4] },
 
    {"StudentID": 0000283,
@@ -1702,13 +1702,13 @@
    {"StudentID": 0000284,
     "ClassID": 2,
     "Skills": [0,4,2,3,4,1,2],
-    "StudentAffinity": [ 0000202, true]
+    "StudentAffinity": [ 0000202, true],
     "Availability": [2,0,4,1] },
 
    {"StudentID": 0000285,
     "ClassID": 2,
     "Skills": [0,0,4,3,1,4,3],
-    "StudentAffinity": [ 0000290, false]
+    "StudentAffinity": [ 0000290, false],
     "Availability": [5,4,2,3] },
 
    {"StudentID": 0000286,
@@ -1726,7 +1726,7 @@
    {"StudentID": 0000288,
     "ClassID": 2,
     "Skills": [4,0,2,0,3,0,1],
-    "StudentAffinity": [ 0000227, false]
+    "StudentAffinity": [ 0000227, false],
     "Availability": [3,1,0,3] },
 
    {"StudentID": 0000289,
@@ -1738,19 +1738,19 @@
    {"StudentID": 0000290,
     "ClassID": 2,
     "Skills": [0,0,4,1,4,0,3],
-    "StudentAffinity": [ 0000272, true]
+    "StudentAffinity": [ 0000272, true],
     "Availability": [3,5,3,2] },
 
    {"StudentID": 0000291,
     "ClassID": 2,
     "Skills": [2,4,0,0,4,2,1],
-    "StudentAffinity": [ 0000269, false]
+    "StudentAffinity": [ 0000269, false],
     "Availability": [0,3,2,3] },
 
    {"StudentID": 0000292,
     "ClassID": 2,
     "Skills": [2,4,0,4,1,2,2],
-    "StudentAffinity": [ 0000235, true]
+    "StudentAffinity": [ 0000235, true],
     "Availability": [5,1,3,5] },
 
    {"StudentID": 0000293,
@@ -1762,25 +1762,25 @@
    {"StudentID": 0000294,
     "ClassID": 2,
     "Skills": [3,0,4,1,1,1,2],
-    "StudentAffinity": [ 0000261, false]
+    "StudentAffinity": [ 0000261, false],
     "Availability": [1,2,3,0] },
 
    {"StudentID": 0000295,
     "ClassID": 2,
     "Skills": [2,0,4,3,2,3,3],
-    "StudentAffinity": [ 0000278, true]
+    "StudentAffinity": [ 0000278, true],
     "Availability": [5,0,0,1] },
 
    {"StudentID": 0000296,
     "ClassID": 2,
     "Skills": [3,4,0,4,1,3,2],
-    "StudentAffinity": [ 0000266, true]
+    "StudentAffinity": [ 0000266, true],
     "Availability": [4,0,1,2] },
 
    {"StudentID": 0000297,
     "ClassID": 2,
     "Skills": [0,0,2,2,3,0,2],
-    "StudentAffinity": [ 0000201, false]
+    "StudentAffinity": [ 0000201, false],
     "Availability": [3,4,5,0] },
 
    {"StudentID": 0000298,
@@ -1798,7 +1798,7 @@
    {"StudentID": 0000300,
     "ClassID": 2,
     "Skills": [4,4,3,4,2,1,3],
-    "StudentAffinity": [ 0000274, false]
+    "StudentAffinity": [ 0000274, false],
     "Availability": [0,5,3,4] },
 
    {"StudentID": 0000301,
@@ -1816,25 +1816,25 @@
    {"StudentID": 0000303,
     "ClassID": 3,
     "Skills": [3,4,2,3,1,2,3],
-    "StudentAffinity": [ 0000343, false]
+    "StudentAffinity": [ 0000343, false],
     "Availability": [3,3,3,4] },
 
    {"StudentID": 0000304,
     "ClassID": 3,
     "Skills": [1,2,4,2,1,4,1],
-    "StudentAffinity": [ 0000314, true]
+    "StudentAffinity": [ 0000314, true],
     "Availability": [2,5,3,0] },
 
    {"StudentID": 0000305,
     "ClassID": 3,
     "Skills": [0,4,0,1,0,2,2],
-    "StudentAffinity": [ 0000305, true]
+    "StudentAffinity": [ 0000305, true],
     "Availability": [3,0,2,3] },
 
    {"StudentID": 0000306,
     "ClassID": 3,
     "Skills": [1,1,1,4,1,2,1],
-    "StudentAffinity": [ 0000321, false]
+    "StudentAffinity": [ 0000321, false],
     "Availability": [4,4,3,5] },
 
    {"StudentID": 0000307,
@@ -1846,19 +1846,19 @@
    {"StudentID": 0000308,
     "ClassID": 3,
     "Skills": [4,1,2,4,4,1,2],
-    "StudentAffinity": [ 0000384, true]
+    "StudentAffinity": [ 0000384, true],
     "Availability": [5,3,4,4] },
 
    {"StudentID": 0000309,
     "ClassID": 3,
     "Skills": [2,4,2,1,1,3,0],
-    "StudentAffinity": [ 0000389, false]
+    "StudentAffinity": [ 0000389, false],
     "Availability": [0,0,2,5] },
 
    {"StudentID": 0000310,
     "ClassID": 3,
     "Skills": [0,0,3,2,0,4,1],
-    "StudentAffinity": [ 0000302, true]
+    "StudentAffinity": [ 0000302, true],
     "Availability": [4,4,2,4] },
 
    {"StudentID": 0000311,
@@ -1870,7 +1870,7 @@
    {"StudentID": 0000312,
     "ClassID": 3,
     "Skills": [4,0,4,0,1,2,2],
-    "StudentAffinity": [ 0000377, false]
+    "StudentAffinity": [ 0000377, false],
     "Availability": [4,5,1,1] },
 
    {"StudentID": 0000313,
@@ -1888,13 +1888,13 @@
    {"StudentID": 0000315,
     "ClassID": 3,
     "Skills": [0,3,2,2,0,1,2],
-    "StudentAffinity": [ 0000371, false]
+    "StudentAffinity": [ 0000371, false],
     "Availability": [0,3,5,0] },
 
    {"StudentID": 0000316,
     "ClassID": 3,
     "Skills": [2,2,2,1,4,1,1],
-    "StudentAffinity": [ 0000321, true]
+    "StudentAffinity": [ 0000321, true],
     "Availability": [0,1,0,4] },
 
    {"StudentID": 0000317,
@@ -1906,7 +1906,7 @@
    {"StudentID": 0000318,
     "ClassID": 3,
     "Skills": [0,2,2,3,2,4,3],
-    "StudentAffinity": [ 0000333, false]
+    "StudentAffinity": [ 0000333, false],
     "Availability": [3,2,1,1] },
 
    {"StudentID": 0000319,
@@ -1918,13 +1918,13 @@
    {"StudentID": 0000320,
     "ClassID": 3,
     "Skills": [1,1,0,0,2,2,1],
-    "StudentAffinity": [ 0000356, true]
+    "StudentAffinity": [ 0000356, true],
     "Availability": [3,0,1,2] },
 
    {"StudentID": 0000321,
     "ClassID": 3,
     "Skills": [3,4,4,3,4,2,0],
-    "StudentAffinity": [ 0000367, false]
+    "StudentAffinity": [ 0000367, false],
     "Availability": [1,2,5,4] },
 
    {"StudentID": 0000322,
@@ -1942,13 +1942,13 @@
    {"StudentID": 0000324,
     "ClassID": 3,
     "Skills": [0,2,1,0,0,2,3],
-    "StudentAffinity": [ 0000349, false]
+    "StudentAffinity": [ 0000349, false],
     "Availability": [3,4,1,5] },
 
    {"StudentID": 0000325,
     "ClassID": 3,
     "Skills": [3,3,2,1,3,4,1],
-    "StudentAffinity": [ 0000363, true]
+    "StudentAffinity": [ 0000363, true],
     "Availability": [5,5,4,3] },
 
    {"StudentID": 0000326,
@@ -1960,13 +1960,13 @@
    {"StudentID": 0000327,
     "ClassID": 3,
     "Skills": [0,0,3,4,3,4,1],
-    "StudentAffinity": [ 0000321, false]
+    "StudentAffinity": [ 0000321, false],
     "Availability": [0,3,3,2] },
 
    {"StudentID": 0000328,
     "ClassID": 3,
     "Skills": [2,1,1,3,1,1,3],
-    "StudentAffinity": [ 0000347, true]
+    "StudentAffinity": [ 0000347, true],
     "Availability": [1,1,1,5] },
 
    {"StudentID": 0000329,
@@ -1978,7 +1978,7 @@
    {"StudentID": 0000330,
     "ClassID": 3,
     "Skills": [2,3,3,3,2,2,3],
-    "StudentAffinity": [ 0000381, false]
+    "StudentAffinity": [ 0000381, false],
     "Availability": [0,4,2,0] },
 
    {"StudentID": 0000331,
@@ -1990,13 +1990,13 @@
    {"StudentID": 0000332,
     "ClassID": 3,
     "Skills": [0,1,0,1,4,4,0],
-    "StudentAffinity": [ 0000340, true]
+    "StudentAffinity": [ 0000340, true],
     "Availability": [1,3,5,4] },
 
    {"StudentID": 0000333,
     "ClassID": 3,
     "Skills": [0,1,1,0,2,0,3],
-    "StudentAffinity": [ 0000318, false]
+    "StudentAffinity": [ 0000318, false],
     "Availability": [1,0,4,1] },
 
    {"StudentID": 0000334,
@@ -2008,13 +2008,13 @@
    {"StudentID": 0000335,
     "ClassID": 3,
     "Skills": [4,1,1,1,0,2,1],
-    "StudentAffinity": [ 0000384, true]
+    "StudentAffinity": [ 0000384, true],
     "Availability": [5,3,3,1] },
 
    {"StudentID": 0000336,
     "ClassID": 3,
     "Skills": [0,1,0,3,1,2,1],
-    "StudentAffinity": [ 0000385, false]
+    "StudentAffinity": [ 0000385, false],
     "Availability": [4,2,1,5] },
 
    {"StudentID": 0000337,
@@ -2032,13 +2032,13 @@
    {"StudentID": 0000339,
     "ClassID": 3,
     "Skills": [1,4,4,2,0,0,2],
-    "StudentAffinity": [ 0000350, false]
+    "StudentAffinity": [ 0000350, false],
     "Availability": [3,5,2,2] },
 
    {"StudentID": 0000340,
     "ClassID": 3,
     "Skills": [4,3,3,3,0,3,2],
-    "StudentAffinity": [ 0000371, true]
+    "StudentAffinity": [ 0000371, true],
     "Availability": [5,5,0,0] },
 
    {"StudentID": 0000341,
@@ -2050,7 +2050,7 @@
    {"StudentID": 0000342,
     "ClassID": 3,
     "Skills": [4,1,2,4,0,0,0],
-    "StudentAffinity": [ 0000380, false]
+    "StudentAffinity": [ 0000380, false],
     "Availability": [2,1,4,4] },
 
    {"StudentID": 0000343,
@@ -2062,13 +2062,13 @@
    {"StudentID": 0000344,
     "ClassID": 3,
     "Skills": [0,2,4,0,3,3,1],
-    "StudentAffinity": [ 0000313, true]
+    "StudentAffinity": [ 0000313, true],
     "Availability": [4,1,3,5] },
 
    {"StudentID": 0000345,
     "ClassID": 3,
     "Skills": [4,3,1,2,4,2,4],
-    "StudentAffinity": [ 0000386, false]
+    "StudentAffinity": [ 0000386, false],
     "Availability": [3,5,2,2] },
 
    {"StudentID": 0000346,
@@ -2086,7 +2086,7 @@
    {"StudentID": 0000348,
     "ClassID": 3,
     "Skills": [2,1,2,1,1,0,3],
-    "StudentAffinity": [ 0000306, false]
+    "StudentAffinity": [ 0000306, false],
     "Availability": [2,2,0,1] },
 
    {"StudentID": 0000349,
@@ -2098,19 +2098,19 @@
    {"StudentID": 0000350,
     "ClassID": 3,
     "Skills": [0,2,1,4,0,1,1],
-    "StudentAffinity": [ 0000308, true]
+    "StudentAffinity": [ 0000308, true],
     "Availability": [1,1,2,0] },
 
    {"StudentID": 0000351,
     "ClassID": 3,
     "Skills": [1,2,2,2,1,2,0],
-    "StudentAffinity": [ 0000368, false]
+    "StudentAffinity": [ 0000368, false],
     "Availability": [5,0,5,4] },
 
    {"StudentID": 0000352,
     "ClassID": 3,
     "Skills": [0,0,0,3,2,0,1],
-    "StudentAffinity": [ 0000321, true]
+    "StudentAffinity": [ 0000321, true],
     "Availability": [5,0,0,2] },
 
    {"StudentID": 0000353,
@@ -2122,25 +2122,25 @@
    {"StudentID": 0000354,
     "ClassID": 3,
     "Skills": [2,1,2,3,1,1,0],
-    "StudentAffinity": [ 0000367, false]
+    "StudentAffinity": [ 0000367, false],
     "Availability": [3,2,4,4] },
 
    {"StudentID": 0000355,
     "ClassID": 3,
     "Skills": [4,1,0,4,3,2,0],
-    "StudentAffinity": [ 0000338, true]
+    "StudentAffinity": [ 0000338, true],
     "Availability": [2,3,2,4] },
 
    {"StudentID": 0000356,
     "ClassID": 3,
     "Skills": [4,2,0,2,3,3,4],
-    "StudentAffinity": [ 0000384, true]
+    "StudentAffinity": [ 0000384, true],
     "Availability": [1,3,1,1] },
 
    {"StudentID": 0000357,
     "ClassID": 3,
     "Skills": [0,4,1,1,2,3,3],
-    "StudentAffinity": [ 0000343, false]
+    "StudentAffinity": [ 0000343, false],
     "Availability": [0,3,1,3] },
 
    {"StudentID": 0000358,
@@ -2158,7 +2158,7 @@
    {"StudentID": 0000360,
     "ClassID": 3,
     "Skills": [3,0,0,3,4,1,0],
-    "StudentAffinity": [ 0000375, false]
+    "StudentAffinity": [ 0000375, false],
     "Availability": [3,2,5,3] },
 
    {"StudentID": 0000361,
@@ -2176,25 +2176,25 @@
    {"StudentID": 0000363,
     "ClassID": 3,
     "Skills": [2,3,4,0,2,0,0],
-    "StudentAffinity": [ 0000331, false]
+    "StudentAffinity": [ 0000331, false],
     "Availability": [3,4,4,0] },
 
    {"StudentID": 0000364,
     "ClassID": 3,
     "Skills": [0,1,4,1,3,1,4],
-    "StudentAffinity": [ 0000310, true]
+    "StudentAffinity": [ 0000310, true],
     "Availability": [1,1,3,1] },
 
    {"StudentID": 0000365,
     "ClassID": 3,
     "Skills": [1,4,4,2,3,4,4],
-    "StudentAffinity": [ 0000303, true]
+    "StudentAffinity": [ 0000303, true],
     "Availability": [5,2,1,4] },
 
    {"StudentID": 0000366,
     "ClassID": 3,
     "Skills": [0,0,4,0,4,3,4],
-    "StudentAffinity": [ 0000350, false]
+    "StudentAffinity": [ 0000350, false],
     "Availability": [4,5,0,4] },
 
    {"StudentID": 0000367,
@@ -2206,19 +2206,19 @@
    {"StudentID": 0000368,
     "ClassID": 3,
     "Skills": [3,3,3,3,2,4,1],
-    "StudentAffinity": [ 0000367, true]
+    "StudentAffinity": [ 0000367, true],
     "Availability": [5,0,4,3] },
 
    {"StudentID": 0000369,
     "ClassID": 3,
     "Skills": [2,4,3,4,4,4,2],
-    "StudentAffinity": [ 0000398, false]
+    "StudentAffinity": [ 0000398, false],
     "Availability": [2,5,4,4] },
 
    {"StudentID": 0000370,
     "ClassID": 3,
     "Skills": [1,3,3,3,0,2,2],
-    "StudentAffinity": [ 0000377, true]
+    "StudentAffinity": [ 0000377, true],
     "Availability": [5,1,2,5] },
 
    {"StudentID": 0000371,
@@ -2230,7 +2230,7 @@
    {"StudentID": 0000372,
     "ClassID": 3,
     "Skills": [0,4,2,1,2,0,1],
-    "StudentAffinity": [ 0000315, false]
+    "StudentAffinity": [ 0000315, false],
     "Availability": [1,3,5,3] },
 
    {"StudentID": 0000373,
@@ -2248,13 +2248,13 @@
    {"StudentID": 0000375,
     "ClassID": 3,
     "Skills": [4,2,3,2,3,2,4],
-    "StudentAffinity": [ 0000388, false]
+    "StudentAffinity": [ 0000388, false],
     "Availability": [5,5,3,0] },
 
    {"StudentID": 0000376,
     "ClassID": 3,
     "Skills": [0,2,3,0,4,4,3],
-    "StudentAffinity": [ 0000310, true]
+    "StudentAffinity": [ 0000310, true],
     "Availability": [5,1,4,2] },
 
    {"StudentID": 0000377,
@@ -2266,7 +2266,7 @@
    {"StudentID": 0000378,
     "ClassID": 3,
     "Skills": [0,0,3,1,4,2,1],
-    "StudentAffinity": [ 0000368, false]
+    "StudentAffinity": [ 0000368, false],
     "Availability": [4,1,5,2] },
 
    {"StudentID": 0000379,
@@ -2278,13 +2278,13 @@
    {"StudentID": 0000380,
     "ClassID": 3,
     "Skills": [4,3,1,3,2,0,1],
-    "StudentAffinity": [ 0000382, true]
+    "StudentAffinity": [ 0000382, true],
     "Availability": [1,0,3,1] },
 
    {"StudentID": 0000381,
     "ClassID": 3,
     "Skills": [4,2,0,4,4,1,3],
-    "StudentAffinity": [ 0000309, false]
+    "StudentAffinity": [ 0000309, false],
     "Availability": [5,3,5,1] },
 
    {"StudentID": 0000382,
@@ -2302,13 +2302,13 @@
    {"StudentID": 0000384,
     "ClassID": 3,
     "Skills": [2,0,4,1,1,2,3],
-    "StudentAffinity": [ 0000349, false]
+    "StudentAffinity": [ 0000349, false],
     "Availability": [5,1,3,1] },
 
    {"StudentID": 0000385,
     "ClassID": 3,
     "Skills": [3,1,3,3,3,1,1],
-    "StudentAffinity": [ 0000318, true]
+    "StudentAffinity": [ 0000318, true],
     "Availability": [2,4,3,3] },
 
    {"StudentID": 0000386,
@@ -2320,13 +2320,13 @@
    {"StudentID": 0000387,
     "ClassID": 3,
     "Skills": [0,1,4,3,0,0,4],
-    "StudentAffinity": [ 0000341, false]
+    "StudentAffinity": [ 0000341, false],
     "Availability": [5,5,3,1] },
 
    {"StudentID": 0000388,
     "ClassID": 3,
     "Skills": [1,0,1,4,3,3,0],
-    "StudentAffinity": [ 0000326, true]
+    "StudentAffinity": [ 0000326, true],
     "Availability": [0,4,5,1] },
 
    {"StudentID": 0000389,
@@ -2338,7 +2338,7 @@
    {"StudentID": 0000390,
     "ClassID": 3,
     "Skills": [4,4,1,3,0,4,3],
-    "StudentAffinity": [ 0000393, false]
+    "StudentAffinity": [ 0000393, false],
     "Availability": [4,1,3,5] },
 
    {"StudentID": 0000391,
@@ -2350,13 +2350,13 @@
    {"StudentID": 0000392,
     "ClassID": 3,
     "Skills": [2,4,3,0,3,2,1],
-    "StudentAffinity": [ 0000394, true]
+    "StudentAffinity": [ 0000394, true],
     "Availability": [3,0,1,3] },
 
    {"StudentID": 0000393,
     "ClassID": 3,
     "Skills": [3,4,2,3,1,3,1],
-    "StudentAffinity": [ 0000398, false]
+    "StudentAffinity": [ 0000398, false],
     "Availability": [4,5,0,0] },
 
    {"StudentID": 0000394,
@@ -2368,13 +2368,13 @@
    {"StudentID": 0000395,
     "ClassID": 3,
     "Skills": [0,4,0,0,3,0,0],
-    "StudentAffinity": [ 0000315, true]
+    "StudentAffinity": [ 0000315, true],
     "Availability": [5,0,2,2] },
 
    {"StudentID": 0000396,
     "ClassID": 3,
     "Skills": [2,3,2,1,2,1,4],
-    "StudentAffinity": [ 0000381, false]
+    "StudentAffinity": [ 0000381, false],
     "Availability": [1,2,2,0] },
 
    {"StudentID": 0000397,
@@ -2392,13 +2392,13 @@
    {"StudentID": 0000399,
     "ClassID": 3,
     "Skills": [2,0,0,1,1,1,3],
-    "StudentAffinity": [ 0000375, false]
+    "StudentAffinity": [ 0000375, false],
     "Availability": [0,5,2,5] },
 
    {"StudentID": 0000400,
     "ClassID": 3,
     "Skills": [3,2,1,4,4,0,3],
-    "StudentAffinity": [ 0000319, true]
+    "StudentAffinity": [ 0000319, true],
     "Availability": [3,0,3,5] },
    
    ]
