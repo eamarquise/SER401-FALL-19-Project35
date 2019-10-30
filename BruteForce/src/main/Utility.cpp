@@ -23,7 +23,7 @@ Utility::~Utility() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects){
+void calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects){
 	int numStudents = students.size();
 	int numProjects = projects.size();
 	int numSkills = (sizeof(students.at(0).Skills)/sizeof(*students.at(0).Skills));
@@ -41,10 +41,26 @@ vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<P
 			skillXstudent[i][j] = students.at(j).Skills[i];
 		}
 	}
+	int projectXstudent[numProjects][numStudents];
+	for (int rows = 0; rows < numProjects; rows++){
+		// print project name to projectxstudent matrix
+		string p = to_string(rows);
+		cout << "p" + p + "\t";
+		// do the multiplication
+		for (int cols = 0; cols < numStudents; cols++){
+			projectXstudent[rows][cols] = {0};
+			for (int inner = 0; inner < numSkills; inner++){
+				projectXstudent[rows][cols] = projectXstudent[rows][cols] +  projectXskill[rows][inner] * skillXstudent[inner][cols];
+
+			}
+			cout << projectXstudent[rows][cols] << "\t";
+		}
+		cout << "\n";
+	}
 
 
 
-}
+} // end calcProjectXStudentMatrix
 
 
 } /* namespace std */
