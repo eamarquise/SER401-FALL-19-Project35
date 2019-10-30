@@ -16,7 +16,7 @@ class Utility {
 public:
 	Utility();
 	virtual ~Utility();
-	void calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
+	vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
 };
 
 } /* namespace std */

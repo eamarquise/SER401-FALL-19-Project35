@@ -23,10 +23,11 @@ Utility::~Utility() {
 	// TODO Auto-generated destructor stub
 }
 
-void Utility::calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects){
+vector<vector<int>> Utility::calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects){
 	int numStudents = students.size();
 	int numProjects = projects.size();
 	int numSkills = (sizeof(students.at(0).Skills)/sizeof(*students.at(0).Skills));
+	vector<vector<int>> projectXstudentMatrix;
 	// create projectXskill matrix
 	int projectXskill[numProjects][numSkills] = {0};
 	for (int i = 0; i < numProjects; i++){
@@ -62,9 +63,15 @@ void Utility::calcProjectXStudentMatrix(vector<Student> students, vector<Project
 		}
 		cout << "\n";
 	}
-
-
-
+	for (int i = 0; i < numProjects; i++){
+		vector<int> currProject;
+		for (int j= 0; j < numStudents; j++){
+			int studentScore = projectXstudent[i][j];
+			currProject.push_back(studentScore);
+		}
+		projectXstudentMatrix.push_back(currProject);
+	}
+	return projectXstudentMatrix;
 } // end calcProjectXStudentMatrix
 
 

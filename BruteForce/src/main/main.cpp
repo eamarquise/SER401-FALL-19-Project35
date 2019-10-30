@@ -66,7 +66,8 @@ int main(){
 	// Drivers to crunch stuff
 	// ex - mapProjectsToClasses(rules);
 	  	Utility u;
-	  	u.calcProjectXStudentMatrix(SJson.allStudents, PJson.allProjects);
+	  	vector<vector<int>> projectxstudent = u.calcProjectXStudentMatrix(SJson.allStudents, PJson.allProjects);
+
 	// Drivers to write Json
 	// ex - composeReport();
 
