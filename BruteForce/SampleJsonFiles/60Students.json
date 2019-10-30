@@ -10,7 +10,7 @@
     "ClassID": 0,
     "Skills": [ 2, 4, 1, 2, 2, 0, 4],
     "StudentAffinity": [ 00000014, false ],
-    "Availability": [[5, 1, 4, 0] },
+    "Availability": [5, 1, 4, 0] },
 
    {"StudentID": 0000003,
     "ClassID": 0,
