@@ -56,12 +56,19 @@ int main(){
 	    cout<<"MAIN.CPP TEST"<<endl;
 	  	cout<< "Number of projects read in: " + to_string(PJson.allProjects.size())<<endl;
 
-	  	int percent= 0;
-	  		  				int x = 0;
-	  		  				x = (15 * 3);
-	  		  				percent = 35/ x;
+	  						float percent= 0;
+	  		  				float x = 0;
+	  		  				int pxskills=6;
+	  		  				int pXsection=80;
+	  		  				int sl=15;
+	  		  				x = (pxskills * sl);
+	  		  				percent = pXsection/ x;
 	  		  				percent = percent * 100;
-	  		  				cout << percent<<endl;
+	  		  			    percent = (int)percent;
+	  		  			    cout<<percent<<endl;
+
+	  		  				//float p, number, base;
+	  		  				//p=(number/base)*100;
 
 	// Drivers to read in rules, like class section definitions
 	// ex - getRules(capStoneCourseDefinitions);
@@ -81,8 +88,18 @@ int main(){
 
 int NumOfClassSections = 4;
 
- int** ClassSectionSkills(vector<vector<Student>> studentList, vector<Project> projectList){
 
+/*  ProjectToSectionPercentages(vector<vector<Student>> studentList, vector<Project> projectList)
+ *
+ *    Function returns a 2d array [number of projects] [ number of class sections]
+ *   containing the percentages, 0-100, of how the students in a class section compare to that project
+ *
+ *      Author: Myles Colina
+ */
+ int** ProjectToSectionPercentages(vector<vector<Student>> studentList, vector<Project> projectList){
+
+
+	 //create a 2d array containing the sum of all the students skills, for each skill.
 	 int SectionSkills[NumOfClassSections][7] = {0};
 
 	 for(int i = 0; i < NumOfClassSections; i++){
@@ -96,8 +113,8 @@ int NumOfClassSections = 4;
 	 			 SectionSkills[i][k] += studentList[i][j].Skills[k];
 	 }}}
 
-	 int numProjects = projectList.size();
-	  	// create skillXproject matrix
+	 // create skillXproject matrix
+	    int numProjects = projectList.size();
 	  	int skillXproject[numProjects][7] = {0};
 	  	for (int i = 0; i < 7; i++){
 	  		for (int j = 0; j < numProjects; j++){
@@ -116,14 +133,13 @@ int NumOfClassSections = 4;
 	  					projectXsection[rows][cols] = projectXsection[rows][cols] +  SectionSkills[rows][inner] * skillXproject[inner][cols];
 
 	  				}
-	  				cout << projectXsection[rows][cols] << "\t";
 	  			}
-	  			cout << "\n";
 	  		}
-	  		cout << endl;
 
 
 
+          //create a 2d array for the projects, containing the maximum
+	  	   //skill score sum a student could have on that project.
 	  		int ProjectSkills[numProjects][1] = {0};
 	  			  	for (int i = 0; i < numProjects; i++){
 	  			  		int sum = 0;
@@ -133,27 +149,30 @@ int NumOfClassSections = 4;
 	  			  	   ProjectSkills[i][0] = sum * 4;
 	  			  	}
 
-//Figure out how to correctly calculate percentages.
+         //gets the percentages and stores them in a new 2d matrix.
 	  		int** percentMatrix = new int *[NumOfClassSections];
 	  		//int percentMatrix[numProjects][NumOfClassSections] = {0};
 
 	  		for (int i = 0; i < numProjects; i++){
 
 	  			 for (int j = 0; j < NumOfClassSections; j++){
-	  				int percent= 0;
-	  				int x = 0;
+	  				float percent= 0;
+	  				float x = 0;
 	  				x = (ProjectSkills[i][0] * studentList[j].size());
 	  				percent = projectXsection[j][i]/ x;
 	  				percent = percent * 100;
-
-	  			  	 percentMatrix[i][j] = percent ;
+	  			    percent = (int)percent;
+	  			    //store percentage in matrix as int, so if 88.8, it will be 88.
+	  			  	percentMatrix[i][j] = percent ;
 
 	  			 }}
 
 
-
-
 	  		return  percentMatrix;
+ }
+ void deleteFunction(int *arr){
+
+	 delete[] arr;
  }
 
 
