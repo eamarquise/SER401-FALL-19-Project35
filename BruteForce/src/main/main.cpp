@@ -20,7 +20,11 @@
 #include "Test.h"
 #include "json/json.h"
 #include "StudentJson.h"
+#include "ProjectJson.h"
+
+#include "Utility.h"
 //#include "Global.h"
+
 using namespace std;
 
 
@@ -31,27 +35,38 @@ int main(){
 	     Test t;
 	    t.StructTest();
 
-	//Task#99 esting Student Json file reader
+	//Task#99 testing Student Json file reader
     // To use, you need to copy-paste the location of the Json file on your Computer.
 	// To get it, find the file through the (files) app in the virtual box.
 	// Then right-click properties, and copy the path next to (parent folder).
 
 	  StudentJson SJson;
-	   SJson.StudentReader("/home/myles/git/project35/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/students.json");
+	   SJson.StudentReader("/home/mcilibra/git/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/students.json");
 
 
+	   //test to make sure all the students can be accessed in other files.
+	   cout<<"MAIN.CPP TEST"<<endl;
+	   cout<< "Number of students read in: " + to_string(SJson.allStudents.size())<<endl;
 
-	// Drivers to read in Json
-	// ex - readJSon("filename.json");
+	 //Task#100 testing Project Json file reader
+	 // To use, you need to copy-paste the location of the Json file on your Computer.
+	 // To get it, find the file through the (files) app in the virtual box.
+	 // Then right-click properties, and copy the path next to (parent folder).
+	   ProjectJson PJson;
+	   PJson.ProjectReader("/home/mcilibra/git/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/projects.json");
 
-	// Drivers to convert Json into data structures
-	// ex - jsonToDataStructures(someKindofJSonObject);
+	   //test to make sure all the projects can be accessed in other files.
+	    cout<<"MAIN.CPP TEST"<<endl;
+	  	cout<< "Number of projects read in: " + to_string(PJson.allProjects.size())<<endl;
+
 
 	// Drivers to read in rules, like class section definitions
 	// ex - getRules(capStoneCourseDefinitions);
 
 	// Drivers to crunch stuff
 	// ex - mapProjectsToClasses(rules);
+	  	Utility u;
+	  	vector<vector<int>> projectxstudent = u.calcProjectXStudentMatrix(SJson.allStudents, PJson.allProjects);
 
 	// Drivers to write Json
 	// ex - composeReport();

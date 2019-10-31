@@ -1,0 +1,20 @@
+
+{ "projects":[
+
+    {"ProjectID": 0,
+    "Priority" : 1,
+    "Skills": [ 0, 0, 1, 1, 2, 2, 0],
+    "Type": "G" },
+
+    {"ProjectID": 1,
+    "Priority" : 2,
+    "Skills": [ 1, 1, 1, 2, 0, 0, 2],
+    "Type": "O" },
+
+    {"ProjectID": 2,
+    "Priority" : 0,
+    "Skills": [ 0, 2, 2, 0, 0, 0, 0],
+    "Type": "H" }
+
+]
+}
