@@ -134,7 +134,8 @@ int NumOfClassSections = 4;
 	  			  	}
 
 //Figure out how to correctly calculate percentages.
-	  		int percentMatrix[numProjects][NumOfClassSections] = {0};
+	  		int** percentMatrix = new int *[NumOfClassSections];
+	  		//int percentMatrix[numProjects][NumOfClassSections] = {0};
 
 	  		for (int i = 0; i < numProjects; i++){
 
