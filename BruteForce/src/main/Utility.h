@@ -13,10 +13,11 @@
 namespace std {
 
 class Utility {
-public:
-	Utility();
-	virtual ~Utility();
-	vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
+	public:
+		Utility();
+		virtual ~Utility();
+		vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
+		int getNumProjects(string filename);
 };
 
 } /* namespace std */

@@ -12,6 +12,7 @@ class Test {
 public:
 	Test();
 	virtual ~Test();
+	void InitializeProjectPoolTest();
 	void StructTest();
 };
 

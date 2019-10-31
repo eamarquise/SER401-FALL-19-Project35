@@ -26,6 +26,9 @@
 #include "json/json.h"
 #include "StudentJson.h"
 #include "ProjectJson.h"
+
+#define NUM_PROJECTS 3
+
 using namespace std;
 
 Test::Test() {
@@ -37,16 +40,52 @@ Test::~Test() {
 	// TODO Auto-generated destructor stub
 }
 
+// Task #107
+// Author: Cristi DeLeo
+void Test::InitializeProjectPoolTest() {
 
+	Project *projectPool;
+	Project project;
+	ProjectJson PJson;
+	projectPool = PJson.ProjectReader("./SampleJsonFiles/projects.json");
+
+	int numSkills = 7;
+
+	cout << endl << endl;
+	cout << "----------------------------------------------------------" << endl;
+	cout << "BEGIN: Test::InitializeProjectPoolTest Task#107" << endl << endl;
+
+	cout << "Number of Projects: " << to_string(NUM_PROJECTS) << endl << endl;
+
+	for (int i = 0; i < NUM_PROJECTS; i++) {
+		project = *(projectPool + i);
+		cout << "Project ID: ";
+		cout << project.ProjectID << endl;
+		cout << "Type:  " ;
+		cout << project.Type << endl;
+		cout << "Priority: ";
+		cout << project.Priority << endl;
+		cout << "Skills: ";
+		for (unsigned int j = 0; j < numSkills; j++) {
+			cout << to_string(project.Skills[j]);
+			cout << " ";
+		}
+		cout << endl << endl;
+	}
+
+	cout << "END: Test::InitializeProjectPoolTest Task#107" << endl;
+	cout << "----------------------------------------------------------";
+	cout << endl << endl;
+}
 
 // Function to test structs.
 // Task#97
-//
 void Test::StructTest() {
 
 		//Task#97 Testing the student project and class section structs.
 		cout<<endl;
-		cout<< "Task#97 Testing the student project and class section structs \n" << endl;
+		cout << "----------------------------------------------------------" << endl;
+		cout << "BEGIN: Test::StructTest Student|Project|ClassSection Task#97" << endl;
 
 		const int count = 12;//the highest number of students in the affinity list.
 
@@ -91,8 +130,8 @@ void Test::StructTest() {
 	      cout << "\n \n  " << endl;
 
 
-	        //Project Struct test
-	     	//creating Project object
+	     //Project Struct test
+	      //creating Project object
 
 	         int pskills[7] = {1,0,0,0,1,2,2};
 	     	 Project p1( 35,'O', 1, pskills);
@@ -142,8 +181,9 @@ void Test::StructTest() {
 	     		for (int i = 0; i < NumOfProjects; i++){
 	     			     cout << to_string(c1.ProjectPool[i]) + ", ";}
 
-	     	     cout << endl;
-
+	     	   cout << endl << endl;
+	     	   cout << "END: Test::StructTest Student|Project|ClassSection Task#97" << endl;
+	     	   cout << "----------------------------------------------------------";
 		// end testing for Task#97
 
 

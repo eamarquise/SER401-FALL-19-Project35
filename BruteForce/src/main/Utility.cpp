@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 #include <iterator>
+
+#include "json/json.h"
 #include "Student.h"
 #include "Utility.h"
 
@@ -21,6 +23,18 @@ Utility::Utility() {
 
 Utility::~Utility() {
 	// TODO Auto-generated destructor stub
+}
+
+int Utility::getNumProjects(string filename) {
+	//read file named profile.json, then parse it as json,
+	//then store that parse into obj
+	ifstream ifs(filename);
+	Json::Reader reader;
+	Json::Value obj;
+	reader.parse(ifs, obj);
+	//int numberOfProjects = obj["projects"].size();
+
+	return obj["projects"].size();
 }
 
 vector<vector<int>> Utility::calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects){
