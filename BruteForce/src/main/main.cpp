@@ -41,7 +41,7 @@ int main(){
 	// Then right-click properties, and copy the path next to (parent folder).
 
 	  StudentJson SJson;
-	   SJson.StudentReader("/home/mcilibra/git/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/students.json");
+	   SJson.StudentReader("./SampleJsonFiles/students.json");
 
 
 	   //test to make sure all the students can be accessed in other files.
@@ -53,7 +53,7 @@ int main(){
 	 // To get it, find the file through the (files) app in the virtual box.
 	 // Then right-click properties, and copy the path next to (parent folder).
 	   ProjectJson PJson;
-	   PJson.ProjectReader("/home/mcilibra/git/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/projects.json");
+	   PJson.ProjectReader("./SampleJsonFiles/projects.json");
 
 	   //test to make sure all the projects can be accessed in other files.
 	    cout<<"MAIN.CPP TEST"<<endl;
