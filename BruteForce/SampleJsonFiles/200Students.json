@@ -1199,7 +1199,7 @@
     "ClassID": 3,
     "Skills": [1,0,3,4,2,4,2],
     "StudentAffinity": [0000197, false, 0000187, false, 0000166, true],
-    "Availability": [3,2,2,0] },
+    "Availability": [3,2,2,0] }
    
    ]
 }
