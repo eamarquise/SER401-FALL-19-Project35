@@ -22,6 +22,8 @@
 #include "StudentJson.h"
 #include "ProjectJson.h"
 
+#include "Utility.h"
+//#include "Global.h"
 
 using namespace std;
 
@@ -38,8 +40,9 @@ int main(){
 	// To get it, find the file through the (files) app in the virtual box.
 	// Then right-click properties, and copy the path next to (parent folder).
 
-	   StudentJson SJson;
-	   SJson.StudentReader("/home/myles/git/project35/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/students.json");
+	  StudentJson SJson;
+	   SJson.StudentReader("./SampleJsonFiles/students.json");
+
 
 	   //test to make sure all the students can be accessed in other files.
 	   cout<<"MAIN.CPP TEST"<<endl;
@@ -50,7 +53,7 @@ int main(){
 	 // To get it, find the file through the (files) app in the virtual box.
 	 // Then right-click properties, and copy the path next to (parent folder).
 	   ProjectJson PJson;
-	   PJson.ProjectReader("/home/myles/git/project35/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/projects.json");
+	   PJson.ProjectReader("./SampleJsonFiles/projects.json");
 
 	   //test to make sure all the projects can be accessed in other files.
 	    cout<<"MAIN.CPP TEST"<<endl;
@@ -75,6 +78,8 @@ int main(){
 
 	// Drivers to crunch stuff
 	// ex - mapProjectsToClasses(rules);
+	  	Utility u;
+	  	vector<vector<int>> projectxstudent = u.calcProjectXStudentMatrix(SJson.allStudents, PJson.allProjects);
 
 	// Drivers to write Json
 	// ex - composeReport();
