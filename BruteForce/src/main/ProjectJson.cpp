@@ -54,7 +54,7 @@ int ProjectJson::getSizeOfJson(string filename) {
 	return obj["projects"].size();
 }
 
-// Returns a Project struct
+// Returns a pointer to Project Pool array
 Project * ProjectJson::ProjectReader(string filename){
 
 	//read file named profile.json, then parse it as json, then store that parse into obj
