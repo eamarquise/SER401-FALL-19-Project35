@@ -40,51 +40,42 @@ ProjectJson::~ProjectJson() {
 }
 
 void ProjectJson::ProjectWriter(string filename){
-
 	//to be implemented in a later sprint.
 }
 
-int ProjectJson::getSizeOfJson(string filename) {
-	//read file named profile.json, then parse it as json, then store that parse into obj
+/*int ProjectJson::getSizeOfJson(string filename) {
 	ifstream ifs(filename);
 	Json::Reader reader;
 	Json::Value obj;
 	reader.parse(ifs, obj);
 
 	return obj["projects"].size();
-}
+}*/
 
-// Returns a pointer to Project Pool array
-Project * ProjectJson::ProjectReader(string filename){
+// Returns a pointer to Project struct
+Project ProjectJson::ProjectReader(string filename, int i){
 
-	//read file named profile.json, then parse it as json, then store that parse into obj
 	ifstream ifs(filename);
 	Json::Reader reader;
 	Json::Value obj;
 	reader.parse(ifs, obj);
 
-	static Project projectPool[NUM_PROJECTS];
 	Project project;
 
-	for (int i = 0; i < NUM_PROJECTS; i++) {
-		project.ProjectID = (char)obj["projects"].get((int)i, "")["ProjectID"].asInt();
+	project.ProjectID = (char)obj["projects"].get((int)i, "")["ProjectID"].asInt();
 
-		string temp;
-		temp = obj["projects"].get((int)i, "")["Type"].asString();
-		project.Type = temp[0];
+	string temp;
+	temp = obj["projects"].get((int)i, "")["Type"].asString();
+	project.Type = temp[0];
 
-		project.Priority = (char)obj["projects"].get((int)i, "")["Priority"].asInt();
+	project.Priority = (char)obj["projects"].get((int)i, "")["Priority"].asInt();
 
-		int numSkills = obj["projects"].get((int)i, "")["Skills"].size();
+	int numSkills = obj["projects"].get((int)i, "")["Skills"].size();
 
-		for (int j = 0; j < numSkills; j++) {
-			project.Skills[j] = (obj["projects"].get((int)i, "")["Skills"][j].asInt());
-		}
-
-		projectPool[i] = project;
+	for (int j = 0; j < numSkills; j++) {
+		project.Skills[j] = (obj["projects"].get((int)i, "")["Skills"][j].asInt());
 	}
 
-	return projectPool;
-
+	return project;
 }
 

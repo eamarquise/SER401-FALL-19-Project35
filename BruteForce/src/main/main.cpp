@@ -23,18 +23,39 @@
 #include "Utility.h"
 //#include "Global.h"
 
-#define NUM_PROJECTS 3
-
 using namespace std;
 
 int main(){
 	cout << "Hi Team 35" << endl;
 
+	const string projectFilename = "./SampleJsonFiles/projects.json";
+	const string studentFilename = "./SampleJsonFiles/students.json";
+
+	Utility u;
+
+	const int numProjects = u.getSizeOfJson(projectFilename, "projects");
+	const int numStudents = u.getSizeOfJson(studentFilename, "students");
+
+	Project *projectPool = new Project[numProjects];
+	Student *studentPool = new Student[numStudents];
+
+	ProjectJson PJson;
+	StudentJson SJson;
+
+	for (int i = 0; i < numProjects; i++) {
+		projectPool[i] = PJson.ProjectReader(projectFilename, i);
+	}
+
+	for (int i = 0; i < numStudents; i++) {
+		studentPool[i] = SJson.getStudentJsonObject(studentFilename, i);
+	}
+
 	//Tests
 	Test t;
 	t.StructTest();
-	t.InitializeProjectPoolTest();
-
+	t.InitializeProjectPoolTest(projectPool, numProjects);
+	t.InitializeStudentPoolTest(studentPool, numStudents);
+/*
 	StudentJson SJson;
 	SJson.StudentReader("./SampleJsonFiles/students.json");
 
@@ -67,7 +88,9 @@ int main(){
 
 	// Drivers to convert Json into some kind of report, like excel or json to pdf?
 	// ex - writeReport();
-
+*/
+	delete[] studentPool;
+	delete[] projectPool;
 	return 0;
 }
 

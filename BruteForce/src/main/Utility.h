@@ -18,6 +18,7 @@ class Utility {
 		virtual ~Utility();
 		vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
 		int getNumProjects(string filename);
+		int getSizeOfJson(string filename, string key);
 };
 
 } /* namespace std */

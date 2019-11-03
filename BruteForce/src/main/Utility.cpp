@@ -25,6 +25,15 @@ Utility::~Utility() {
 	// TODO Auto-generated destructor stub
 }
 
+int Utility::getSizeOfJson(string filename, string key) {
+	ifstream ifs(filename);
+	Json::Reader reader;
+	Json::Value obj;
+	reader.parse(ifs, obj);
+
+	return obj[key].size();
+}
+
 int Utility::getNumProjects(string filename) {
 	//read file named profile.json, then parse it as json,
 	//then store that parse into obj

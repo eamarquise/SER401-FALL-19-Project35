@@ -42,12 +42,9 @@ Test::~Test() {
 
 // Task #107
 // Author: Cristi DeLeo
-void Test::InitializeProjectPoolTest() {
+void Test::InitializeProjectPoolTest(Project projectPool[], int numProjects) {
 
-	Project *projectPool;
 	Project project;
-	ProjectJson PJson;
-	projectPool = PJson.ProjectReader("./SampleJsonFiles/projects.json");
 
 	int numSkills = 7;
 
@@ -55,12 +52,15 @@ void Test::InitializeProjectPoolTest() {
 	cout << "----------------------------------------------------------" << endl;
 	cout << "BEGIN: Test::InitializeProjectPoolTest Task#107" << endl << endl;
 
-	cout << "Number of Projects: " << to_string(NUM_PROJECTS) << endl << endl;
+	cout << "Number of Projects: " << to_string(numProjects) << endl << endl;
 
-	for (int i = 0; i < NUM_PROJECTS; i++) {
+	for (int i = 0; i < numProjects; i++) {
+
 		project = *(projectPool + i);
+
 		cout << "Project ID: ";
 		cout << project.ProjectID << endl;
+
 		cout << "Type:  " ;
 		cout << project.Type << endl;
 		cout << "Priority: ";
@@ -74,6 +74,37 @@ void Test::InitializeProjectPoolTest() {
 	}
 
 	cout << "END: Test::InitializeProjectPoolTest Task#107" << endl;
+	cout << "----------------------------------------------------------";
+	cout << endl << endl;
+}
+
+// Task #107
+// Author: Cristi DeLeo
+void Test::InitializeStudentPoolTest(Student studentPool[], int numStudents) {
+
+	Student student;
+
+	int numSkills = 7;
+
+	cout << endl << endl;
+	cout << "----------------------------------------------------------" << endl;
+	cout << "BEGIN: Test::InitializeStudentPoolTest Task#107" << endl << endl;
+
+	cout << "Number of Students: " << to_string(numStudents) << endl << endl;
+
+	for (int i = 0; i < numStudents; i++) {
+		student = *(studentPool + i);
+		cout << "Student ID: ";
+		cout << student.StudentID << endl;
+		cout << "Skills: ";
+		for (unsigned int j = 0; j < numSkills; j++) {
+			cout << to_string(student.Skills[j]);
+			cout << " ";
+		}
+		cout << endl << endl;
+	}
+
+	cout << "END: Test::InitializeStudentPoolTest Task#107" << endl;
 	cout << "----------------------------------------------------------";
 	cout << endl << endl;
 }
