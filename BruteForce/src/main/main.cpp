@@ -23,9 +23,13 @@
 #include "ProjectJson.h"
 
 #include "Utility.h"
-//#include "Global.h"
+
 
 using namespace std;
+
+//INFORMATION THAT WE WILL ASSUME WILL BE READ IN FROM THE GUI
+int numClassSections = 4;
+
 
 
 int main(){
@@ -41,7 +45,7 @@ int main(){
 	// Then right-click properties, and copy the path next to (parent folder).
 
 	  StudentJson SJson;
-	   SJson.StudentReader("./SampleJsonFiles/students.json");
+	   SJson.StudentReader("./SampleJsonFiles/60Students.json");
 
 
 	   //test to make sure all the students can be accessed in other files.
@@ -53,33 +57,73 @@ int main(){
 	 // To get it, find the file through the (files) app in the virtual box.
 	 // Then right-click properties, and copy the path next to (parent folder).
 	   ProjectJson PJson;
-	   PJson.ProjectReader("./SampleJsonFiles/projects.json");
+	   PJson.ProjectReader("./SampleJsonFiles/20Projects.json");
 
 	   //test to make sure all the projects can be accessed in other files.
 	    cout<<"MAIN.CPP TEST"<<endl;
 	  	cout<< "Number of projects read in: " + to_string(PJson.allProjects.size())<<endl;
+        int numProjects = PJson.allProjects.size();
 
-	  						float percent= 0;
-	  		  				float x = 0;
-	  		  				int pxskills=6;
-	  		  				int pXsection=80;
-	  		  				int sl=15;
-	  		  				x = (pxskills * sl);
-	  		  				percent = pXsection/ x;
-	  		  				percent = percent * 100;
-	  		  			    percent = (int)percent;
-	  		  			    cout<<percent<<endl;
+        const int numprojects = PJson.allProjects.size();
+        const int numstudents = SJson.allStudents.size();
 
-	  		  				//float p, number, base;
-	  		  				//p=(number/base)*100;
+        cout<<"Working"<<endl;
+
+        Project *projectPool = new Project[numprojects];
+        int *classSize = new int[numClassSections];
+        Student** studentList =0;
+        studentList = new Student*[numClassSections];
+
+        vector<vector<Student>> studentlist(numClassSections);
+
+
+        cout<<"Working"<<endl;
+    	for (int i = 0; i < numClassSections; ++i)
+    	  	    { studentList[i] = new Student[numstudents];
+    	  	      classSize[i]= SJson.allStudents.size();
+
+    	  	        for (int j = 0; j < numstudents; j++)
+    	  	        {
+    	  	        	studentlist[i].push_back(SJson.allStudents[j]);
+    	  	            studentList[i][j] = SJson.allStudents[j];
+                        cout<<to_string(studentList[i][j].StudentID)<<endl;
+
+    	  	        }}
+
+    	for (int i = 0; i < numProjects; ++i){
+
+    		projectPool[i]=PJson.allProjects[i];
+    	}
+
+    	cout<<"Working"<<endl;
+
+	  	//US#88 task#114 test.
+	  	Utility u;
+	  	int** percentMatrix = u.ProjectToSectionPercentages(studentList, projectPool, numProjects, numClassSections, classSize);
+
+
+	  	//print the resulting percent matrix
+	  	for (int i = 0; i < numProjects; ++i)
+	  	    {
+	  	        for (int j = 0; j < numClassSections; j++)
+	  	        {
+	  	            cout << percentMatrix[i][j] << ' ';
+	  	        }
+	  	        cout <<endl;
+	  	    }
+
+
+
 
 	// Drivers to read in rules, like class section definitions
 	// ex - getRules(capStoneCourseDefinitions);
 
 	// Drivers to crunch stuff
 	// ex - mapProjectsToClasses(rules);
-	  	Utility u;
-	  	vector<vector<int>> projectxstudent = u.calcProjectXStudentMatrix(SJson.allStudents, PJson.allProjects);
+
+	  	//vector<vector<int>> projectxstudent = u.calcProjectXStudentMatrix(SJson.allStudents, PJson.allProjects);
+
+
 
 	// Drivers to write Json
 	// ex - composeReport();
@@ -91,93 +135,6 @@ int main(){
 }
 
 
-int NumOfClassSections = 4;
 
-
-/*  ProjectToSectionPercentages(vector<vector<Student>> studentList, vector<Project> projectList)
- *
- *    Function returns a 2d array [number of projects] [ number of class sections]
- *   containing the percentages, 0-100, of how the students in a class section compare to that project
- *
- *      Author: Myles Colina
- */
- int** ProjectToSectionPercentages(vector<vector<Student>> studentList, vector<Project> projectList){
-
-
-	 //create a 2d array containing the sum of all the students skills, for each skill.
-	 int SectionSkills[NumOfClassSections][7] = {0};
-
-	 for(int i = 0; i < NumOfClassSections; i++){
-
-	 //number of students in class sections
-	 int numStudents = studentList[i].size();
-
-	 	 for(int j = 0; j < numStudents; j++){
-
-	 		 for(int k = 0; k < 7; k++){
-	 			 SectionSkills[i][k] += studentList[i][j].Skills[k];
-	 }}}
-
-	 // create skillXproject matrix
-	    int numProjects = projectList.size();
-	  	int skillXproject[numProjects][7] = {0};
-	  	for (int i = 0; i < 7; i++){
-	  		for (int j = 0; j < numProjects; j++){
-	  			skillXproject[i][j] = projectList[i].Skills[j];
-	  		}
-	  	}
-
-	  	   // Calculate Project x Section skills Matrix
-	  		int projectXsection[numProjects][NumOfClassSections];
-	  		for (int rows = 0; rows < NumOfClassSections; rows++){
-
-	  			// do the multiplication
-	  			for (int cols = 0; cols < numProjects; cols++){
-	  				projectXsection[rows][cols] = {0};
-	  				for (int inner = 0; inner < 7; inner++){
-	  					projectXsection[rows][cols] = projectXsection[rows][cols] +  SectionSkills[rows][inner] * skillXproject[inner][cols];
-
-	  				}
-	  			}
-	  		}
-
-
-
-          //create a 2d array for the projects, containing the maximum
-	  	   //skill score sum a student could have on that project.
-	  		int ProjectSkills[numProjects][1] = {0};
-	  			  	for (int i = 0; i < numProjects; i++){
-	  			  		int sum = 0;
-	  			  		for (int j = 0; j < 7; j++){
-	  			  		  sum  = sum + projectList[i].Skills[j];
-	  			  		}
-	  			  	   ProjectSkills[i][0] = sum * 4;
-	  			  	}
-
-         //gets the percentages and stores them in a new 2d matrix.
-	  		int** percentMatrix = new int *[NumOfClassSections];
-	  		//int percentMatrix[numProjects][NumOfClassSections] = {0};
-
-	  		for (int i = 0; i < numProjects; i++){
-
-	  			 for (int j = 0; j < NumOfClassSections; j++){
-	  				float percent= 0;
-	  				float x = 0;
-	  				x = (ProjectSkills[i][0] * studentList[j].size());
-	  				percent = projectXsection[j][i]/ x;
-	  				percent = percent * 100;
-	  			    percent = (int)percent;
-	  			    //store percentage in matrix as int, so if 88.8, it will be 88.
-	  			  	percentMatrix[i][j] = percent ;
-
-	  			 }}
-
-
-	  		return  percentMatrix;
- }
- void deleteFunction(int *arr){
-
-	 delete[] arr;
- }
 
 

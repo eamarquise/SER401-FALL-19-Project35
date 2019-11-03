@@ -14,9 +14,11 @@ namespace std {
 
 class Utility {
 public:
+	int numOfClassSections;
 	Utility();
 	virtual ~Utility();
-	vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
+	//vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
+	int** ProjectToSectionPercentages(Student *studentList[], Project projectList[], int numProjects, int NumOfClassSections, int ClassSize[]);
 };
 
 } /* namespace std */
