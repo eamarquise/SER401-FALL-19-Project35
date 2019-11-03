@@ -35,9 +35,11 @@ int main(){
 	t.StructTest();
 	t.InitializeProjectPoolTest();
 
-	//Testing Student Json file reader
-	/*StudentJson SJson;
+	StudentJson SJson;
 	SJson.StudentReader("./SampleJsonFiles/students.json");
+
+	ProjectJson PJson;
+	PJson.ProjectReader("./SampleJsonFiles/projects.json");
 
 	//Verify all Student source data can be accessed from other files
 	cout << "MAIN.CPP TEST" << endl;
@@ -47,8 +49,9 @@ int main(){
 
 	//Verify all Project source data can be accessed from other files
 	cout << "MAIN.CPP TEST" << endl;
-	//cout << "Number of projects read in: " + to_string(PJson.allProjects.size())
-	//		<< endl;
+	cout << "Number of projects read in: "
+			+ to_string(PJson.allProjects.size())
+			<< endl;
 
 	// Drivers to read in rules, like class section definitions
 	// ex - getRules(capStoneCourseDefinitions);
@@ -64,7 +67,7 @@ int main(){
 
 	// Drivers to convert Json into some kind of report, like excel or json to pdf?
 	// ex - writeReport();
-*/
+
 	return 0;
 }
 
