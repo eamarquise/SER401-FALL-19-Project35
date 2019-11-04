@@ -19,6 +19,7 @@
 #include "json/json.h"
 #include "StudentJson.h"
 #include "ProjectJson.h"
+#include "StudentsToProjects.h"
 
 #include "Utility.h"
 
@@ -108,6 +109,10 @@ int main(){
 	    		  	        cout <<endl;
 	    		  	    }
 //End -TASK#144 TESTS =================================
+
+
+	    		  	StudentsToProjects x;
+	    		  	x.StudentsToProjectsAssignment(SJson.allStudents, PJson.allProjects);
 
 
 	//Tests
