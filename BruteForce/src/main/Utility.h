@@ -17,7 +17,10 @@ class Utility {
 		Utility();
 		virtual ~Utility();
 		vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
-		int getNumProjects(string filename);
+		int getProjectXskill(Project projectPool[], int i, int k);
+		int getSkillXstudent(Student studentPool[], int i, int j);
+		long getProjectVsStudentSkill(Project projectPool[], int numProjects,
+				Student studentPool[], int numStudents, int numSkills, int projectXstudentScore, int i, int j);
 		int getSizeOfJson(string filename, string key);
 };
 

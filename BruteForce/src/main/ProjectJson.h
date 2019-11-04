@@ -17,7 +17,6 @@ class ProjectJson {
 		int numProjects;
 		vector <Project> allProjects;
 		ProjectJson();
-		//ProjectJson(string filename);
 		virtual ~ProjectJson();
 		int getSizeOfJson(string filename);
 		Project ProjectReader(string filename, int i);

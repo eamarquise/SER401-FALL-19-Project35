@@ -16,6 +16,13 @@
     "ClassID": 1,
     "Skills": [ 0, 2, 4, 2, 2, 0, 0],
     "StudentAffinity": [ 223456, false],
+    "Availability": [ 0, 1, 0, 1] },
+    
+    {"StudentID": 423456,
+    "ClassID": 1,
+    "Skills": [ 0, 0, 0, 0, 0, 0, 0],
+    "StudentAffinity": [ 223456, false],
     "Availability": [ 0, 1, 0, 1] }
+    
    ]
 }

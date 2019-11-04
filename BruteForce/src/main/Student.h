@@ -31,7 +31,7 @@ struct Student
 	//COUNT will be the maximum number of peer preferences read in from the JSON file amongst students.
 	//2D array: int StudentAffinity[Count][2];
 	//pair <int, bool> StudentAffinity[Count];
-	 vector< pair <int, bool> > StudentAffinity;
+	vector< pair <int, bool> > StudentAffinity;
 
 
 	//[0] Primary Weekday | [1] Secondary Weekday | [2] Primary Weekend | [3] Secondary Weekend

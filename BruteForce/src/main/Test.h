@@ -17,6 +17,7 @@ public:
 	virtual ~Test();
 	void InitializeProjectPoolTest(Project projectPool[], int numProjects);
 	void InitializeStudentPoolTest(Student studentPool[], int numStudents);
+	void InitializeProjectStudentSkillMatrixTest(int projectXstudent[], int numProjects, int numStudents);
 	void StructTest();
 };
 

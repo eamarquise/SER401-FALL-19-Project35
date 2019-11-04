@@ -43,15 +43,6 @@ void ProjectJson::ProjectWriter(string filename){
 	//to be implemented in a later sprint.
 }
 
-/*int ProjectJson::getSizeOfJson(string filename) {
-	ifstream ifs(filename);
-	Json::Reader reader;
-	Json::Value obj;
-	reader.parse(ifs, obj);
-
-	return obj["projects"].size();
-}*/
-
 // Returns a pointer to Project struct
 Project ProjectJson::ProjectReader(string filename, int i){
 

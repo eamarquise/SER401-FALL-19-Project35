@@ -85,26 +85,62 @@ void Test::InitializeStudentPoolTest(Student studentPool[], int numStudents) {
 	Student student;
 
 	int numSkills = 7;
+	int numTimes = 4;
+	int numAffinities = 12;
 
-	cout << endl << endl;
+	cout << endl;
 	cout << "----------------------------------------------------------" << endl;
 	cout << "BEGIN: Test::InitializeStudentPoolTest Task#107" << endl << endl;
 
 	cout << "Number of Students: " << to_string(numStudents) << endl << endl;
 
 	for (int i = 0; i < numStudents; i++) {
+
 		student = *(studentPool + i);
+
 		cout << "Student ID: ";
 		cout << student.StudentID << endl;
+
 		cout << "Skills: ";
 		for (unsigned int j = 0; j < numSkills; j++) {
 			cout << to_string(student.Skills[j]);
 			cout << " ";
 		}
+
+		cout << "Affinities: ";
+		for (int i = 0; i < numAffinities; i++){
+			cout << "Peer ID: "
+					+ to_string(student.StudentAffinity[i].first)
+					+ "  Affinity: "
+					+ to_string(student.StudentAffinity[i].second)<<endl;
+		}
+
+		cout << "Available Times: ";
+		for(int j = 0; j < numTimes; j++) {
+			cout << student.Availability[j];
+		}
 		cout << endl << endl;
 	}
 
 	cout << "END: Test::InitializeStudentPoolTest Task#107" << endl;
+	cout << "----------------------------------------------------------";
+	cout << endl << endl;
+}
+
+void Test::InitializeProjectStudentSkillMatrixTest(int projectXstudent[], int numProjects, int numStudents) {
+
+	cout << endl;
+	cout << "----------------------------------------------------------" << endl;
+	cout << "BEGIN: Test::InitializeProjectStudentSkillMatrixTest" << endl << endl;
+
+	for (int i = 0; i < numProjects; i++) {
+		for (int j = 0; j < numStudents; j++) {
+			cout << "Skills Compare Index: [" << i << "][" << j << "] ";
+			cout << *(projectXstudent + ((i * numStudents) + j)) << endl;
+		}
+	}
+
+	cout << "END: Test::InitializeProjectStudentSkillMatrixTest Task#107" << endl;
 	cout << "----------------------------------------------------------";
 	cout << endl << endl;
 }
@@ -216,7 +252,5 @@ void Test::StructTest() {
 	     	   cout << "END: Test::StructTest Student|Project|ClassSection Task#97" << endl;
 	     	   cout << "----------------------------------------------------------";
 		// end testing for Task#97
-
-
 }
 

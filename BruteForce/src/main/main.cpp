@@ -35,6 +35,7 @@ int main(){
 
 	const int numProjects = u.getSizeOfJson(projectFilename, "projects");
 	const int numStudents = u.getSizeOfJson(studentFilename, "students");
+	const int numSkills = 7;
 
 	Project *projectPool = new Project[numProjects];
 	Student *studentPool = new Student[numStudents];
@@ -42,12 +43,25 @@ int main(){
 	ProjectJson PJson;
 	StudentJson SJson;
 
+	int *projectXstudent  = new int[(numProjects * numStudents)];
+
+	// INITIALIZE PROJECT POOL
 	for (int i = 0; i < numProjects; i++) {
 		projectPool[i] = PJson.ProjectReader(projectFilename, i);
 	}
 
+	// INITIALIZE STUDENT POOL
 	for (int i = 0; i < numStudents; i++) {
 		studentPool[i] = SJson.getStudentJsonObject(studentFilename, i);
+	}
+
+	// INITIALIZE PROJECT X STUDENT SKILL MATRIX
+	for (int i = 0; i < (numProjects); i++) {
+		for (int j = 0; j < numStudents; j++) {
+			int currentProjectXstudent = 0;
+			projectXstudent[(i * numStudents) + j] = u.getProjectVsStudentSkill(projectPool, numProjects,
+				studentPool, numStudents, numSkills, currentProjectXstudent, i, j);
+		}
 	}
 
 	//Tests
@@ -55,42 +69,24 @@ int main(){
 	t.StructTest();
 	t.InitializeProjectPoolTest(projectPool, numProjects);
 	t.InitializeStudentPoolTest(studentPool, numStudents);
-/*
-	StudentJson SJson;
-	SJson.StudentReader("./SampleJsonFiles/students.json");
-
-	ProjectJson PJson;
-	PJson.ProjectReader("./SampleJsonFiles/projects.json");
-
-	//Verify all Student source data can be accessed from other files
-	cout << "MAIN.CPP TEST" << endl;
-	cout << "Number of students read in: "
-			+ to_string(SJson.allStudents.size())
-			<< endl;
-
-	//Verify all Project source data can be accessed from other files
-	cout << "MAIN.CPP TEST" << endl;
-	cout << "Number of projects read in: "
-			+ to_string(PJson.allProjects.size())
-			<< endl;
+	t.InitializeProjectStudentSkillMatrixTest(projectXstudent, numProjects, numStudents);
 
 	// Drivers to read in rules, like class section definitions
 	// ex - getRules(capStoneCourseDefinitions);
 
 	// Drivers to crunch stuff
 	// ex - mapProjectsToClasses(rules);
-	Utility u;
-	//vector<vector<int>> projectxstudent = u.calcProjectXStudentMatrix(
-	//		SJson.allStudents, PJson.allProjects);
 
 	// Drivers to write Json
 	// ex - composeReport();
 
 	// Drivers to convert Json into some kind of report, like excel or json to pdf?
 	// ex - writeReport();
-*/
+
+	delete[] projectXstudent;
 	delete[] studentPool;
 	delete[] projectPool;
+
 	return 0;
 }
 

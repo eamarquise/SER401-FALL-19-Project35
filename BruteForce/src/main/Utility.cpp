@@ -34,16 +34,35 @@ int Utility::getSizeOfJson(string filename, string key) {
 	return obj[key].size();
 }
 
-int Utility::getNumProjects(string filename) {
-	//read file named profile.json, then parse it as json,
-	//then store that parse into obj
-	ifstream ifs(filename);
-	Json::Reader reader;
-	Json::Value obj;
-	reader.parse(ifs, obj);
-	//int numberOfProjects = obj["projects"].size();
+int Utility::getProjectXskill(Project projectPool[], int i, int j){
+	Project project;
+	project = *(projectPool + i);
+	return project.Skills[j];
+}
 
-	return obj["projects"].size();
+int Utility::getSkillXstudent(Student studentPool[], int i, int j){
+	Student student;
+	student = *(studentPool + i);
+	return student.Skills[j];
+}
+
+long Utility::getProjectVsStudentSkill(Project projectPool[], int numProjects,
+		Student studentPool[], int numStudents, int numSkills, int projectXstudentScore, int i, int j) {
+
+	int projectXskill = 0;
+	int skillXstudent = 0;
+
+	Utility u;
+
+	for (int k = 0; k < numSkills; k++){
+		projectXskill = u.getProjectXskill(projectPool, i, k);
+		skillXstudent = u.getSkillXstudent(studentPool, j, k);
+
+		projectXstudentScore =
+				projectXstudentScore +  projectXskill * skillXstudent;
+	}
+
+	return projectXstudentScore;
 }
 
 vector<vector<int>> Utility::calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects){
