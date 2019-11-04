@@ -36,23 +36,26 @@ int main(){
 	const int numProjects = u.getSizeOfJson(projectFilename, "projects");
 	const int numStudents = u.getSizeOfJson(studentFilename, "students");
 	const int numSkills = 7;
+	const int teamSize = 5;
+	const int numClassSections = 4;
 
 	Project *projectPool = new Project[numProjects];
 	Student *studentPool = new Student[numStudents];
-
-	ProjectJson PJson;
-	StudentJson SJson;
+	ClassSection classPool[numClassSections];
 
 	int *projectXstudent  = new int[(numProjects * numStudents)];
 
-	// INITIALIZE PROJECT POOL
-	for (int i = 0; i < numProjects; i++) {
-		projectPool[i] = PJson.ProjectReader(projectFilename, i);
-	}
+	// INITIALIZE POOLS
+	u.initializeProjectPool(projectFilename, projectPool, numProjects);
+	u.initializeStudentPool(studentFilename, studentPool, numStudents);
 
-	// INITIALIZE STUDENT POOL
-	for (int i = 0; i < numStudents; i++) {
-		studentPool[i] = SJson.getStudentJsonObject(studentFilename, i);
+	for(int i = 0; i < numClassSections; i++) {
+		classPool[i].ClassID = i;
+		if(i == 0 || i == 1) {
+			classPool[i].Type = 'O';
+		} else {
+			classPool[i].Type = 'G';
+		}
 	}
 
 	// INITIALIZE PROJECT X STUDENT SKILL MATRIX
@@ -63,6 +66,9 @@ int main(){
 				studentPool, numStudents, numSkills, currentProjectXstudent, i, j);
 		}
 	}
+
+	// ASSIGN PROJECTS TO CLASS SECTIONS
+
 
 	//Tests
 	Test t;

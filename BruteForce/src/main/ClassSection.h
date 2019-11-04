@@ -19,9 +19,9 @@ struct ClassSection
 {
 	int ClassSectionID; //Class section Id. unique for each class.
 	char Type;  //O = online | G = ground
-	int Enrollment[NumStudents]; //number of students enrolled in the class section.
-	//int ProjectPool[NumProjects]; //Projects available to the class section
-	vector <int> ProjectPool; //Projects available to the class section
+	//int Enrollment[]; //number of students enrolled in the class section.
+	//int ProjectPool[]; //Projects available to the class section
+	//vector <int> ProjectPool; //Projects available to the class section
 
 	ClassSection(int cID, char t){
 		ClassSectionID = cID;

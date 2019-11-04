@@ -101,13 +101,17 @@ void Test::InitializeStudentPoolTest(Student studentPool[], int numStudents) {
 		cout << "Student ID: ";
 		cout << student.StudentID << endl;
 
+		cout << "Class ID: ";
+		cout << student.ClassID << endl;
+
 		cout << "Skills: ";
 		for (unsigned int j = 0; j < numSkills; j++) {
 			cout << to_string(student.Skills[j]);
 			cout << " ";
 		}
 
-		cout << "Affinities: ";
+		cout << endl << endl;
+		cout << "Begin Affinities: " << endl;
 		for (int i = 0; i < numAffinities; i++){
 			cout << "Peer ID: "
 					+ to_string(student.StudentAffinity[i].first)

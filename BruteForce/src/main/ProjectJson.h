@@ -19,7 +19,7 @@ class ProjectJson {
 		ProjectJson();
 		virtual ~ProjectJson();
 		int getSizeOfJson(string filename);
-		Project ProjectReader(string filename, int i);
+		Project getProjectJsonObject(string filename, int i);
 		void ProjectWriter(string filename);
 };
 

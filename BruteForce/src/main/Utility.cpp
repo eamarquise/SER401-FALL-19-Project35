@@ -11,6 +11,8 @@
 #include <iterator>
 
 #include "json/json.h"
+#include "ProjectJson.h"
+#include "StudentJson.h"
 #include "Student.h"
 #include "Utility.h"
 
@@ -23,6 +25,20 @@ Utility::Utility() {
 
 Utility::~Utility() {
 	// TODO Auto-generated destructor stub
+}
+
+void Utility::initializeProjectPool(string filename, Project projectPool[], int numProjects) {
+	ProjectJson PJson;
+	for (int i = 0; i < numProjects; i++) {
+		projectPool[i] = PJson.getProjectJsonObject(filename, i);
+	}
+}
+
+void Utility::initializeStudentPool(string filename, Student studentPool[], int numStudents) {
+	StudentJson SJson;
+	for (int i = 0; i < numStudents; i++) {
+		studentPool[i] = SJson.getStudentJsonObject(filename, i);
+	}
 }
 
 int Utility::getSizeOfJson(string filename, string key) {

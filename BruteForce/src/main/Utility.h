@@ -16,6 +16,10 @@ class Utility {
 	public:
 		Utility();
 		virtual ~Utility();
+		void initializeProjectPool(string filename, Project projectPool[],
+				int numProjects);
+		void initializeStudentPool(string filename, Student studentPool[],
+				int numStudents);
 		vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
 		int getProjectXskill(Project projectPool[], int i, int k);
 		int getSkillXstudent(Student studentPool[], int i, int j);

@@ -44,7 +44,7 @@ void ProjectJson::ProjectWriter(string filename){
 }
 
 // Returns a pointer to Project struct
-Project ProjectJson::ProjectReader(string filename, int i){
+Project ProjectJson::getProjectJsonObject(string filename, int i){
 
 	ifstream ifs(filename);
 	Json::Reader reader;
