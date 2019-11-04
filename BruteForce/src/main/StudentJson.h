@@ -18,7 +18,7 @@ public:
 	virtual ~StudentJson();
 	void StudentReader(string filename);
 	void StudentWriter(string filename);
-
+	Student getStudentJsonObject(string filename, int i);
 };
 
 #endif /* BRUTEFORCE_SRC_MAIN_STUDENTJSON_H_ */

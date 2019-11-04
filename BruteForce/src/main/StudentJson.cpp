@@ -26,7 +26,6 @@
 #include "json/json.h"
 #include "StudentJson.h"
 
-
 using namespace std;
 
 StudentJson::StudentJson() {
@@ -43,6 +42,40 @@ void StudentJson::StudentWriter(string filename){
 	//to be implemented in a later sprint.
 }
 
+// Returns a Student object
+Student StudentJson::getStudentJsonObject(string filename, int i){
+
+	ifstream ifs(filename);
+	Json::Reader reader;
+	Json::Value obj;
+	reader.parse(ifs, obj);
+
+	Student student;
+
+	int numSkills = obj["students"].get((int)i, "")["Skills"].size();
+	int numTimes = obj["students"].get((int)i, "")["Availability"].size();
+	int numAffinities = obj["students"].get((int)i, "")["StudentAffinity"].size();
+
+	student.StudentID = obj["students"].get((int)i, "")["StudentID"].asInt();
+	student.ClassID = obj["students"].get((int)i, "")["ClassID"].asInt();
+
+	for(int j = 0; j < numAffinities; j =j+2) {
+		pair <int, bool> x = {obj["students"].get((int)i, "")["StudentAffinity"][j].asInt(), obj["students"].get((int)i, "")["StudentAffinity"][j+1].asBool()};
+		student.StudentAffinity.push_back(x);
+	}
+
+	for(int j = 0; j < numTimes; j++) {
+		student.Availability[j] = (char)obj["students"].get((int)i, "")["Availability"][j].asInt();
+	}
+
+	for (int j = 0; j < numSkills; j++) {
+		student.Skills[j] = (obj["students"].get((int)i, "")["Skills"][j].asInt());
+	}
+
+	return student;
+}
+
+/*
 void StudentJson::StudentReader(string filename){
 
 
@@ -129,7 +162,7 @@ void StudentJson::StudentReader(string filename){
 	}
 //*********************************************
 //End - Json File Reader Test
-}
+}*/
 
 
 
