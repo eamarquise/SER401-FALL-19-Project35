@@ -96,7 +96,7 @@ int** Utility::ProjectToSectionPercentages(Student *studentList[], Project proje
 
 	 int numStudentsByClass[NumOfClassSections];
     Student student;
-
+    Project project;
 
 	 for(int i = 0; i < NumOfClassSections; i++){
 
@@ -108,15 +108,16 @@ int** Utility::ProjectToSectionPercentages(Student *studentList[], Project proje
 
 	 	 for(int j = 0; j < numStudents; j++){
 
-	 		 student = *(*(studentList + j ) + i);
+	 		 student = *(*(studentList + i ) + j);
 
 	 		 for(int k = 0; k < 7; k++){
 	 			 //SectionSkills[i][k] += studentList[i][j].Skills[k];
 	 			SectionSkills[i][k] += student.Skills[k];
-	 			 cout<<to_string(student.Skills[k])<<endl;
+	 			// cout<<to_string(student.StudentID)<<endl;
 	 }}}
 
 	 //print the section skills matrix.
+	 cout<<"Class Section Skills Matrix"<<endl;
 		for (int i = 0; i < NumOfClassSections; ++i)
 		  	    {
 		  	        for (int j = 0; j < 7; j++)
@@ -130,9 +131,21 @@ int** Utility::ProjectToSectionPercentages(Student *studentList[], Project proje
 	  	int skillXproject[numProjects][7] = {0};
 	  	for (int i = 0; i < 7; i++){
 	  		for (int j = 0; j < numProjects; j++){
-	  			skillXproject[i][j] = projectList[i].Skills[j];
+	  			project= *(projectList + j);
+	  			skillXproject[i][j] = project.Skills[j];
 	  		}
 	  	}
+	  	cout <<endl;
+	  	cout<<"Project Skills Matrix"<<endl;
+	  			for (int i = 0; i < numProjects; ++i)
+	  			  	    {
+	  			  	        for (int j = 0; j < 7; j++)
+	  			  	        {
+	  			  	            cout << skillXproject[i][j] << ' ';
+	  			  	        }
+	  			  	        cout <<endl;
+	  			  	    }
+
 
 	  	   // Calculate Project x Section skills Matrix
 	  		int projectXsection[numProjects][NumOfClassSections];
