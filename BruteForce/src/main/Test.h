@@ -8,10 +8,16 @@
 #ifndef BRUTEFORCE_SRC_MAIN_TEST_H_
 #define BRUTEFORCE_SRC_MAIN_TEST_H_
 
+#include "Project.h"
+#include "Student.h"
+
 class Test {
 public:
 	Test();
 	virtual ~Test();
+	void InitializeProjectPoolTest(Project projectPool[], int numProjects);
+	void InitializeStudentPoolTest(Student studentPool[], int numStudents);
+	void InitializeProjectStudentSkillMatrixTest(int projectXstudent[], int numProjects, int numStudents);
 	void StructTest();
 };
 

@@ -13,12 +13,21 @@
 namespace std {
 
 class Utility {
-public:
-	int numOfClassSections;
-	Utility();
-	virtual ~Utility();
-	//vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
-	int** ProjectToSectionPercentages(Student *studentList[], Project projectList[], int numProjects, int NumOfClassSections, int ClassSize[]);
+    public:
+		Utility();
+		virtual ~Utility();
+
+		int getProjectXskill(Project projectPool[], int i, int k);
+		int getSkillXstudent(Student studentPool[], int i, int j);
+		long getProjectVsStudentSkill(Project projectPool[], int numProjects,
+				Student studentPool[], int numStudents, int numSkills, int projectXstudentScore, int i, int j);
+		int getSizeOfJson(string filename, string key);
+
+
+		vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
+		void printIntMatrix(vector<vector<int>> a);
+		int** ProjectToSectionPercentages(vector<vector<Student>> studentList, vector <Project> projectList, int numProjects, int NumOfClassSections);
+
 };
 
 } /* namespace std */

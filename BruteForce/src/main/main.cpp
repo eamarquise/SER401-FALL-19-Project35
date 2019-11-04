@@ -1,8 +1,7 @@
 /*
- * P35Driver.cpp
- *
- *  Created on: Oct. 23, 2019
- *      Author: mcilibra
+ * Filename: main.cpp
+ * Created On: 10/27/2019
+ * Purpose: driver for BruteForce prototype.
  */
 
 #include <iostream>
@@ -12,7 +11,6 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
-
 
 #include "Student.h"
 #include "Project.h"
@@ -27,93 +25,97 @@
 
 using namespace std;
 
+
 //INFORMATION THAT WE WILL ASSUME WILL BE READ IN FROM THE GUI
 int numClassSections = 4;
+
 
 
 
 int main(){
 	cout << "Hi Team 35" << endl;
 
-	// Task#97 Testing for
-	     Test t;
-	    t.StructTest();
+	const string projectFilename = "./SampleJsonFiles/20Projects.json";
+	const string studentFilename = "./SampleJsonFiles/60Students.json";
 
-	//Task#99 testing Student Json file reader
-    // To use, you need to copy-paste the location of the Json file on your Computer.
-	// To get it, find the file through the (files) app in the virtual box.
-	// Then right-click properties, and copy the path next to (parent folder).
+	Utility u;
 
-	  StudentJson SJson;
-	   SJson.StudentReader("./SampleJsonFiles/60Students.json");
+	const int numProjects = u.getSizeOfJson(projectFilename, "projects");
+	const int numStudents = u.getSizeOfJson(studentFilename, "students");
+	const int numSkills = 7;
 
 
-	   //test to make sure all the students can be accessed in other files.
-	   cout<<"MAIN.CPP TEST"<<endl;
-	   cout<< "Number of students read in: " + to_string(SJson.allStudents.size())<<endl;
-
-	 //Task#100 testing Project Json file reader
-	 // To use, you need to copy-paste the location of the Json file on your Computer.
-	 // To get it, find the file through the (files) app in the virtual box.
-	 // Then right-click properties, and copy the path next to (parent folder).
-	   ProjectJson PJson;
-	   PJson.ProjectReader("./SampleJsonFiles/20Projects.json");
-
-	   //test to make sure all the projects can be accessed in other files.
-	    cout<<"MAIN.CPP TEST"<<endl;
-	  	cout<< "Number of projects read in: " + to_string(PJson.allProjects.size())<<endl;
-        int numProjects = PJson.allProjects.size();
-
-        const int numprojects = PJson.allProjects.size();
-        const int numstudents = SJson.allStudents.size();
-
-        cout<<"Working"<<endl;
-
-        Project *projectPool = new Project[numprojects];
-        int *classSize = new int[numClassSections];
-        Student** studentList =0;
-        studentList = new Student*[numClassSections];
-
-        vector<vector<Student>> studentlist(numClassSections);
+	StudentJson SJson;
+	ProjectJson PJson;
 
 
-        cout<<"Working"<<endl;
-    	for (int i = 0; i < numClassSections; ++i)
-    	  	    { studentList[i] = new Student[numstudents];
-    	  	      classSize[i]= SJson.allStudents.size();
+	Project *projectPool = new Project[numProjects];
+	Student *studentPool = new Student[numStudents];
 
-    	  	        for (int j = 0; j < numstudents; j++)
-    	  	        {
-    	  	        	studentlist[i].push_back(SJson.allStudents[j]);
-    	  	            studentList[i][j] = SJson.allStudents[j];
-                        cout<<to_string(studentList[i][j].StudentID)<<endl;
-
-    	  	        }}
-
-    	for (int i = 0; i < numProjects; ++i){
-
-    		projectPool[i]=PJson.allProjects[i];
-    	}
-
-    	cout<<"Working"<<endl;
-
-	  	//US#88 task#114 test.
-	  	Utility u;
-	  	int** percentMatrix = u.ProjectToSectionPercentages(studentList, projectPool, numProjects, numClassSections, classSize);
+	int *projectXstudent  = new int[(numProjects * numStudents)];
 
 
-	  	//print the resulting percent matrix
-	  	for (int i = 0; i < numProjects; ++i)
-	  	    {
-	  	        for (int j = 0; j < numClassSections; j++)
-	  	        {
-	  	            cout << percentMatrix[i][j] << ' ';
-	  	        }
-	  	        cout <<endl;
-	  	    }
+	// INITIALIZE PROJECT POOL
+	for (int i = 0; i < numProjects; i++) {
+		projectPool[i] = PJson.ProjectReader(projectFilename, i);
+	}
+
+	// INITIALIZE STUDENT POOL
+	for (int i = 0; i < numStudents; i++) {
+		studentPool[i] = SJson.getStudentJsonObject(studentFilename, i);
+	}
 
 
+	// INITIALIZE PROJECT X STUDENT SKILL MATRIX
+	for (int i = 0; i < (numProjects); i++) {
+		for (int j = 0; j < numStudents; j++) {
+			int currentProjectXstudent = 0;
+			projectXstudent[(i * numStudents) + j] = u.getProjectVsStudentSkill(projectPool, numProjects,
+				studentPool, numStudents, numSkills, currentProjectXstudent, i, j);
+		}
+	}
 
+//TASK#144 TESTS.=================================
+
+
+	  	  SJson.StudentReader(studentFilename);
+          PJson.ProjectReaderVector(projectFilename);
+
+	        //This is just to create a vector of vectors for use in the percent matrix.
+	        //the function will take in the vector of vectors of students sorted by class section
+	        vector<vector<Student>> studentlist(numClassSections);
+            Student s;
+	    	for (int i = 0; i < numClassSections; ++i)
+	    	  	    {
+
+	    	  	        for (int j = 0; j < numStudents; j++)
+	    	  	        {
+	    	  	            studentlist[i].push_back(SJson.allStudents[j]);
+	    	  	        }}
+
+
+            //function call to create the percent matirx
+	    	int** percentMatrix = u.ProjectToSectionPercentages(studentlist, PJson.allProjects, numProjects, numClassSections);
+
+                   cout << "PERCENT MATRIX, ROWS=projects, COLUMNS=Class Sections"<<endl;
+	    		  	//print the resulting percent matrix
+	    		  	for (int i = 0; i < numProjects; ++i)
+	    		  	    {
+	    		  	        for (int j = 0; j < numClassSections; j++)
+	    		  	        {
+	    		  	            cout << percentMatrix[i][j] << ' ';
+	    		  	        }
+	    		  	        cout <<endl;
+	    		  	    }
+//End -TASK#144 TESTS =================================
+
+
+	//Tests
+	// Test t;
+	//t.StructTest();
+	//t.InitializeProjectPoolTest(projectPool, numProjects);
+	 //t.InitializeStudentPoolTest(studentPool, numStudents);
+	//t.InitializeProjectStudentSkillMatrixTest(projectXstudent, numProjects, numStudents);
 
 	// Drivers to read in rules, like class section definitions
 	// ex - getRules(capStoneCourseDefinitions);
@@ -121,15 +123,17 @@ int main(){
 	// Drivers to crunch stuff
 	// ex - mapProjectsToClasses(rules);
 
-	  	//vector<vector<int>> projectxstudent = u.calcProjectXStudentMatrix(SJson.allStudents, PJson.allProjects);
-
-
 
 	// Drivers to write Json
 	// ex - composeReport();
 
 	// Drivers to convert Json into some kind of report, like excel or json to pdf?
 	// ex - writeReport();
+
+
+	delete[] projectXstudent;
+	delete[] studentPool;
+	delete[] projectPool;
 
 	return 0;
 }
