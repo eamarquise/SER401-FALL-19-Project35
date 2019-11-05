@@ -24,9 +24,9 @@ public:
 	StudentsToProjects();
 	void StudentsToProjectsAssignment(vector <Student> studentlist, vector <Project> projectlist);
 	// 3 functions to evaluate a team's score
-	int StudentsToProjects::AvailabilityTeamScore(vector <Student> team);
-	int StudentsToProjects::SkillCompareTeamScore(vector <Student> team);
-	int StudentsToProjects::ProjectCompareTeamScore(vector <Student> team, Project project);
+	int AvailabilityTeamScore(vector <Student> team);
+	int SkillCompareTeamScore(vector <Student> team);
+	int ProjectCompareTeamScore(vector <Student> team, Project project);
 
 	virtual ~StudentsToProjects();
 };
