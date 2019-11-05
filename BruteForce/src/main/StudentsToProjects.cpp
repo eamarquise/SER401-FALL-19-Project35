@@ -230,8 +230,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 				if(bitmask[j]) {
 					currentTeam.team.push_back(StudentList[j]);
 					for(int k = 0; k < numSkills; k++) {
-						//call to 3 team score functions
-						//TeamScore = func1() + func2() + func3()
+
 						teamskillscore += StudentList[j].Skills[k] * ProjectList[i].Skills[k];
 					}
 				}
@@ -239,6 +238,10 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 			for(unsigned int j = 0; j < currentTeam.team.size(); j++) {
 				//cout << currentTeam.team[j].StudentID << " ";
 			}
+
+			//call to 3 team score functions
+			//TeamScore = func1() + func2() + func3()
+
 			currentTeam.TeamScore = teamskillscore;
 			//cout << "TeamSkillScore for project " << i+1 << ": " << currentTeam.TeamScore<<endl;
 
@@ -298,7 +301,13 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 
 	} // end i loop
 
-	cout << "WORKING 3" << endl;
+
+
+	// Do Project Set combinations here
+
+	// End Project Set combinations
+
+
 	auto stop = high_resolution_clock::now();
 	auto duration = duration_cast<milliseconds>(stop - start);
 	cout << "time in milliseconds: ";
@@ -326,6 +335,26 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 		 cout << endl;
 	}
 
+
+}
+//Task#120
+int StudentsToProjects::AvailabilityTeamScore(vector <Student> team){
+	//to-do
+	return 0;
+
+}
+
+//Task#118
+int StudentsToProjects::SkillCompareTeamScore(vector <Student> team){
+	//to-do
+	return 0;
+
+}
+
+//Task#120
+int StudentsToProjects::ProjectCompareTeamScore(vector <Student> team, Project project){
+	//to-do
+	return 0;
 
 }
 

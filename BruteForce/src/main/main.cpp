@@ -110,16 +110,22 @@ int main(){
 	    		  	    }
 //End -TASK#144 TESTS =================================
 
+//STUDENTS TO PROJECTS ASSIGNMENT
+	    		  	//Threads for each class section will start here
+	    		  	//Students will be partitioned here by skill averages
+	    		  	//projects will be partitioned by priority
 
-	    		  	StudentsToProjects x;
-	    		  	x.StudentsToProjectsAssignment(SJson.allStudents, PJson.allProjects);
+	StudentsToProjects x;
+	x.StudentsToProjectsAssignment(SJson.allStudents, PJson.allProjects);
 
+
+	                //join threads
 
 	//Tests
 	// Test t;
 	//t.StructTest();
 	//t.InitializeProjectPoolTest(projectPool, numProjects);
-	 //t.InitializeStudentPoolTest(studentPool, numStudents);
+	//t.InitializeStudentPoolTest(studentPool, numStudents);
 	//t.InitializeProjectStudentSkillMatrixTest(projectXstudent, numProjects, numStudents);
 
 	// Drivers to read in rules, like class section definitions
