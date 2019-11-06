@@ -36,8 +36,11 @@ int numClassSections = 4;
 int main(){
 	cout << "Hi Team 35" << endl;
 
-	const string projectFilename = "./SampleJsonFiles/20Projects.json";
-	const string studentFilename = "./SampleJsonFiles/60Students.json";
+	//const string projectFilename = "./SampleJsonFiles/20Projects.json";
+	//const string studentFilename = "./SampleJsonFiles/60Students.json";
+
+	const string projectFilename = "/home/elizabeth/git/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/20Projects.json";
+	const string studentFilename = "/home/elizabeth/git/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/60Students.json";
 
 	Utility u;
 
@@ -75,6 +78,73 @@ int main(){
 				studentPool, numStudents, numSkills, currentProjectXstudent, i, j);
 		}
 	}
+
+
+/***** SORTING STUDENTS BASED ON SKILL *****/
+	//creating student skill average
+	for(int i=0; i<numStudents; i++) {
+		double average1=0;
+		for(int m=0; m < numSkills; m++) {
+			average1 += studentPool[i].Skills[m];
+		}
+		average1 = average1/numSkills;
+		studentPool[i].skillAverage = average1;
+	}
+
+
+	//Averaging student skills into a sorted array
+	for(int i=0; i < numStudents; i++){
+		Student temp;
+		for(int j=(i+1); j < numStudents; j++){
+			if (studentPool[j].skillAverage > studentPool[i].skillAverage) {
+				temp = studentPool[i];
+				studentPool[i] = studentPool[j];
+				studentPool[j] = temp;
+			}
+		}
+	 }
+
+
+	//Counting project priority
+	int count2=0, count1=0, count0=0;
+	for(int i=0; i<numProjects; i++){
+		if(projectPool[i].Priority ==2) { count2++; }
+		if(projectPool[i].Priority ==1) { count1++; }
+		if(projectPool[i].Priority ==0) { count0++; }
+	}
+
+
+	//Pushing students onto priority vectors
+	vector<Student> priority2;
+	vector<Student> priority1;
+	vector<Student> priority0;
+	int count;
+	for(int j=0; j<(count2*5); j++){
+		priority2.push_back(studentPool[count]);
+		count++;
+	}
+	for(int j=0; j<(count1*5); j++){
+		priority1.push_back(studentPool[count]);
+		count++;
+	}
+	for(int j=0; j<(count0*5); j++){
+		priority0.push_back(studentPool[count]);
+		count++;
+	}
+/*
+	for(int j=0; j<(count2*5); j++){
+		cout << priority2[j].skillAverage << " ";
+	}
+	cout << "\n";
+	for(int j=0; j<(count1*5); j++){
+		cout << priority1[j].skillAverage << " ";
+	}
+	cout << "\n";
+	for(int j=0; j<(count0*5); j++){
+		cout << priority0[j].skillAverage << " ";
+	}
+	cout << "\n";
+*/
 
 //TASK#144 TESTS.=================================
 

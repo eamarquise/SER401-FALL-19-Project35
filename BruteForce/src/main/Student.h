@@ -26,6 +26,7 @@ struct Student
 	int ClassID; //determines which class the student belongs to.
 	int ProjectID; //Value given once the student is assigned to a project.
 	int Skills[7]; //stores the 7 skills 0 = none | 1 = some | 2 = average | 3 = proficient | 4 = expert
+	double skillAverage; //Average skill of the student, used from skills above
 
 	//[0]PeerID | 0 = negative affinity | 1 = positive affinity
 	//COUNT will be the maximum number of peer preferences read in from the JSON file amongst students.
