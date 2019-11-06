@@ -75,7 +75,6 @@ Student StudentJson::getStudentJsonObject(string filename, int i){
 	return student;
 }
 
-/*
 void StudentJson::StudentReader(string filename){
 
 
@@ -130,7 +129,7 @@ void StudentJson::StudentReader(string filename){
 		Student s(StudentID, ClassID, skills, affinity, times);
 		allStudents.push_back(s);
 
-	}
+	}/*
 //Json File Reader Test
 //*********************************************
 	cout <<endl;
@@ -159,10 +158,10 @@ void StudentJson::StudentReader(string filename){
 				cout << " ";
 		}
 		cout << endl;
-	}
+	}*/
 //*********************************************
 //End - Json File Reader Test
-}*/
+}
 
 
 

@@ -43,6 +43,7 @@ struct Student
 	//(two selections for weekday availability; two selections for weekend availability)
 	int Availability[4];
 
+	Student(){}
 	//Constructor
 	Student(int stID, int cID, int s[], vector< pair <int, bool> > aff,  int times[]){
 
@@ -61,9 +62,7 @@ struct Student
 
 	}
 
-	Student(){
 
-	}
 
 };
 #endif /* BRUTEFORCE_SRC_MAIN_STUDENT_H_ */

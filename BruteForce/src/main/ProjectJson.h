@@ -21,6 +21,7 @@ class ProjectJson {
 		int getSizeOfJson(string filename);
 		Project ProjectReader(string filename, int i);
 		void ProjectWriter(string filename);
+		void ProjectReaderVector(string filename);
 };
 
 #endif /* BRUTEFORCE_SRC_MAIN_PROJECTJSON_H_ */
