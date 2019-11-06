@@ -30,7 +30,6 @@ using namespace std;
 
 StudentJson::StudentJson() {
 	// TODO Auto-generated constructor stub
-
 }
 
 StudentJson::~StudentJson() {
@@ -38,7 +37,6 @@ StudentJson::~StudentJson() {
 }
 
 void StudentJson::StudentWriter(string filename){
-
 	//to be implemented in a later sprint.
 }
 
@@ -75,6 +73,7 @@ Student StudentJson::getStudentJsonObject(string filename, int i){
 	return student;
 }
 
+//void StudentJson::StudentReader(string filename){
 
 int StudentJson::StudentReader(string filename){
 
@@ -129,43 +128,11 @@ int StudentJson::StudentReader(string filename){
 		//Creating the student, and adding the student to the student list
 		Student s(StudentID, ClassID, skills, affinity, times);
 		allStudents.push_back(s);
-
 	}
-//Json File Reader Test
-//*********************************************
-	cout <<endl;
-    cout<<"STUDENT JSON FILE READER TEST"<<endl;
-    cout <<endl;
-    cout << "number of Students: " << numberOfStudents.size() << endl;
 
-	//Print out all students
-	for(int i = 0; i < allStudents.size(); i++) {
-		cout << "Student #" + to_string(i+1)+ " ID: ";
-		cout << to_string(allStudents.at(i).StudentID) << endl;
-		cout << "Skills: ";
-		for(unsigned int j = 0; j < 7; j++) {
-				cout << allStudents.at(i).Skills[j];
-				cout << " ";
-	    }
-		cout << endl;
-		cout << "Availability: ";
-		for (int k = 0; k < 4; k++){
-				cout <<  to_string(allStudents.at(i).Availability[k]) ;
-				cout << " ";
-		}
-		cout << endl;
-        for (unsigned int x = 0; x < allStudents.at(i).StudentAffinity.size(); x++) {
-				cout << "Peer ID: " + to_string(allStudents.at(i).StudentAffinity[x].first) + "  Affinity: " + to_string(allStudents.at(i).StudentAffinity[x].second)<<endl;
-				cout << " ";
-		}
-		cout << endl;
-	}
 	int numStudents = allStudents.size();
 	allStudents.clear();
 	return numStudents;
-
-//*********************************************
-//End - Json File Reader Test
 }
 
 

@@ -33,13 +33,11 @@ using namespace std;
 
 Test::Test() {
 	// TODO Auto-generated constructor stub
-
 }
 
 Test::~Test() {
 	// TODO Auto-generated destructor stub
 }
-
 
 // Task #107
 // Author: Cristi DeLeo
@@ -221,13 +219,11 @@ void Test::StructTest() {
 	     		 }
 	     		 cout << "\n \n  " << endl;
 
-
 	 //Class Section struct test
-
 	     	const int NumOfStudents = 15;
 	     	const int NumOfProjects = 3;
 
-	     	 ClassSection< NumOfStudents> c1(1, 'O');
+	     	 ClassSection<NumOfStudents> c1(1, 'O');
 
 	     	for (int i = 0; i < NumOfStudents; i++){
 	     	 c1.Enrollment[i]=i;}
@@ -257,4 +253,3 @@ void Test::StructTest() {
 	     	   cout << "----------------------------------------------------------";
 		// end testing for Task#97
 }
-

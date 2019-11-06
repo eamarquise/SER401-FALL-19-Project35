@@ -11,10 +11,10 @@
 
 #ifndef BRUTEFORCE_SRC_MAIN_PROJECT_H_
 #define BRUTEFORCE_SRC_MAIN_PROJECT_H_
+
 #include <array>
 
-struct Project
-{
+struct Project {
 	int ProjectID; 	//Project Id. unique for each project.
 	int ClassID; 	//value determined when project is assigned to a class section.
 	char Type;  	//O = online | G = ground | H = hybrid
@@ -24,7 +24,6 @@ struct Project
 
 	//Constructor
 	Project(int pID, char t, int priority, int pskills[]){
-
 		ProjectID = pID;
 		Type = t;
 		Priority = priority;
