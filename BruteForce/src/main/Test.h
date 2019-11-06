@@ -15,8 +15,9 @@ class Test {
 public:
 	Test();
 	virtual ~Test();
-	void InitializeProjectPoolTest(Project projectPool[], int numProjects);
-	void InitializeStudentPoolTest(Student studentPool[], int numStudents);
+	void PrintProjectPool(Project projectPool[], int numProjects, int numSkills);
+	void PrintStudentPool(Student studentPool[], int numStudents, int numSkills);
+	void PrintProjectStudentSkills(int projectStudentSkills[], int numProjects, int numStudents);
 	void InitializeProjectStudentSkillMatrixTest(int projectXstudent[], int numProjects, int numStudents);
 	void StructTest();
 };

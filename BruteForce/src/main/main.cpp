@@ -4,14 +4,6 @@
  * Purpose: driver for BruteForce prototype.
  */
 
-#include <iostream>
-#include <utility>
-#include <algorithm>
-#include <vector>
-#include <fstream>
-#include <string>
-#include <cstdlib>
-
 #include "Student.h"
 #include "Project.h"
 #include "ClassSection.h"
@@ -19,63 +11,65 @@
 #include "json/json.h"
 #include "StudentJson.h"
 #include "ProjectJson.h"
-
 #include "Utility.h"
-//#include "Global.h"
+
+#include <iostream>
+#include <utility>
+#include <algorithm>
+#include <vector>
+#include <thread>
+#include <fstream>
+#include <string>
+#include <cstdlib>
+#include <bits/stdc++.h>
 
 using namespace std;
+
+constexpr int toConstInt(int constInt) {
+	return constInt;
+}
 
 int main(){
 	cout << "Hi Team 35" << endl;
 
-	const string projectFilename = "./SampleJsonFiles/projects.json";
-	const string studentFilename = "./SampleJsonFiles/students.json";
+	const string PROJECT_FILE = "./SampleJsonFiles/projects.json";
+	const string STUDENT_FILE = "./SampleJsonFiles/students.json";
 
-	Utility u;
+	const int NUM_SKILLS = 7;
+	const int TEAM_SIZE = 5;
+	const int NUM_CLASS_SECTIONS = 4;
 
-	const int numProjects = u.getSizeOfJson(projectFilename, "projects");
-	const int numStudents = u.getSizeOfJson(studentFilename, "students");
-	const int numSkills = 7;
-	const int teamSize = 5;
-	const int numClassSections = 4;
+	Utility util;
 
-	Project *projectPool = new Project[numProjects];
-	Student *studentPool = new Student[numStudents];
-	ClassSection classPool[numClassSections];
+	int tempNumStudents = util.getSizeOfJson(STUDENT_FILE, "students");
+	int tempNumProjects = util.getSizeOfJson(PROJECT_FILE, "projects");
 
-	int *projectXstudent  = new int[(numProjects * numStudents)];
+	const int NUM_STUDENTS = toConstInt(tempNumStudents);
+	const int NUM_PROJECTS = toConstInt(tempNumProjects);
+
+	Project PROJECT_POOL[NUM_PROJECTS];
+	Student STUDENT_POOL[NUM_STUDENTS];
+	//ClassSection CLASS_SECTION_POOL[NUM_CLASS_SECTIONS];
+	// classID & type
+
+	int PROJECT_STUDENT_SKILLS[NUM_PROJECTS * NUM_STUDENTS];
 
 	// INITIALIZE POOLS
-	u.initializeProjectPool(projectFilename, projectPool, numProjects);
-	u.initializeStudentPool(studentFilename, studentPool, numStudents);
+	util.initProjectPool(PROJECT_FILE, PROJECT_POOL, NUM_PROJECTS);
+	util.initStudentPool(STUDENT_FILE, STUDENT_POOL, NUM_STUDENTS);
+	//util.initStudentPool(CLASS_SECTION_FILE, CLASS_SECTION_POOL, NUM_CLASS_SECTIONS);
+	util.initProjectStudentSkills(PROJECT_POOL, STUDENT_POOL,
+			PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS, NUM_SKILLS);
 
-	for(int i = 0; i < numClassSections; i++) {
-		classPool[i].ClassID = i;
-		if(i == 0 || i == 1) {
-			classPool[i].Type = 'O';
-		} else {
-			classPool[i].Type = 'G';
-		}
-	}
-
-	// INITIALIZE PROJECT X STUDENT SKILL MATRIX
-	for (int i = 0; i < (numProjects); i++) {
-		for (int j = 0; j < numStudents; j++) {
-			int currentProjectXstudent = 0;
-			projectXstudent[(i * numStudents) + j] = u.getProjectVsStudentSkill(projectPool, numProjects,
-				studentPool, numStudents, numSkills, currentProjectXstudent, i, j);
-		}
-	}
-
-	// ASSIGN PROJECTS TO CLASS SECTIONS
-
+	// PARTITION POOLS BY TYPE (ONLINE/GROUND/HYBRID)
+	util.projectTypePartition(PROJECT_POOL, NUM_PROJECTS, 'O', 'G', 'H');
 
 	//Tests
 	Test t;
 	t.StructTest();
-	t.InitializeProjectPoolTest(projectPool, numProjects);
-	t.InitializeStudentPoolTest(studentPool, numStudents);
-	t.InitializeProjectStudentSkillMatrixTest(projectXstudent, numProjects, numStudents);
+	t.PrintProjectPool(PROJECT_POOL, NUM_PROJECTS, NUM_SKILLS);
+	t.PrintStudentPool(STUDENT_POOL, NUM_STUDENTS, NUM_SKILLS);
+	t.PrintProjectStudentSkills(PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS);
 
 	// Drivers to read in rules, like class section definitions
 	// ex - getRules(capStoneCourseDefinitions);
@@ -88,10 +82,6 @@ int main(){
 
 	// Drivers to convert Json into some kind of report, like excel or json to pdf?
 	// ex - writeReport();
-
-	delete[] projectXstudent;
-	delete[] studentPool;
-	delete[] projectPool;
 
 	return 0;
 }

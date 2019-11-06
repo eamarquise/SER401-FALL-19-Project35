@@ -16,7 +16,7 @@ public:
 	vector <Student> allStudents;
 	StudentJson();
 	virtual ~StudentJson();
-	void StudentReader(string filename);
+	int StudentReader(string filename);
 	void StudentWriter(string filename);
 	Student getStudentJsonObject(string filename, int i);
 };

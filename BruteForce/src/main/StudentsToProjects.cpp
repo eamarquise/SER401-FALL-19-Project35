@@ -175,8 +175,6 @@ StudentsToProjects::StudentsToProjects() {
 	int teamskillscore = 0;
 
 	for(int i = 0; i < numProjects; i++) {
-
-
 		for(int j = 0; j < teamSize; j++) {
 			team.push_back(students.at(j));
 			for(int k = 0; k < numSkills; k++) {

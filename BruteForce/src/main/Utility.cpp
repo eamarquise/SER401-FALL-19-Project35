@@ -4,42 +4,48 @@
  *  Created on: Oct. 29, 2019
  *      Author: mcilibra
  */
+#include "json/json.h"
+#include "ProjectJson.h"
+#include "StudentJson.h"
+#include "Project.h"
+#include "Student.h"
+#include "Utility.h"
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
 #include <iterator>
 
-#include "json/json.h"
-#include "ProjectJson.h"
-#include "StudentJson.h"
-#include "Student.h"
-#include "Utility.h"
-
 namespace std {
 
 Utility::Utility() {
 	// TODO Auto-generated constructor stub
-
 }
 
 Utility::~Utility() {
 	// TODO Auto-generated destructor stub
 }
 
-void Utility::initializeProjectPool(string filename, Project projectPool[], int numProjects) {
+void Utility::initProjectPool(string filename, Project projectPool[], int numProjects) {
 	ProjectJson PJson;
 	for (int i = 0; i < numProjects; i++) {
-		projectPool[i] = PJson.getProjectJsonObject(filename, i);
+		*(projectPool + i) = PJson.getProjectJsonObject(filename, i);
 	}
 }
 
-void Utility::initializeStudentPool(string filename, Student studentPool[], int numStudents) {
+void Utility::initStudentPool(string filename, Student studentPool[], int numStudents) {
 	StudentJson SJson;
 	for (int i = 0; i < numStudents; i++) {
-		studentPool[i] = SJson.getStudentJsonObject(filename, i);
+		*(studentPool + i) = SJson.getStudentJsonObject(filename, i);
 	}
 }
+/*void Utility::initClassSectionPool(string filename, ClassSection classSectionPool[], int numClassSections) {
+	StudentJson SJson;
+		for (int i = 0; i < numStudents; i++) {
+			*(studentPool + i) = SJson.getStudentJsonObject(filename, i);
+		}
+}*/
 
 int Utility::getSizeOfJson(string filename, string key) {
 	ifstream ifs(filename);
@@ -62,23 +68,25 @@ int Utility::getSkillXstudent(Student studentPool[], int i, int j){
 	return student.Skills[j];
 }
 
-long Utility::getProjectVsStudentSkill(Project projectPool[], int numProjects,
-		Student studentPool[], int numStudents, int numSkills, int projectXstudentScore, int i, int j) {
+void Utility::initProjectStudentSkills(Project projectPool[], Student studentPool[],
+		int projectStudentSkills[], int numProjects, int numStudents, int numSkills) {
 
-	int projectXskill = 0;
-	int skillXstudent = 0;
+	int score = 0;
 
-	Utility u;
+	for (int i = 0; i < numProjects; i++) {
+		Project project;
+		project = *(projectPool + i);
+		for (int j = 0; j < numStudents; j++) {
+			Student student;
+			student = *(studentPool + j);
+			score = 0;
+			for (int k = 0; k < numSkills; k++) {
+				score += project.Skills[k] * student.Skills[k];
+			}
 
-	for (int k = 0; k < numSkills; k++){
-		projectXskill = u.getProjectXskill(projectPool, i, k);
-		skillXstudent = u.getSkillXstudent(studentPool, j, k);
-
-		projectXstudentScore =
-				projectXstudentScore +  projectXskill * skillXstudent;
+			*(projectStudentSkills + (i * numStudents) + j) = score;
+		}
 	}
-
-	return projectXstudentScore;
 }
 
 vector<vector<int>> Utility::calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects){
@@ -132,5 +140,48 @@ vector<vector<int>> Utility::calcProjectXStudentMatrix(vector<Student> students,
 	return projectXstudentMatrix;
 } // end calcProjectXStudentMatrix
 
+// TASK: 107 AUTHOR: CRISTI DELEO
+// PARTITION BY PROJECT TYPE (PRIMARY = O | SECONDARY = G | TERTIARY = H
+void Utility::projectTypePartition(Project projectPool[], int numProjects,
+		char t0, char t1, char t2) {
+
+	int start = 0;
+	int end = numProjects - 1;
+	int t0Index = 0;
+
+	for (int i = 0; i <=end; ) {
+		if (projectPool[i].Type == t0) {
+			swap(projectPool[i++], projectPool[start++]);
+		} else if (projectPool[i].Type != t0) {
+			swap(projectPool[i], projectPool[end--]);
+	    } else {
+	    	i++;
+	    };
+	}
+
+	t0Index = 0;
+
+	for (int i = 0; i <=end; ) {
+		if (projectPool[i].Type == t0) {
+			t0Index++;
+			i++;
+		} else {
+			i++;
+		};
+	}
+
+	start = t0Index;
+	end = numProjects - 1;
+
+	for (int i = t0Index; i <=end; ) {
+		if (projectPool[i].Type == t1) {
+			swap(projectPool[i++], projectPool[start++]);
+		} else if (projectPool[i].Type != t1) {
+			swap(projectPool[i], projectPool[end--]);
+		} else {
+			i++;
+		};
+	}
+}
 
 } /* namespace std */

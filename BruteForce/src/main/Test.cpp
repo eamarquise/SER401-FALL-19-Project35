@@ -40,17 +40,16 @@ Test::~Test() {
 	// TODO Auto-generated destructor stub
 }
 
+
 // Task #107
 // Author: Cristi DeLeo
-void Test::InitializeProjectPoolTest(Project projectPool[], int numProjects) {
+void Test::PrintProjectPool(Project projectPool[], int numProjects, int numSkills) {
 
 	Project project;
 
-	int numSkills = 7;
-
 	cout << endl << endl;
 	cout << "----------------------------------------------------------" << endl;
-	cout << "BEGIN: Test::InitializeProjectPoolTest Task#107" << endl << endl;
+	cout << "BEGIN: Test::PrintProjectPool Task#107" << endl << endl;
 
 	cout << "Number of Projects: " << to_string(numProjects) << endl << endl;
 
@@ -73,24 +72,23 @@ void Test::InitializeProjectPoolTest(Project projectPool[], int numProjects) {
 		cout << endl << endl;
 	}
 
-	cout << "END: Test::InitializeProjectPoolTest Task#107" << endl;
+	cout << "END: Test::PrintProjectPool Task#107" << endl;
 	cout << "----------------------------------------------------------";
 	cout << endl << endl;
 }
 
 // Task #107
 // Author: Cristi DeLeo
-void Test::InitializeStudentPoolTest(Student studentPool[], int numStudents) {
+void Test::PrintStudentPool(Student studentPool[], int numStudents, int numSkills) {
 
 	Student student;
 
-	int numSkills = 7;
 	int numTimes = 4;
 	int numAffinities = 12;
 
 	cout << endl;
 	cout << "----------------------------------------------------------" << endl;
-	cout << "BEGIN: Test::InitializeStudentPoolTest Task#107" << endl << endl;
+	cout << "BEGIN: Test::PrintStudentPool Task#107" << endl << endl;
 
 	cout << "Number of Students: " << to_string(numStudents) << endl << endl;
 
@@ -126,25 +124,27 @@ void Test::InitializeStudentPoolTest(Student studentPool[], int numStudents) {
 		cout << endl << endl;
 	}
 
-	cout << "END: Test::InitializeStudentPoolTest Task#107" << endl;
+	cout << "END: Test::PrintStudentPool Task#107" << endl;
 	cout << "----------------------------------------------------------";
 	cout << endl << endl;
 }
 
-void Test::InitializeProjectStudentSkillMatrixTest(int projectXstudent[], int numProjects, int numStudents) {
+void Test::PrintProjectStudentSkills(int projectStudentSkills[], int numProjects, int numStudents) {
 
 	cout << endl;
 	cout << "----------------------------------------------------------" << endl;
-	cout << "BEGIN: Test::InitializeProjectStudentSkillMatrixTest" << endl << endl;
+	cout << "BEGIN: Test::PrintProjectStudentSkills" << endl << endl;
 
 	for (int i = 0; i < numProjects; i++) {
 		for (int j = 0; j < numStudents; j++) {
-			cout << "Skills Compare Index: [" << i << "][" << j << "] ";
-			cout << *(projectXstudent + ((i * numStudents) + j)) << endl;
+			cout << "[" << i << "][" << j << "] ";
+			cout << *(projectStudentSkills + (i * numStudents) + j);
 		}
+		cout << endl;
 	}
 
-	cout << "END: Test::InitializeProjectStudentSkillMatrixTest Task#107" << endl;
+	cout << endl;
+	cout << "END: Test::PrintProjectStudentSkills Task#107" << endl;
 	cout << "----------------------------------------------------------";
 	cout << endl << endl;
 }
