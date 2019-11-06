@@ -20,174 +20,31 @@ using namespace std::chrono;
 StudentsToProjects::StudentsToProjects() {
 
 }
-
-void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentList, vector <Project> ProjectList) {
-
-	/*struct Student {
-
-		int studentID;
-		int classID;
-		int projectID;
-
-		int skills[7];
-		int studentAffinity[128][2];
-
-		int availability[4];
-	};
-
-	struct Project {
-
-		int projectID;
-		int sponsorID;
-		int classID;
-
-		char type;
-		int priority;
-
-		int skills[7];
-	};
-	Project p;
-
-	p.sponsorID = 4;
-	p.classID = 1;
-	p.type = 1;
-	p.priority = 1;
+constexpr int StudentsToProjects::toConstInt(int constInt) {
+	return constInt;
+}
 
 
-	vector<Project> projects;
-	vector<Student> students;
-	vector<Student> team;
-
-	//int numProjects = 1;
-	int numSkills = 7;
-	//int numStudents = 50;
-	//int teamSize = 5;
+void StudentsToProjects::StudentsToProjectsAssignment(Student StudentList[], Project ProjectList[],int numProjects,int numStudents) {
 
 
-	//create numProjects projects
-	for(int i = 0; i < numProjects; i++) {
-		for(int j = 0; j < numSkills; j++) {
-			p.skills[j] = (rand() % 2);
-		}
-		p.projectID = i+1;
-		projects.push_back(p);
-		Project p;
-
-	}*/
-
-	/*ifstream ifs("./BruteForce/SampleJsonFiles/60Students.json");
-	Json::Reader reader;
-	Json::Value obj;
-	reader.parse(ifs, obj);
-
-    const Json::Value& numberOfStudents = obj["students"];
-    numStudents = numberOfStudents.size();
-
-
-    //for loop that iterates of the number of students in the Json file
-    //and stores them as Student objects vector <Student> allStudents.
-	for(int i = 0; i < numberOfStudents.size(); i++) {
-		Student s;
-
-
-		//reading in Student Skills
-		numSkills = obj["students"].get((int)i, "")["Skills"].size();
-		for(int j = 0; j < numSkills; j++) {
-			s.skills[j] = (obj["students"].get((int)i, "")["Skills"][j].asInt());
-		}
-
-		//Creating the student, and adding the student to the student list
-		s.studentID = obj["students"].get((int)i, "")["StudentID"].asInt();
-		students.push_back(s);
-
-	}
-
-	ifs.close();
-	ifstream ifs2("./BruteForce/SampleJsonFiles/20Projects.json");
-	Json::Reader reader2;
-	Json::Value obj2;
-	reader.parse(ifs2, obj2);
-    const Json::Value& numberOfProjects = obj2["projects"];
-
-    numProjects = numberOfProjects.size();
-
-
-    //for loop that iterates of the number of students in the Json file
-    //and stores them as Student objects vector <Student> allStudents.
-	for(int i = 0; i < numberOfProjects.size(); i++) {
-		Project p;
-
-
-		//reading in Student Skills
-		numSkills = obj2["projects"].get((int)i, "")["Skills"].size();
-		for(int j = 0; j < numSkills; j++) {
-			p.skills[j] = (obj2["projects"].get((int)i, "")["Skills"][j].asInt());
-		}
-
-		//Creating the student, and adding the student to the student list
-		p.projectID = obj2["projects"].get((int)i, "")["ProjectID"].asInt();
-		projects.push_back(p);
-
-	}
-	ifs2.close();
-	//print out to ensure correct
-	cout << "project skills" << endl;
-	for(int i = 0; i < numProjects; i++) {
-		cout << to_string(projects.at(i).projectID) + ": ";
-		for(int j = 0; j < numSkills; j++) {
-			cout << to_string(projects.at(i).skills[j]) + " ";
-		}
-		cout << endl;
-	}
-
-	cout << endl;
-
-	//print students to ensure
-	cout << "student skills" << endl;
-	cout << to_string(numStudents);
-	for(int i = 0; i < numStudents; i++) {
-		cout << to_string(students.at(i).studentID) + ": ";
-		for(int j = 0; j < numSkills; j++) {
-			cout << to_string(students.at(i).skills[j]) + " ";
-		}
-		cout << endl;
-	}
-
-	cout << endl;
-
-	//calculate each student's skillscore for each project
-	int skillscore = 0;
-	for(int i = 0; i < numProjects; i++) {
-		for(int j = 0; j < numStudents; j++) {
-			cout << "Student" + to_string(j+1) + " skillscore for Project" + to_string(i + 1) + ": ";
-			for(int k = 0; k < numSkills; k++) {
-				skillscore += students.at(j).skills[k] * projects.at(i).skills[k];
-			}// end k
-
-			cout << to_string(skillscore) << endl;
-			skillscore = 0;
-		}// end j
-	}// end i
-
-	cout << endl;*/
-
-	auto start = high_resolution_clock::now();
+    auto start = high_resolution_clock::now();
 	srand(time(NULL));
 
-	int numProjects = ProjectList.size();
-	int numStudents = StudentList.size();
+
 	int numSkills = 7;
 	int teamSize = 5;
+	const int NUM_PROJECTS = toConstInt(numProjects);
 
 	struct Team {
 
-				vector <Student> team;
+				Student Team[5];
 				int TeamScore;
 			};
 
     struct ProjectSet {
 
-				vector <Team> teams;
+				//Team Teams[NUM_PROJECTS];
 				int ProjectSetScore;
 			};
 
@@ -195,16 +52,14 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 	ProjectSet currentSet, bestSet, bestSetWithDuplicates;
 
    //used to store the top 10 teams for every project.
+
 	Team temp;
-
-	 vector <Team> currentTopTeams;
+	Team currentTopTeams[10];
 	 for(int j = 0; j < 10; j++) {
-		 currentTopTeams.push_back(temp);
-	 }
+			 currentTopTeams[j]=temp;
+		 }
 
-
-	//Team currentTopTeams[10];
-	vector<vector<Team>> topTeams;
+	Team topTeams[NUM_PROJECTS][10];
 
     int top1 = 0;
     int top2 = 0;
@@ -219,6 +74,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 
 	//calculate each team combination skillscore for each project
 	int teamskillscore = 0;
+    int num =0;
 
 	cout << "STUDENTS TO PROJECTS ASSIGNMENT RUNNING..." << endl;
 	for(int i = 0; i < numProjects; i++) {
@@ -228,10 +84,10 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 		while(std::prev_permutation(bitmask.begin(), bitmask.end())) {
 			for (int j = 0; j < numStudents; ++j) {
 				if(bitmask[j]) {
-					currentTeam.team.push_back(StudentList[j]);
+
+					currentTeam.Team[num] = StudentList[j];
+					num++;
 					//for(int k = 0; k < numSkills; k++) {
-
-
 					//	teamskillscore += StudentList[j].Skills[k] * ProjectList[i].Skills[k];
 					//}
 				}
@@ -241,12 +97,12 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 
 			//call to 3 team score functions
 			//TeamScore = func1() + func2() + func3()
+             num=0;
+			 int score1 = ProjectCompareTeamScore(currentTeam.Team,  ProjectList[i]);
+			 int score2 = SkillCompareTeamScore(currentTeam.Team);
+			 int score3 = AvailabilityTeamScore(currentTeam.Team);
 
-			 int score1 = ProjectCompareTeamScore(currentTeam.team,  ProjectList[i]);
-			 int score2 = SkillCompareTeamScore(currentTeam.team);
-			 int score3 = AvailabilityTeamScore(currentTeam.team);
-
-			 teamskillscore = score1 + score2 + score3;
+			teamskillscore = score1 + score2 + score3;
 
 			currentTeam.TeamScore = teamskillscore;
 			//debugging: cout for seeing the teamscores.
@@ -284,12 +140,21 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 				currentTopTeams[9] = currentTeam;}
 
 			teamskillscore = 0;
-			currentTeam.team.clear();
+			Student temp;
+			//reset team
+				Team currentTopTeams[10];
+				 for(int k = 0; k < 5; k++) {
+						 currentTeam.Team[k]=temp;
+					 }
+
 			currentTeam.TeamScore = 0;
 
 		}// end while loop
 
-		topTeams.push_back(currentTopTeams);
+		 for(int j = 0; j < 10; j++) {
+
+		 topTeams[i][j] = currentTopTeams[j];
+		 }
             top1 = 0;
             top2 = 0;
             top3 = 0;
@@ -317,18 +182,17 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 	//cout << "Number of iterations: ";
 	cout << endl;
 	cout<< "Top 10 teams for each project"<<endl;
-	cout << "Size of top teams: " + to_string(topTeams.size())<<endl;
+
 
 	for(int i = 0; i < numProjects; i++) {
 
 		cout<< "Projects #" + to_string(ProjectList[i].ProjectID) + " Student Teams:"<<endl;
-		cout << "Size of top teams in top teams: " + to_string(topTeams[i].size())<<endl;
-		for(int j = 0; j < topTeams[i].size(); j++) {
+		for(int j = 0; j < 10; j++) {
 
 		  cout << "Team #" + to_string(j) + " ";
 		  for(int k = 0; k < teamSize; k++) {
 
-			 cout<< to_string(topTeams[i][j].team[k].StudentID) + " ";
+			 cout<< to_string(topTeams[i][j].Team[k].StudentID) + " ";
 
 		  }
 		  cout << endl;
@@ -344,7 +208,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 // This function returns a score of 0-20 determining
 // the quality of the team by comparing the Availability of students
 // on a team to each other.
-int StudentsToProjects::AvailabilityTeamScore(vector <Student> team){
+int StudentsToProjects::AvailabilityTeamScore(Student team[5]){
 
 	int timeCompareScore = 0;
 
@@ -399,7 +263,7 @@ int StudentsToProjects::StudentToStudentAvailibility(Student s1, Student s2){
 
 // This function returns a score of 0-40 determining
 // the quality of the team by comparing the student's skills to each other
-int StudentsToProjects::SkillCompareTeamScore(vector <Student> team){
+int StudentsToProjects::SkillCompareTeamScore(Student team[5]){
 
 
 int teamCompareScore = 0;
@@ -459,7 +323,7 @@ int StudentsToProjects::StudentToStudentSkill(Student s1, Student s2){
 // This function returns a score of 0-40 determining
 // the quality of the team by comparing the max skills a team could have
 // on a certain project, to the team's overall skills.
-int StudentsToProjects::ProjectCompareTeamScore(vector <Student> team, Project project){
+int StudentsToProjects::ProjectCompareTeamScore(Student team[5], Project project){
 
 	int numSkills = 7;
 	int teamSize = 5;

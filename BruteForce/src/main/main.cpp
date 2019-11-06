@@ -10,7 +10,10 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <thread>
 #include <cstdlib>
+#include <bits/stdc++.h>
+
 
 #include "Student.h"
 #include "Project.h"
@@ -30,48 +33,53 @@ using namespace std;
 //INFORMATION THAT WE WILL ASSUME WILL BE READ IN FROM THE GUI
 int numClassSections = 4;
 
+constexpr int toConstInt(int constInt) {
+	return constInt;
+}
 
 int main(){
 	cout << "Hi Team 35" << endl;
 
-	const string projectFilename = "./SampleJsonFiles/20Projects.json";
-	const string studentFilename = "./SampleJsonFiles/60Students.json";
 
-	Utility u;
+	    const string projectFilename = "./SampleJsonFiles/20Projects.json";
+		const string studentFilename = "./SampleJsonFiles/60Students.json";
 
-	const int numProjects = u.getSizeOfJson(projectFilename, "projects");
-	const int numStudents = u.getSizeOfJson(studentFilename, "students");
+	    const int NUM_SKILLS = 7;
+		const int TEAM_SIZE = 5;
+		const int NUM_CLASS_SECTIONS = 4;
+
+		Utility util;
+
+		int tempNumStudents = util.getSizeOfJson(studentFilename, "students");
+		int tempNumProjects = util.getSizeOfJson(projectFilename, "projects");
+
+		const int NUM_STUDENTS = toConstInt(tempNumStudents);
+		const int NUM_PROJECTS = toConstInt(tempNumProjects);
+
+	Project PROJECT_POOL[NUM_PROJECTS];
+	Student STUDENT_POOL[NUM_STUDENTS];
+
+	const int numProjects = util.getSizeOfJson(projectFilename, "projects");
+	const int numStudents = util.getSizeOfJson(studentFilename, "students");
 	const int numSkills = 7;
 
 
 	StudentJson SJson;
 	ProjectJson PJson;
 
-	Project *projectPool = new Project[numProjects];
-	Student *studentPool = new Student[numStudents];
-
-	int *projectXstudent  = new int[(numProjects * numStudents)];
 
 
 	// INITIALIZE PROJECT POOL
 	for (int i = 0; i < numProjects; i++) {
-		projectPool[i] = PJson.ProjectReader(projectFilename, i);
+		PROJECT_POOL[i] = PJson.ProjectReader(projectFilename, i);
 	}
 
 	// INITIALIZE STUDENT POOL
 	for (int i = 0; i < numStudents; i++) {
-		studentPool[i] = SJson.getStudentJsonObject(studentFilename, i);
+		STUDENT_POOL[i] = SJson.getStudentJsonObject(studentFilename, i);
 	}
 
 
-	// INITIALIZE PROJECT X STUDENT SKILL MATRIX
-	for (int i = 0; i < (numProjects); i++) {
-		for (int j = 0; j < numStudents; j++) {
-			int currentProjectXstudent = 0;
-			projectXstudent[(i * numStudents) + j] = u.getProjectVsStudentSkill(projectPool, numProjects,
-				studentPool, numStudents, numSkills, currentProjectXstudent, i, j);
-		}
-	}
 
 //TASK#144 TESTS.=====================================
 
@@ -93,7 +101,7 @@ int main(){
 
 
             //function call to create the percent matirx
-	    	int** percentMatrix = u.ProjectToSectionPercentages(studentlist, PJson.allProjects, numProjects, numClassSections);
+	    	int** percentMatrix = util.ProjectToSectionPercentages(studentlist, PJson.allProjects, numProjects, numClassSections);
 
                    cout << "PERCENT MATRIX, ROWS=projects, COLUMNS=Class Sections"<<endl;
 	    		  	//print the resulting percent matrix
@@ -113,7 +121,7 @@ int main(){
 	    		  	//projects will be partitioned by priority
 
 	StudentsToProjects x;
-	x.StudentsToProjectsAssignment(SJson.allStudents, PJson.allProjects);
+	x.StudentsToProjectsAssignment(STUDENT_POOL, PROJECT_POOL, NUM_PROJECTS, NUM_STUDENTS);
 
 
 	                //join threads
@@ -139,9 +147,6 @@ int main(){
 	// ex - writeReport();
 
 
-	delete[] projectXstudent;
-	delete[] studentPool;
-	delete[] projectPool;
 
 	return 0;
 }
