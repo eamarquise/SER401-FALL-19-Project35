@@ -232,7 +232,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 					//for(int k = 0; k < numSkills; k++) {
 
 
-						//teamskillscore += StudentList[j].Skills[k] * ProjectList[i].Skills[k];
+					//	teamskillscore += StudentList[j].Skills[k] * ProjectList[i].Skills[k];
 					//}
 				}
 			} //end j loop
@@ -242,44 +242,44 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 			//call to 3 team score functions
 			//TeamScore = func1() + func2() + func3()
 
-			int score1 = ProjectCompareTeamScore(currentTeam.team,  ProjectList[i]);
-			int score2 = SkillCompareTeamScore(currentTeam.team);
-			int score3 = AvailabilityTeamScore(currentTeam.team);
+			 int score1 = ProjectCompareTeamScore(currentTeam.team,  ProjectList[i]);
+			 int score2 = SkillCompareTeamScore(currentTeam.team);
+			 int score3 = AvailabilityTeamScore(currentTeam.team);
 
-			teamskillscore = score1 + score2 + score3;
+			 teamskillscore = score1 + score2 + score3;
 
 			currentTeam.TeamScore = teamskillscore;
-			//debugging check for seeing the teamscores.
+			//debugging: cout for seeing the teamscores.
 			//cout << "TeamScore: "+ to_string(score1) +" " + to_string(score2) +" " + to_string(score3) +" " << " = " << teamskillscore <<endl;
 
-			if (currentTeam.TeamScore >= top1 ){
+			if (currentTeam.TeamScore > top1 ){
 				top1 = currentTeam.TeamScore;
 				currentTopTeams[0] = currentTeam;
-			}else if (currentTeam.TeamScore >= top2 ){
+			}else if ( currentTeam.TeamScore == top1 | currentTeam.TeamScore > top2 ){
 				top2 = currentTeam.TeamScore;
 				currentTopTeams[1] = currentTeam;
-			}else if (currentTeam.TeamScore >= top3 ){
+			}else if ( currentTeam.TeamScore == top2 | currentTeam.TeamScore > top3 ){
 				top3 = currentTeam.TeamScore;
 				currentTopTeams[2] = currentTeam;
-			}else if (currentTeam.TeamScore >= top4 ){
+			}else if ( currentTeam.TeamScore == top3 | currentTeam.TeamScore > top4 ){
 				top4 = currentTeam.TeamScore;
 				currentTopTeams[3] = currentTeam;
-			}else if (currentTeam.TeamScore >= top5 ){
+			}else if ( currentTeam.TeamScore == top4 | currentTeam.TeamScore > top5 ){
 				top5 = currentTeam.TeamScore;
 				currentTopTeams[4] = currentTeam;
-			}else if (currentTeam.TeamScore >= top6 ){
+			}else if ( currentTeam.TeamScore == top5 | currentTeam.TeamScore > top6 ){
 				top6 = currentTeam.TeamScore;
 				currentTopTeams[5] = currentTeam;
-			}else if (currentTeam.TeamScore >= top7 ){
+			}else if ( currentTeam.TeamScore == top6 | currentTeam.TeamScore > top7 ){
 				top7 = currentTeam.TeamScore;
 				currentTopTeams[6] = currentTeam;
-			}else if (currentTeam.TeamScore >= top8 ){
+			}else if ( currentTeam.TeamScore == top7 | currentTeam.TeamScore > top8 ){
 				top8 = currentTeam.TeamScore;
 				currentTopTeams[7] = currentTeam;
-			}else if (currentTeam.TeamScore >= top9 ){
+			}else if ( currentTeam.TeamScore == top8 | currentTeam.TeamScore > top9 ){
 				top9 = currentTeam.TeamScore;
 				currentTopTeams[8] = currentTeam;
-			}else if (currentTeam.TeamScore >= top10 ){
+			}else if ( currentTeam.TeamScore == top9 | currentTeam.TeamScore > top10 ){
 				top10 = currentTeam.TeamScore;
 				currentTopTeams[9] = currentTeam;}
 
