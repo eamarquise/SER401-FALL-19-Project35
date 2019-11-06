@@ -140,12 +140,11 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student StudentList[], Pro
 				currentTopTeams[9] = currentTeam;}
 
 			teamskillscore = 0;
-			Student temp;
+			/*Student temp;
 			//reset team
-				Team currentTopTeams[10];
 				 for(int k = 0; k < 5; k++) {
 						 currentTeam.Team[k]=temp;
-					 }
+					 }*/
 
 			currentTeam.TeamScore = 0;
 
