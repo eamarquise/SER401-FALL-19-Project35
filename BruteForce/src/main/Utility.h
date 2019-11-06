@@ -18,7 +18,8 @@ class Utility {
 		virtual ~Utility();
 		void initProjectPool(string filename, Project projectPool[], int numProjects);
 		void initStudentPool(string filename, Student studentPool[], int numStudents);
-		//void initClassSectionPool(string filename, ClassSection classSectionPool[], int numClassSections);
+		void initClassSectionPool(string filename, ClassSection classSectionPool[],
+                int numClassSections);
 		void initProjectStudentSkills(Project projectPool[], Student studentPool[],
 				int projectStudentSkills[], int numProjects, int numStudents, int numSkills);
 		vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);

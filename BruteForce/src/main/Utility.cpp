@@ -40,12 +40,14 @@ void Utility::initStudentPool(string filename, Student studentPool[], int numStu
 		*(studentPool + i) = SJson.getStudentJsonObject(filename, i);
 	}
 }
-/*void Utility::initClassSectionPool(string filename, ClassSection classSectionPool[], int numClassSections) {
-	StudentJson SJson;
-		for (int i = 0; i < numStudents; i++) {
-			*(studentPool + i) = SJson.getStudentJsonObject(filename, i);
-		}
-}*/
+
+void Utility::initClassSectionPool(string filename, ClassSection classSectionPool[],
+        int numClassSections) {
+	ClassSectionJson CSJson;
+    for (int i = 0; i < numClassSections; i++) {
+        *(classSectionPool + i) = CSJson.getClassSectionJsonObject(filename, i);
+    }
+}
 
 int Utility::getSizeOfJson(string filename, string key) {
 	ifstream ifs(filename);

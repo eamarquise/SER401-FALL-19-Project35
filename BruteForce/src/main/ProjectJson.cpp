@@ -29,11 +29,6 @@
 ProjectJson::ProjectJson() {
 	// TODO Auto-generated constructor stub
 }
-/*
-ProjectJson::ProjectJson(string filename) {
-	// TODO Auto-generated constructor stub
-	numProjects = getSizeOfJson(filename);
-}*/
 
 ProjectJson::~ProjectJson() {
 	// TODO Auto-generated destructor stub
@@ -53,19 +48,21 @@ Project ProjectJson::getProjectJsonObject(string filename, int i){
 
 	Project project;
 
-	project.ProjectID = (char)obj["projects"].get((int)i, "")["ProjectID"].asInt();
+	project.ProjectID = obj["projects"].get((int)i, "")["ProjectID"].asInt();
 
 	string temp;
 	temp = obj["projects"].get((int)i, "")["Type"].asString();
 	project.Type = temp[0];
 
-	project.Priority = (char)obj["projects"].get((int)i, "")["Priority"].asInt();
+	project.Priority = obj["projects"].get((int)i, "")["Priority"].asInt();
 
 	int numSkills = obj["projects"].get((int)i, "")["Skills"].size();
 
 	for (int j = 0; j < numSkills; j++) {
 		project.Skills[j] = (obj["projects"].get((int)i, "")["Skills"][j].asInt());
 	}
+
+    ifs.close();
 
 	return project;
 }
