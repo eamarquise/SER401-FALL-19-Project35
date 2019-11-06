@@ -231,6 +231,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 					currentTeam.team.push_back(StudentList[j]);
 					for(int k = 0; k < numSkills; k++) {
 
+
 						teamskillscore += StudentList[j].Skills[k] * ProjectList[i].Skills[k];
 					}
 				}
@@ -239,13 +240,15 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 				//cout << currentTeam.team[j].StudentID << " ";
 			}
 
+			//negative affinity check
+
 			//call to 3 team score functions
 			//TeamScore = func1() + func2() + func3()
 
-			currentTeam.TeamScore = teamskillscore;
+			cout << "Working 1"<< endl;
+			int x = ProjectCompareTeamScore(currentTeam.team,  ProjectList[i]);
+			currentTeam.TeamScore = teamskillscore + x;
 			//cout << "TeamSkillScore for project " << i+1 << ": " << currentTeam.TeamScore<<endl;
-
-
 
 			if (currentTeam.TeamScore >= top1 ){
 				top1 = currentTeam.TeamScore;
@@ -282,7 +285,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 			currentTeam.team.clear();
 			currentTeam.TeamScore = 0;
 
-		} // end while loop
+		}// end while loop
 
 		topTeams.push_back(currentTopTeams);
             top1 = 0;
@@ -298,13 +301,10 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 
 		cout << "Project # " + to_string(ProjectList[i].ProjectID) + "  team combinations complete. " << endl;
 
-
 	} // end i loop
 
 
-
 	// Do Project Set combinations here
-
 	// End Project Set combinations
 
 
@@ -335,8 +335,8 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 		 cout << endl;
 	}
 
-
 }
+
 //Task#120
 int StudentsToProjects::AvailabilityTeamScore(vector <Student> team){
 	//to-do
@@ -346,15 +346,52 @@ int StudentsToProjects::AvailabilityTeamScore(vector <Student> team){
 
 //Task#118
 int StudentsToProjects::SkillCompareTeamScore(vector <Student> team){
-	//to-do
+
+
+
+
+
+
+
+
+
+
 	return 0;
 
 }
 
 //Task#120
 int StudentsToProjects::ProjectCompareTeamScore(vector <Student> team, Project project){
-	//to-do
-	return 0;
+
+
+	int numSkills = 7;
+	int teamSize = 5;
+	int maxProjectScore = 0;
+	int teamSkillSum = 0;
+
+	//find the maximum score a team could get on this project
+	for( int i = 0; i < numSkills ; i++ ){
+
+		maxProjectScore += project.Skills[i] * 4;
+	}
+	maxProjectScore = maxProjectScore * teamSize;
+
+	//find the sum of the team's skills for this project
+	for( int i = 0; i < teamSize ; i++ ){
+		for( int j = 0; j < numSkills ; j++ ){
+			teamSkillSum += team[i].Skills[j] * project.Skills[j];
+	}}
+
+    //calculate percentage
+	float percent= 0;
+	float max = 0;
+	max = maxProjectScore;
+	percent = teamSkillSum/ max;
+	percent = percent * 40;
+	percent = (int)percent;
+
+    //return the score 0-40
+	return percent;
 
 }
 

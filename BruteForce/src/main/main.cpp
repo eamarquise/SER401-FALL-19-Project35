@@ -31,8 +31,6 @@ using namespace std;
 int numClassSections = 4;
 
 
-
-
 int main(){
 	cout << "Hi Team 35" << endl;
 
@@ -48,7 +46,6 @@ int main(){
 
 	StudentJson SJson;
 	ProjectJson PJson;
-
 
 	Project *projectPool = new Project[numProjects];
 	Student *studentPool = new Student[numStudents];
@@ -76,7 +73,7 @@ int main(){
 		}
 	}
 
-//TASK#144 TESTS.=================================
+//TASK#144 TESTS.=====================================
 
 
 	  	  SJson.StudentReader(studentFilename);
