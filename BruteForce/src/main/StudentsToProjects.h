@@ -27,6 +27,7 @@ public:
 	int AvailabilityTeamScore(vector <Student> team);
 	int SkillCompareTeamScore(vector <Student> team);
 	int ProjectCompareTeamScore(vector <Student> team, Project project);
+	int StudentToStudentSkill(Student s1, Student s2);
 
 	virtual ~StudentsToProjects();
 };

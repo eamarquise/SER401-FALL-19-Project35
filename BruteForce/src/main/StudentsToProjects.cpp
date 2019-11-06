@@ -229,26 +229,26 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 			for (int j = 0; j < numStudents; ++j) {
 				if(bitmask[j]) {
 					currentTeam.team.push_back(StudentList[j]);
-					for(int k = 0; k < numSkills; k++) {
+					//for(int k = 0; k < numSkills; k++) {
 
 
-						teamskillscore += StudentList[j].Skills[k] * ProjectList[i].Skills[k];
-					}
+						//teamskillscore += StudentList[j].Skills[k] * ProjectList[i].Skills[k];
+					//}
 				}
 			} //end j loop
-			for(unsigned int j = 0; j < currentTeam.team.size(); j++) {
-				//cout << currentTeam.team[j].StudentID << " ";
-			}
 
 			//negative affinity check
 
 			//call to 3 team score functions
 			//TeamScore = func1() + func2() + func3()
 
-			cout << "Working 1"<< endl;
-			int x = ProjectCompareTeamScore(currentTeam.team,  ProjectList[i]);
-			currentTeam.TeamScore = teamskillscore + x;
-			//cout << "TeamSkillScore for project " << i+1 << ": " << currentTeam.TeamScore<<endl;
+			int score1 = ProjectCompareTeamScore(currentTeam.team,  ProjectList[i]);
+			int score2 = SkillCompareTeamScore(currentTeam.team);
+
+			teamskillscore = score1 + score2;
+
+			currentTeam.TeamScore = teamskillscore;
+			cout << "TeamSkillScore for student skills "  << ": " << teamskillscore <<endl;
 
 			if (currentTeam.TeamScore >= top1 ){
 				top1 = currentTeam.TeamScore;
@@ -344,25 +344,69 @@ int StudentsToProjects::AvailabilityTeamScore(vector <Student> team){
 
 }
 
-//Task#118
+// This function returns a score of 0-40 determining
+// the quality of the team by comparing the student's skills to eachother
 int StudentsToProjects::SkillCompareTeamScore(vector <Student> team){
 
 
+int teamCompareScore = 0;
 
+teamCompareScore += StudentToStudentSkill(team[0], team[1]);
+teamCompareScore += StudentToStudentSkill(team[0], team[2]);
+teamCompareScore += StudentToStudentSkill(team[0], team[3]);
+teamCompareScore += StudentToStudentSkill(team[0], team[4]);
+teamCompareScore += StudentToStudentSkill(team[1], team[2]);
+teamCompareScore += StudentToStudentSkill(team[1], team[3]);
+teamCompareScore += StudentToStudentSkill(team[1], team[4]);
+teamCompareScore += StudentToStudentSkill(team[2], team[3]);
+teamCompareScore += StudentToStudentSkill(team[2], team[4]);
+teamCompareScore += StudentToStudentSkill(team[3], team[4]);
 
-
-
-
-
-
-
-	return 0;
+	return teamCompareScore;
 
 }
 
-//Task#120
-int StudentsToProjects::ProjectCompareTeamScore(vector <Student> team, Project project){
+//returns a student to student comparison score of 0 - 4.
+//helper function for SkillCompareTeamScore
+int StudentsToProjects::StudentToStudentSkill(Student s1, Student s2){
 
+	  int skillsum1 = 0;
+	  int skillsum2 = 0;
+	  int score = 0;
+
+	  for(int i = 0; i < 7; i++){
+
+		 skillsum1 += s1.Skills[i];
+		 skillsum2 += s2.Skills[i];
+	  }
+
+	  score = skillsum1 - skillsum2;
+	  score = abs(score);
+
+	  if (score == 0 || score == 1){
+	  	return 4;
+
+	  	}else if(score == 2 || score == 3){
+	  	return 3;
+
+	  	}else if(score == 4 || score == 5){
+	  	return 2;
+
+	  	}else if(score > 5 && score < 9){
+	  	return 1;
+
+	  	}else if(score >= 9){
+	  	return 0;
+
+	  	}
+
+}
+
+
+// This function returns a score of 0-40 determining
+// the quality of the team by comparing the max skills a team could have
+// on a certain project, to the team's overall skills.
+int StudentsToProjects::ProjectCompareTeamScore(vector <Student> team, Project project){
 
 	int numSkills = 7;
 	int teamSize = 5;
