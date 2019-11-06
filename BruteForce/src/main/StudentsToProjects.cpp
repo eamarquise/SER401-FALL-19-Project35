@@ -244,11 +244,13 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 
 			int score1 = ProjectCompareTeamScore(currentTeam.team,  ProjectList[i]);
 			int score2 = SkillCompareTeamScore(currentTeam.team);
+			int score3 = AvailabilityTeamScore(currentTeam.team);
 
-			teamskillscore = score1 + score2;
+			teamskillscore = score1 + score2 + score3;
 
 			currentTeam.TeamScore = teamskillscore;
-			cout << "TeamSkillScore for student skills "  << ": " << teamskillscore <<endl;
+			//debugging check for seeing the teamscores.
+			//cout << "TeamScore: "+ to_string(score1) +" " + to_string(score2) +" " + to_string(score3) +" " << " = " << teamskillscore <<endl;
 
 			if (currentTeam.TeamScore >= top1 ){
 				top1 = currentTeam.TeamScore;
@@ -337,15 +339,66 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 
 }
 
-//Task#120
+//Team Score Calculating Functions
+
+// This function returns a score of 0-20 determining
+// the quality of the team by comparing the Availability of students
+// on a team to each other.
 int StudentsToProjects::AvailabilityTeamScore(vector <Student> team){
-	//to-do
-	return 0;
+
+	int timeCompareScore = 0;
+
+	timeCompareScore += StudentToStudentAvailibility(team[0], team[1]);
+	timeCompareScore += StudentToStudentAvailibility(team[0], team[2]);
+	timeCompareScore += StudentToStudentAvailibility(team[0], team[3]);
+	timeCompareScore += StudentToStudentAvailibility(team[0], team[4]);
+	timeCompareScore += StudentToStudentAvailibility(team[1], team[2]);
+	timeCompareScore += StudentToStudentAvailibility(team[1], team[3]);
+	timeCompareScore += StudentToStudentAvailibility(team[1], team[4]);
+	timeCompareScore += StudentToStudentAvailibility(team[2], team[3]);
+	timeCompareScore += StudentToStudentAvailibility(team[2], team[4]);
+	timeCompareScore += StudentToStudentAvailibility(team[3], team[4]);
+
+	    //score 0-40
+		return timeCompareScore;
+
+		//configure the score from 0-40 to 0-20
+		float percent= 0;
+		float max = 40;
+		percent = timeCompareScore/ max;
+		percent = percent * 20;
+		percent = (int)percent;
+
+		//return the score 0-20
+		return percent;
 
 }
 
+//helper function for AvailabilityTeamScore, compares 2 students
+//returns an Availability comparison score of 0 - 4.
+int StudentsToProjects::StudentToStudentAvailibility(Student s1, Student s2){
+
+	int score = 0;
+
+	//checks preferred weekday selections
+	if(s1.Availability[0] == s2.Availability[0]){
+		score += 2;
+	}else if ((s1.Availability[1] == s2.Availability[1]) | (s1.Availability[1] == s2.Availability[0]) |(s1.Availability[0] == s2.Availability[1])){
+		score += 1;
+	}
+
+	//checks preferred weekend selections
+	if(s1.Availability[2] == s2.Availability[2]){
+			score += 2;
+		}else if ((s1.Availability[3] == s2.Availability[3]) | (s1.Availability[3] == s2.Availability[2]) |(s1.Availability[2] == s2.Availability[3])){
+			score += 1;
+		}
+
+	return score;
+}
+
 // This function returns a score of 0-40 determining
-// the quality of the team by comparing the student's skills to eachother
+// the quality of the team by comparing the student's skills to each other
 int StudentsToProjects::SkillCompareTeamScore(vector <Student> team){
 
 
@@ -366,8 +419,8 @@ teamCompareScore += StudentToStudentSkill(team[3], team[4]);
 
 }
 
-//returns a student to student comparison score of 0 - 4.
 //helper function for SkillCompareTeamScore
+//returns a student to student comparison score of 0 - 4.
 int StudentsToProjects::StudentToStudentSkill(Student s1, Student s2){
 
 	  int skillsum1 = 0;
