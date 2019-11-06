@@ -95,7 +95,6 @@ void Utility::initProjectStudentSkills(Project projectPool[], Student studentPoo
 	}
 }
 
-
 vector<vector<int>> Utility::calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects){
 	int numStudents = students.size();
 	int numProjects = projects.size();
