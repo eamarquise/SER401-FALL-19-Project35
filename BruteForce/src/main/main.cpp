@@ -36,11 +36,8 @@ int numClassSections = 4;
 int main(){
 	cout << "Hi Team 35" << endl;
 
-	//const string projectFilename = "./SampleJsonFiles/20Projects.json";
-	//const string studentFilename = "./SampleJsonFiles/60Students.json";
-
-	const string projectFilename = "/home/elizabeth/git/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/20Projects.json";
-	const string studentFilename = "/home/elizabeth/git/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/60Students.json";
+	const string projectFilename = "./SampleJsonFiles/20Projects.json";
+	const string studentFilename = "./SampleJsonFiles/60Students.json";
 
 	Utility u;
 
@@ -106,45 +103,31 @@ int main(){
 
 
 	//Counting project priority
-	int count2=0, count1=0, count0=0;
+	int count2=0, count1=0;
 	for(int i=0; i<numProjects; i++){
 		if(projectPool[i].Priority ==2) { count2++; }
 		if(projectPool[i].Priority ==1) { count1++; }
-		if(projectPool[i].Priority ==0) { count0++; }
 	}
+	count2 = count2*5;
+	count1 = count1*5;
 
 
-	//Pushing students onto priority vectors
-	vector<Student> priority2;
-	vector<Student> priority1;
-	vector<Student> priority0;
-	int count;
-	for(int j=0; j<(count2*5); j++){
-		priority2.push_back(studentPool[count]);
-		count++;
+	//Pushing students onto project priority vectors
+	vector<Student> priority2, priority1, priority0;
+	for(int i=0; i<numStudents; i++) {
+		if(count2 > 0) {
+			priority2.push_back(studentPool[i]);
+			count2--;
+		}
+		else if(count1 > 0) {
+			priority1.push_back(studentPool[i]);
+			count1--;
+		}
+		else {
+			priority0.push_back(studentPool[i]);
+		}
 	}
-	for(int j=0; j<(count1*5); j++){
-		priority1.push_back(studentPool[count]);
-		count++;
-	}
-	for(int j=0; j<(count0*5); j++){
-		priority0.push_back(studentPool[count]);
-		count++;
-	}
-/*
-	for(int j=0; j<(count2*5); j++){
-		cout << priority2[j].skillAverage << " ";
-	}
-	cout << "\n";
-	for(int j=0; j<(count1*5); j++){
-		cout << priority1[j].skillAverage << " ";
-	}
-	cout << "\n";
-	for(int j=0; j<(count0*5); j++){
-		cout << priority0[j].skillAverage << " ";
-	}
-	cout << "\n";
-*/
+
 
 //TASK#144 TESTS.=================================
 
