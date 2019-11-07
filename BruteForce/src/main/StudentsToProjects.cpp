@@ -74,6 +74,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student StudentList[], Pro
 
 	//calculate each team combination skillscore for each project
 	int teamskillscore = 0;
+
     int num =0;
 
     	cout << "STUDENTS TO PROJECTS ASSIGNMENT RUNNING..." << endl;
@@ -185,6 +186,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student StudentList[], Pro
     				cout << "Project # " + to_string(ProjectList[i].ProjectID) + "  team combinations complete. " << endl;
 
     	} // end i loop
+
 
 
 	// Do Project Set combinations here
