@@ -338,7 +338,7 @@ void Utility::arrayProjectToSectionPercentages(Project projectPool[],
 		int numSkills) {
 
 	//create a 2d array containing the sum of all the students skills, for each skill.
-	int SectionSkills[numClassSections][numSkills];
+	int SectionSkills[numClassSections * numSkills];
 	int numStudentsByClass[numClassSections];
 
     Student student;
@@ -347,31 +347,32 @@ void Utility::arrayProjectToSectionPercentages(Project projectPool[],
     for(int i = 0; i < numClassSections; i++) {
         numStudentsByClass[i] = numStudents;
         for(int j = 0; j < numStudents; j++) {
-            student = *(studentPool + i);
+            student = *(studentPool + j);
             for(int k = 0; k < numSkills; k++) {
-				SectionSkills[i][k] += student.Skills[k];
+				SectionSkills[(i * numSkills) + k] += student.Skills[k];
             }
         }
     }
 
     //create skillXproject matrix
-	int skillXproject[numProjects][numSkills] = {0};
+	int skillXproject[numProjects * numSkills];
 
 	for (int i = 0; i < numSkills; i++){
 		for (int j = 0; j < numProjects; j++) {
-            skillXproject[i][j] = projectList[j].Skills[i];
+			project = *(projectPool + j);
+            skillXproject[(i * numProjects) + j] = project.Skills[i];
         }
     }
 
     // Calculate Project x Section skills Matrix
-	int projectXsection[numProjects][numClassSections];
+	int projectXsection[numProjects * numClassSections];
 
 	for (int i = 0; i < numProjects; i++) {
 	  	for (int j = 0; j < numClassSections; j++) {
-	  		projectXsection[i][j] = {0};
-	  		for (int k = 0; k < 7; k++) {
-	  			projectXsection[i][j] = projectXsection[i][j]
-                        +  SectionSkills[j][k] * skillXproject[k][i];
+	  		projectXsection[(i * numClassSections) + j] = {0};
+	  		for (int k = 0; k < numSkills; k++) {
+	  			projectXsection[(i * numClassSections) + j] +=
+                        SectionSkills[(j * numSkills) + k] * skillXproject[(k * numProjects) + i];
             }
         }
     }
@@ -382,8 +383,9 @@ void Utility::arrayProjectToSectionPercentages(Project projectPool[],
 
     for (int i = 0; i < numProjects; i++) {
         int sum = 0;
+        project = *(projectPool + i);
         for (int j = 0; j < numSkills; j++) {
-            sum  = sum + *(projectPool + i).Skills[j];
+            sum += project.Skills[j];
         }
         ProjectSkills[i] = sum * 4;
     }
@@ -396,12 +398,12 @@ void Utility::arrayProjectToSectionPercentages(Project projectPool[],
             float percent= 0;
             float x = 0;
             x = (ProjectSkills[i] * numStudentsByClass[j]);
-            percent = projectXsection[i][j] / x;
+            percent = projectXsection[(i * numClassSections) + j] / x;
             percent = percent * 100;
             percent = (int)percent;
 
             //store percentage in matrix as int, so if 88.8, it will be 88.
-            *(percentMatrix (i * numClassSections) + j) = percent;
+            *(percentMatrix + (i * numClassSections) + j) = percent;
         }
     }
     //return  percentMatrix;

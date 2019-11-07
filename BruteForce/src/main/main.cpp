@@ -70,12 +70,12 @@ int main(){
 	util.initProjectStudentSkills(PROJECT_POOL, STUDENT_POOL,
 			PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS, NUM_SKILLS);
 	util.arrayProjectToSectionPercentages(PROJECT_POOL, STUDENT_POOL, percentMatrix,
-			NUM_PROJECTS, NUM_STUDENTS, NUM_CLASS_SECTIONS,NUM_SKILLS);
+			NUM_PROJECTS, NUM_STUDENTS, NUM_CLASS_SECTIONS, NUM_SKILLS);
 
 	 //print the resulting percent matrix
 	 for (int i = 0; i < NUM_PROJECTS; ++i) {
 	     for (int j = 0; j < NUM_CLASS_SECTIONS; j++) {
-	         cout << *(percentMatrix (i * NUM_CLASS_SECTIONS) + j) << ' ';
+	         cout << percentMatrix[(i * NUM_CLASS_SECTIONS) + j] << ' ';
 	     }
 	     cout <<endl;
 	 }
@@ -118,8 +118,8 @@ int main(){
     //Threads for each class section will start here
     //Students will be partitioned here by skill averages
     //projects will be partitioned by priority
-    StudentsToProjects x;
-    x.StudentsToProjectsAssignment(SJson.allStudents, PJson.allProjects);
+    //StudentsToProjects x;
+    //x.StudentsToProjectsAssignment(SJson.allStudents, PJson.allProjects);
 
     //join threads
 
@@ -141,7 +141,7 @@ int main(){
 
 	// Drivers to convert Json into some kind of report, like excel or json to pdf?
 	// ex - writeReport();
-    delete[] percentMatrix;
+    //delete[] percentMatrix;
 	return 0;
 }
 

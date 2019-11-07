@@ -69,10 +69,6 @@ Student StudentJson::getStudentJsonObject(string filename, int i){
 	return student;
 }
 
-void StudentJson::arrayStudentReader(string filename) {
-
-
-}
 void StudentJson::StudentReader(string filename){
 
 	ifstream ifs(filename);
