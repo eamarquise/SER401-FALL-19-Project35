@@ -25,7 +25,7 @@ class Utility {
 		void initProjectPool(string filename, Project projectPool[], int numProjects);
 		void initStudentPool(string filename, Student studentPool[], int numStudents);
 		void initClassSectionPool(string filename, ClassSection classSectionPool[],
-                int numClassSections);
+                Student studentPool[], int numClassSections, int numStudents);
 		void initProjectStudentSkills(Project projectPool[], Student studentPool[],
 				int projectStudentSkills[], int numProjects, int numStudents, int numSkills);
 		int getSizeOfJson(string filename, string key);
@@ -38,8 +38,8 @@ class Utility {
 		int** ProjectToSectionPercentages(vector<vector<Student>> studentList,
 				vector<Project> projectList, int numProjects, int NumOfClassSections);
 		void arrayProjectToSectionPercentages(Project projectPool[],
-		        Student studentPool[], int percentMatrix[], int numProjects, int numStudents, int numClassSections,
-				int numSkills);
+		        Student studentPool[], ClassSection classSectionPool[], int percentMatrix[],
+				int numProjects, int numStudents, int numClassSections,	int numSkills);
 		~Utility();
 };
 

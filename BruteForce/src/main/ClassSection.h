@@ -15,6 +15,7 @@
 struct ClassSection {
 	int ClassID;
 	char Type;  // O = online | G = ground
+	int Enrollment;
 
 	ClassSection(){}
 	ClassSection(int cID, char t){

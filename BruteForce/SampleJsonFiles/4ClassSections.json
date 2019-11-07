@@ -1,15 +1,15 @@
 {
 "class sections":[ 
-   {"ClassID": 1,
+   {"ClassID": 0,
     "Type": "O"},
+
+   {"ClassID": 1,
+    "Type": "G"},
 
    {"ClassID": 2,
     "Type": "G"},
-
-   {"ClassID": 3,
-    "Type": "G"},
     
-    {"ClassID": 4,
+    {"ClassID": 3,
     "Type": "O"}
     
    ]
