@@ -94,10 +94,12 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student StudentList[], Pro
 			} //end j loop
 
 			//negative affinity check
+			//check returns true if there is negative affinity on the team,
+			//and false if there is no negative affinity.
+			if (negativeAffinityCheck(currentTeam.Team) == false){
 
 			//call to 3 team score functions
 			//TeamScore = func1() + func2() + func3()
-             num=0;
 			 int score1 = ProjectCompareTeamScore(currentTeam.Team,  ProjectList[i]);
 			 int score2 = SkillCompareTeamScore(currentTeam.Team);
 			 int score3 = AvailabilityTeamScore(currentTeam.Team);
@@ -139,13 +141,10 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student StudentList[], Pro
 				top10 = currentTeam.TeamScore;
 				currentTopTeams[9] = currentTeam;}
 
-			teamskillscore = 0;
-			/*Student temp;
-			//reset team
-				 for(int k = 0; k < 5; k++) {
-						 currentTeam.Team[k]=temp;
-					 }*/
+			}//end affinity check
 
+			num = 0;
+			teamskillscore = 0;
 			currentTeam.TeamScore = 0;
 
 		}// end while loop
@@ -354,7 +353,56 @@ int StudentsToProjects::ProjectCompareTeamScore(Student team[5], Project project
 	return percent;
 
 }
-
+/*
+ * Utility::negativeAffinityCheck
+ * currently takes in a vector of students, which represents a possible team combination.
+ * function checks to see if any students have negative affinity toward one another.
+ * If negative affinity between team members IS NOT found, function will return a boolean value of false,
+ * If negative affinity between team member IS found, function will return a boolean value of true.
+ */
+bool StudentsToProjects::negativeAffinityCheck(Student team[5]){
+	// start of with negativeAffinity being false - meaning we have not found negative affinity.
+	// We will return true if we find an instance of negative affinity in this team combination.
+	bool negativeAffinity = false;
+	// We begin with an outer loop of that will examine each student in the team
+	for (int studentTeamCounter = 0; studentTeamCounter < 5; studentTeamCounter++){
+		// Create a temporary student object for ease of use
+		Student currentStudent = team[studentTeamCounter];
+		// if the current student's affinity list is empty - we don't need about comparing any other students - so on to the next iteration
+		if (currentStudent.StudentAffinity.empty()){
+			continue;
+		} else {
+			// lets take a look at the current students affinity list
+			for (int currentStudentAffinityCounter = 0; currentStudentAffinityCounter < currentStudent.StudentAffinity.size(); currentStudentAffinityCounter++){
+				// next we will loop through all other students comparing the current students affinity to other students, checking for negative affinity.
+				for (int otherStudentsCounter = 0; otherStudentsCounter < 5; otherStudentsCounter++){
+					// create a temporary student object for the other student we are examining in this loop.
+					Student otherStudent = team[otherStudentsCounter];
+					// because we are looping, if the current student happens to be the other student, lets continue to the next iteration.
+					if (currentStudent.StudentID == otherStudent.StudentID){
+						continue;
+						// next for each student id in the current students affinity list, lets see if the other student has the same Student ID
+						// and if the affinity boolean value is false, meaning negative affinity. The current student doesn't want to work with
+						// the other student. In this case we will change our negativeAffinity flag to true. We can break out of this function with
+						// one instance of negative affinity. The team won't work.
+					} else {
+						if ((currentStudent.StudentAffinity.at(currentStudentAffinityCounter).first == otherStudent.StudentID) && (currentStudent.StudentAffinity.at(currentStudentAffinityCounter).second == false)){
+							negativeAffinity = true;
+							break;
+						}
+					} // end otherStudentsCounter loop
+				}
+				if (negativeAffinity == true){
+					break;
+				}
+			} // end currentStudentAffinityCounter loop
+		}
+		if (negativeAffinity == true){
+			break;
+		}
+	} // end studentTeamCounter loop
+	return negativeAffinity;
+}
 
 StudentsToProjects::~StudentsToProjects() {
 	// TODO Auto-generated destructor stub

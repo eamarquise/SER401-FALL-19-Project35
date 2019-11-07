@@ -24,6 +24,8 @@ public:
 	StudentsToProjects();
 	void StudentsToProjectsAssignment(Student StudentList[], Project Projectlist[],int numProjects, int numStudents );
 	constexpr int toConstInt(int constInt);
+
+	bool negativeAffinityCheck(Student team[5]);
 	// 3 functions to evaluate a team's score
 	int AvailabilityTeamScore(Student team[5]);
 	int SkillCompareTeamScore(Student team[5]);
