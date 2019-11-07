@@ -6,6 +6,8 @@
  */
 
 #include "StudentsToProjects.h"
+#include "Project.h"
+#include "Student.h"
 #include "json/json.h"
 
 #include <iostream>
@@ -20,7 +22,6 @@ using namespace std;
 using namespace std::chrono;
 
 StudentsToProjects::StudentsToProjects() {
-
 }
 
 StudentsToProjects::~StudentsToProjects() {

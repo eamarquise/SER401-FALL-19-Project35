@@ -5,8 +5,8 @@
  *      Author: Cristi DeLeo
  */
 
-#ifndef BRUTEFORCE_SRC_MAIN_CLASSSECTIONJSON_H_
-#define BRUTEFORCE_SRC_MAIN_CLASSSECTIONJSON_H_
+#ifndef CLASSSECTIONJSON_H_
+#define CLASSSECTIONJSON_H_
 
 #include "ClassSection.h"
 
@@ -17,9 +17,9 @@ using namespace std;
 class ClassSectionJson {
     public:
         ClassSectionJson();
-        virtual ~ClassSectionJson();
         void ClassSectionWriter(string filename);
         ClassSection getClassSectionJsonObject(string filename, int i);
+        ~ClassSectionJson();
 };
 
 #endif /* BRUTEFORCE_SRC_MAIN_CLASSSECTIONJSON_H_ */

@@ -11,11 +11,13 @@
 #include "json/json.h"
 #include "StudentJson.h"
 #include "ProjectJson.h"
+#include "ClassSectionJson.h"
 #include "Utility.h"
 #include "StudentsToProjects.h"
 
 #include <iostream>
 #include <utility>
+#include <array>
 #include <algorithm>
 #include <vector>
 #include <thread>
@@ -35,6 +37,7 @@ int main(){
 
 	const string PROJECT_FILE = "./SampleJsonFiles/20Projects.json";
 	const string STUDENT_FILE = "./SampleJsonFiles/60Students.json";
+	const string CLASS_SECTION_FILE = "./SampleJsonFiles/4ClassSections.json";
 
 	const int NUM_SKILLS = 7;
 	const int TEAM_SIZE = 5;
@@ -50,11 +53,14 @@ int main(){
 
 	StudentJson SJson;
 	ProjectJson PJson;
+	ClassSectionJson CSJson;
 
 	Project PROJECT_POOL[NUM_PROJECTS];
 	Student STUDENT_POOL[NUM_STUDENTS];
 	ClassSection CLASS_SECTION_POOL[NUM_CLASS_SECTIONS];
+
 	int PROJECT_STUDENT_SKILLS[NUM_PROJECTS * NUM_STUDENTS];
+	int percentMatrix[NUM_PROJECTS * NUM_CLASS_SECTIONS];
 
 	// INITIALIZE POOLS
 	util.initProjectPool(PROJECT_FILE, PROJECT_POOL, NUM_PROJECTS);
@@ -63,28 +69,38 @@ int main(){
             NUM_CLASS_SECTIONS);
 	util.initProjectStudentSkills(PROJECT_POOL, STUDENT_POOL,
 			PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS, NUM_SKILLS);
+	util.arrayProjectToSectionPercentages(PROJECT_POOL, STUDENT_POOL, percentMatrix,
+			NUM_PROJECTS, NUM_STUDENTS, NUM_CLASS_SECTIONS,NUM_SKILLS);
+
+	 //print the resulting percent matrix
+	 for (int i = 0; i < NUM_PROJECTS; ++i) {
+	     for (int j = 0; j < NUM_CLASS_SECTIONS; j++) {
+	         cout << *(percentMatrix (i * NUM_CLASS_SECTIONS) + j) << ' ';
+	     }
+	     cout <<endl;
+	 }
 
 	// PARTITION POOLS BY TYPE (ONLINE/GROUND/HYBRID)
 	util.projectTypePartition(PROJECT_POOL, NUM_PROJECTS, 'O', 'G', 'H');
 
 //TASK#144 TESTS.=================================
-    SJson.StudentReader(STUDENT_FILE);
-    PJson.ProjectReaderVector(PROJECT_FILE);
+    //SJson.StudentReader(STUDENT_FILE);			// Equivalent to util.initStudentPool
+    //PJson.ProjectReaderVector(PROJECT_FILE);	// Equivalent to util.initProjectPool
 
     //This is just to create a vector of vectors for use in the percent matrix.
     //the function will take in the vector of vectors of students sorted by class section
-    vector<vector<Student>> studentlist(NUM_CLASS_SECTIONS);
+    //vector<vector<Student>> studentlist(NUM_CLASS_SECTIONS);
 
-    Student s;
+    //Student s;
 
-    for (int i = 0; i < NUM_CLASS_SECTIONS; ++i) {
-        for (int j = 0; j < NUM_STUDENTS; j++) {
-            studentlist[i].push_back(SJson.allStudents[j]);
-        }
-    }
+    //for (int i = 0; i < NUM_CLASS_SECTIONS; ++i) {
+    //    for (int j = 0; j < NUM_STUDENTS; j++) {
+    //        studentlist[i].push_back(SJson.allStudents[j]);
+    //    }
+    //}
 
     //function call to create the percent matirx
-    int** percentMatrix = u.ProjectToSectionPercentages(studentlist,
+    /*int** percentMatrix = util.ProjectToSectionPercentages(studentlist,
             PJson.allProjects, NUM_PROJECTS, NUM_CLASS_SECTIONS);
 
     cout << "PERCENT MATRIX, ROWS=projects, COLUMNS=Class Sections"<<endl;
@@ -95,9 +111,8 @@ int main(){
             cout << percentMatrix[i][j] << ' ';
         }
         cout <<endl;
-    }
+    }*/
 //End -TASK#144 TESTS =================================
-    delete[] percentMatrix;
 
 //STUDENTS TO PROJECTS ASSIGNMENT
     //Threads for each class section will start here
@@ -126,7 +141,7 @@ int main(){
 
 	// Drivers to convert Json into some kind of report, like excel or json to pdf?
 	// ex - writeReport();
-
+    delete[] percentMatrix;
 	return 0;
 }
 

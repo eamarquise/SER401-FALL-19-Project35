@@ -5,23 +5,23 @@
  *      Author: myles
  */
 
-#ifndef BRUTEFORCE_SRC_MAIN_PROJECTJSON_H_
-#define BRUTEFORCE_SRC_MAIN_PROJECTJSON_H_
+#ifndef PROJECTJSON_H_
+#define PROJECTJSON_H_
 
 #include "Project.h"
 
-#include <string>
 #include <array>
+#include <vector>
+#include <string>
 
 using namespace std;
 
 class ProjectJson {
 	public:
 		int numProjects;
-		vector <Project> allProjects;
+		vector<Project> allProjects;
 		ProjectJson();
-		virtual ~ProjectJson();
-		int getSizeOfJson(string filename);
+		~ProjectJson();
 		Project getProjectJsonObject(string filename, int i);
 		void ProjectWriter(string filename);
 		void ProjectReaderVector(string filename);

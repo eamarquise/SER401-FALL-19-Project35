@@ -1,0 +1,16 @@
+{
+"class sections":[ 
+   {"ClassID": 1,
+    "Type": "O"},
+
+   {"ClassID": 2,
+    "Type": "G"},
+
+   {"ClassID": 3,
+    "Type": "G"},
+    
+    {"ClassID": 4,
+    "Type": "O"}
+    
+   ]
+}

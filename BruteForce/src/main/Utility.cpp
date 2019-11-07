@@ -4,12 +4,14 @@
  *  Created on: Oct. 29, 2019
  *      Author: mcilibra
  */
+#include "Utility.h"
 #include "json/json.h"
 #include "ProjectJson.h"
 #include "StudentJson.h"
+#include "ClassSectionJson.h"
 #include "Project.h"
 #include "Student.h"
-#include "Utility.h"
+#include "ClassSection.h"
 
 #include <iostream>
 #include <utility>
@@ -21,7 +23,7 @@
 #include <vector>
 #include <iterator>
 
-namespace std {
+using namespace std;
 
 Utility::Utility() {
 	// TODO Auto-generated constructor stub
@@ -53,27 +55,6 @@ void Utility::initClassSectionPool(string filename, ClassSection classSectionPoo
     }
 }
 
-int Utility::getSizeOfJson(string filename, string key) {
-	ifstream ifs(filename);
-	Json::Reader reader;
-	Json::Value obj;
-	reader.parse(ifs, obj);
-
-	return obj[key].size();
-}
-
-int Utility::getProjectXskill(Project projectPool[], int i, int j){
-	Project project;
-	project = *(projectPool + i);
-	return project.Skills[j];
-}
-
-int Utility::getSkillXstudent(Student studentPool[], int i, int j){
-	Student student;
-	student = *(studentPool + i);
-	return student.Skills[j];
-}
-
 void Utility::initProjectStudentSkills(Project projectPool[], Student studentPool[],
 		int projectStudentSkills[], int numProjects, int numStudents, int numSkills) {
 
@@ -93,6 +74,27 @@ void Utility::initProjectStudentSkills(Project projectPool[], Student studentPoo
 			*(projectStudentSkills + (i * numStudents) + j) = score;
 		}
 	}
+}
+
+int Utility::getSizeOfJson(string filename, string key) {
+	ifstream ifs(filename);
+	Json::Reader reader;
+	Json::Value obj;
+	reader.parse(ifs, obj);
+
+	return obj[key].size();
+}
+
+int Utility::getProjectXskill(Project projectPool[], int i, int j){
+	Project project;
+	project = *(projectPool + i);
+	return project.Skills[j];
+}
+
+int Utility::getSkillXstudent(Student studentPool[], int i, int j){
+	Student student;
+	student = *(studentPool + i);
+	return student.Skills[j];
 }
 
 vector<vector<int>> Utility::calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects){
@@ -208,7 +210,7 @@ void Utility::printIntMatrix(vector<vector<int>> a){
  *      Author: Myles Colina
  */
 int** Utility::ProjectToSectionPercentages(vector<vector<Student>> studentList,
-        vector <Project> projectList, int numProjects, int NumOfClassSections) {
+        vector<Project> projectList, int numProjects, int NumOfClassSections) {
 
 	//create a 2d array containing the sum of all the students skills, for each skill.
 	int SectionSkills[NumOfClassSections][7] = {0};
@@ -327,4 +329,80 @@ int** Utility::ProjectToSectionPercentages(vector<vector<Student>> studentList,
         }
     }
     return  percentMatrix;
- }//end ProjectToSectionPercentages
+}//end ProjectToSectionPercentages
+
+
+// ARRAY VERSION
+void Utility::arrayProjectToSectionPercentages(Project projectPool[],
+        Student studentPool[], int percentMatrix[], int numProjects, int numStudents, int numClassSections,
+		int numSkills) {
+
+	//create a 2d array containing the sum of all the students skills, for each skill.
+	int SectionSkills[numClassSections][numSkills];
+	int numStudentsByClass[numClassSections];
+
+    Student student;
+    Project project;
+
+    for(int i = 0; i < numClassSections; i++) {
+        numStudentsByClass[i] = numStudents;
+        for(int j = 0; j < numStudents; j++) {
+            student = *(studentPool + i);
+            for(int k = 0; k < numSkills; k++) {
+				SectionSkills[i][k] += student.Skills[k];
+            }
+        }
+    }
+
+    //create skillXproject matrix
+	int skillXproject[numProjects][numSkills] = {0};
+
+	for (int i = 0; i < numSkills; i++){
+		for (int j = 0; j < numProjects; j++) {
+            skillXproject[i][j] = projectList[j].Skills[i];
+        }
+    }
+
+    // Calculate Project x Section skills Matrix
+	int projectXsection[numProjects][numClassSections];
+
+	for (int i = 0; i < numProjects; i++) {
+	  	for (int j = 0; j < numClassSections; j++) {
+	  		projectXsection[i][j] = {0};
+	  		for (int k = 0; k < 7; k++) {
+	  			projectXsection[i][j] = projectXsection[i][j]
+                        +  SectionSkills[j][k] * skillXproject[k][i];
+            }
+        }
+    }
+
+    //create a 2d array for the projects, containing the maximum
+    //skill score sum a student could have on that project.
+    int ProjectSkills[numProjects] = {0};
+
+    for (int i = 0; i < numProjects; i++) {
+        int sum = 0;
+        for (int j = 0; j < numSkills; j++) {
+            sum  = sum + *(projectPool + i).Skills[j];
+        }
+        ProjectSkills[i] = sum * 4;
+    }
+
+    //gets the percentages and stores them in a new 2d matrix.
+    //int percentMatrix[numProjects][numClassSections] = {0};
+
+    for (int i = 0; i < numProjects; i++) {
+        for (int j = 0; j < numClassSections; j++) {
+            float percent= 0;
+            float x = 0;
+            x = (ProjectSkills[i] * numStudentsByClass[j]);
+            percent = projectXsection[i][j] / x;
+            percent = percent * 100;
+            percent = (int)percent;
+
+            //store percentage in matrix as int, so if 88.8, it will be 88.
+            *(percentMatrix (i * numClassSections) + j) = percent;
+        }
+    }
+    //return  percentMatrix;
+}//end ProjectToSectionPercentages

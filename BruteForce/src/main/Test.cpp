@@ -13,21 +13,21 @@
  *     call it in main.
  *
  */
+#include "Test.h"
+#include "json/json.h"
+#include "StudentJson.h"
+#include "ProjectJson.h"
+#include "ClassSectionJson.h"
+#include "Student.h"
+#include "Project.h"
+#include "ClassSection.h"
+
 #include <iostream>
 #include <utility>
 #include <algorithm>
 #include <vector>
 #include <array>
-
-#include "Student.h"
-#include "Project.h"
-#include "ClassSection.h"
-#include "Test.h"
-#include "json/json.h"
-#include "StudentJson.h"
-#include "ProjectJson.h"
-
-#define NUM_PROJECTS 3
+#include <string>
 
 using namespace std;
 
@@ -178,7 +178,6 @@ void Test::StructTest() {
 		//call student constructor
 		 Student s1(123456, 1, s,  aff,  times);
 
-
 	     //print Student results
 		 cout <<"Student Info " << endl;
 		 cout <<"-------------------------" << endl;
@@ -223,30 +222,30 @@ void Test::StructTest() {
 	     	const int NumOfStudents = 15;
 	     	const int NumOfProjects = 3;
 
-	     	 ClassSection<NumOfStudents> c1(1, 'O');
+	     	 //ClassSection<NumOfStudents> c1(1, 'O');
+	     	ClassSection c1(1,'O');
+	     	//for (int i = 0; i < NumOfStudents; i++){
+	     	 //c1.Enrollment[i]=i;}
 
-	     	for (int i = 0; i < NumOfStudents; i++){
-	     	 c1.Enrollment[i]=i;}
-
-	     	for (int i = 0; i < NumOfProjects; i++){
-	     	 c1.ProjectPool.push_back(i);}
+	     	//for (int i = 0; i < NumOfProjects; i++){
+	     	 //c1.ProjectPool.push_back(i);}
 
 	     	//print Project results
 	     		 cout <<"Class Section Info " << endl;
 	     		 cout <<"-------------------------" << endl;
-	     		 cout << "Class ID: " + to_string(c1.ClassSectionID) << endl;
+	     		 cout << "Class ID: " + to_string(c1.ClassID) << endl;
 	     	     cout << "Type:  " ;
 	     	     cout.put(c1.Type);
 	     	    		 cout << endl;
-	     		 cout << "Number of Students in this section: " + to_string(NumOfStudents) << endl;
-	     		 cout << "Students: ";
-	     		 for (int i = 0; i < NumOfStudents; i++){
-	     			 	 cout << to_string(c1.Enrollment[i]) + ", ";}
+	     		 //cout << "Number of Students in this section: " + to_string(NumOfStudents) << endl;
+	     		 //cout << "Students: ";
+	     		 //for (int i = 0; i < NumOfStudents; i++){
+	     		//	 	 cout << to_string(c1.Enrollment[i]) + ", ";}
 	     		cout << endl;
-	     		cout << "Number of Projects in pool: " + to_string(NumOfProjects) << endl;
-	     		cout << "Projects: ";
-	     		for (int i = 0; i < NumOfProjects; i++){
-	     			     cout << to_string(c1.ProjectPool[i]) + ", ";}
+	     		//cout << "Number of Projects in pool: " + to_string(NumOfProjects) << endl;
+	     		//cout << "Projects: ";
+	     		//for (int i = 0; i < NumOfProjects; i++){
+	     		//	     cout << to_string(c1.ProjectPool[i]) + ", ";}
 
 	     	   cout << endl << endl;
 	     	   cout << "END: Test::StructTest Student|Project|ClassSection Task#97" << endl;

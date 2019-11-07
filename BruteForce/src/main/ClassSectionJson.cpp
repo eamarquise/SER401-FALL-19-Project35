@@ -14,19 +14,13 @@
  *
  */
 
-#include <iostream>
+#include "ClassSectionJson.h"
+#include "ClassSection.h"
+#include "json/json.h"
+
 #include <fstream>
 #include <string>
 #include <vector>
-#include <array>
-#include <utility>
-#include <algorithm>
-
-#include "ClassSection.h"
-#include "json/json.h"
-#include "ClassSectionJson.h"
-
-using namespace std;
 
 ClassSectionJson::ClassSectionJson() {
 	// TODO Auto-generated constructor stub
@@ -54,9 +48,7 @@ ClassSection ClassSectionJson::getClassSectionJsonObject(string filename, int i)
 
     classSection.Type = tempType[0];
     classSection.ClassID =
-            obj["class sections"].get((int)i, "")["ClassID"].asInt();
-
-    ifs.close();
+            (char)obj["class sections"].get((int)i, "")["ClassID"].asInt();
 
 	return classSection;
 }

@@ -9,17 +9,18 @@
  *      Student objects.
  */
 
-#ifndef BRUTEFORCE_SRC_MAIN_STUDENT_H_
-#define BRUTEFORCE_SRC_MAIN_STUDENT_H_
+#ifndef STUDENT_H_
+#define STUDENT_H_
+
 #include <iostream>
 #include <utility>
 #include <vector>
+#include <string>
 #include <array>
 
 using namespace std;
 
-struct Student
-{
+struct Student {
 	int StudentID; //student's ID. unique for each student
 	int StID; //ID depicting from [0 - NumOfStudents] in that class section.
 	int ClassID; //determines which class the student belongs to.
@@ -40,9 +41,7 @@ struct Student
 	//Each student chooses four out of the six possible time-frames
 	//(two selections for weekday availability; two selections for weekend availability)
 	int Availability[4];
-
 	Student(){}
-	//Constructor
 	Student(int stID, int cID, int s[], vector< pair <int, bool> > aff,
             int times[]){
 

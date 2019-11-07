@@ -14,17 +14,13 @@
  *
  */
 
-#include <iostream>
+#include "StudentJson.h"
+#include "Student.h"
+#include "json/json.h"
+
 #include <fstream>
 #include <string>
 #include <vector>
-#include <array>
-#include <utility>
-#include <algorithm>
-
-#include "Student.h"
-#include "json/json.h"
-#include "StudentJson.h"
 
 using namespace std;
 
@@ -73,16 +69,18 @@ Student StudentJson::getStudentJsonObject(string filename, int i){
 	return student;
 }
 
-//void StudentJson::StudentReader(string filename){
+void StudentJson::arrayStudentReader(string filename) {
 
-int StudentJson::StudentReader(string filename){
+
+}
+void StudentJson::StudentReader(string filename){
 
 	ifstream ifs(filename);
 	Json::Reader reader;
 	Json::Value obj;
 	reader.parse(ifs, obj);
 
-	vector<Student> allStudents;
+	//vector<Student> allStudents;
 	int StudentID;
     int ClassID;
 	int skills[7];
@@ -129,10 +127,6 @@ int StudentJson::StudentReader(string filename){
 		Student s(StudentID, ClassID, skills, affinity, times);
 		allStudents.push_back(s);
 	}
-
-	int numStudents = allStudents.size();
-	allStudents.clear();
-	return numStudents;
 }
 
 

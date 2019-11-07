@@ -12,6 +12,11 @@
  *      Includes reading in Project Json Files.
  *
  */
+
+#include "ProjectJson.h"
+#include "Project.h"
+#include "json/json.h"
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -20,11 +25,7 @@
 #include <algorithm>
 #include <array>
 
-#include "Project.h"
-#include "json/json.h"
-#include "ProjectJson.h"
-
-#define NUM_PROJECTS 3
+using namespace std;
 
 ProjectJson::ProjectJson() {
 	// TODO Auto-generated constructor stub
@@ -48,13 +49,13 @@ Project ProjectJson::getProjectJsonObject(string filename, int i){
 
 	Project project;
 
-	project.ProjectID = obj["projects"].get((int)i, "")["ProjectID"].asInt();
+	project.ProjectID = (char)obj["projects"].get((int)i, "")["ProjectID"].asInt();
 
 	string temp;
 	temp = obj["projects"].get((int)i, "")["Type"].asString();
 	project.Type = temp[0];
 
-	project.Priority = obj["projects"].get((int)i, "")["Priority"].asInt();
+	project.Priority = (char)obj["projects"].get((int)i, "")["Priority"].asInt();
 
 	int numSkills = obj["projects"].get((int)i, "")["Skills"].size();
 
@@ -62,19 +63,15 @@ Project ProjectJson::getProjectJsonObject(string filename, int i){
 		project.Skills[j] = (obj["projects"].get((int)i, "")["Skills"][j].asInt());
 	}
 
-    ifs.close();
-
 	return project;
 }
 
 void ProjectJson::ProjectReaderVector(string filename){
-
 	//read file named profile.json, then parse it as json, then store that parse into obj
 		ifstream ifs(filename);
 		Json::Reader reader;
 		Json::Value obj;
 		reader.parse(ifs, obj);
-
 
 		//get the size of the "projects" array in the json file, then store that into numberOfProjects
 		const int numberOfProjects = obj["projects"].size();
@@ -112,6 +109,7 @@ void ProjectJson::ProjectReaderVector(string filename){
 		}
 //Json File Reader Test
 //*********************************************
+		/*
 		cout <<endl;
 	    cout <<"PROJECT JSON FILE READER TEST"<<endl;
 	    cout <<endl;
@@ -135,6 +133,6 @@ void ProjectJson::ProjectReaderVector(string filename){
 			cout << endl;
 		}
 //*********************************************
-//End - Json File Reader Test
+//End - Json File Reader Test*/
 }
 
