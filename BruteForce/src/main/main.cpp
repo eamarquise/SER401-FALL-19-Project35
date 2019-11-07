@@ -39,6 +39,7 @@ int main(){
 	const string projectFilename = "./SampleJsonFiles/20Projects.json";
 	const string studentFilename = "./SampleJsonFiles/60Students.json";
 
+
 	Utility u;
 
 	const int numProjects = u.getSizeOfJson(projectFilename, "projects");
@@ -75,6 +76,50 @@ int main(){
 				studentPool, numStudents, numSkills, currentProjectXstudent, i, j);
 		}
 	}
+
+
+/***** SORTING STUDENTS BASED ON SKILL *****/
+	//creating student skill average
+	for(int i=0; i<numStudents; i++) {
+		double average1=0;
+		for(int m=0; m < numSkills; m++) {
+			average1 += studentPool[i].Skills[m];
+		}
+		average1 = average1/numSkills;
+		studentPool[i].skillAverage = average1;
+	}
+
+
+	//Averaging student skills into a sorted array
+	for(int i=0; i < numStudents; i++){
+		Student temp;
+		for(int j=(i+1); j < numStudents; j++){
+			if (studentPool[j].skillAverage > studentPool[i].skillAverage) {
+				temp = studentPool[i];
+				studentPool[i] = studentPool[j];
+				studentPool[j] = temp;
+			}
+		}
+	 }
+
+
+	//Counting project priority
+	int count2=0, count1=0;
+	for(int i=0; i<numProjects; i++){
+		if(projectPool[i].Priority ==2) { count2++; }
+		if(projectPool[i].Priority ==1) { count1++; }
+	}
+	count2 = count2*5;
+	count1 = count1*5;
+
+	//Pushing students onto project priority vectors
+	Student *priority2 = new Student[count2];
+	Student *priority1 = new Student[count1];
+	Student *priority0 = new Student[numStudents-count2-count1];
+	std::copy(studentPool +0, studentPool+(count2-1), priority2);
+	std::copy(studentPool +(count2), studentPool +(count2+count1-1), priority1);
+	std::copy(studentPool +(count2+count1), studentPool +(numStudents), priority0);
+
 
 //TASK#144 TESTS.=================================
 
