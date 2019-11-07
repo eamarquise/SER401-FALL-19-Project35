@@ -22,6 +22,9 @@ class StudentsToProjects {
 		~StudentsToProjects();
 		void StudentsToProjectsAssignment(vector <Student> studentlist,
 			vector <Project> projectlist);
+		void ArrayStudentsToProjectsAssignment(Student studentPool[],
+				Project projectPool[], int numStudents, int numProjects, int numSkills,
+				int teamSize);
 		void arrayStudentsToProjectsAssignment(Project projectPool[],
 		        Student studentPool[], ClassSection classSectionPool[], int numProjects,
 				int numStudents, int numClassSections,

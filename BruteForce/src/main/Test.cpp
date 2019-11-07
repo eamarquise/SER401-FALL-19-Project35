@@ -82,7 +82,7 @@ void Test::PrintStudentPool(Student studentPool[], int numStudents, int numSkill
 	Student student;
 
 	int numTimes = 4;
-	int numAffinities = 12;
+	int numAffinities = 0;
 
 	cout << endl;
 	cout << "----------------------------------------------------------" << endl;
@@ -93,6 +93,8 @@ void Test::PrintStudentPool(Student studentPool[], int numStudents, int numSkill
 	for (int i = 0; i < numStudents; i++) {
 
 		student = *(studentPool + i);
+
+		numAffinities = student.StudentAffinity.size();
 
 		cout << "Student ID: ";
 		cout << student.StudentID << endl;
@@ -143,6 +145,28 @@ void Test::PrintProjectStudentSkills(int projectStudentSkills[], int numProjects
 
 	cout << endl;
 	cout << "END: Test::PrintProjectStudentSkills Task#107" << endl;
+	cout << "----------------------------------------------------------";
+	cout << endl << endl;
+}
+
+// AUTHOR: CRISTI DELEO
+// DATE: 11/07/2019
+void Test::PrintPercentMatrix(int percentMatrix[], int numProjects, int numClassSections) {
+
+	cout << endl;
+	cout << "----------------------------------------------------------" << endl;
+	cout << "BEGIN: Test::PrintPercentMatrix" << endl << endl;
+
+	for (int i = 0; i < numProjects; i++) {
+		for (int j = 0; j < numClassSections; j++) {
+			cout << "[" << i << "][" << j << "] ";
+			cout << *(percentMatrix + (i * numClassSections) + j);
+		}
+		cout << endl;
+	}
+
+	cout << endl;
+	cout << "END: Test::PrintPercentMatrix" << endl;
 	cout << "----------------------------------------------------------";
 	cout << endl << endl;
 }

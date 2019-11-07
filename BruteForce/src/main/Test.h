@@ -21,6 +21,7 @@ class Test {
 		void PrintProjectPool(Project projectPool[], int numProjects, int numSkills);
 		void PrintStudentPool(Student studentPool[], int numStudents, int numSkills);
 		void PrintProjectStudentSkills(int projectStudentSkills[], int numProjects, int numStudents);
+		void PrintPercentMatrix(int percentMatrix[], int numProjects, int numClassSections);
 		void InitializeProjectStudentSkillMatrixTest(int projectXstudent[], int numProjects, int numStudents);
 		void StructTest();
 		~Test();
