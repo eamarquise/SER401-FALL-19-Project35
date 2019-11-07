@@ -39,6 +39,7 @@ int main(){
 	const string projectFilename = "./SampleJsonFiles/20Projects.json";
 	const string studentFilename = "./SampleJsonFiles/60Students.json";
 
+
 	Utility u;
 
 	const int numProjects = u.getSizeOfJson(projectFilename, "projects");
@@ -111,14 +112,13 @@ int main(){
 	count2 = count2*5;
 	count1 = count1*5;
 
-
 	//Pushing students onto project priority vectors
-	Student *priority2 = new Student(count2);
-	Student *priority1 = new Student(counnt1);
-	Student *priority0 = new Student(numStudents-count2-count1);
-	std::copy(studentPool + 0, studentPool + (count2-1), priority2);
-	std::copy(studentPool + (count2), studentPool + (count2+count1-1), priority1);
-	std::copy(studentPool + (count2+count1), studentPool + (numStudents-1), priority0);
+	Student *priority2 = new Student[count2];
+	Student *priority1 = new Student[count1];
+	Student *priority0 = new Student[numStudents-count2-count1];
+	std::copy(studentPool +0, studentPool+(count2-1), priority2);
+	std::copy(studentPool +(count2), studentPool +(count2+count1-1), priority1);
+	std::copy(studentPool +(count2+count1), studentPool +(numStudents), priority0);
 
 
 //TASK#144 TESTS.=================================
