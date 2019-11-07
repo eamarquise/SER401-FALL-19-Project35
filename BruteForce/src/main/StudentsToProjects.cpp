@@ -23,154 +23,6 @@ StudentsToProjects::StudentsToProjects() {
 
 void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentList, vector <Project> ProjectList) {
 
-	/*struct Student {
-
-		int studentID;
-		int classID;
-		int projectID;
-
-		int skills[7];
-		int studentAffinity[128][2];
-
-		int availability[4];
-	};
-
-	struct Project {
-
-		int projectID;
-		int sponsorID;
-		int classID;
-
-		char type;
-		int priority;
-
-		int skills[7];
-	};
-	Project p;
-
-	p.sponsorID = 4;
-	p.classID = 1;
-	p.type = 1;
-	p.priority = 1;
-
-
-	vector<Project> projects;
-	vector<Student> students;
-	vector<Student> team;
-
-	//int numProjects = 1;
-	int numSkills = 7;
-	//int numStudents = 50;
-	//int teamSize = 5;
-
-
-	//create numProjects projects
-	for(int i = 0; i < numProjects; i++) {
-		for(int j = 0; j < numSkills; j++) {
-			p.skills[j] = (rand() % 2);
-		}
-		p.projectID = i+1;
-		projects.push_back(p);
-		Project p;
-
-	}*/
-
-	/*ifstream ifs("./BruteForce/SampleJsonFiles/60Students.json");
-	Json::Reader reader;
-	Json::Value obj;
-	reader.parse(ifs, obj);
-
-    const Json::Value& numberOfStudents = obj["students"];
-    numStudents = numberOfStudents.size();
-
-
-    //for loop that iterates of the number of students in the Json file
-    //and stores them as Student objects vector <Student> allStudents.
-	for(int i = 0; i < numberOfStudents.size(); i++) {
-		Student s;
-
-
-		//reading in Student Skills
-		numSkills = obj["students"].get((int)i, "")["Skills"].size();
-		for(int j = 0; j < numSkills; j++) {
-			s.skills[j] = (obj["students"].get((int)i, "")["Skills"][j].asInt());
-		}
-
-		//Creating the student, and adding the student to the student list
-		s.studentID = obj["students"].get((int)i, "")["StudentID"].asInt();
-		students.push_back(s);
-
-	}
-
-	ifs.close();
-	ifstream ifs2("./BruteForce/SampleJsonFiles/20Projects.json");
-	Json::Reader reader2;
-	Json::Value obj2;
-	reader.parse(ifs2, obj2);
-    const Json::Value& numberOfProjects = obj2["projects"];
-
-    numProjects = numberOfProjects.size();
-
-
-    //for loop that iterates of the number of students in the Json file
-    //and stores them as Student objects vector <Student> allStudents.
-	for(int i = 0; i < numberOfProjects.size(); i++) {
-		Project p;
-
-
-		//reading in Student Skills
-		numSkills = obj2["projects"].get((int)i, "")["Skills"].size();
-		for(int j = 0; j < numSkills; j++) {
-			p.skills[j] = (obj2["projects"].get((int)i, "")["Skills"][j].asInt());
-		}
-
-		//Creating the student, and adding the student to the student list
-		p.projectID = obj2["projects"].get((int)i, "")["ProjectID"].asInt();
-		projects.push_back(p);
-
-	}
-	ifs2.close();
-	//print out to ensure correct
-	cout << "project skills" << endl;
-	for(int i = 0; i < numProjects; i++) {
-		cout << to_string(projects.at(i).projectID) + ": ";
-		for(int j = 0; j < numSkills; j++) {
-			cout << to_string(projects.at(i).skills[j]) + " ";
-		}
-		cout << endl;
-	}
-
-	cout << endl;
-
-	//print students to ensure
-	cout << "student skills" << endl;
-	cout << to_string(numStudents);
-	for(int i = 0; i < numStudents; i++) {
-		cout << to_string(students.at(i).studentID) + ": ";
-		for(int j = 0; j < numSkills; j++) {
-			cout << to_string(students.at(i).skills[j]) + " ";
-		}
-		cout << endl;
-	}
-
-	cout << endl;
-
-	//calculate each student's skillscore for each project
-	int skillscore = 0;
-	for(int i = 0; i < numProjects; i++) {
-		for(int j = 0; j < numStudents; j++) {
-			cout << "Student" + to_string(j+1) + " skillscore for Project" + to_string(i + 1) + ": ";
-			for(int k = 0; k < numSkills; k++) {
-				skillscore += students.at(j).skills[k] * projects.at(i).skills[k];
-			}// end k
-
-			cout << to_string(skillscore) << endl;
-			skillscore = 0;
-		}// end j
-	}// end i
-
-	cout << endl;*/
-
 	auto start = high_resolution_clock::now();
 	srand(time(NULL));
 
@@ -223,7 +75,82 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 	cout << "STUDENTS TO PROJECTS ASSIGNMENT RUNNING..." << endl;
 	for(int i = 0; i < numProjects; i++) {
 
-		string bitmask(teamSize,1);
+		//new combination process
+		int studentIndexes[teamSize];
+		for(int i = 0; i < teamSize; i++) {
+			studentIndexes[i] = i+1;
+		}
+		int indexToIncrement = teamSize - 1;
+		bool permuting = true;
+		numStudents = 60;
+
+		while(permuting) {
+			for(int j = 0; j < teamSize; j++) {
+				currentTeam.team.push_back(StudentList[studentIndexes[j] - 1]);
+				for(int k = 0; k < numSkills; k++) {
+					teamskillscore += StudentList[studentIndexes[j] - 1].Skills[k] * ProjectList[i].Skills[k];
+				}
+			}
+			for(unsigned int j = 0; j < currentTeam.team.size(); j++) {
+				//cout << currentTeam.team[j].StudentID << " ";
+			}
+
+			currentTeam.TeamScore = teamskillscore;
+
+			if (currentTeam.TeamScore >= top1 ){
+				top1 = currentTeam.TeamScore;
+				currentTopTeams[0] = currentTeam;
+			}else if (currentTeam.TeamScore >= top2 ){
+				top2 = currentTeam.TeamScore;
+				currentTopTeams[1] = currentTeam;
+			}else if (currentTeam.TeamScore >= top3 ){
+				top3 = currentTeam.TeamScore;
+				currentTopTeams[2] = currentTeam;
+			}else if (currentTeam.TeamScore >= top4 ){
+				top4 = currentTeam.TeamScore;
+				currentTopTeams[3] = currentTeam;
+			}else if (currentTeam.TeamScore >= top5 ){
+				top5 = currentTeam.TeamScore;
+				currentTopTeams[4] = currentTeam;
+			}else if (currentTeam.TeamScore >= top6 ){
+				top6 = currentTeam.TeamScore;
+				currentTopTeams[5] = currentTeam;
+			}else if (currentTeam.TeamScore >= top7 ){
+				top7 = currentTeam.TeamScore;
+				currentTopTeams[6] = currentTeam;
+			}else if (currentTeam.TeamScore >= top8 ){
+				top8 = currentTeam.TeamScore;
+				currentTopTeams[7] = currentTeam;
+			}else if (currentTeam.TeamScore >= top9 ){
+				top9 = currentTeam.TeamScore;
+				currentTopTeams[8] = currentTeam;
+			}else if (currentTeam.TeamScore >= top10 ){
+				top10 = currentTeam.TeamScore;
+				currentTopTeams[9] = currentTeam;}
+
+			teamskillscore = 0;
+			currentTeam.team.clear();
+			currentTeam.TeamScore = 0;
+
+
+			studentIndexes[indexToIncrement]++;
+			while(studentIndexes[indexToIncrement] == numStudents - ((teamSize - 1) - (indexToIncrement + 1))){
+				indexToIncrement--;
+				if(indexToIncrement < 0) {
+					permuting = false;
+					break;
+				} else {
+					studentIndexes[indexToIncrement]++;
+				}
+			}
+			while(indexToIncrement < teamSize - 1 && permuting) {
+				indexToIncrement++;
+				studentIndexes[indexToIncrement] = studentIndexes[indexToIncrement - 1] + 1;
+			}
+		}
+
+		//old combination calculation process
+		/*string bitmask(teamSize,1);
 		bitmask.resize(numStudents, 0);
 		while(std::prev_permutation(bitmask.begin(), bitmask.end())) {
 			for (int j = 0; j < numStudents; ++j) {
@@ -282,7 +209,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 			currentTeam.team.clear();
 			currentTeam.TeamScore = 0;
 
-		} // end while loop
+		} // end while loop*/
 
 		topTeams.push_back(currentTopTeams);
             top1 = 0;
