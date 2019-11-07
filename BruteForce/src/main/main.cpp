@@ -118,8 +118,11 @@ int main(){
     //Threads for each class section will start here
     //Students will be partitioned here by skill averages
     //projects will be partitioned by priority
-    //StudentsToProjects x;
+    StudentsToProjects x;
     //x.StudentsToProjectsAssignment(SJson.allStudents, PJson.allProjects);
+
+    x.arrayStudentsToProjectsAssignment(PROJECT_POOL, STUDENT_POOL, CLASS_SECTION_POOL,
+			NUM_PROJECTS, NUM_STUDENTS, NUM_CLASS_SECTIONS, NUM_SKILLS, TEAM_SIZE);
 
     //join threads
 
@@ -141,7 +144,7 @@ int main(){
 
 	// Drivers to convert Json into some kind of report, like excel or json to pdf?
 	// ex - writeReport();
-    //delete[] percentMatrix;
+    delete[] percentMatrix1;
 	return 0;
 }
 

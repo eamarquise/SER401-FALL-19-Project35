@@ -8,6 +8,7 @@
 #include "StudentsToProjects.h"
 #include "Project.h"
 #include "Student.h"
+#include "ClassSection.h"
 #include "json/json.h"
 
 #include <iostream>
@@ -281,6 +282,177 @@ void StudentsToProjects::StudentsToProjectsAssignment(vector <Student> StudentLi
 		  cout<< "TeamScore: " + to_string(topTeams[i][j].TeamScore)<<endl;
 		}
 		 cout << endl;
+	}
+}
+
+void StudentsToProjects::arrayStudentsToProjectsAssignment(Project projectPool[],
+        Student studentPool[], ClassSection classSectionPool[], int numProjects,
+		int numStudents, int numClassSections,
+		int numSkills, int teamSize) {
+
+	auto start = high_resolution_clock::now();
+	srand(time(NULL));
+
+	struct Team {
+		vector <Student> team;
+	    int TeamScore;
+	};
+
+	struct ProjectSet {
+	    vector <Team> teams;
+	    int ProjectSetScore;
+	};
+
+	Team currentTeam;
+	ProjectSet currentSet, bestSet, bestSetWithDuplicates;
+
+	//used to store the top 10 teams for every project.
+	Team temp;
+
+	vector <Team> currentTopTeams;
+
+	for(int j = 0; j < 10; j++) {
+		currentTopTeams.push_back(temp);
+	}
+
+	//Team currentTopTeams[10];
+	vector<vector<Team>> topTeams;
+	//Team topTeams[numProjects * 10];
+
+	int top1 = 0;
+	int top2 = 0;
+	int top3 = 0;
+	int top4 = 0;
+	int top5 = 0;
+	int top6 = 0;
+	int top7 = 0;
+	int top8 = 0;
+	int top9 = 0;
+	int top10 = 0;
+
+	int topTeamIndex = 0;
+
+	//calculate each team combination skillscore for each project
+	int teamskillscore = 0;
+
+	Student student;
+	Project project;
+	ClassSection classSection;
+
+	for (int i = 0; i < numClassSections; i++) {
+		classSection = *(classSectionPool + i);
+		for (int j = 0; j < numProjects; j++) {
+			project = *(projectPool + j);
+			if(project.Type == classSection.Type) {
+
+				string bitmask(teamSize,1);
+				bitmask.resize(numStudents, 0);
+
+				while(std::prev_permutation(bitmask.begin(), bitmask.end())) {
+					for (int k = 0; k < numStudents; ++k){
+						student = *(studentPool + k);
+						if (student.ClassID == classSection.ClassID) {
+							if (bitmask[k]) {
+								currentTeam.team.push_back(student);
+
+								for (int m = 0; m < numSkills; m++) {
+									teamskillscore += student.Skills[m] * project.Skills[m];
+								}
+							}
+						}
+					}
+
+					//for (unsigned int k = 0; k < currentTeam.team.size(); k++) {
+					//cout << currentTeam.team[k].StudentID << " ";
+					//}
+
+					currentTeam.TeamScore = teamskillscore;
+
+					if (currentTeam.TeamScore >= top1 ){
+						top1 = currentTeam.TeamScore;
+						currentTopTeams[0] = currentTeam;
+					}else if (currentTeam.TeamScore >= top2 ){
+						top2 = currentTeam.TeamScore;
+						currentTopTeams[1] = currentTeam;
+					}else if (currentTeam.TeamScore >= top3 ){
+						top3 = currentTeam.TeamScore;
+						currentTopTeams[2] = currentTeam;
+					}else if (currentTeam.TeamScore >= top4 ){
+						top4 = currentTeam.TeamScore;
+						currentTopTeams[3] = currentTeam;
+					}else if (currentTeam.TeamScore >= top5 ){
+						top5 = currentTeam.TeamScore;
+						currentTopTeams[4] = currentTeam;
+					}else if (currentTeam.TeamScore >= top6 ){
+						top6 = currentTeam.TeamScore;
+						currentTopTeams[5] = currentTeam;
+					}else if (currentTeam.TeamScore >= top7 ){
+						top7 = currentTeam.TeamScore;
+						currentTopTeams[6] = currentTeam;
+					}else if (currentTeam.TeamScore >= top8 ){
+						top8 = currentTeam.TeamScore;
+						currentTopTeams[7] = currentTeam;
+					}else if (currentTeam.TeamScore >= top9 ){
+						top9 = currentTeam.TeamScore;
+						currentTopTeams[8] = currentTeam;
+					}else if (currentTeam.TeamScore >= top10 ){
+						top10 = currentTeam.TeamScore;
+						currentTopTeams[9] = currentTeam;}
+
+					teamskillscore = 0;
+					currentTeam.team.clear();
+					currentTeam.TeamScore = 0;
+				}
+
+				topTeams.push_back(currentTopTeams);
+
+				top1 = 0;
+				top2 = 0;
+				top3 = 0;
+				top4 = 0;
+				top5 = 0;
+				top6 = 0;
+				top7 = 0;
+				top8 = 0;
+				top9 = 0;
+				top10 = 0;
+
+				cout << "Project # "
+						+ to_string(project.ProjectID)
+						+ "  team combinations complete. " << endl;
+
+			} else {
+				// Continue
+			}
+		}
+	}
+
+	auto stop = high_resolution_clock::now();
+	auto duration = duration_cast<milliseconds>(stop - start);
+
+	cout << "time in milliseconds: ";
+	cout << duration.count() << endl;
+	//cout << "Number of iterations: ";
+	cout << endl;
+	cout<< "Top 10 teams for each project"<<endl;
+	//cout << "Size of top teams: " + to_string(topTeamIndex)<<endl;
+
+	for(int i = 0; i < numProjects; i++) {
+		project = *(projectPool + i);
+
+		cout<< "Projects #" + to_string(project.ProjectID) + " Student Teams:"<<endl;
+		//cout << "Size of top teams in top teams: " + to_string(topTeamIndex/teamSize)<<endl;
+
+		for(int j = 0; j < topTeams[i].size(); j++) {
+
+			cout << "Team #" + to_string(j) + " ";
+			for(int k = 0; k < teamSize; k++) {
+				cout<< to_string(topTeams[i][j].team[k].StudentID) + " ";
+			}
+			cout << endl;
+			cout<< "TeamScore: " + to_string(topTeams[i][j].TeamScore)<<endl;
+		}
+		cout << endl;
 	}
 }
 
