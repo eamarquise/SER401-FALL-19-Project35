@@ -5,20 +5,24 @@
  *      Author: myles
  */
 
-#ifndef BRUTEFORCE_SRC_MAIN_STUDENTJSON_H_
-#define BRUTEFORCE_SRC_MAIN_STUDENTJSON_H_
+#ifndef STUDENTJSON_H_
+#define STUDENTJSON_H_
+
+#include <vector>
 #include <string>
+
 #include "Student.h"
-using namespace std;
+
+namespace std{
 
 class StudentJson {
-public:
-	vector <Student> allStudents;
-	StudentJson();
-	virtual ~StudentJson();
-	void StudentReader(string filename);
-	void StudentWriter(string filename);
-	Student getStudentJsonObject(string filename, int i);
+	public:
+		vector<Student> allStudents;
+		StudentJson();
+		~StudentJson();
+		void StudentReader(string filename);
+		void StudentWriter(string filename);
+		Student getStudentJsonObject(string filename, int i);
 };
-
+}
 #endif /* BRUTEFORCE_SRC_MAIN_STUDENTJSON_H_ */

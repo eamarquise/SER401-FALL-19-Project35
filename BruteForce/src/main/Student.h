@@ -9,18 +9,18 @@
  *      Student objects.
  */
 
-#ifndef BRUTEFORCE_SRC_MAIN_STUDENT_H_
-#define BRUTEFORCE_SRC_MAIN_STUDENT_H_
+#ifndef STUDENT_H_
+#define STUDENT_H_
+
 #include <iostream>
 #include <utility>
 #include <vector>
+#include <string>
 #include <array>
 
 using namespace std;
 
-//template <int Count>
-struct Student
-{
+struct Student {
 	int StudentID; //student's ID. unique for each student
 	int StID; //ID depicting from [0 - NumOfStudents] in that class section.
 	int ClassID; //determines which class the student belongs to.
@@ -34,7 +34,6 @@ struct Student
 	//pair <int, bool> StudentAffinity[Count];
 	vector< pair <int, bool> > StudentAffinity;
 
-
 	//[0] Primary Weekday | [1] Secondary Weekday | [2] Primary Weekend | [3] Secondary Weekend
 	//Possible selections:
 	//  |0 = Night-time:   12:00AM - 4:00AM |1 = Early Morning: 4:00AM - 8:00AM |
@@ -43,28 +42,27 @@ struct Student
 	//Each student chooses four out of the six possible time-frames
 	//(two selections for weekday availability; two selections for weekend availability)
 	int Availability[4];
-
 	Student(){}
-	//Constructor
-	Student(int stID, int cID, int s[], vector< pair <int, bool> > aff,  int times[]){
+	Student(int stID, int cID, int s[], vector< pair <int, bool> > aff,
+            int times[]){
 
 		StudentID = stID;
         ClassID = cID;
+
         for (int i = 0; i < 7; i++){
         	Skills[i] = s[i];
-       	 }
+        }
+
         for (int i = 0; i < aff.size(); i++){
         	pair <int, bool> x = {aff[i].first, aff[i].second};
         	StudentAffinity.push_back(x);
-               	 }
+        }
+
         for (int i = 0; i < 4; i++){
         	Availability[i] = times[i];
-               	 }
-
+        }
 	}
-
-
-
 };
+
 #endif /* BRUTEFORCE_SRC_MAIN_STUDENT_H_ */
 

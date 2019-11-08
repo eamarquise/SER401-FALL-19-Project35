@@ -9,24 +9,21 @@
  *      Project objects.
  */
 
-#ifndef BRUTEFORCE_SRC_MAIN_PROJECT_H_
-#define BRUTEFORCE_SRC_MAIN_PROJECT_H_
+#ifndef PROJECT_H_
+#define PROJECT_H_
+
 #include <array>
 
-struct Project
-{
-
+struct Project {
 	int ProjectID; 	//Project Id. unique for each project.
 	int ClassID; 	//value determined when project is assigned to a class section.
 	char Type;  	//O = online | G = ground | H = hybrid
 	int Priority;	// 0 = does not have to be assigned | 1 = preferred to be assigned | 2 = must be assigned
 	int Skills[7]; 	//for each skill, 0 = not required | 1 = nice to have skill | 2 = required skill
+
 	Project(){}
-
-
 	//Constructor
 	Project(int pID, char t, int priority, int pskills[]){
-
 		ProjectID = pID;
 		Type = t;
 		Priority = priority;
@@ -36,4 +33,4 @@ struct Project
 	}
 };
 
-#endif /* BRUTEFORCE_SRC_MAIN_PROJECT_H_ */
+#endif

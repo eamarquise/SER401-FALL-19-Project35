@@ -3,15 +3,6 @@
  * Created On: 10/27/2019
  * Purpose: driver for BruteForce prototype.
  */
-
-#include <iostream>
-#include <utility>
-#include <algorithm>
-#include <vector>
-#include <fstream>
-#include <string>
-#include <cstdlib>
-
 #include "Student.h"
 #include "Project.h"
 #include "ClassSection.h"
@@ -19,159 +10,167 @@
 #include "json/json.h"
 #include "StudentJson.h"
 #include "ProjectJson.h"
+#include "ClassSectionJson.h"
+#include "Utility.h"
 #include "StudentsToProjects.h"
 
-#include "Utility.h"
-
+#include <iostream>
+#include <utility>
+#include <array>
+#include <algorithm>
+#include <vector>
+#include <thread>
+#include <fstream>
+#include <string>
+#include <cstdlib>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-
-//INFORMATION THAT WE WILL ASSUME WILL BE READ IN FROM THE GUI
-int numClassSections = 4;
-
-
-
+constexpr int toConstInt(int constInt) {
+	return constInt;
+}
 
 int main(){
 	cout << "Hi Team 35" << endl;
 
-	const string projectFilename = "./SampleJsonFiles/20Projects.json";
-	const string studentFilename = "./SampleJsonFiles/60Students.json";
+	const string PROJECT_FILE = "./SampleJsonFiles/20Projects.json";
+	const string STUDENT_FILE = "./SampleJsonFiles/60Students.json";
+	const string CLASS_SECTION_FILE = "./SampleJsonFiles/4ClassSections.json";
 
+	const int NUM_SKILLS = 7;
+	const int TEAM_SIZE = 5;
+	const int NUM_CLASS_SECTIONS = 4;
 
-	Utility u;
+	Utility util;
 
-	const int numProjects = u.getSizeOfJson(projectFilename, "projects");
-	const int numStudents = u.getSizeOfJson(studentFilename, "students");
-	const int numSkills = 7;
+	int tempNumStudents = util.getSizeOfJson(STUDENT_FILE, "students");
+	int tempNumProjects = util.getSizeOfJson(PROJECT_FILE, "projects");
 
+	const int NUM_STUDENTS = toConstInt(tempNumStudents);
+	const int NUM_PROJECTS = toConstInt(tempNumProjects);
 
 	StudentJson SJson;
 	ProjectJson PJson;
+	ClassSectionJson CSJson;
 
+	Project PROJECT_POOL[NUM_PROJECTS];
+	Student STUDENT_POOL[NUM_STUDENTS];
+	ClassSection CLASS_SECTION_POOL[NUM_CLASS_SECTIONS];
 
-	Project *projectPool = new Project[numProjects];
-	Student *studentPool = new Student[numStudents];
+	int PROJECT_STUDENT_SKILLS[NUM_PROJECTS * NUM_STUDENTS];
+	int percentMatrix[NUM_PROJECTS * NUM_CLASS_SECTIONS];
 
-	int *projectXstudent  = new int[(numProjects * numStudents)];
+	// INITIALIZE POOLS
+	util.initProjectPool(PROJECT_FILE, PROJECT_POOL, NUM_PROJECTS);
+	util.initStudentPool(STUDENT_FILE, STUDENT_POOL, NUM_STUDENTS);
+	util.initClassSectionPool(CLASS_SECTION_FILE, CLASS_SECTION_POOL, STUDENT_POOL,
+            NUM_CLASS_SECTIONS, NUM_STUDENTS);
+	util.initProjectStudentSkills(PROJECT_POOL, STUDENT_POOL,
+			PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS, NUM_SKILLS);
+	util.arrayProjectToSectionPercentages(PROJECT_POOL, STUDENT_POOL, CLASS_SECTION_POOL,
+			percentMatrix, NUM_PROJECTS, NUM_STUDENTS, NUM_CLASS_SECTIONS, NUM_SKILLS);
 
-
-	// INITIALIZE PROJECT POOL
-	for (int i = 0; i < numProjects; i++) {
-		projectPool[i] = PJson.ProjectReader(projectFilename, i);
-	}
-
-	// INITIALIZE STUDENT POOL
-	for (int i = 0; i < numStudents; i++) {
-		studentPool[i] = SJson.getStudentJsonObject(studentFilename, i);
-	}
-
-
-	// INITIALIZE PROJECT X STUDENT SKILL MATRIX
-	for (int i = 0; i < (numProjects); i++) {
-		for (int j = 0; j < numStudents; j++) {
-			int currentProjectXstudent = 0;
-			projectXstudent[(i * numStudents) + j] = u.getProjectVsStudentSkill(projectPool, numProjects,
-				studentPool, numStudents, numSkills, currentProjectXstudent, i, j);
-		}
-	}
-
+	// PARTITION POOLS BY TYPE (ONLINE/GROUND/HYBRID)
+	util.projectTypePartition(PROJECT_POOL, NUM_PROJECTS, 'O', 'G', 'H');
 
 /***** SORTING STUDENTS BASED ON SKILL *****/
 	//creating student skill average
-	for(int i=0; i<numStudents; i++) {
+	for(int i=0; i<NUM_STUDENTS; i++) {
 		double average1=0;
-		for(int m=0; m < numSkills; m++) {
-			average1 += studentPool[i].Skills[m];
+		for(int m=0; m < NUM_SKILLS; m++) {
+			average1 += STUDENT_POOL[i].Skills[m];
 		}
-		average1 = average1/numSkills;
-		studentPool[i].skillAverage = average1;
+		average1 = average1/NUM_SKILLS;
+		STUDENT_POOL[i].skillAverage = average1;
 	}
 
-
 	//Averaging student skills into a sorted array
-	for(int i=0; i < numStudents; i++){
-		Student temp;
-		for(int j=(i+1); j < numStudents; j++){
-			if (studentPool[j].skillAverage > studentPool[i].skillAverage) {
-				temp = studentPool[i];
-				studentPool[i] = studentPool[j];
-				studentPool[j] = temp;
+	for(int i=0; i < NUM_STUDENTS; i++){
+		Student student;
+		for(int j=(i+1); j < NUM_STUDENTS; j++){
+			if (STUDENT_POOL[j].skillAverage > STUDENT_POOL[i].skillAverage) {
+				student = STUDENT_POOL[i];
+				STUDENT_POOL[i] = STUDENT_POOL[j];
+				STUDENT_POOL[j] = student;
 			}
 		}
 	 }
 
-
 	//Counting project priority
-	int count2=0, count1=0;
-	for(int i=0; i<numProjects; i++){
-		if(projectPool[i].Priority ==2) { count2++; }
-		if(projectPool[i].Priority ==1) { count1++; }
+	int count1 = 0;
+	int count2 = 0;
+
+	for(int i=0; i<NUM_PROJECTS; i++){
+		if(PROJECT_POOL[i].Priority ==2) { count2++; }
+		if(PROJECT_POOL[i].Priority ==1) { count1++; }
 	}
-	count2 = count2*5;
+
 	count1 = count1*5;
+	count2 = count2*5;
 
-	//Pushing students onto project priority vectors
-	Student *priority2 = new Student[count2];
-	Student *priority1 = new Student[count1];
-	Student *priority0 = new Student[numStudents-count2-count1];
-	std::copy(studentPool +0, studentPool+(count2-1), priority2);
-	std::copy(studentPool +(count2), studentPool +(count2+count1-1), priority1);
-	std::copy(studentPool +(count2+count1), studentPool +(numStudents), priority0);
+	const int COUNT_1 = toConstInt(count1);
+	const int COUNT_2 = toConstInt(count2);
 
+	//Pushing students onto project priority arrays
+	Student priority1[COUNT_1];
+	Student priority2[COUNT_2];
+	Student priority0[NUM_STUDENTS - COUNT_2 - COUNT_1];
+
+	std::copy(STUDENT_POOL + 0, STUDENT_POOL+(COUNT_2-1), priority2);
+	std::copy(STUDENT_POOL +(COUNT_2), STUDENT_POOL +(COUNT_2+COUNT_1-1), priority1);
+	std::copy(STUDENT_POOL +(COUNT_2+COUNT_1), STUDENT_POOL +(NUM_STUDENTS), priority0);
 
 //TASK#144 TESTS.=================================
+    //SJson.StudentReader(STUDENT_FILE);			// Equivalent to util.initStudentPool
+    //PJson.ProjectReaderVector(PROJECT_FILE);	// Equivalent to util.initProjectPool
 
+    //This is just to create a vector of vectors for use in the percent matrix.
+    //the function will take in the vector of vectors of students sorted by class section
+   /*vector<vector<Student>> studentlist(NUM_CLASS_SECTIONS);
 
-	  	  SJson.StudentReader(studentFilename);
-          PJson.ProjectReaderVector(projectFilename);
+    Student s;
 
-	        //This is just to create a vector of vectors for use in the percent matrix.
-	        //the function will take in the vector of vectors of students sorted by class section
-	        vector<vector<Student>> studentlist(numClassSections);
-            Student s;
-	    	for (int i = 0; i < numClassSections; ++i)
-	    	  	    {
+    for (int i = 0; i < NUM_CLASS_SECTIONS; ++i) {
+        for (int j = 0; j < NUM_STUDENTS; j++) {
+            studentlist[i].push_back(SJson.allStudents[j]);
+        }
+    }
+*/
+    /*
+    //function call to create the percent matirx
+    int** percentMatrix1 = util.ProjectToSectionPercentages(studentlist,
+            PJson.allProjects, NUM_PROJECTS, NUM_CLASS_SECTIONS);
 
-	    	  	        for (int j = 0; j < numStudents; j++)
-	    	  	        {
-	    	  	            studentlist[i].push_back(SJson.allStudents[j]);
-	    	  	        }}
+    cout << "PERCENT MATRIX, ROWS=projects, COLUMNS=Class Sections"<<endl;
 
-
-            //function call to create the percent matirx
-	    	int** percentMatrix = u.ProjectToSectionPercentages(studentlist, PJson.allProjects, numProjects, numClassSections);
-
-                   cout << "PERCENT MATRIX, ROWS=projects, COLUMNS=Class Sections"<<endl;
-	    		  	//print the resulting percent matrix
-	    		  	for (int i = 0; i < numProjects; ++i)
-	    		  	    {
-	    		  	        for (int j = 0; j < numClassSections; j++)
-	    		  	        {
-	    		  	            cout << percentMatrix[i][j] << ' ';
-	    		  	        }
-	    		  	        cout <<endl;
-	    		  	    }
+    //print the resulting percent matrix
+    for (int i = 0; i < NUM_PROJECTS; ++i) {
+        for (int j = 0; j < NUM_CLASS_SECTIONS; j++) {
+            cout << percentMatrix1[i][j] << ' ';
+        }
+        cout <<endl;
+    }
+    */
 //End -TASK#144 TESTS =================================
 
 //STUDENTS TO PROJECTS ASSIGNMENT
-	    		  	//Threads for each class section will start here
-	    		  	//Students will be partitioned here by skill averages
-	    		  	//projects will be partitioned by priority
+    //Threads for each class section will start here
+    //Students will be partitioned here by skill averages
+    //projects will be partitioned by priority
+    StudentsToProjects x;
+    x.ArrayStudentsToProjectsAssignment(STUDENT_POOL, PROJECT_POOL,
+    		NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE);
 
-	StudentsToProjects x;
-	x.StudentsToProjectsAssignment(SJson.allStudents, PJson.allProjects);
+    //join threads
 
-
-	                //join threads
-
-	//Tests
-	// Test t;
-	//t.StructTest();
-	//t.InitializeProjectPoolTest(projectPool, numProjects);
-	//t.InitializeStudentPoolTest(studentPool, numStudents);
-	//t.InitializeProjectStudentSkillMatrixTest(projectXstudent, numProjects, numStudents);
+    //Tests
+	Test t;
+	t.StructTest();
+	t.PrintProjectPool(PROJECT_POOL, NUM_PROJECTS, NUM_SKILLS);
+	t.PrintStudentPool(STUDENT_POOL, NUM_STUDENTS, NUM_SKILLS);
+	t.PrintProjectStudentSkills(PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS);
+	t.PrintPercentMatrix(percentMatrix, NUM_PROJECTS, NUM_CLASS_SECTIONS);
 
 	// Drivers to read in rules, like class section definitions
 	// ex - getRules(capStoneCourseDefinitions);
@@ -179,22 +178,11 @@ int main(){
 	// Drivers to crunch stuff
 	// ex - mapProjectsToClasses(rules);
 
-
 	// Drivers to write Json
 	// ex - composeReport();
 
 	// Drivers to convert Json into some kind of report, like excel or json to pdf?
 	// ex - writeReport();
 
-
-	delete[] projectXstudent;
-	delete[] studentPool;
-	delete[] projectPool;
-
 	return 0;
 }
-
-
-
-
-

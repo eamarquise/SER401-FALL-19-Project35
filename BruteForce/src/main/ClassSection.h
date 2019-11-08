@@ -9,26 +9,19 @@
  *      Class Section objects.
  */
 
-#ifndef BRUTEFORCE_SRC_MAIN_CLASSSECTION_H_
-#define BRUTEFORCE_SRC_MAIN_CLASSSECTION_H_
-#include <array>
-#include <vector>
+#ifndef CLASSSECTION_H_
+#define CLASSSECTION_H_
 
-template <int NumStudents>
-struct ClassSection
-{
-	int ClassSectionID; //Class section Id. unique for each class.
-	char Type;  //O = online | G = ground
-	int Enrollment[NumStudents]; //number of students enrolled in the class section.
-	//int ProjectPool[NumProjects]; //Projects available to the class section
-	vector <int> ProjectPool; //Projects available to the class section
+struct ClassSection {
+	int ClassID;
+	char Type;  // O = online | G = ground
+	int Enrollment;
 
+	ClassSection(){}
 	ClassSection(int cID, char t){
-		ClassSectionID = cID;
+		ClassID = cID;
 		Type = t;
 	}
-
 };
 
-
-#endif /* BRUTEFORCE_SRC_MAIN_CLASSSECTION_H_ */
+#endif
