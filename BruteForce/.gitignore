@@ -2,6 +2,7 @@
 /.metadata/
 *.project
 *.cproject
+*.settings
 
 # Prerequisites
 *.d
