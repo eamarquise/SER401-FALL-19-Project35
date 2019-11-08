@@ -3,7 +3,6 @@
  * Created On: 10/27/2019
  * Purpose: driver for BruteForce prototype.
  */
-
 #include "Student.h"
 #include "Project.h"
 #include "ClassSection.h"
@@ -44,7 +43,6 @@ int main(){
 	const int NUM_CLASS_SECTIONS = 4;
 
 	Utility util;
-	Utility u;
 
 	int tempNumStudents = util.getSizeOfJson(STUDENT_FILE, "students");
 	int tempNumProjects = util.getSizeOfJson(PROJECT_FILE, "projects");
@@ -123,7 +121,6 @@ int main(){
 	std::copy(STUDENT_POOL +(COUNT_2), STUDENT_POOL +(COUNT_2+COUNT_1-1), priority1);
 	std::copy(STUDENT_POOL +(COUNT_2+COUNT_1), STUDENT_POOL +(NUM_STUDENTS), priority0);
 
-
 //TASK#144 TESTS.=================================
     //SJson.StudentReader(STUDENT_FILE);			// Equivalent to util.initStudentPool
     //PJson.ProjectReaderVector(PROJECT_FILE);	// Equivalent to util.initProjectPool
@@ -165,9 +162,6 @@ int main(){
     x.ArrayStudentsToProjectsAssignment(STUDENT_POOL, PROJECT_POOL,
     		NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE);
 
-    //x.arrayStudentsToProjectsAssignment(PROJECT_POOL, STUDENT_POOL, CLASS_SECTION_POOL,
-	//		NUM_PROJECTS, NUM_STUDENTS, NUM_CLASS_SECTIONS, NUM_SKILLS, TEAM_SIZE);
-
     //join threads
 
     //Tests
@@ -189,11 +183,6 @@ int main(){
 
 	// Drivers to convert Json into some kind of report, like excel or json to pdf?
 	// ex - writeReport();
-    //delete[] percentMatrix1;
+
 	return 0;
 }
-
-
-
-
-
