@@ -64,7 +64,7 @@ void StudentsToProjects::ArrayStudentsToProjectsAssignment(Student studentPool[]
 		 }
 	Team topTeams[numStudents][10];
 
-	Student newStudentPool[60];
+	Student newStudentPool[numStudents];
 
     int top1 = 0;
     int top2 = 0;
