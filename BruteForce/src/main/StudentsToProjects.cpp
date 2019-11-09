@@ -35,7 +35,6 @@ constexpr int StudentsToProjects::toConstInt(int constInt) {
 void StudentsToProjects::ArrayStudentsToProjectsAssignment(Student studentPool[],
 		Project projectPool[], int numStudents, int numProjects, int numSkills,
 		const int teamSize) {
-
     auto start = high_resolution_clock::now();
 	srand(time(NULL));
 
@@ -63,8 +62,9 @@ void StudentsToProjects::ArrayStudentsToProjectsAssignment(Student studentPool[]
 	 for(int j = 0; j < 10; j++) {
 			 currentTopTeams[j]=temp;
 		 }
-	 numStudents = 20;
 	Team topTeams[numStudents][10];
+
+	Student newStudentPool[60];
 
     int top1 = 0;
     int top2 = 0;
@@ -83,6 +83,7 @@ void StudentsToProjects::ArrayStudentsToProjectsAssignment(Student studentPool[]
 	//calculate each team combination skillscore for each project
 	int teamskillscore = 0;
     int num =0;
+    //numProjects = 1;
 //<<<<<<< HEAD
 	cout << "STUDENTS TO PROJECTS ASSIGNMENT RUNNING..." << endl;
 	for(int i = 0; i < numProjects; i++) {
@@ -109,10 +110,10 @@ void StudentsToProjects::ArrayStudentsToProjectsAssignment(Student studentPool[]
 				num++;
 				//currentTeam.team.push_back(student);
 				//currentTeam.team.push_back(StudentList[studentIndexes[j] - 1]);
-				/*for(int k = 0; k < numSkills; k++) {
+				for(int k = 0; k < numSkills; k++) {
 					teamskillscore += (student.Skills[k]) * (project.Skills[k]);
 					//teamskillscore += StudentList[studentIndexes[j] - 1].Skills[k] * ProjectList[i].Skills[k];
-				}*/
+				}
 			}
 
 			//negative affinity check
@@ -207,25 +208,33 @@ void StudentsToProjects::ArrayStudentsToProjectsAssignment(Student studentPool[]
 		//remove students from student pool.
 		newStudentPoolIndex = 0;
 		if(numStudents - 5 > 0) {
-			Student newStudentPool[numStudents - 5];
+			newStudentPool[numStudents - 5];
 			for(int j = 0; j < numStudents; j++) {
 				studentFound = false;
 				cout << to_string(studentPool[j].StudentID) << endl;
 				for(int k = 0; k < teamSize; k++) {
-					//cout << to_string(topTeams[j][0].Team[k].StudentID) << endl;
-
-					if(topTeams[j][0].Team[k].StudentID == studentPool[j].StudentID) {
+					cout << to_string(topTeams[i][0].Team[k].StudentID) << " --- ";
+					cout << to_string(studentPool[j].StudentID) << endl;
+					if(topTeams[i][0].Team[k].StudentID == studentPool[j].StudentID) {
 						studentFound = true;
+						cout << "student found" << endl;
 					}
 				}//end k
-				cout << endl;
 				if(!studentFound) {
 					newStudentPool[newStudentPoolIndex] = studentPool[j];
 					newStudentPoolIndex++;
 				}
 			}//end j
 			numStudents -= 5;
+			studentPool = newStudentPool;
+			cout << "NEW STUDENT POOL: ";
+			for(int j = 0; j < newStudentPoolIndex; j++) {
+				cout << to_string(studentPool[j].StudentID) << " ";
+			}
+			cout << endl;
 		} //end if
+
+
 
 
 		cout << "Project # " + to_string(project.ProjectID) + "  team combinations complete. " << endl;
