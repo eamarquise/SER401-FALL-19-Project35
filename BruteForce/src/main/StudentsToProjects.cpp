@@ -77,248 +77,127 @@ void StudentsToProjects::ArrayStudentsToProjectsAssignment(Student studentPool[]
     int top9 = 0;
     int top10 = 0;
 
-	//calculate each team combination skillscore for each project
-	int teamskillscore = 0;
-    int num =0;
-//<<<<<<< HEAD
-	cout << "STUDENTS TO PROJECTS ASSIGNMENT RUNNING..." << endl;
-	for(int i = 0; i < numProjects; i++) {
 
-		//new combination process
-		int studentIndexes[5];
+    //calculate each team combination skillscore for each project
+    	int teamskillscore = 0;
 
-		for(int i = 0; i < teamSize; i++) {
-			studentIndexes[i] = i+1;
-		}
+        int num =0;
 
-		Project project;
-		Student student;
+        	cout << "STUDENTS TO PROJECTS ASSIGNMENT RUNNING..." << endl;
+        	for(int i = 0; i < numProjects; i++) {
 
-		int indexToIncrement = teamSize - 1;
-		bool permuting = true;
+        		//new combination process
+        		int studentIndexes[teamSize];
+        		for(int i = 0; i < teamSize; i++) {
+        			studentIndexes[i] = i+1;
+        		}
+        		int indexToIncrement = teamSize - 1;
+        		bool permuting = true;
 
-		project = *(projectPool + i);
+        		while(permuting) {
+        			for(int j = 0; j < teamSize; j++) {
+        				currentTeam.Team[num] = studentPool[studentIndexes[j] - 1];
+        				num++;
+        				//for(int k = 0; k < numSkills; k++) {
+        				//	teamskillscore += StudentList[studentIndexes[j] - 1].Skills[k] * ProjectList[i].Skills[k];
+        				//}
+        			}
 
-		while(permuting) {
-			for(int j = 0; j < teamSize; j++) {
-				student = *(studentPool + (studentIndexes[j] - 1));
-				currentTeam.Team[num] = student;
-				num++;
-				//currentTeam.team.push_back(student);
-				//currentTeam.team.push_back(StudentList[studentIndexes[j] - 1]);
-				/*for(int k = 0; k < numSkills; k++) {
-					teamskillscore += (student.Skills[k]) * (project.Skills[k]);
-					//teamskillscore += StudentList[studentIndexes[j] - 1].Skills[k] * ProjectList[i].Skills[k];
-				}*/
-			}
+        			            //negative affinity check
+        						//check returns true if there is negative affinity on the team,
+        						//and false if there is no negative affinity.
+        						if (negativeAffinityCheck(currentTeam.Team) == false){
 
-			//negative affinity check
-			//check returns true if there is negative affinity on the team,
-			//and false if there is no negative affinity.
-			if (negativeAffinityCheck(currentTeam.Team) == false){
+        						//call to 3 team score functions
+        						//TeamScore = func1() + func2() + func3()
+        						// int score1 = ProjectCompareTeamScore(currentTeam.Team,  projectPool[i]);
+        						// int score2 = SkillCompareTeamScore(currentTeam.Team);
+        						// int score3 = AvailabilityTeamScore(currentTeam.Team);
 
-				//call to 3 team score functions
-				//TeamScore = func1() + func2() + func3()
-				int score1 = ProjectCompareTeamScore(currentTeam.Team,  project);
-				int score2 = SkillCompareTeamScore(currentTeam.Team);
-				int score3 = AvailabilityTeamScore(currentTeam.Team);
+        						 teamskillscore = ProjectCompareTeamScore(currentTeam.Team,  projectPool[i]) + SkillCompareTeamScore(currentTeam.Team) + AvailabilityTeamScore(currentTeam.Team);
 
-				teamskillscore = score1 + score2 + score3;
+        						currentTeam.TeamScore = teamskillscore;
+        						//debugging: cout for seeing the teamscores.
+        						//cout << "TeamScore: "+ to_string(score1) +" " + to_string(score2) +" " + to_string(score3) +" " << " = " << teamskillscore <<endl;
 
-				currentTeam.TeamScore = teamskillscore;
+        						if (currentTeam.TeamScore > top1 ){
+        							top1 = currentTeam.TeamScore;
+        							currentTopTeams[0] = currentTeam;
+        						}else if ( currentTeam.TeamScore == top1 | currentTeam.TeamScore > top2 ){
+        							top2 = currentTeam.TeamScore;
+        							currentTopTeams[1] = currentTeam;
+        						}else if ( currentTeam.TeamScore == top2 | currentTeam.TeamScore > top3 ){
+        							top3 = currentTeam.TeamScore;
+        							currentTopTeams[2] = currentTeam;
+        						}else if ( currentTeam.TeamScore == top3 | currentTeam.TeamScore > top4 ){
+        							top4 = currentTeam.TeamScore;
+        							currentTopTeams[3] = currentTeam;
+        						}else if ( currentTeam.TeamScore == top4 | currentTeam.TeamScore > top5 ){
+        							top5 = currentTeam.TeamScore;
+        							currentTopTeams[4] = currentTeam;
+        						}else if ( currentTeam.TeamScore == top5 | currentTeam.TeamScore > top6 ){
+        							top6 = currentTeam.TeamScore;
+        							currentTopTeams[5] = currentTeam;
+        						}else if ( currentTeam.TeamScore == top6 | currentTeam.TeamScore > top7 ){
+        							top7 = currentTeam.TeamScore;
+        							currentTopTeams[6] = currentTeam;
+        						}else if ( currentTeam.TeamScore == top7 | currentTeam.TeamScore > top8 ){
+        							top8 = currentTeam.TeamScore;
+        							currentTopTeams[7] = currentTeam;
+        						}else if ( currentTeam.TeamScore == top8 | currentTeam.TeamScore > top9 ){
+        							top9 = currentTeam.TeamScore;
+        							currentTopTeams[8] = currentTeam;
+        						}else if ( currentTeam.TeamScore == top9 | currentTeam.TeamScore > top10 ){
+        							top10 = currentTeam.TeamScore;
+        							currentTopTeams[9] = currentTeam;}
 
-				//debugging: cout for seeing the teamscores.
-				//cout << "TeamScore: "+ to_string(score1) +" " + to_string(score2) +" " + to_string(score3) +" " << " = " << teamskillscore <<endl;
+        						}//end affinity check
 
-				if (currentTeam.TeamScore > top1 ){
-					top1 = currentTeam.TeamScore;
-					currentTopTeams[0] = currentTeam;
-				}else if ( currentTeam.TeamScore == top1 | currentTeam.TeamScore > top2 ){
-					top2 = currentTeam.TeamScore;
-					currentTopTeams[1] = currentTeam;
-				}else if ( currentTeam.TeamScore == top2 | currentTeam.TeamScore > top3 ){
-					top3 = currentTeam.TeamScore;
-					currentTopTeams[2] = currentTeam;
-				}else if ( currentTeam.TeamScore == top3 | currentTeam.TeamScore > top4 ){
-					top4 = currentTeam.TeamScore;
-					currentTopTeams[3] = currentTeam;
-				}else if ( currentTeam.TeamScore == top4 | currentTeam.TeamScore > top5 ){
-					top5 = currentTeam.TeamScore;
-					currentTopTeams[4] = currentTeam;
-				}else if ( currentTeam.TeamScore == top5 | currentTeam.TeamScore > top6 ){
-					top6 = currentTeam.TeamScore;
-					currentTopTeams[5] = currentTeam;
-				}else if ( currentTeam.TeamScore == top6 | currentTeam.TeamScore > top7 ){
-					top7 = currentTeam.TeamScore;
-					currentTopTeams[6] = currentTeam;
-				}else if ( currentTeam.TeamScore == top7 | currentTeam.TeamScore > top8 ){
-					top8 = currentTeam.TeamScore;
-					currentTopTeams[7] = currentTeam;
-				}else if ( currentTeam.TeamScore == top8 | currentTeam.TeamScore > top9 ){
-					top9 = currentTeam.TeamScore;
-					currentTopTeams[8] = currentTeam;
-				}else if ( currentTeam.TeamScore == top9 | currentTeam.TeamScore > top10 ){
-					top10 = currentTeam.TeamScore;
-					currentTopTeams[9] = currentTeam;}
+        						num = 0;
+        						teamskillscore = 0;
+        						currentTeam.TeamScore = 0;
 
-			}//end affinity check
 
-			num = 0;
-			teamskillscore = 0;
-			currentTeam.TeamScore = 0;
-			studentIndexes[indexToIncrement]++;
+        			studentIndexes[indexToIncrement]++;
+        			while(studentIndexes[indexToIncrement] == numStudents - ((teamSize - 1) - (indexToIncrement + 1))){
+        				indexToIncrement--;
+        				if(indexToIncrement < 0) {
+        					permuting = false;
+        					break;
+        				} else {
+        					studentIndexes[indexToIncrement]++;
+        				}
+        			}
+        			while(indexToIncrement < teamSize - 1 && permuting) {
+        				indexToIncrement++;
+        				studentIndexes[indexToIncrement] = studentIndexes[indexToIncrement - 1] + 1;
+        			}
+        		}
 
-			while(studentIndexes[indexToIncrement] == numStudents - ((teamSize - 1) - (indexToIncrement + 1))){
-				indexToIncrement--;
-				if(indexToIncrement < 0) {
-					permuting = false;
-					break;
-				} else {
-					studentIndexes[indexToIncrement]++;
-				}
-			}
+        		 for(int j = 0; j < 10; j++) {
 
-			while(indexToIncrement < teamSize - 1 && permuting) {
-				indexToIncrement++;
-				studentIndexes[indexToIncrement] = studentIndexes[indexToIncrement - 1] + 1;
-			}
-		} // end while permuting
+        				 topTeams[i][j] = currentTopTeams[j];
+        				 }
+        		            top1 = 0;
+        		            top2 = 0;
+        		            top3 = 0;
+        		            top4 = 0;
+        		            top5 = 0;
+        		            top6 = 0;
+        		            top7 = 0;
+        		            top8 = 0;
+        		            top9 = 0;
+        		            top10 = 0;
 
-		for(int j = 0; j < 10; j++) {
+        				cout << "Project # " + to_string(projectPool[i].ProjectID) + "  team combinations complete. " << endl;
 
-			topTeams[i][j] = currentTopTeams[j];
-		}
-		top1 = 0;
-		top2 = 0;
-		top3 = 0;
-		top4 = 0;
-		top5 = 0;
-		top6 = 0;
-		top7 = 0;
-		top8 = 0;
-		top9 = 0;
-		top10 = 0;
+        	} // end i loop
 
-		project = *(projectPool + i);
-
-		cout << "Project # " + to_string(project.ProjectID) + "  team combinations complete. " << endl;
-
-	} // end i loop
-/*
-			for(unsigned int j = 0; j < currentTeam.team.size(); j++) {
-				//cout << currentTeam.team[j].StudentID << " ";
-			}
-
-			currentTeam.TeamScore = teamskillscore;
-
-			if (currentTeam.TeamScore >= top1 ){
-				top1 = currentTeam.TeamScore;
-				currentTopTeams[0] = currentTeam;
-			}else if (currentTeam.TeamScore >= top2 ){
-				top2 = currentTeam.TeamScore;
-				currentTopTeams[1] = currentTeam;
-			}else if (currentTeam.TeamScore >= top3 ){
-				top3 = currentTeam.TeamScore;
-				currentTopTeams[2] = currentTeam;
-			}else if (currentTeam.TeamScore >= top4 ){
-				top4 = currentTeam.TeamScore;
-				currentTopTeams[3] = currentTeam;
-			}else if (currentTeam.TeamScore >= top5 ){
-				top5 = currentTeam.TeamScore;
-				currentTopTeams[4] = currentTeam;
-			}else if (currentTeam.TeamScore >= top6 ){
-				top6 = currentTeam.TeamScore;
-				currentTopTeams[5] = currentTeam;
-			}else if (currentTeam.TeamScore >= top7 ){
-				top7 = currentTeam.TeamScore;
-				currentTopTeams[6] = currentTeam;
-			}else if (currentTeam.TeamScore >= top8 ){
-				top8 = currentTeam.TeamScore;
-				currentTopTeams[7] = currentTeam;
-			}else if (currentTeam.TeamScore >= top9 ){
-				top9 = currentTeam.TeamScore;
-				currentTopTeams[8] = currentTeam;
-			}else if (currentTeam.TeamScore >= top10 ){
-				top10 = currentTeam.TeamScore;
-				currentTopTeams[9] = currentTeam;}
-
-			teamskillscore = 0;
-
-			currentTeam.team.clear();
-			currentTeam.TeamScore = 0;
-
-			studentIndexes[indexToIncrement]++;
-
-			while(studentIndexes[indexToIncrement] == numStudents - ((teamSize - 1) - (indexToIncrement + 1))){
-				indexToIncrement--;
-				if(indexToIncrement < 0) {
-					permuting = false;
-					break;
-				} else {
-					studentIndexes[indexToIncrement]++;
-				}
-			}
-			while(indexToIncrement < teamSize - 1 && permuting) {
-				indexToIncrement++;
-				studentIndexes[indexToIncrement] = studentIndexes[indexToIncrement - 1] + 1;
-			}
-		}
-
-		topTeams.push_back(currentTopTeams);
-        top1 = 0;
-        top2 = 0;
-        top3 = 0;
-        top4 = 0;
-        top5 = 0;
-        top6 = 0;
-        top7 = 0;
-        top8 = 0;
-        top9 = 0;
-        top10 = 0;
-
-		cout << "Project # "
-				+ to_string(project.ProjectID)
-				//+ to_string(ProjectList[i].ProjectID)
-                + "  team combinations complete. " << endl;
-
-	} // end i loop
-
-	// Do Project Set combinations here
-
-	// End Project Set combinations
-
-	auto stop = high_resolution_clock::now();
-	auto duration = duration_cast<milliseconds>(stop - start);
-
-	cout << "time in milliseconds: ";
-	cout << duration.count() << endl;
-	//cout << "Number of iterations: ";
-	cout << endl;
-	cout<< "Top 10 teams for each project"<<endl;
-	cout << "Size of top teams: " + to_string(topTeams.size())<<endl;
-
-	for(int i = 0; i < numProjects; i++) {
-		Project project = *(projectPool + i);
-		cout<< "Projects #" + to_string(project.ProjectID) + " Student Teams:"<<endl;
-		cout << "Size of top teams in top teams: " + to_string(topTeams[i].size())<<endl;
-		for(int j = 0; j < topTeams[i].size(); j++) {
-
-		  cout << "Team #" + to_string(j) + " ";
-		  for(int k = 0; k < teamSize; k++) {
-
-			 cout<< to_string(topTeams[i][j].team[k].StudentID) + " ";
-
-		  }
-		  cout << endl;
-		  cout<< "TeamScore: " + to_string(topTeams[i][j].TeamScore)<<endl;
-		}
-		 cout << endl;
-	}
-}
-*/
 
 	// Do Project Set combinations here
 	// End Project Set combinations
+
+
 	auto stop = high_resolution_clock::now();
 	auto duration = duration_cast<milliseconds>(stop - start);
 
@@ -512,26 +391,26 @@ bool StudentsToProjects::negativeAffinityCheck(Student team[5]){
 	// We begin with an outer loop of that will examine each student in the team
 	for (int studentTeamCounter = 0; studentTeamCounter < 5; studentTeamCounter++){
 		// Create a temporary student object for ease of use
-		Student currentStudent = team[studentTeamCounter];
+		//Student currentStudent = team[studentTeamCounter];
 		// if the current student's affinity list is empty - we don't need about comparing any other students - so on to the next iteration
-		if (currentStudent.StudentAffinity.empty()){
+		if (team[studentTeamCounter].StudentAffinity.empty()){
 			continue;
 		} else {
 			// lets take a look at the current students affinity list
-			for (int currentStudentAffinityCounter = 0; currentStudentAffinityCounter < currentStudent.StudentAffinity.size(); currentStudentAffinityCounter++){
+			for (int currentStudentAffinityCounter = 0; currentStudentAffinityCounter < team[studentTeamCounter].StudentAffinity.size(); currentStudentAffinityCounter++){
 				// next we will loop through all other students comparing the current students affinity to other students, checking for negative affinity.
 				for (int otherStudentsCounter = 0; otherStudentsCounter < 5; otherStudentsCounter++){
 					// create a temporary student object for the other student we are examining in this loop.
-					Student otherStudent = team[otherStudentsCounter];
+					//Student otherStudent = team[otherStudentsCounter];
 					// because we are looping, if the current student happens to be the other student, lets continue to the next iteration.
-					if (currentStudent.StudentID == otherStudent.StudentID){
+					if (team[studentTeamCounter].StudentID == team[otherStudentsCounter].StudentID){
 						continue;
 						// next for each student id in the current students affinity list, lets see if the other student has the same Student ID
 						// and if the affinity boolean value is false, meaning negative affinity. The current student doesn't want to work with
 						// the other student. In this case we will change our negativeAffinity flag to true. We can break out of this function with
 						// one instance of negative affinity. The team won't work.
 					} else {
-						if ((currentStudent.StudentAffinity.at(currentStudentAffinityCounter).first == otherStudent.StudentID) && (currentStudent.StudentAffinity.at(currentStudentAffinityCounter).second == false)){
+						if ((team[studentTeamCounter].StudentAffinity.at(currentStudentAffinityCounter).first == team[otherStudentsCounter].StudentID) && (team[studentTeamCounter].StudentAffinity.at(currentStudentAffinityCounter).second == false)){
 							negativeAffinity = true;
 							break;
 						}
