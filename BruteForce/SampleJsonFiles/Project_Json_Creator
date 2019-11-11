@@ -1,6 +1,7 @@
 /*
  * This function creates JSON schmea for projects
- *   - it randomizes skills
+ *   - It takes in values for #projects, # skills
+ *   - it randomizes skills, scale 0-4
  *   - it counts up from a given projectID number, 1
  *   - Priority is randomized
  *   - Type is 20% online/ground and 80% hybrid
@@ -12,50 +13,51 @@
 #include <iomanip>
 using namespace std;
 
-int main()
-{
-    //Sets first projectID to 1, will count up from here
-    int projectID = 1;
+int main() {
+    
+    //Variables
+    int numProjects = 30;
+    int numSkills = 7;
+    
+    //Start of JSON file
     cout << "{ \n\"projects\":[\n";
     
     //Loops through projectID to print
-    for(int j = 1; j < 101; j++) {
+    for(int projectID = 1; projectID < (numProjects+1); projectID++) {
         
-        
-        /*Prints out schema: {"ProjectID": (projectID#),
-         * the projectID number is set to have width of 3
-         * if the number (1) is less than 7, it will fill
-         * with 0's. e.g. 001
-         */
+        /*Prints out schema: {"ProjectID": (projectID#),the projectID
+         * number is set to have width of 3 if the number (e.g. 1)
+         * is less than 3, it will fill with 0's. (e.g. 001)     */
         cout << "{\"ProjectID\": " << setw(3) << setfill('0') << projectID << ",\n";
-        projectID++;  //Counts up to next studentID
         
         
-        /*Prints out schema: "Priority": (Priority),
-         * priority can be 0,1, or 2.
-         */
+        /*Prints out schema: "Priority": (Priority), priority can be 
+         * 0,1, or 2. This file randomizes it between the three options.  */
         cout << " \"Priority\": " << rand() % (2 +1) << ",\n";
         
         
-        /*Prints out schema: "Skills": [(skills)],
-         * ramdomly generates 7 skills with
-         * values 0-4
-         */
+        /*Prints out schema: "Skills": [(skills)], generates Skills from 
+         * numSkills. Randomizes values between 0-4 for each skill.      */
         cout << " \"Skills\": [";
-        for(int i = 0; i < 7; i++){
-            if(i < 6) { cout << rand() % (2 +1) << ",";}
-            else { cout << rand() % (2 +1);}
-        }
-        cout << "],\n";
+        for(int i = 0; i < (numSkills); i++){
+            if(i < (numSkills-1)) { 
+                cout << rand() % (2 +1) << ",";}
+            else { 
+                cout << rand() % (2 +1)<< "],\n";    }    }
         
         
-        /*Prints out schema: "Type": O/G/H,
-         */
+        /*Prints out schema: "Type": O/G/H, right now 80% is hybrid
+         * 10% online and 10% ground projects    */
         cout << " \"Type\": ";
-        if(j < 11) { cout << "\"O\" }, \n\n"; }
-        else if ( j >10 && j <21) { cout << "\"G\" }, \n\n"; }
-        else if ( j == 100) { cout << "\"H\" }\n\n"; }
-        else { cout << "\"H\" },\n\n"; }
+        int percent = (int) numProjects * (0.10);
+        if(projectID < (percent+1)) { 
+            cout << "\"O\" }, \n\n"; }
+        else if ( projectID > percent && projectID < ((percent+percent+1))) { 
+            cout << "\"G\" }, \n\n"; }
+        else if ( projectID == numProjects) { 
+            cout << "\"H\" }\n\n"; }
+        else { 
+            cout << "\"H\" },\n\n"; }
         
     }
     cout << "]\n}";
