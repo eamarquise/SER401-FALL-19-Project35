@@ -34,16 +34,17 @@ constexpr int StudentsToProjects::toConstInt(int constInt) {
 
 void StudentsToProjects::ArrayStudentsToProjectsAssignment(Student studentPool[],
 		Project projectPool[], int numStudents, int numProjects, int numSkills,
-		const int teamSize) {
+		const int teamSize, int numTopTeams) {
 
     auto start = high_resolution_clock::now();
 	srand(time(NULL));
 
-	//const int TEAM_SIZE = toConstInt(teamSize);
+	  const int TOP_TEAMS = toConstInt(numTopTeams);
+	 //const int TEAM_SIZE = toConstInt(teamSize);
 	//const int NUM_STUDENTS = toConstInt(numStudents);
 
 	struct Team {
-		//const int TEAM_SIZE = toConstInt(teamSize);
+
     	Student Team[5];
 		int TeamScore;
 	};
@@ -58,25 +59,17 @@ void StudentsToProjects::ArrayStudentsToProjectsAssignment(Student studentPool[]
 
    //used to store the top 10 teams for every project.
 	Team temp;
-	Team currentTopTeams[10];
+	Team currentTopTeams[TOP_TEAMS];
 
-	 for(int j = 0; j < 10; j++) {
+	//array to store checks for the top scores.
+	int topscores[TOP_TEAMS];
+
+	 for(int j = 0; j < TOP_TEAMS; j++) {
 			 currentTopTeams[j]=temp;
+			 topscores[j] = 0;
 		 }
 
-	Team topTeams[numStudents][10];
-
-    int top1 = 0;
-    int top2 = 0;
-    int top3 = 0;
-    int top4 = 0;
-    int top5 = 0;
-    int top6 = 0;
-    int top7 = 0;
-    int top8 = 0;
-    int top9 = 0;
-    int top10 = 0;
-
+	Team topTeams[numStudents][TOP_TEAMS];
 
     //calculate each team combination skillscore for each project
     	int teamskillscore = 0;
@@ -98,9 +91,9 @@ void StudentsToProjects::ArrayStudentsToProjectsAssignment(Student studentPool[]
         			for(int j = 0; j < teamSize; j++) {
         				currentTeam.Team[num] = studentPool[studentIndexes[j] - 1];
         				num++;
-        				//for(int k = 0; k < numSkills; k++) {
-        				//	teamskillscore += StudentList[studentIndexes[j] - 1].Skills[k] * ProjectList[i].Skills[k];
-        				//}
+        				for(int k = 0; k < numSkills; k++) {
+        					teamskillscore += studentPool[studentIndexes[j] - 1].Skills[k] * projectPool[i].Skills[k];
+        				}
         			}
 
         			            //negative affinity check
@@ -110,9 +103,6 @@ void StudentsToProjects::ArrayStudentsToProjectsAssignment(Student studentPool[]
 
         						//call to 3 team score functions
         						//TeamScore = func1() + func2() + func3()
-        						// int score1 = ProjectCompareTeamScore(currentTeam.Team,  projectPool[i]);
-        						// int score2 = SkillCompareTeamScore(currentTeam.Team);
-        						// int score3 = AvailabilityTeamScore(currentTeam.Team);
 
         						 teamskillscore = ProjectCompareTeamScore(currentTeam.Team,  projectPool[i]) + SkillCompareTeamScore(currentTeam.Team) + AvailabilityTeamScore(currentTeam.Team);
 
@@ -120,38 +110,25 @@ void StudentsToProjects::ArrayStudentsToProjectsAssignment(Student studentPool[]
         						//debugging: cout for seeing the teamscores.
         						//cout << "TeamScore: "+ to_string(score1) +" " + to_string(score2) +" " + to_string(score3) +" " << " = " << teamskillscore <<endl;
 
-        						if (currentTeam.TeamScore > top1 ){
-        							top1 = currentTeam.TeamScore;
-        							currentTopTeams[0] = currentTeam;
-        						}else if ( currentTeam.TeamScore == top1 | currentTeam.TeamScore > top2 ){
-        							top2 = currentTeam.TeamScore;
-        							currentTopTeams[1] = currentTeam;
-        						}else if ( currentTeam.TeamScore == top2 | currentTeam.TeamScore > top3 ){
-        							top3 = currentTeam.TeamScore;
-        							currentTopTeams[2] = currentTeam;
-        						}else if ( currentTeam.TeamScore == top3 | currentTeam.TeamScore > top4 ){
-        							top4 = currentTeam.TeamScore;
-        							currentTopTeams[3] = currentTeam;
-        						}else if ( currentTeam.TeamScore == top4 | currentTeam.TeamScore > top5 ){
-        							top5 = currentTeam.TeamScore;
-        							currentTopTeams[4] = currentTeam;
-        						}else if ( currentTeam.TeamScore == top5 | currentTeam.TeamScore > top6 ){
-        							top6 = currentTeam.TeamScore;
-        							currentTopTeams[5] = currentTeam;
-        						}else if ( currentTeam.TeamScore == top6 | currentTeam.TeamScore > top7 ){
-        							top7 = currentTeam.TeamScore;
-        							currentTopTeams[6] = currentTeam;
-        						}else if ( currentTeam.TeamScore == top7 | currentTeam.TeamScore > top8 ){
-        							top8 = currentTeam.TeamScore;
-        							currentTopTeams[7] = currentTeam;
-        						}else if ( currentTeam.TeamScore == top8 | currentTeam.TeamScore > top9 ){
-        							top9 = currentTeam.TeamScore;
-        							currentTopTeams[8] = currentTeam;
-        						}else if ( currentTeam.TeamScore == top9 | currentTeam.TeamScore > top10 ){
-        							top10 = currentTeam.TeamScore;
-        							currentTopTeams[9] = currentTeam;}
 
-        						}//end affinity check
+        						for(int k = 0; k < TOP_TEAMS; k++) {
+
+        						    if (k == 0){
+        						    	if (currentTeam.TeamScore > topscores[k] ){
+        						    	topscores[k] = currentTeam.TeamScore;
+        						        currentTopTeams[k] = currentTeam;
+        						        break;
+
+        						    	}
+        						    }else{
+        						    	if ( currentTeam.TeamScore == topscores[k-1] | currentTeam.TeamScore > topscores[k] ){
+        						        		topscores[k] = currentTeam.TeamScore;
+        						        	    currentTopTeams[k] = currentTeam;
+        						        	    break;
+        								 }
+        						}}
+
+        				  }//end affinity check
 
         						num = 0;
         						teamskillscore = 0;
@@ -174,20 +151,10 @@ void StudentsToProjects::ArrayStudentsToProjectsAssignment(Student studentPool[]
         			}
         		}
 
-        		 for(int j = 0; j < 10; j++) {
-
+        		 for(int j = 0; j < TOP_TEAMS; j++) {
         				 topTeams[i][j] = currentTopTeams[j];
+        				 topscores[j] = 0;
         				 }
-        		            top1 = 0;
-        		            top2 = 0;
-        		            top3 = 0;
-        		            top4 = 0;
-        		            top5 = 0;
-        		            top6 = 0;
-        		            top7 = 0;
-        		            top8 = 0;
-        		            top9 = 0;
-        		            top10 = 0;
 
         				cout << "Project # " + to_string(projectPool[i].ProjectID) + "  team combinations complete. " << endl;
 
@@ -205,12 +172,12 @@ void StudentsToProjects::ArrayStudentsToProjectsAssignment(Student studentPool[]
 	cout << duration.count() << endl;
 	//cout << "Number of iterations: ";
 	cout << endl;
-	cout<< "Top 10 teams for each project"<<endl;
+	cout<< "Top "<<TOP_TEAMS<<" teams for each project"<<endl;
 
 	for(int i = 0; i < numProjects; i++) {
 		Project project = *(projectPool + i);
 		cout<< "Projects #" + to_string(project.ProjectID) + " Student Teams:"<<endl;
-		for(int j = 0; j < 10; j++) {
+		for(int j = 0; j < TOP_TEAMS; j++) {
 
 			cout << "Team #" + to_string(j) + " ";
 			for(int k = 0; k < teamSize; k++) {

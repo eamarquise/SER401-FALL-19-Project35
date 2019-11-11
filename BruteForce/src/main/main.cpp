@@ -41,6 +41,7 @@ int main(){
 	const int NUM_SKILLS = 7;
 	const int TEAM_SIZE = 5;
 	const int NUM_CLASS_SECTIONS = 4;
+    const int NUM_TOP_TEAMS = 10;
 
 	Utility util;
 
@@ -128,7 +129,7 @@ int main(){
     //projects will be partitioned by priority
     StudentsToProjects x;
     x.ArrayStudentsToProjectsAssignment(STUDENT_POOL, PROJECT_POOL,
-    		NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE);
+    		NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
 
     //join threads
 
