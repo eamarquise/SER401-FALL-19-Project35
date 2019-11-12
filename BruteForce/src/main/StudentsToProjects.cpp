@@ -98,7 +98,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 		 }
 
 	 //2d array to store the top teams for every project
-	Team topTeams[numStudents][TOP_TEAMS];
+	Team topTeams[numProjects][TOP_TEAMS];
 
    //variable to store the team's skill score
     int teamskillscore = 0;
@@ -215,6 +215,8 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 			int TopDuplicateSetScore = 0;
 			int leastDuplicateSet = 0;
 
+			int currentduplicatCount= 0;
+			int duplicateCount = 0;
 
 			for (int i = 0; i < numProjects; i++) {
 				currentSet[i] = temp2;
@@ -237,10 +239,14 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
         	        for (int i = 0; i < numProjects; i++) {
 
         	            currentSet[teamNum] = topTeams[i][indices[i]];
+        	            //int duplicateCount = duplicateCheck(currentSet);
+        	            //if (threshold > duplicateCount){
+        	            //flag=true;
+        	            //break;}
         	            ProjectSetScore += topTeams[i][indices[i]].TeamScore;
         	            teamNum++;
         	        }
-
+                    //if flag{
         	        //Project teams combination formed,
 
         	        //Print loop for debugging
@@ -293,7 +299,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
         	        for (int i = next + 1; i < numProjects; i++){
         	            indices[i] = 0;
         	        }
-
+        	    //}//end if flag
         	    }
 
 	// END -Project Set combinations

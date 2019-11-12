@@ -48,7 +48,7 @@ int main(){
 	int tempNumStudents = util.getSizeOfJson(STUDENT_FILE, "students");
 	int tempNumProjects = util.getSizeOfJson(PROJECT_FILE, "projects");
 	//Change this value to change the number of top teams stored.
-    int tempNumTopTeams = 10;
+    int tempNumTopTeams = 5;
 
     int tempTeamSize = 5;
 
