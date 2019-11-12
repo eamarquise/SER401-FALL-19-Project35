@@ -333,9 +333,9 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	cout<< "Best Project Set "<<endl;
 	cout<< "==============================================="<<endl;
 	for(int i = 0; i < numProjects; i++){
-		cout << "Team for project#" + to_string(currentSet[i].projectID) + " ";
+		cout << "Team for project#" + to_string(bestSet[i].projectID) + " ";
 	    for(int k = 0; k < teamSize; k++) {
-	        	cout<< to_string(currentSet[i].Team[k].StudentID) + " ";
+	        	cout<< to_string(bestSet[i].Team[k].StudentID) + " ";
 	   }
 	    cout << endl;
 	     }
