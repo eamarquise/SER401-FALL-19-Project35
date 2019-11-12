@@ -34,21 +34,28 @@ constexpr int toConstInt(int constInt) {
 int main(){
 	cout << "Hi Team 35" << endl;
 
-	const string PROJECT_FILE = "./SampleJsonFiles/20Projects.json";
+	const string PROJECT_FILE = "./SampleJsonFiles/10Projects.json";
 	const string STUDENT_FILE = "./SampleJsonFiles/60Students.json";
 	const string CLASS_SECTION_FILE = "./SampleJsonFiles/4ClassSections.json";
 
+
+
 	const int NUM_SKILLS = 7;
-	const int TEAM_SIZE = 5;
 	const int NUM_CLASS_SECTIONS = 4;
 
 	Utility util;
 
 	int tempNumStudents = util.getSizeOfJson(STUDENT_FILE, "students");
 	int tempNumProjects = util.getSizeOfJson(PROJECT_FILE, "projects");
+	//Change this value to change the number of top teams stored.
+    int tempNumTopTeams = 5;
+
+    int tempTeamSize = 5;
 
 	const int NUM_STUDENTS = toConstInt(tempNumStudents);
 	const int NUM_PROJECTS = toConstInt(tempNumProjects);
+	const int NUM_TOP_TEAMS = toConstInt(tempNumTopTeams);
+	const int TEAM_SIZE = toConstInt(tempTeamSize);
 
 	StudentJson SJson;
 	ProjectJson PJson;
@@ -122,23 +129,24 @@ int main(){
 	std::copy(STUDENT_POOL +(COUNT_2+COUNT_1), STUDENT_POOL +(NUM_STUDENTS), priority0);
 
 
-//STUDENTS TO PROJECTS ASSIGNMENT
+//START -STUDENTS TO PROJECTS ASSIGNMENT
     //Threads for each class section will start here
     //Students will be partitioned here by skill averages
     //projects will be partitioned by priority
     StudentsToProjects x;
-    x.ArrayStudentsToProjectsAssignment(STUDENT_POOL, PROJECT_POOL,
-    		NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE);
+    x.StudentsToProjectsAssignment(STUDENT_POOL, PROJECT_POOL,
+    		NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
 
     //join threads
+//END -STUDENTS TO PROJECTS ASSIGNMENT
 
     //Tests
 	Test t;
-	t.StructTest();
-	t.PrintProjectPool(PROJECT_POOL, NUM_PROJECTS, NUM_SKILLS);
-	t.PrintStudentPool(STUDENT_POOL, NUM_STUDENTS, NUM_SKILLS);
-	t.PrintProjectStudentSkills(PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS);
-	t.PrintPercentMatrix(percentMatrix, NUM_PROJECTS, NUM_CLASS_SECTIONS);
+	//t.StructTest();
+	//t.PrintProjectPool(PROJECT_POOL, NUM_PROJECTS, NUM_SKILLS);
+	//t.PrintStudentPool(STUDENT_POOL, NUM_STUDENTS, NUM_SKILLS);
+	//t.PrintProjectStudentSkills(PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS);
+	//t.PrintPercentMatrix(percentMatrix, NUM_PROJECTS, NUM_CLASS_SECTIONS);
 
 	// Drivers to read in rules, like class section definitions
 	// ex - getRules(capStoneCourseDefinitions);

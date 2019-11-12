@@ -23,9 +23,9 @@ class StudentsToProjects {
 
 		//void StudentsToProjectsAssignment(vector <Student> studentlist,
 		//	vector <Project> projectlist);
-		void ArrayStudentsToProjectsAssignment(Student studentPool[],
-				Project projectPool[], int numStudents, int numProjects, int numSkills,
-				const int teamSize);
+		void StudentsToProjectsAssignment(Student studentPool[],
+				Project projectPool[],const int numStudents,const int numProjects, const int numSkills,
+				const int teamSize,const int numTopTeams);
 
 		bool negativeAffinityCheck(Student team[5]);
 
