@@ -274,3 +274,64 @@ int** Utility::ProjectToSectionPercentages(vector<vector<Student>> studentList, 
 
 
 
+void Utility::makeProjectJSON(int numProj, int numSkill) {
+
+	   // Variables
+	   ofstream file;
+	   int numProjects = numProj;
+	   int numSkills = numSkill;
+
+	   // opening file in out(write) mode
+	   // ios::out Open for output operations.
+	   file.open("newProjects.json",ios::out);
+
+
+	    //Start of JSON file
+	    file << "{ \n\"projects\":[\n";
+
+	    //Loops through projectID to print
+	    for(int projectID = 1; projectID < (numProjects+1); projectID++) {
+
+	        /*Prints out schema: {"ProjectID": (projectID#),the projectID
+	         * number is set to have width of 3 if the number (e.g. 1)
+	         * is less than 3, it will fill with 0's. (e.g. 001)     */
+	        file << "{\"ProjectID\": " << projectID << ",\n";
+
+
+	        /*Prints out schema: "Priority": (Priority), priority can be
+	         * 0,1, or 2. This file randomizes it between the three options.  */
+	        file << " \"Priority\": " << rand() % (2 +1) << ",\n";
+
+
+	        /*Prints out schema: "Skills": [(skills)], generates Skills from
+	         * numSkills. Randomizes values between 0-4 for each skill.      */
+	        file << " \"Skills\": [";
+	        for(int i = 0; i < (numSkills); i++){
+	            if(i < (numSkills-1)) {
+	                file << rand() % (2 +1) << ",";}
+	            else {
+	                file << rand() % (2 +1)<< "],\n";    }    }
+
+
+	        /*Prints out schema: "Type": O/G/H, right now 80% is hybrid
+	         * 10% online and 10% ground projects    */
+	        file << " \"Type\": ";
+	        int percent = (int) numProjects * (0.10);
+	        if(projectID < (percent+1)) {
+	            file << "\"O\" }, \n\n"; }
+	        else if ( projectID > percent && projectID < ((percent+percent+1))) {
+	            file << "\"G\" }, \n\n"; }
+	        else if ( projectID == numProjects) {
+	            file << "\"H\" }\n\n"; }
+	        else {
+	            file << "\"H\" },\n\n"; }
+
+	    }
+	    file << "]\n}";
+
+	   file.close();
+
+}
+
+
+

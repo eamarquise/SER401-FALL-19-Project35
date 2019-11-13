@@ -22,7 +22,7 @@ class Utility {
 		long getProjectVsStudentSkill(Project projectPool[], int numProjects,
 				Student studentPool[], int numStudents, int numSkills, int projectXstudentScore, int i, int j);
 		int getSizeOfJson(string filename, string key);
-
+		void makeProjectJSON(int numProj, int numSkill);
 
 		vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
 		void printIntMatrix(vector<vector<int>> a);

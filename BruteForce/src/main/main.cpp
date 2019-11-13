@@ -29,6 +29,8 @@ using namespace std;
 
 //INFORMATION THAT WE WILL ASSUME WILL BE READ IN FROM THE GUI
 int numClassSections = 4;
+int numProjects = 10;
+int numSkills = 7;
 
 
 
@@ -36,19 +38,21 @@ int numClassSections = 4;
 int main(){
 	cout << "Hi Team 35" << endl;
 
-	const string projectFilename = "./SampleJsonFiles/20Projects.json";
-	const string studentFilename = "./SampleJsonFiles/60Students.json";
+	const string studentFilename = "/home/elizabeth/git/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/60Students.json";
 
 
 	Utility u;
 
-	const int numProjects = u.getSizeOfJson(projectFilename, "projects");
 	const int numStudents = u.getSizeOfJson(studentFilename, "students");
-	const int numSkills = 7;
 
 
 	StudentJson SJson;
 	ProjectJson PJson;
+
+
+	u.makeProjectJSON(numProjects, numSkills);
+
+	const string projectFilename = "/home/elizabeth/git/SER401-FALL-19-Project35/BruteForce/newProjects.json";
 
 
 	Project *projectPool = new Project[numProjects];
