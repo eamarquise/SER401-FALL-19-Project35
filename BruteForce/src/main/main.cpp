@@ -31,19 +31,11 @@ constexpr int toConstInt(int constInt) {
 	return constInt;
 }
 
-
-//INFORMATION THAT WE WILL ASSUME WILL BE READ IN FROM THE GUI
-int numClassSections = 4;
-int numProjects = 10;
-int numSkills = 7;
-int numStudents = 10;
-
-
-
 int main(){
 	cout << "Hi Team 35" << endl;
 
-
+	const string PROJECT_FILE = "./SampleJsonFiles/10Projects.json";
+	const string STUDENT_FILE = "./SampleJsonFiles/60Students.json";
 	const string CLASS_SECTION_FILE = "./SampleJsonFiles/4ClassSections.json";
 
 
@@ -52,16 +44,6 @@ int main(){
 	const int NUM_CLASS_SECTIONS = 4;
 
 	Utility util;
-
-	StudentJson SJson;
-	ProjectJson PJson;
-
-	util.makeProjectJSON(numProjects, numSkills);
-	util.makeStudentJSON(numStudents, numSkills);
-
-	const string PROJECT_FILE = "/home/elizabeth/git/SER401-FALL-19-Project35/newProjects.json";
-	const string STUDENT_FILE = "/home/elizabeth/git/SER401-FALL-19-Project35/newStudents.json";
-
 
 	int tempNumStudents = util.getSizeOfJson(STUDENT_FILE, "students");
 	int tempNumProjects = util.getSizeOfJson(PROJECT_FILE, "projects");
