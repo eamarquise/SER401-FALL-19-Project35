@@ -23,7 +23,7 @@ class Utility {
 				Student studentPool[], int numStudents, int numSkills, int projectXstudentScore, int i, int j);
 		int getSizeOfJson(string filename, string key);
 		void makeProjectJSON(int numProj, int numSkill);
-
+		void makeStudentJSON(int numStud, int numSkill);
 		vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
 		void printIntMatrix(vector<vector<int>> a);
 		int** ProjectToSectionPercentages(vector<vector<Student>> studentList, vector <Project> projectList, int numProjects, int NumOfClassSections);

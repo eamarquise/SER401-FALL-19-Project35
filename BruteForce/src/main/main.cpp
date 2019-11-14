@@ -31,28 +31,23 @@ using namespace std;
 int numClassSections = 4;
 int numProjects = 10;
 int numSkills = 7;
-
+int numStudents = 10;
 
 
 
 int main(){
 	cout << "Hi Team 35" << endl;
 
-	const string studentFilename = "/home/elizabeth/git/SER401-FALL-19-Project35/BruteForce/SampleJsonFiles/60Students.json";
-
-
 	Utility u;
-
-	const int numStudents = u.getSizeOfJson(studentFilename, "students");
-
 
 	StudentJson SJson;
 	ProjectJson PJson;
 
-
 	u.makeProjectJSON(numProjects, numSkills);
+	u.makeStudentJSON(numStudents, numSkills);
 
-	const string projectFilename = "/home/elizabeth/git/SER401-FALL-19-Project35/BruteForce/newProjects.json";
+	const string projectFilename = "/home/elizabeth/git/SER401-FALL-19-Project35/newProjects.json";
+	const string studentFilename = "/home/elizabeth/git/SER401-FALL-19-Project35/newStudents.json";
 
 
 	Project *projectPool = new Project[numProjects];
