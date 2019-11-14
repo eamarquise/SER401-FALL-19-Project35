@@ -31,6 +31,9 @@ class Utility {
 		int getSizeOfJson(string filename, string key);
 		int getProjectXskill(Project projectPool[], int i, int j);
 		int getSkillXstudent(Student studentPool[], int i, int j);
+		void makeProjectJSON(int numProj, int numSkill);
+		void makeStudentJSON(int numStud, int numSkill);
+
 		vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
 		void projectTypePartition(Project projectPool[], int numProjects,
 				char t0, char t1, char t2);
