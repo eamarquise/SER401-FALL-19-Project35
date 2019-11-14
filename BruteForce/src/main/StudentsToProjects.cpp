@@ -461,14 +461,14 @@ int StudentsToProjects::AvailabilityTeamScore(Student team[5]){
 	if(s1.Availability[0] == s2.Availability[0]){
 		score += 2;
 	}else if ((s1.Availability[1] == s2.Availability[1]) | (s1.Availability[1] == s2.Availability[0]) |(s1.Availability[0] == s2.Availability[1])){
-		score += 1;
+		score += 2;
 	}
 
 	//checks preferred weekend selections
 	if(s1.Availability[2] == s2.Availability[2]){
 			score += 2;
 		}else if ((s1.Availability[3] == s2.Availability[3]) | (s1.Availability[3] == s2.Availability[2]) |(s1.Availability[2] == s2.Availability[3])){
-			score += 1;
+			score += 2;
 		}
 
 	return score;
