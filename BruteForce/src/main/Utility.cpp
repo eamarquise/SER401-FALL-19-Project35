@@ -247,7 +247,6 @@ int** Utility::ProjectToSectionPercentages(vector<vector<Student>> studentList,
     //Print out to make sure Section Skills is correct.
     /*cout <<endl;
 	cout<<"Class Section Skills Matrix"<<endl;
-
 	for (int i = 0; i < NumOfClassSections; ++i)
 	  	    {
 	  	        for (int j = 0; j < 7; j++)
@@ -269,7 +268,6 @@ int** Utility::ProjectToSectionPercentages(vector<vector<Student>> studentList,
 	//Print out to make sure skillXproject is correct
 	/*cout <<endl;
 	cout<<"Project Skills Matrix"<<endl;
-
 	for (int i = 0; i < 7; ++i) {
         for (int j = 0; j < numProjects; j++) {
             cout << skillXproject[i][j] << ' ';
@@ -316,7 +314,6 @@ int** Utility::ProjectToSectionPercentages(vector<vector<Student>> studentList,
     //Print out to make sure ProjectSkills is correct
     /*	  cout <<endl;
     cout<<"ProjectSkills Matrix"<<endl;
-
     for (int i = 0; i < numProjects; ++i) {
         cout << ProjectSkills[i][0] << ' ';
         cout <<endl;
