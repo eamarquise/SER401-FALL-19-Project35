@@ -30,9 +30,9 @@ class StudentsToProjects {
 		bool negativeAffinityCheck(Student team[5]);
 
 		int AvailabilityTeamScore(Student team[5]);
-		int SkillCompareTeamScore(Student team[5]);
-		int ProjectCompareTeamScore(Student team[5], Project project);
-		int StudentToStudentSkill(Student s1, Student s2);      //helper function for SkillCompareTeamScore
+		int SkillCompareTeamScore(int studentSkills[5]);
+	    int ProjectCompareTeamScore( int studentSkills[5], int maxProjectScore);
+		int StudentToStudentSkill( int skillsum1, int skillsum2);      //helper function for SkillCompareTeamScore
 		int StudentToStudentAvailibility(Student s1, Student s2);   //helper function for AvailabilityTeamScore
 		constexpr int toConstInt(int constInt);
 };

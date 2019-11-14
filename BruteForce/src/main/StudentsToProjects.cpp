@@ -11,10 +11,11 @@
 #include "StudentsToProjects.h"
 #include "Project.h"
 #include "Student.h"
-//#include "Team.h"
+#include "Team.h"
 //#include "ProjectTeamSet.h"
 #include "ClassSection.h"
 #include "json/json.h"
+#include "Utility.h"
 
 #include <iostream>
 #include <vector>
@@ -66,24 +67,14 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
     auto start = high_resolution_clock::now();
 	srand(time(NULL));
 
+
 	 const int TOP_TEAMS = toConstInt(numTopTeams);
 	 const int TEAM_SIZE = toConstInt(5);
-	//const int NUM_STUDENTS = toConstInt(numStudents);
+	 int PxSskill_size = numStudents*numProjects;
+	 const int PROJECTXSTUDETNSKILL_SIZE = toConstInt(PxSskill_size);
 
-	 struct Team {
-	 		//const int TEAM_SIZE = toConstInt(teamSize);
-	     	Student Team[5];
-	 		int TeamScore;
-	 		int projectID;
-	 	};
-
-    /*struct ProjectSet {
-		//Team Teams[NUM_PROJECTS];
-		int ProjectSetScore;
-	};*/
 
 	Team currentTeam;
-	//ProjectSet currentSet, uniqueSet, bestSetWithDuplicates;
 
    //used to store the top teams for every project.
 	Team temp;
@@ -105,8 +96,51 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
    //counter to keep track of students on a team
     int num =0;
 
+ //------------------Do skill calculations for the student pool and the project pool.
 
-    //START -Team Combination process to find every student team combination for each project
+    //give each student a PoolID.
+    //and fill in skill sum score
+    int studentSkillSums[numStudents];
+    for(int i = 0; i < numStudents; i++) {
+    	studentPool[i].PoolID = i;
+    	studentSkillSums[i] = 0;
+    	for(int j = 0; j < numSkills; j++) {
+    	studentSkillSums[i] += studentPool[i].Skills[j];
+    	 }
+    }
+
+    //give each project a PoolID
+    //Calculate max skill score for each project.
+    int maxProjectSkills[numProjects];
+    int maxProjectScore=0;
+    for(int i = 0; i < numProjects; i++) {
+    	projectPool[i].PoolID = i;
+    	maxProjectSkills[i] = 0;
+
+    	for(int j = 0; j < numSkills; j++) {
+    	maxProjectScore += projectPool[i].Skills[j] * 4;
+    		}
+    	maxProjectSkills[i] = maxProjectScore * TEAM_SIZE;
+    	maxProjectScore = 0;
+    }
+
+  //get project skill X student skill matrix
+    int ProjectXStudentSkills[PROJECTXSTUDETNSKILL_SIZE];
+
+    Utility util;
+    util.initProjectStudentSkills(projectPool, studentPool,
+    		ProjectXStudentSkills, numProjects, numStudents,numSkills);
+
+    int skillSums[TEAM_SIZE];
+    int studentSkills[TEAM_SIZE];
+    for(int i = 0; i < TEAM_SIZE; i++) {
+    	studentSkills[i] =0;
+    	skillSums[i]=0;
+    }
+//------------------------end skill calculations
+
+
+ //START--------------Team Combination process to find every student team combination for each project
     cout << "STUDENTS TO PROJECTS ASSIGNMENT RUNNING..." << endl;
         	for(int i = 0; i < numProjects; i++) {
 
@@ -122,7 +156,9 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
         		while(permuting) {
         			for(int j = 0; j < teamSize; j++) {
         				//adds the student to the team for each combination
-        				currentTeam.Team[num] = studentPool[studentIndexes[j] - 1];
+        				currentTeam.team[num] = studentPool[studentIndexes[j] - 1];
+        				studentSkills[num] =*(ProjectXStudentSkills + (i * numStudents) + currentTeam.team[num].PoolID);
+        				skillSums[num] = studentSkillSums[currentTeam.team[num].PoolID];
         				num++;
         				//following commented out portion is for debugging purposes,
         				//for(int k = 0; k < numSkills; k++) {
@@ -134,12 +170,12 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
         			//Negative Affinity Check
         			//check returns true if there is negative affinity on the team,
         	        //and false if there is no negative affinity.
-        			if (negativeAffinityCheck(currentTeam.Team) == false){
+        			if (negativeAffinityCheck(currentTeam.team) == false){
 
         				//call to 3 team score functions
         				//TeamScore = func1() + func2() + func3()
-        			    teamskillscore = ProjectCompareTeamScore(currentTeam.Team,  projectPool[i]) +
-        				SkillCompareTeamScore(currentTeam.Team) + AvailabilityTeamScore(currentTeam.Team);
+        			    teamskillscore = ProjectCompareTeamScore(studentSkills, maxProjectSkills[i]) +
+        				SkillCompareTeamScore(skillSums) + AvailabilityTeamScore(currentTeam.team);
 
         				currentTeam.TeamScore = teamskillscore;
         				currentTeam.projectID = projectPool[i].ProjectID;
@@ -160,13 +196,12 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
         								 }
         				}}
 
-        		     }//end affinity check
+        		    }//end affinity check
 
         		   //reset these values for the next team combination
         			num = 0;
         			teamskillscore = 0;
         			currentTeam.TeamScore = 0;
-
 
         			studentIndexes[indexToIncrement]++;
         			while(studentIndexes[indexToIncrement] == numStudents - ((teamSize - 1) - (indexToIncrement + 1))){
@@ -196,9 +231,10 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 
         	} // end i loop (for each project)
 
-    //END -Team Combination process
+ //END---------------------Team Combination process
 
-	// START -Project Set combinations here
+
+ // START--------------------Project Set combinations here
         	cout << "TOP TEAMS TO PROJECTS SET RUNNING..." << endl;
 
         	//Needed variables
@@ -302,7 +338,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
         	    //}//end if flag
         	    }
 
-	// END -Project Set combinations
+// END -------------------Project Set combinations
 
 
 
@@ -319,7 +355,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 			cout << "Team #" + to_string(j) + " ";
 			for(int k = 0; k < teamSize; k++) {
 
-				cout<< to_string(topTeams[i][j].Team[k].StudentID) + " ";
+				cout<< to_string(topTeams[i][j].team[k].StudentID) + " ";
 
 			}
 			cout << endl;
@@ -335,7 +371,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	for(int i = 0; i < numProjects; i++){
 		cout << "Team for project#" + to_string(bestSet[i].projectID) + " ";
 	    for(int k = 0; k < teamSize; k++) {
-	        	cout<< to_string(bestSet[i].Team[k].StudentID) + " ";
+	        	cout<< to_string(bestSet[i].team[k].StudentID) + " ";
 	   }
 	    cout << endl;
 	     }
@@ -387,8 +423,9 @@ int StudentsToProjects::AvailabilityTeamScore(Student team[5]){
 	timeCompareScore += StudentToStudentAvailibility(team[2], team[4]);
 	timeCompareScore += StudentToStudentAvailibility(team[3], team[4]);
 
+
 	    //score 0-40
-		return timeCompareScore;
+		//return timeCompareScore;
 
 		//configure the score from 0-40 to 0-20
 		float percent= 0;
@@ -398,6 +435,7 @@ int StudentsToProjects::AvailabilityTeamScore(Student team[5]){
 		percent = (int)percent;
 
 		//return the score 0-20
+		//return timeCompareScore;
 		return percent;
 }
 
@@ -415,7 +453,7 @@ int StudentsToProjects::AvailabilityTeamScore(Student team[5]){
  *Returns:
  *  integer value from 0 to 4.
  */
-int StudentsToProjects::StudentToStudentAvailibility(Student s1, Student s2){
+ int StudentsToProjects::StudentToStudentAvailibility(Student s1, Student s2){
 
 	int score = 0;
 
@@ -449,20 +487,21 @@ int StudentsToProjects::StudentToStudentAvailibility(Student s1, Student s2){
  *Returns:
  *  integer value from 0 to 40.
  */
-int StudentsToProjects::SkillCompareTeamScore(Student team[5]){
+int StudentsToProjects::SkillCompareTeamScore( int studentSkills[5]){
 
 int teamCompareScore = 0;
 
-teamCompareScore += StudentToStudentSkill(team[0], team[1]);
-teamCompareScore += StudentToStudentSkill(team[0], team[2]);
-teamCompareScore += StudentToStudentSkill(team[0], team[3]);
-teamCompareScore += StudentToStudentSkill(team[0], team[4]);
-teamCompareScore += StudentToStudentSkill(team[1], team[2]);
-teamCompareScore += StudentToStudentSkill(team[1], team[3]);
-teamCompareScore += StudentToStudentSkill(team[1], team[4]);
-teamCompareScore += StudentToStudentSkill(team[2], team[3]);
-teamCompareScore += StudentToStudentSkill(team[2], team[4]);
-teamCompareScore += StudentToStudentSkill(team[3], team[4]);
+
+teamCompareScore += StudentToStudentSkill(studentSkills[0], studentSkills[1]);
+teamCompareScore += StudentToStudentSkill(studentSkills[0], studentSkills[2]);
+teamCompareScore += StudentToStudentSkill(studentSkills[0], studentSkills[3]);
+teamCompareScore += StudentToStudentSkill(studentSkills[0], studentSkills[4]);
+teamCompareScore += StudentToStudentSkill(studentSkills[1], studentSkills[2]);
+teamCompareScore += StudentToStudentSkill(studentSkills[1], studentSkills[3]);
+teamCompareScore += StudentToStudentSkill(studentSkills[1], studentSkills[4]);
+teamCompareScore += StudentToStudentSkill(studentSkills[2], studentSkills[3]);
+teamCompareScore += StudentToStudentSkill(studentSkills[2], studentSkills[4]);
+teamCompareScore += StudentToStudentSkill(studentSkills[3], studentSkills[4]);
 
 	return teamCompareScore;
 
@@ -481,20 +520,10 @@ teamCompareScore += StudentToStudentSkill(team[3], team[4]);
  *Returns:
  *  integer value from 0 to 4.
  */
-int StudentsToProjects::StudentToStudentSkill(Student s1, Student s2){
+int StudentsToProjects::StudentToStudentSkill( int skillsum1, int skillsum2){
 
-	  int skillsum1 = 0;
-	  int skillsum2 = 0;
-	  int score = 0;
-
-	  for(int i = 0; i < 7; i++){
-
-		 skillsum1 += s1.Skills[i];
-		 skillsum2 += s2.Skills[i];
-	  }
-
-	  score = skillsum1 - skillsum2;
-	  score = abs(score);
+	  int score = skillsum1 - skillsum2;
+      score = abs(score);
 
 	  if (score == 0 || score == 1){
 	  	return 4;
@@ -531,25 +560,12 @@ int StudentsToProjects::StudentToStudentSkill(Student s1, Student s2){
  *  integer value from 0 to 40.
  *
  */
-int StudentsToProjects::ProjectCompareTeamScore(Student team[5], Project project){
+ int StudentsToProjects::ProjectCompareTeamScore(int studentSkills[5], int maxProjectScore){
 
-	int numSkills = 7;
-	int teamSize = 5;
-	int maxProjectScore = 0;
 	int teamSkillSum = 0;
 
-	//find the maximum score a team could get on this project
-	for( int i = 0; i < numSkills ; i++ ){
-
-		maxProjectScore += project.Skills[i] * 4;
-	}
-	maxProjectScore = maxProjectScore * teamSize;
-
-	//find the sum of the team's skills for this project
-	for( int i = 0; i < teamSize ; i++ ){
-		for( int j = 0; j < numSkills ; j++ ){
-			teamSkillSum += team[i].Skills[j] * project.Skills[j];
-	}}
+	for( int i = 0; i < 5 ; i++ ){
+	 teamSkillSum += studentSkills[i]; }
 
     //calculate percentage
 	float percent= 0;
