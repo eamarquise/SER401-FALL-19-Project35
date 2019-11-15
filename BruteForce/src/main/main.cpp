@@ -23,9 +23,54 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+
 #include <bits/stdc++.h>
+#include "sys/types.h"
+#include "sys/sysinfo.h"
 
 using namespace std;
+
+
+
+int parseLine(char* line){
+    // This assumes that a digit will be found and the line ends in " Kb".
+    int i = strlen(line);
+    const char* p = line;
+    while (*p <'0' || *p > '9') p++;
+    line[i-3] = '\0';
+    i = atoi(p);
+    return i;
+}
+int getValuePhy(){ //Note: this value is in KB!
+    FILE* file = fopen("/proc/self/status", "r");
+    int result = -1;
+    char line[128];
+
+    while (fgets(line, 128, file) != NULL){
+        if (strncmp(line, "VmRSS:", 6) == 0){
+            result = parseLine(line);
+            break;
+        }
+    }
+    fclose(file);
+    return result;
+}
+
+int getValueVirt(){ //Note: this value is in KB!
+    FILE* file = fopen("/proc/self/status", "r");
+    int result = -1;
+    char line[128];
+
+    while (fgets(line, 128, file) != NULL){
+        if (strncmp(line, "VmSize:", 7) == 0){
+            result = parseLine(line);
+            break;
+        }
+    }
+    fclose(file);
+    return result;
+}
+
 
 constexpr int toConstInt(int constInt) {
 	return constInt;
@@ -36,8 +81,7 @@ int main(){
 
 	const string PROJECT_FILE = "./SampleJsonFiles/10Projects.json";
 	const string STUDENT_FILE = "./SampleJsonFiles/60Students.json";
-	const string CLASS_SECTION_FILE = "./SampleJsonFiles/4ClassSections.json";
-
+	const string CLASS_SECTION_FILE = "./BruteForce/SampleJsonFiles/4ClassSections.json";
 
 
 	const int NUM_SKILLS = 7;
@@ -128,6 +172,7 @@ int main(){
 	std::copy(STUDENT_POOL +(COUNT_2), STUDENT_POOL +(COUNT_2+COUNT_1-1), priority1);
 	std::copy(STUDENT_POOL +(COUNT_2+COUNT_1), STUDENT_POOL +(NUM_STUDENTS), priority0);
 
+	cout << to_string(getValuePhy() + getValueVirt()) << " KB total memory usage" << endl;
 
 //START -STUDENTS TO PROJECTS ASSIGNMENT
     //Threads for each class section will start here
@@ -159,6 +204,5 @@ int main(){
 
 	// Drivers to convert Json into some kind of report, like excel or json to pdf?
 	// ex - writeReport();
-
 	return 0;
 }

@@ -23,6 +23,12 @@
 #include <chrono>
 #include <algorithm>
 #include <fstream>
+#include <string>
+
+
+#include <bits/stdc++.h>
+#include "sys/types.h"
+#include "sys/sysinfo.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -37,6 +43,45 @@ constexpr int StudentsToProjects::toConstInt(int constInt) {
 	return constInt;
 }
 
+int StudentsToProjects::parseLine(char* line){
+    // This assumes that a digit will be found and the line ends in " Kb".
+    int i = strlen(line);
+    const char* p = line;
+    while (*p <'0' || *p > '9') p++;
+    line[i-3] = '\0';
+    i = atoi(p);
+    return i;
+}
+
+int StudentsToProjects::getValuePhy(){ //Note: this value is in KB!
+    FILE* file = fopen("/proc/self/status", "r");
+    int result = -1;
+    char line[128];
+
+    while (fgets(line, 128, file) != NULL){
+        if (strncmp(line, "VmRSS:", 6) == 0){
+            result = parseLine(line);
+            break;
+        }
+    }
+    fclose(file);
+    return result;
+}
+
+int StudentsToProjects::getValueVirt(){ //Note: this value is in KB!
+    FILE* file = fopen("/proc/self/status", "r");
+    int result = -1;
+    char line[128];
+
+    while (fgets(line, 128, file) != NULL){
+        if (strncmp(line, "VmSize:", 7) == 0){
+            result = parseLine(line);
+            break;
+        }
+    }
+    fclose(file);
+    return result;
+}
 
 /*
  * StudentsToProjectsAssignment
@@ -61,6 +106,7 @@ constexpr int StudentsToProjects::toConstInt(int constInt) {
 void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 		Project projectPool[], const int numStudents,const int numProjects,const int numSkills,
 		const int teamSize,const int numTopTeams) {
+	cout << getValueVirt() + getValuePhy() << " KB of memory usage: Start of StudentsToProjectsAssignment" << endl;
 
 	//timer to keep track of program runtime
     auto start = high_resolution_clock::now();
@@ -91,6 +137,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 
 	//array to store checks for the top scores.
 	int topscores[TOP_TEAMS];
+	cout << getValueVirt() + getValuePhy() << " KB of memory usage: Declare topScores[]" << endl;
    //initialize arrays to 0,
 	 for(int j = 0; j < TOP_TEAMS; j++) {
 			 currentTopTeams[j]=temp;
@@ -99,7 +146,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 
 	 //2d array to store the top teams for every project
 	Team topTeams[numProjects][TOP_TEAMS];
-
+	cout << getValueVirt() + getValuePhy() << " KB of memory usage: Declare topTeams[][]" << endl;
    //variable to store the team's skill score
     int teamskillscore = 0;
    //counter to keep track of students on a team
@@ -108,6 +155,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 
     //START -Team Combination process to find every student team combination for each project
     cout << "STUDENTS TO PROJECTS ASSIGNMENT RUNNING..." << endl;
+    cout << getValueVirt() + getValuePhy() << " KB of memory usage: Start of Assignment" << endl;
         	for(int i = 0; i < numProjects; i++) {
 
         		//new combination process
@@ -195,7 +243,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
         		cout << "Project # " + to_string(projectPool[i].ProjectID) + "  team combinations complete. " << endl;
 
         	} // end i loop (for each project)
-
+        	cout << getValueVirt() + getValuePhy() << " KB of memory usage: End of Assignment" << endl;
     //END -Team Combination process
 
 	// START -Project Set combinations here
@@ -232,7 +280,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
         	    // initialize with first element's index
         	    for (int i = 0; i < numProjects; i++){
         	        indices[i] = 0;}
-
+        	    cout << getValueVirt() + getValuePhy() << " KB of memory usage: Start of Top teams permutations" << endl;
         	    while (1) {
 
         	        //adds a team from each top team array to the project Set.
@@ -432,7 +480,6 @@ int StudentsToProjects::StudentToStudentAvailibility(Student s1, Student s2){
 		}else if ((s1.Availability[3] == s2.Availability[3]) | (s1.Availability[3] == s2.Availability[2]) |(s1.Availability[2] == s2.Availability[3])){
 			score += 1;
 		}
-
 	return score;
 }
 
@@ -451,19 +498,18 @@ int StudentsToProjects::StudentToStudentAvailibility(Student s1, Student s2){
  */
 int StudentsToProjects::SkillCompareTeamScore(Student team[5]){
 
-int teamCompareScore = 0;
+	int teamCompareScore = 0;
 
-teamCompareScore += StudentToStudentSkill(team[0], team[1]);
-teamCompareScore += StudentToStudentSkill(team[0], team[2]);
-teamCompareScore += StudentToStudentSkill(team[0], team[3]);
-teamCompareScore += StudentToStudentSkill(team[0], team[4]);
-teamCompareScore += StudentToStudentSkill(team[1], team[2]);
-teamCompareScore += StudentToStudentSkill(team[1], team[3]);
-teamCompareScore += StudentToStudentSkill(team[1], team[4]);
-teamCompareScore += StudentToStudentSkill(team[2], team[3]);
-teamCompareScore += StudentToStudentSkill(team[2], team[4]);
-teamCompareScore += StudentToStudentSkill(team[3], team[4]);
-
+	teamCompareScore += StudentToStudentSkill(team[0], team[1]);
+	teamCompareScore += StudentToStudentSkill(team[0], team[2]);
+	teamCompareScore += StudentToStudentSkill(team[0], team[3]);
+	teamCompareScore += StudentToStudentSkill(team[0], team[4]);
+	teamCompareScore += StudentToStudentSkill(team[1], team[2]);
+	teamCompareScore += StudentToStudentSkill(team[1], team[3]);
+	teamCompareScore += StudentToStudentSkill(team[1], team[4]);
+	teamCompareScore += StudentToStudentSkill(team[2], team[3]);
+	teamCompareScore += StudentToStudentSkill(team[2], team[4]);
+	teamCompareScore += StudentToStudentSkill(team[3], team[4]);
 	return teamCompareScore;
 
 }
@@ -495,7 +541,6 @@ int StudentsToProjects::StudentToStudentSkill(Student s1, Student s2){
 
 	  score = skillsum1 - skillsum2;
 	  score = abs(score);
-
 	  if (score == 0 || score == 1){
 	  	return 4;
 
