@@ -79,8 +79,8 @@ constexpr int toConstInt(int constInt) {
 int main(){
 	cout << "Hi Team 35" << endl;
 
-	const string PROJECT_FILE = "./BruteForce/SampleJsonFiles/10Projects.json";
-	const string STUDENT_FILE = "./BruteForce/SampleJsonFiles/60Students.json";
+	const string PROJECT_FILE = "./SampleJsonFiles/10Projects.json";
+	const string STUDENT_FILE = "./SampleJsonFiles/60Students.json";
 	const string CLASS_SECTION_FILE = "./BruteForce/SampleJsonFiles/4ClassSections.json";
 
 
