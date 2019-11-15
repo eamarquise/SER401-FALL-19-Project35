@@ -11,6 +11,7 @@
 #include<vector>
 
 #include "Student.h"
+#include "Team.h"
 #include "Project.h"
 #include "ClassSection.h"
 
@@ -28,6 +29,7 @@ class StudentsToProjects {
 				const int teamSize,const int numTopTeams);
 
 		bool negativeAffinityCheck(Student team[5]);
+		int getDuplicatesOfStudents(Team currentSet[], int size);
 
 		int AvailabilityTeamScore(Student team[5]);
 		int SkillCompareTeamScore(int studentSkills[5]);

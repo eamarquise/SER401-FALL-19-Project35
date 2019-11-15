@@ -235,108 +235,161 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 
 
  // START--------------------Project Set combinations here
+
+        	// START -Project Set combinations here
         	cout << "TOP TEAMS TO PROJECTS SET RUNNING..." << endl;
+        	cout << "T152 - push currentset into vector" << endl;
 
         	//Needed variables
         	Team currentSet[numProjects];
         	Team bestSet[numProjects];
-			Team uniqueSet[numProjects];
-			Team bestSetWithDuplicates[numProjects];
-			Team temp2;
-			int teamNum = 0;
-			int ProjectSetScore = 0;
-			int BestProjectSetScore = 0;
-			int topscore = 0;
-			int TopUniquesSetScore = 0;
-			int TopDuplicateSetScore = 0;
-			int leastDuplicateSet = 0;
+        	Team uniqueSet[numProjects];
+        	Team bestSetWithDuplicates[numProjects];
+        	Team temp2;
+        	// sorry for vector, but not sure how else to get intersection of students
+        	vector<int> team;
+        	vector<vector<int>> studentTeams;
+        	int teamNum = 0;
+        	int ProjectSetScore = 0;
+        	int BestProjectSetScore = 0;
+        	int topscore = 0;
+        	int TopUniquesSetScore = 0;
+        	int TopDuplicateSetScore = 0;
+        	int leastDuplicateSet = 0;
 
-			int currentduplicatCount= 0;
-			int duplicateCount = 0;
+        	bool flag = false;
+        	int threshold = 0;
+        	int currentduplicatCount= 0;
+        	int duplicateCount=0;
 
-			for (int i = 0; i < numProjects; i++) {
-				currentSet[i] = temp2;
-				bestSet[i] = temp2;
-				uniqueSet[i] = temp2;
-				bestSetWithDuplicates[i] = temp2;
-			}
+        	for (int i = 0; i < numProjects; i++) {
+        	    currentSet[i] = temp2;
+        	    bestSet[i] = temp2;
+        	    uniqueSet[i] = temp2;
+        	    bestSetWithDuplicates[i] = temp2;
+        	}
 
-        	    // to keep track of next element in each of
-        	    // the n arrays
-        	    //int* indices = new int[numProjects];
-				int indices[numProjects];
-        	    // initialize with first element's index
-        	    for (int i = 0; i < numProjects; i++){
-        	        indices[i] = 0;}
+        	// to keep track of next element in each of
+        	// the n arrays
+        	//int* indices = new int[numProjects];
+        	int indices[numProjects];
+        	// initialize with first element's index
+        	for (int i = 0; i < numProjects; i++){
+        	    indices[i] = 0;}
 
-        	    while (1) {
+        	//Find the duplicate student threshold
+        	for (int i = 0; i < numProjects; i++) {
 
-        	        //adds a team from each top team array to the project Set.
-        	        for (int i = 0; i < numProjects; i++) {
+        	        	        currentSet[teamNum] = topTeams[i][indices[i]];
 
-        	            currentSet[teamNum] = topTeams[i][indices[i]];
-        	            //int duplicateCount = duplicateCheck(currentSet);
-        	            //if (threshold > duplicateCount){
-        	            //flag=true;
-        	            //break;}
-        	            ProjectSetScore += topTeams[i][indices[i]].TeamScore;
-        	            teamNum++;
+        	        	        // return number of duplicates in currentSet
+
+        	        	        threshold = getDuplicatesOfStudents(currentSet, i+1);
+        	        	        //cout << "number of duplicates: " << duplicateCount << endl;
+
+        	        	        //if (threshold > duplicateCount){
+        	        	        //flag=true;
+        	        	        //break;}
+        	        	        ProjectSetScore += topTeams[i][indices[i]].TeamScore;
+        	        	        teamNum++;
+        	        	    }
+        	cout << "Number of duplicates Threshold : " << threshold << endl;
+        	//reset values
+           topscore = ProjectSetScore;
+           ProjectSetScore = 0;
+           teamNum = 0;
+
+        	while (1) {
+
+        	    //adds a team from each top team array to the project Set.
+        	    for (int i = 0; i < numProjects; i++) {
+
+        	        currentSet[teamNum] = topTeams[i][indices[i]];
+
+        	        // return number of duplicates in currentSet
+
+        	        duplicateCount = getDuplicatesOfStudents(currentSet, i+1);
+        	        //cout << "number of duplicates: " << duplicateCount << endl;
+
+        	        ProjectSetScore += topTeams[i][indices[i]].TeamScore;
+        	        teamNum++;
+
+        	        if (duplicateCount > threshold){
+        	               	        flag = true;
+        	               	        break;
         	        }
-                    //if flag{
-        	        //Project teams combination formed,
-
-        	        //Print loop for debugging
-        	        /*for(int i = 0; i < numProjects; i++){
-        	        	cout << "Team for project#" + to_string(i) + " ";
-        	        				for(int k = 0; k < teamSize; k++) {
-        	        					cout<< to_string(currentSet[i].Team[k].StudentID) + " ";
-        	        				}
-        	        				cout << endl;
-        	        }
-        	        cout<< "Project set score: "<< ProjectSetScore<<endl;*/
-
-
-        	        //Duplicate student check()
-
-        	        //if duplicate student check == 0.
-        	        //check value against topUique score
-        	        if(ProjectSetScore >= topscore){
-
-        	        	for (int i = 0; i < numProjects; i++) {
-
-        	        		bestSet[i] = currentSet[i];
-        	        		BestProjectSetScore = ProjectSetScore;
-        	        		topscore = BestProjectSetScore;
-        	        	}
-
-        	        }
-
-        	        //reset values
-                    teamNum = 0;
-                    ProjectSetScore = 0;
-
-        	        int next = numProjects - 1;
-        	        while (next >= 0 &&
-        	              (indices[next] + 1 >= TOP_TEAMS))
-        	            next--;
-
-        	        // no such array is found so no more
-        	        // combinations left
-        	        if (next < 0){
-        	            break;}
-
-        	        // if found move to next element in that
-        	        // array
-        	        indices[next]++;
-
-        	        // for all arrays to the right of this
-        	        // array current index again points to
-        	        // first element
-        	        for (int i = next + 1; i < numProjects; i++){
-        	            indices[i] = 0;
-        	        }
-        	    //}//end if flag
         	    }
+        	    if (flag==false){
+        	    //Project teams combination formed,
+
+        	    //Print loop for debugging
+        	    /*for(int i = 0; i < numProjects; i++){
+        	     cout << "Team for project#" + to_string(i) + " ";
+        	     for(int k = 0; k < teamSize; k++) {
+        	     cout<< to_string(currentSet[i].Team[k].StudentID) + " ";
+        	     }
+        	     cout << endl;
+        	     }
+        	     cout<< "Project set score: "<< ProjectSetScore<<endl;*/
+
+
+        	    //Duplicate student check()
+
+        	    //if duplicate student check == 0.
+        	    //check value against topUnique score
+        	    if(duplicateCount == threshold){
+        	    if(ProjectSetScore >= topscore){
+
+        	        for (int i = 0; i < numProjects; i++) {
+        	            bestSet[i] = currentSet[i];
+        	            BestProjectSetScore = ProjectSetScore;
+        	            topscore = BestProjectSetScore;
+        	        }
+        	    }
+        	    }else{
+
+        	    	//new threshold
+        	    	threshold = duplicateCount;
+        	        for (int i = 0; i < numProjects; i++) {
+        	            bestSet[i] = currentSet[i];
+        	            BestProjectSetScore = ProjectSetScore;
+        	            topscore = BestProjectSetScore;
+        	        }
+        	    }
+        	    }//end if flag
+
+        	    //reset values
+        	    teamNum = 0;
+        	    ProjectSetScore = 0;
+        	    duplicateCount = 0;
+				flag = false;
+
+        	    int next = numProjects - 1;
+        	    while (next >= 0 &&
+        	           (indices[next] + 1 >= TOP_TEAMS))
+        	        next--;
+
+        	    // no such array is found so no more
+        	    // combinations left
+        	    if (next < 0){
+        	        break;}
+
+        	    // if found move to next element in that
+        	    // array
+        	    indices[next]++;
+
+        	    // for all arrays to the right of this
+        	    // array current index again points to
+        	    // first element
+        	    for (int i = next + 1; i < numProjects; i++){
+        	        indices[i] = 0;
+        	    }
+        	    //}//end if flag
+        	}
+
+        	// END -Project Set combinations
+
+
 
 // END -------------------Project Set combinations
 
@@ -376,12 +429,15 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	    cout << endl;
 	     }
 	     cout<< "Best Project Set score: "<< BestProjectSetScore<<endl;
+	     cout<< "Number of Duplicate Students: "<< threshold<<endl;
+
 
 
 	     //KEEP TRACK OF TIME THE PROGRAM TAKES TO RUN
 	  	auto stop = high_resolution_clock::now();
 	  	auto duration = duration_cast<milliseconds>(stop - start);
-
+		cout << endl;
+		cout << "Program Runtime"<<endl;
 	  	cout << "time in milliseconds: ";
 	  	cout << duration.count() << endl;;
 	  	cout << endl;
@@ -579,6 +635,66 @@ int StudentsToProjects::StudentToStudentSkill( int skillsum1, int skillsum2){
 	return percent;
 
 }
+
+ int StudentsToProjects::getDuplicatesOfStudents(Team currentSet[], int size){
+
+     // show what's in currentSet
+     /*    for (int i = 0 ; i < size ; i++){
+      cout << "students in team: ";
+      for (int j = 0 ; j < 5 ; j++){
+      cout << currentSet[i].team[j].StudentID << ", ";
+      }
+      cout << endl;
+      }*/
+
+	 int numDuplicates = 0;
+     int numStudentIDs = size*5;
+     int uniqueStudents[numStudentIDs] ;
+
+     for (int k= 0; k< numStudentIDs; k ++){
+         uniqueStudents[k]=-1;
+     }
+     //fill unique students with the students in the first team.
+     for (int i = 0 ; i < 5 ; i++){
+         uniqueStudents[i] = currentSet[0].team[i].StudentID;
+
+     }
+
+     int num = 5;
+     int num2 = 0;
+     bool isduplicate =false;
+     for (int i= 1; i< size; i ++){
+         for (int j= 0; j< 5; j ++){
+             for (int k= 0; k< num; k ++){
+
+                 if (uniqueStudents[k] == currentSet[i].team[j].StudentID){
+                     numDuplicates++;
+                     isduplicate =true;
+                     //cout << " DUPLICATE FOUND" << endl;
+                 }
+             }//end k loop
+
+             if (isduplicate==false){
+                 for (int k= 0; k< numStudentIDs; k ++){
+
+                     if (uniqueStudents[k] == -1){
+                         uniqueStudents[k] = currentSet[i].team[j].StudentID;
+                         num2++;
+                         break;}
+                 }}
+             isduplicate = false;
+
+         }//end j loop
+         num += num2;
+         num2=0;
+
+     }//end i loop
+
+     return numDuplicates;
+ }
+
+
+
 
 /*
  * negativeAffinityCheck
