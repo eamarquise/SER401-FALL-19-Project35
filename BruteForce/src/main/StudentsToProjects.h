@@ -28,6 +28,9 @@ class StudentsToProjects {
 				Project projectPool[],const int numStudents,const int numProjects, const int numSkills,
 				const int teamSize,const int numTopTeams);
 
+		int parseLine(char* line);
+		int getValuePhy();
+		int getValueVirt();
 		bool negativeAffinityCheck(Student team[5]);
 		int getDuplicatesOfStudents(Team currentSet[], int size);
 
