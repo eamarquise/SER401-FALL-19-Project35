@@ -81,7 +81,7 @@ int main(){
 
 	const string PROJECT_FILE = "./SampleJsonFiles/10Projects.json";
 	const string STUDENT_FILE = "./SampleJsonFiles/60Students.json";
-	const string CLASS_SECTION_FILE = "./BruteForce/SampleJsonFiles/4ClassSections.json";
+	const string CLASS_SECTION_FILE = "./SampleJsonFiles/4ClassSections.json";
 
 
 	const int NUM_SKILLS = 7;

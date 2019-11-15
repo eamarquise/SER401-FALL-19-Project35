@@ -17,6 +17,7 @@
 struct Project {
 	int ProjectID; 	//Project Id. unique for each project.
 	int ClassID; 	//value determined when project is assigned to a class section.
+	int PoolID;    //for use in determining index number in StudetsToProjects.
 	char Type;  	//O = online | G = ground | H = hybrid
 	int Priority;	// 0 = does not have to be assigned | 1 = preferred to be assigned | 2 = must be assigned
 	int Skills[7]; 	//for each skill, 0 = not required | 1 = nice to have skill | 2 = required skill
