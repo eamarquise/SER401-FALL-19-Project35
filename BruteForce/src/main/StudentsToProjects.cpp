@@ -150,6 +150,8 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
     int studentSkillSums[numStudents];
     for(int i = 0; i < numStudents; i++) {
     	studentPool[i].PoolID = i;
+    	studentPool[i].Assigned= false;
+    	//studentPool[i] = *(studentPool+i);
     	studentSkillSums[i] = 0;
     	for(int j = 0; j < numSkills; j++) {
     	studentSkillSums[i] += studentPool[i].Skills[j];
@@ -449,8 +451,6 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 
 
 
-
-
 	//Print out all the top teams with team scores for each project.
 	cout<< "Top "<<TOP_TEAMS<<" teams for each project"<<endl;
 
@@ -473,7 +473,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 
 	//Prints out the best project set found.
 	cout << endl;
-	cout<< "Best Project Set "<<endl;
+	cout<< "Best Project Set with duplicates "<<endl;
 	cout<< "==============================================="<<endl;
 	for(int i = 0; i < numProjects; i++){
 		cout << "Team for project#" + to_string(bestSet[i].projectID) + " ";
@@ -481,15 +481,184 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	        	cout<< to_string(bestSet[i].team[k].StudentID) + " ";
 	   }
 	    cout << endl;
+	    cout << "Team Score: "<<bestSet[i].TeamScore <<endl;
 	     }
 	     cout<< "Best Project Set score: "<< BestProjectSetScore<<endl;
 	     cout<< "Number of Duplicate Students: "<< threshold<<endl;
+
+
+// START -------------------Duplicate Student Swapping
+
+	             	//set all the students on the current best set to assigned.
+	             	for (int i = 0; i < numProjects; i++) {
+	             	    for (int j = 0; j < TEAM_SIZE; j++){
+	             	     bestSet[i].team[j].Assigned = true;
+	             	     studentPool[bestSet[i].team[j].PoolID] = bestSet[i].team[j];
+	             	     //bestSet[i].team[j] = *(studentPool+(bestSet[i].team[j].PoolID));
+	             	    }
+	             	}
+
+	             	//find all the students who have not been assigned.
+	             	//get the number of unassigned students.
+	             	int count=0;
+	             	for (int i = 0; i < numStudents; i++) {
+	             		if (studentPool[i].Assigned == false){
+	             			count ++;
+	             		}
+	             	}
+	                 int num_assigned = numStudents - count;
+	             	const int NUM_UNASSIGNED = toConstInt(count);
+
+	             	cout<<"Assigned Students : "<<num_assigned<<endl;
+	             	cout<<"UnAssigned Students : "<<count<<endl;
+
+	             	Student reservePool[NUM_UNASSIGNED];
+	             	vector <Student> reserveStudents;
+	             	int element;
+	             	for (int i = 0; i < numStudents; i++) {
+	             	        		if (studentPool[i].Assigned == false){
+	             	        			reservePool[element] = studentPool[i];
+	             	        			reserveStudents.push_back(studentPool[i]);
+	     								element++;
+	             	        		}
+	             	        	}
+
+
+
+	          ///-------swapping mechanism------
+
+	             	 int numDuplicates = 0;
+	             	 int toptempscore =0;
+	             	 int tempBestStudent;
+	             	     int uniqueStudents[num_assigned] ;
+
+	             	     for (int k= 0; k< num_assigned; k ++){
+	             	         uniqueStudents[k]=-1;
+	             	     }
+	             	     //fill unique students with the students in the first team.
+	             	     for (int i = 0 ; i < 5 ; i++){
+	             	         uniqueStudents[i] = bestSet[0].team[i].StudentID;
+
+	             	     }
+
+	             	     int num1 = TEAM_SIZE;
+	             	     int num2 = 0;
+	             	     bool isduplicate =false;
+	             	     for (int i= 1; i< numProjects; i ++){
+	             	         for (int j= 0; j< 5; j ++){
+
+								 Project CurrentProject;
+
+								 //Get the project that the current team is assigned to.
+	             	        	  for (int x= 0; x< numProjects; x ++){
+	             	        	 if (bestSet[x].projectID == projectPool[x].ProjectID){
+	             	        	 CurrentProject = projectPool[x];
+	             	        	 }}
+
+	             	        	 //Get a list of the reserve students, along with their skill score for that project.
+	             	        	  vector< pair <int,int>> replacements;
+	             	        	  for (int x= 0; x< reserveStudents.size(); x ++){
+	             	        		  pair <int, int> temp = {*(ProjectXStudentSkills + (CurrentProject.PoolID * numStudents) + reserveStudents[x].PoolID), reserveStudents[x].PoolID};
+	             	        		  replacements.push_back(temp);
+	             	        	  }
+
+	             	        	  //sort based on the first pair element, (the reserve students skill score for that project.)
+	             	        	  sort(replacements.begin(), replacements.end());
+
+	             	             for (int k= 0; k< num1; k ++){
+
+	             	            	 //If a duplicate is found, find the best replacement student,
+	             	            	 //and swap that student into the team.
+	             	                 if (uniqueStudents[k] == bestSet[i].team[j].StudentID){
+	             	                     numDuplicates++;
+	             	                     isduplicate =true;
+
+	             	                     for (int x= 0; x< replacements.size(); x ++){
+	             	                    	 bestSet[i].team[j] = studentPool[replacements[x].second];
+
+	             	                    	 //make sure this replacement does not have any negative affinyt
+	             	                    	 //with the team.
+	             	                    	 if (negativeAffinityCheck(bestSet[i].team) == false){
+	             	                    		 for (int y= 0; y< reserveStudents.size(); y ++){
+	             	                    			 if(reserveStudents[y].StudentID == studentPool[replacements[x].second].StudentID)
+	             	                    			 reserveStudents.erase(reserveStudents.begin() + y);
+	             	                    		 }
+
+	             	                    		 replacements.erase(replacements.begin()+x);
+	             	                    		 break;
+	             	                    	 }
+	             	                     }
+	             	                 }
+	             	             }//end k loop
+
+	             	             if (isduplicate==false){
+	             	                 for (int k= 0; k< num_assigned; k ++){
+
+	             	                     if (uniqueStudents[k] == -1){
+	             	                         uniqueStudents[k] = bestSet[i].team[j].StudentID;
+	             	                         num2++;
+	             	                         break;}
+	             	                 }}
+	             	             isduplicate = false;
+
+	             	             //recalculate team score, now that all the duplicate
+	             	             //students have been swapped out.
+	             	            for (int x= 0; x< TEAM_SIZE; x ++){
+	             	           	studentSkills[x] =*(ProjectXStudentSkills + (CurrentProject.PoolID * numStudents) + bestSet[i].team[x].PoolID);
+	             	            skillSums[x] = studentSkillSums[bestSet[i].team[x].PoolID];
+
+	             	            }
+	             	            bestSet[i].TeamScore = ProjectCompareTeamScore(studentSkills, maxProjectSkills[CurrentProject.PoolID]) +
+	             	            SkillCompareTeamScore(skillSums) + AvailabilityTeamScore(bestSet[i].team);
+
+	             	         }//end j loop
+	             	         num1 += num2;
+	             	         num2=0;
+
+	             	     }//end i loop
+
+
+	 	             	//set all the students in the best set to assigned.
+	 	             	for (int i = 0; i < numProjects; i++) {
+	 	             	    for (int j = 0; j < TEAM_SIZE; j++){
+	 	             	     bestSet[i].team[j].Assigned = true;
+	 	             	     studentPool[bestSet[i].team[j].PoolID] = bestSet[i].team[j];
+	 	             	     bestSet[i].team[j] = *(studentPool+(bestSet[i].team[j].PoolID));
+	 	             	    }
+	 	             	}
+
+// END -------------------Duplicate Student Swapping
+
+	             	     int newProjectSetScore = 0;
+	             	    for(int i = 0; i < numProjects; i++){
+	             	    	newProjectSetScore += bestSet[i].TeamScore;
+
+	             	    }
+
+
+	             		//Prints out the best project set found, without duplicates.
+	             		cout << endl;
+	             		cout<< "All duplicates Swapped out "<<endl;
+	             		cout<< "==============================================="<<endl;
+	             		for(int i = 0; i < numProjects; i++){
+	             			cout << "Team for project#" + to_string(bestSet[i].projectID) + " ";
+	             		    for(int k = 0; k < teamSize; k++) {
+	             		        	cout<< to_string(bestSet[i].team[k].StudentID) + " ";
+	             		   }
+	             		    cout << endl;
+	             		   cout << "Team Score: "<<bestSet[i].TeamScore <<endl;
+	             		     }
+	             		     cout<< "Best Project Set score: "<< newProjectSetScore<<endl;
+	             		     cout<< "Number of Duplicate Students: "<< 0 <<endl;
 
 
 
 	     //KEEP TRACK OF TIME THE PROGRAM TAKES TO RUN
 	  	auto stop = high_resolution_clock::now();
 	  	auto duration = duration_cast<milliseconds>(stop - start);
+		cout << endl;
+		cout << endl;
+		cout << getValueVirt() + getValuePhy() << " KB of memory usage: End of program" << endl;
 		cout << endl;
 		cout << "Program Runtime"<<endl;
 	  	cout << "time in milliseconds: ";
@@ -690,6 +859,21 @@ int StudentsToProjects::StudentToStudentSkill( int skillsum1, int skillsum2){
 
 }
 
+ /*
+  * getDuplicatesOfStudents
+  *
+  * Description:
+  * 	This function returns the number of duplicate students in a set of teams.
+  * 	Stores the IDs of unique students and compares the student IDs of the
+  * 	teams to that.
+  *
+  *Arguments:
+  *	Team currentSet[], int size (the number of teams to check in the array)
+  *
+  *Returns:
+  *  integer value depicting the number of duplicate students.
+  *
+  */
  int StudentsToProjects::getDuplicatesOfStudents(Team currentSet[], int size){
 
      // show what's in currentSet
