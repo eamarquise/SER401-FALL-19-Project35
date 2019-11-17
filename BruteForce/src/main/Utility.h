@@ -40,6 +40,8 @@ class Utility {
 		void arrayProjectToSectionPercentages(Project projectPool[],
 		        Student studentPool[], ClassSection classSectionPool[], int percentMatrix[],
 				int numProjects, int numStudents, int numClassSections,	int numSkills);
+		void makeProjectJSON(int numProj, int numSkill);
+		void makeStudentJSON(int numStud, int numSkill);
 		~Utility();
 };
 

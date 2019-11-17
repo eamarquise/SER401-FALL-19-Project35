@@ -2,6 +2,7 @@ TARGET_EXEC ?= main.exe
 
 BUILD_DIR ?= ./build
 SRC_DIRS ?= ./src/main
+JSONS ?= ./*.json
 
 CXX := -c++
 LDFLAGS := -L/usr/lib -lstdc++ -lm
@@ -26,6 +27,7 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 
 clean:
 	$(RM) -r $(BUILD_DIR)
+	$(RM) -r $(JSONS)
 
 run:
 	./build/main.exe $(ARGS)
