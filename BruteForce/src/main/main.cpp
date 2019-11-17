@@ -23,6 +23,7 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <stdio.h>
 
 #include <bits/stdc++.h>
 #include "sys/types.h"
@@ -79,25 +80,31 @@ constexpr int toConstInt(int constInt) {
 int main(){
 	cout << "Hi Team 35" << endl;
 
-	const string PROJECT_FILE = "./SampleJsonFiles/10Projects.json";
-	const string STUDENT_FILE = "./SampleJsonFiles/60Students.json";
-	const string CLASS_SECTION_FILE = "./SampleJsonFiles/4ClassSections.json";
+	//reading in inputs
+	int tempProj, tempStud;
+	cout << "#Projects: ";
+	cin >> tempProj;
+	cout << "#Students: ";
+	cin >> tempStud;
 
-
+	const int NUM_PROJECTS = tempProj;
+	const int NUM_STUDENTS = tempStud;
 	const int NUM_SKILLS = 7;
 	const int NUM_CLASS_SECTIONS = 4;
 
 	Utility util;
 
-	int tempNumStudents = util.getSizeOfJson(STUDENT_FILE, "students");
-	int tempNumProjects = util.getSizeOfJson(PROJECT_FILE, "projects");
+	util.makeProjectJSON(NUM_PROJECTS, NUM_SKILLS);
+	util.makeStudentJSON(NUM_STUDENTS, NUM_SKILLS);
+
+	const string PROJECT_FILE = "/home/elizabeth/git/SER401-FALL-19-Project35/BruteForce/newProjects.json";
+	const string STUDENT_FILE = "/home/elizabeth/git/SER401-FALL-19-Project35/BruteForce/newStudents.json";
+	const string CLASS_SECTION_FILE = "./SampleJsonFiles/4ClassSections.json";
+
 	//Change this value to change the number of top teams stored.
     int tempNumTopTeams = 5;
-
     int tempTeamSize = 5;
 
-	const int NUM_STUDENTS = toConstInt(tempNumStudents);
-	const int NUM_PROJECTS = toConstInt(tempNumProjects);
 	const int NUM_TOP_TEAMS = toConstInt(tempNumTopTeams);
 	const int TEAM_SIZE = toConstInt(tempTeamSize);
 
@@ -121,6 +128,7 @@ int main(){
 			PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS, NUM_SKILLS);
 	util.arrayProjectToSectionPercentages(PROJECT_POOL, STUDENT_POOL, CLASS_SECTION_POOL,
 			percentMatrix, NUM_PROJECTS, NUM_STUDENTS, NUM_CLASS_SECTIONS, NUM_SKILLS);
+
 
 	// PARTITION POOLS BY TYPE (ONLINE/GROUND/HYBRID)
 	util.projectTypePartition(PROJECT_POOL, NUM_PROJECTS, 'O', 'G', 'H');

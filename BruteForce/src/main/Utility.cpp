@@ -22,6 +22,7 @@
 #include <string>
 #include <vector>
 #include <iterator>
+#include <stdio.h>
 
 using namespace std;
 
@@ -420,3 +421,215 @@ void Utility::arrayProjectToSectionPercentages(Project projectPool[],
     }
     //return  percentMatrix;
 }//end ProjectToSectionPercentages
+
+
+void Utility::makeProjectJSON(int numProj, int numSkill) {
+
+	   // Variables
+	   ofstream file;
+	   int numProjects = numProj;
+	   int numSkills = numSkill;
+
+	   // opening file in out(write) mode
+	   // ios::out Open for output operations.
+	   file.open("newProjects.json",ios::out);
+
+
+	    //Start of JSON file
+	    file << "{ \n\"projects\":[\n";
+
+	    //Loops through projectID to print
+	    for(int projectID = 1; projectID < (numProjects+1); projectID++) {
+
+	        /*Prints out schema: {"ProjectID": (projectID#),the projectID
+	         * number is set to have width of 3 if the number (e.g. 1)
+	         * is less than 3, it will fill with 0's. (e.g. 001)     */
+	        file << "{\"ProjectID\": " << projectID << ",\n";
+
+
+	        /*Prints out schema: "Priority": (Priority), priority can be
+	         * 0,1, or 2. This file randomizes it between the three options.  */
+	        file << " \"Priority\": " << rand() % (2 +1) << ",\n";
+
+
+	        /*Prints out schema: "Skills": [(skills)], generates Skills from
+	         * numSkills. Randomizes values between 0-4 for each skill.      */
+	        file << " \"Skills\": [";
+	        for(int i = 0; i < (numSkills); i++){
+	            if(i < (numSkills-1)) {
+	                file << rand() % (2 +1) << ",";}
+	            else {
+	                file << rand() % (2 +1)<< "],\n";    }    }
+
+
+	        /*Prints out schema: "Type": O/G/H, right now 80% is hybrid
+	         * 10% online and 10% ground projects    */
+	        file << " \"Type\": ";
+	        int percent = (int) numProjects * (0.10);
+	        if(projectID < (percent+1)) {
+	            file << "\"O\" }, \n\n"; }
+	        else if ( projectID > percent && projectID < ((percent+percent+1))) {
+	            file << "\"G\" }, \n\n"; }
+	        else if ( projectID == numProjects) {
+	            file << "\"H\" }\n\n"; }
+	        else {
+	            file << "\"H\" },\n\n"; }
+
+	    }
+	    file << "]\n}";
+
+	   file.close();
+
+}
+
+void Utility::makeStudentJSON(int numStud, int numSkill) {
+
+	  // Variables
+	  ofstream file;
+	  int numStudent = numStud;
+	  int numSkills = numSkill;
+      int student_25 =(int) (numStudent * 0.25);
+      int student_50 =(int) (numStudent * 0.50);
+      int student_75 =(int) (numStudent * 0.75);
+
+	   // opening file in write mode
+	   file.open("newStudents.json",ios::out);
+
+	   //Start of JSON file
+	   file << "{ \n\"students\":[\n";
+
+      //Loops through studentIDs to print
+      for(int studentID = 1; studentID <= numStudent; studentID++) {
+
+       /*Prints out schema: {"StudentID": (studentID#), */
+       file << "{\"StudentID\": " << studentID << ",\n";
+
+        /*Prints out schema: "ClassID": (classID), classID is divided
+         * equally into 4 sections   */
+        if(studentID < student_25) {
+           file << " \"ClassID\": 0,\n";   }
+        if(studentID >= student_25 && studentID < student_50) {
+            file << " \"ClassID\": 1,\n";   }
+        if(studentID >= student_50 && studentID < student_75) {
+            file << " \"ClassID\": 2,\n";   }
+        if(studentID >= student_75 && studentID <= numStudent) {
+            file << " \"ClassID\": 3,\n";   }
+
+
+        /*Prints out schema: "Skills": [(skills)],  ramdomly generates skills
+         * with values 0-4, total skills given as a parameter         */
+        file << " \"Skills\": [";
+        for(int i = 0; i < numSkills; i++){
+            if(i < (numSkills-1)) {
+                file << rand() % (4 +1) << ","; }
+            else {
+                file << rand() % (4 +1) << "],\n";  }
+        }
+
+
+        /*Prints out schema: "StudentAffinity": null OR [(studentID), T/F]
+         * negative affinity: every 1/3 of students gets a randomized negative
+         *                  affinity for another Student
+         * positive affinity: every 1/4 of students gets a randomized positive
+         *                  affinity for another Student
+         *
+         * It can fall where 1 student has a positive & negative affinity (1/12)
+         * Else it will print "null"
+         */
+        file << " \"StudentAffinity\": ";
+        if ( studentID %3 ==0 || studentID %4 ==0) {
+
+            //Negative affinity matches
+            int rand_1_25 = rand() % (student_25 + 1);
+            while(rand_1_25 ==  studentID) {
+                rand_1_25 = rand() % (student_25 + 1); }
+
+            int rand_1_50 = rand() % (student_50-student_25 + 1) + student_25;
+            while(rand_1_50 ==  studentID) {
+                rand_1_50 = rand() % (student_50-student_25 + 1) + student_25; }
+
+            int rand_1_75 = rand() % (student_75-student_50 + 1) +student_50;
+            while(rand_1_75 ==  studentID) {
+                rand_1_75 = rand() % (student_75-student_50 + 1) +student_50; }
+
+            int rand_1_100 = rand() % (numStudent-student_75 + 1) + student_75;
+            while(rand_1_100 ==  studentID) {
+                rand_1_100 = rand() % (numStudent-student_75 + 1) + student_75; }
+
+            //Positive affinity matches
+            int rand_2_25 = rand() % (student_25 + 1);
+            while(rand_2_25 ==  studentID || rand_2_25 == rand_1_25) {
+                rand_2_25 = rand() % (student_25 + 1); }
+
+            int rand_2_50 = rand() % (student_50-student_25 + 1) + student_25;
+            while(rand_2_50 ==  studentID || rand_2_50 == rand_1_50) {
+                rand_2_50 = rand() % (student_50-student_25 + 1) + student_25; }
+
+            int rand_2_75 = rand() % (student_75-student_50 + 1) +student_50;
+            while(rand_2_75 ==  studentID || rand_2_75 == rand_1_75) {
+                rand_2_75 = rand() % (student_75-student_50 + 1) +student_50; }
+
+            int rand_2_100 = rand() % (numStudent-student_75 + 1) + student_75;
+            while(rand_2_100 ==  studentID || rand_2_100 == rand_1_100) {
+                rand_2_100 = rand() % (numStudent-student_75 + 1) + student_75; }
+
+            //printing out affinity
+            file << "[";
+            if(studentID %3 == 0) {
+                if(studentID < student_25) {
+                    file << rand_1_25 << ", false";}
+                if(studentID >= student_25 && studentID < student_50) {
+                    file << rand_1_50 << ", false"; }
+                if(studentID >= student_50 && studentID < student_75) {
+                    file << rand_1_75 << ", false"; }
+                if(studentID >= student_75 && studentID <= numStudent) {
+                    file << rand_1_100 << ", false"; }
+            }
+            if ( studentID %4 == 0) {
+                if(studentID %3 != 0) {
+                    if(studentID < student_25) {
+                        file << rand_2_25 << ", true";}
+                    if(studentID >= student_25 && studentID < student_50) {
+                        file << rand_2_50 << ", true"; }
+                    if(studentID >= student_50 && studentID < student_75) {
+                        file << rand_2_75 << ", true"; }
+                    if(studentID >= student_75 && studentID <= numStudent) {
+                        file << rand_2_100 << ", true"; }
+                }
+                if(studentID %3 == 0) {
+                    if(studentID < student_25) {
+                        file << ", " << rand_2_25 << ", true";}
+                    if(studentID >= student_25 && studentID < student_50) {
+                        file << ", " << rand_2_50 << ", true"; }
+                    if(studentID >= student_50 && studentID < student_75) {
+                        file << ", " << rand_2_75 << ", true"; }
+                    if(studentID >= student_75 && studentID <= numStudent) {
+                        file << ", " << rand_2_100 << ", true"; }
+                }
+            }
+            file << "],\n";
+        }
+        else {
+            file << "null,\n"; }
+
+
+        /*Prints out schema: "Availability": [(Availability)] }
+         * ramdomly generates 4 times with values 0-5
+         */
+        file << " \"Availability\": [";
+        for(int i = 0; i < 4; i++){
+            if(i < 3) {
+                file << rand() % (5 +1) << ","; }
+            else {
+                file << rand() % (5 +1); }
+        }
+        if(studentID < numStudent ) {
+        	file << "] },\n\n";    }
+        else if( studentID == numStudent) {
+          	file << "] }\n\n";    }
+    }
+      file << "]\n}";
+
+	   file.close();
+
+}
