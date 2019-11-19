@@ -28,14 +28,13 @@
 using namespace std;
 
 struct Student {
-	int StudentID; //student's ID. unique for each student
-	int StID; //ID depicting from [0 - NumOfStudents] in that class section.
-	int ClassID; //determines which class the student belongs to.
+	int StudentID; //Unique integer identifying the student uniquely in the whole student population.
+	int StID; //Common integer to keep track of student in data structures. ID depicting from [0 - NumOfStudents] in that class section.
+	int ClassID; //Unique integer depicting the Class/Section the student is assigned to.
 	int PoolID;//for use in determining index number in StudetsToProjects.
 	bool Assigned;  //for use to see if the student is assigned to a project yet.
 	int ProjectID; //Value given once the student is assigned to a project.
-	int PoolID;//for use in determining index number in StudetsToProjects.
-	bool Assigned;  //for use to see if the student is assigned to a project yet.
+
 
 	/* Skills - Students are given a survey in which they indicate their familiarity or
 	 * 			strengths among [seven] predefined skills. Skills will hold an integer array
