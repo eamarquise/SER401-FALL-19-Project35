@@ -31,6 +31,8 @@ struct Student {
 	int StudentID; //student's ID. unique for each student
 	int StID; //ID depicting from [0 - NumOfStudents] in that class section.
 	int ClassID; //determines which class the student belongs to.
+	int PoolID;//for use in determining index number in StudetsToProjects.
+	bool Assigned;  //for use to see if the student is assigned to a project yet.
 	int ProjectID; //Value given once the student is assigned to a project.
 	int PoolID;//for use in determining index number in StudetsToProjects.
 	bool Assigned;  //for use to see if the student is assigned to a project yet.
@@ -109,6 +111,16 @@ struct Student {
         	Availability[i] = times[i];
         }
 	}
+
+	bool operator==(const Student &studentToCompare) const {
+		if(this->StudentID == StudentID) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
 };
 
 #endif /* BRUTEFORCE_SRC_MAIN_STUDENT_H_ */

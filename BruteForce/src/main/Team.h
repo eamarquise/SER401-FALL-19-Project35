@@ -26,7 +26,7 @@ struct Team {
 
 	Student team[5]; //stores the student teams
 	int TeamScore; //stores the team's score
-
+	int projectID;
 	Team(){}
 
 };
