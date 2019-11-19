@@ -72,6 +72,14 @@ int getValueVirt(){ //Note: this value is in KB!
     return result;
 }
 
+void threadFunction(Student studentPool[],
+		Project projectPool[], const int numStudents, const int numProjects, const int numSkills,
+		const int teamSize, const int numTopTeams) {
+	StudentsToProjects x;
+	x.StudentsToProjectsAssignment(studentPool, projectPool,
+			numStudents, numProjects, numSkills, teamSize, numTopTeams);
+}
+
 
 constexpr int toConstInt(int constInt) {
 	return constInt;
@@ -87,8 +95,8 @@ int main(){
 	cout << "#Students: ";
 	cin >> tempStud;
 
-	const int NUM_PROJECTS = tempProj;
-	const int NUM_STUDENTS = tempStud;
+	const int NUM_PROJECTS = toConstInt(tempProj);
+	const int NUM_STUDENTS = toConstInt(tempStud);
 	const int NUM_SKILLS = 7;
 	const int NUM_CLASS_SECTIONS = 4;
 
@@ -97,8 +105,8 @@ int main(){
 	util.makeProjectJSON(NUM_PROJECTS, NUM_SKILLS);
 	util.makeStudentJSON(NUM_STUDENTS, NUM_SKILLS);
 
-	const string PROJECT_FILE = "/home/elizabeth/git/SER401-FALL-19-Project35/BruteForce/newProjects.json";
-	const string STUDENT_FILE = "/home/elizabeth/git/SER401-FALL-19-Project35/BruteForce/newStudents.json";
+	const string PROJECT_FILE = "newProjects.json";
+	const string STUDENT_FILE = "newStudents.json";
 	const string CLASS_SECTION_FILE = "./SampleJsonFiles/4ClassSections.json";
 
 	//Change this value to change the number of top teams stored.
@@ -112,8 +120,8 @@ int main(){
 	ProjectJson PJson;
 	ClassSectionJson CSJson;
 
-	Project PROJECT_POOL[NUM_PROJECTS];
-	Student STUDENT_POOL[NUM_STUDENTS];
+	Project *PROJECT_POOL = new Project[NUM_PROJECTS];
+	Student *STUDENT_POOL = new Student[NUM_STUDENTS];
 	ClassSection CLASS_SECTION_POOL[NUM_CLASS_SECTIONS];
 
 	int PROJECT_STUDENT_SKILLS[NUM_PROJECTS * NUM_STUDENTS];
@@ -186,11 +194,16 @@ int main(){
     //Threads for each class section will start here
     //Students will be partitioned here by skill averages
     //projects will be partitioned by priority
-    StudentsToProjects x;
-    x.StudentsToProjectsAssignment(STUDENT_POOL, PROJECT_POOL,
-    		NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
 
+	thread threads[NUM_CLASS_SECTIONS];
+	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
+		threads[i] = thread (threadFunction, STUDENT_POOL, PROJECT_POOL, NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
+	}
     //join threads
+	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
+		threads[i].join();
+	}
+
 //END -STUDENTS TO PROJECTS ASSIGNMENT
 
     //Tests
