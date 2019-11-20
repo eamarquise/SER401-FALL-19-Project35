@@ -42,6 +42,8 @@ class Utility {
 				int numProjects, int numStudents, int numClassSections,	int numSkills);
 		void makeProjectJSON(int numProj, int numSkill);
 		void makeStudentJSON(int numStud, int numSkill);
+		int calc_projects(int numStudents, int teamSize, int minTeamSize);
+		int NumOfTeamsOf4(int numStudents, int teamSize);
 		~Utility();
 };
 
