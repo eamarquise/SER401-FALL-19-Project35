@@ -23,6 +23,11 @@
 {"ProjectID": 5,
  "Priority": 0,
  "Skills": [0,2,0,1,1,1,1],
+ "Type": "H" },
+
+{"ProjectID": 6,
+ "Priority": 0,
+ "Skills": [0,0,2,2,1,2,2],
  "Type": "H" }
 
 ]
