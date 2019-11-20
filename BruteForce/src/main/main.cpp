@@ -72,6 +72,15 @@ int getValueVirt(){ //Note: this value is in KB!
     return result;
 }
 
+//StudentsToProjectsAssignments will run in this method. This method is called by the threads.
+void threadFunction(Student studentPool[],
+		Project projectPool[], const int numStudents, const int numProjects, const int numSkills,
+		const int teamSize, const int numTopTeams) {
+	StudentsToProjects x;
+	x.StudentsToProjectsAssignment(studentPool, projectPool,
+			numStudents, numProjects, numSkills, teamSize, numTopTeams);
+}
+
 
 constexpr int toConstInt(int constInt) {
 	return constInt;
@@ -87,8 +96,8 @@ int main(){
 	cout << "#Students: ";
 	cin >> tempStud;
 
-	const int NUM_PROJECTS = tempProj;
-	const int NUM_STUDENTS = tempStud;
+	const int NUM_PROJECTS = toConstInt(tempProj);
+	const int NUM_STUDENTS = toConstInt(tempStud);
 	const int NUM_SKILLS = 7;
 	const int NUM_CLASS_SECTIONS = 4;
 
@@ -112,8 +121,8 @@ int main(){
 	ProjectJson PJson;
 	ClassSectionJson CSJson;
 
-	Project PROJECT_POOL[NUM_PROJECTS];
-	Student STUDENT_POOL[NUM_STUDENTS];
+	Project *PROJECT_POOL = new Project[NUM_PROJECTS];
+	Student *STUDENT_POOL = new Student[NUM_STUDENTS];
 	ClassSection CLASS_SECTION_POOL[NUM_CLASS_SECTIONS];
 
 	int PROJECT_STUDENT_SKILLS[NUM_PROJECTS * NUM_STUDENTS];
@@ -186,11 +195,57 @@ int main(){
     //Threads for each class section will start here
     //Students will be partitioned here by skill averages
     //projects will be partitioned by priority
-    StudentsToProjects x;
-    x.StudentsToProjectsAssignment(STUDENT_POOL, PROJECT_POOL,
-    		NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
 
+	//THREADS FOR EACH CLASS SECTION...Sean Rogers
+	//store the number of students in each class section
+	int *studentsInSections = new int[NUM_CLASS_SECTIONS];
+	//initialize to 0
+	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
+		studentsInSections[i] = 0;
+	}
+	//set the number of students in each class section to the indexes of studentsInSections[]
+	for(int i = 0; i < NUM_STUDENTS; i++) {
+		for(int j = 0; j < NUM_CLASS_SECTIONS; j++) {
+			if(STUDENT_POOL[i].ClassID == j) {
+				studentsInSections[j]++;
+			}
+		}
+	}
+	cout << "StudentID|ClassID: ";
+	//Print out for testing
+	for(int i = 0; i < NUM_STUDENTS; i++) {
+		cout << STUDENT_POOL[i].StudentID << "|" << STUDENT_POOL[i].ClassID << "  ";
+	}
+	cout << endl;
+
+	//create a thread for each class section. store each thread in threads[]
+	thread threads[NUM_CLASS_SECTIONS];
+	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
+
+		//store students in a single class section to *STUDENT_POOL_SECTION_X
+		Student *STUDENT_POOL_SECTION_X = new Student[studentsInSections[i]];
+		int indexToAddStudent = 0; //used to add a student to STUDENT_POOL_SECTION_X[] from STUDENT_POOL[]
+
+		cout << "StudentIDs in Class Section " << to_string(i) << ": ";
+		for(int j = 0; j < NUM_STUDENTS; j++) {
+			if(STUDENT_POOL[j].ClassID == i) {
+				STUDENT_POOL_SECTION_X[indexToAddStudent] = STUDENT_POOL[j];
+				indexToAddStudent++;
+			}
+		}
+		for(int j = 0; j < studentsInSections[i]; j++) {
+			cout << STUDENT_POOL_SECTION_X[j].StudentID << " ";
+		}
+		cout << endl;
+		//threads[i] = thread (threadFunction, STUDENT_POOL, PROJECT_POOL, NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
+		threads[i] = thread (threadFunction, STUDENT_POOL_SECTION_X, PROJECT_POOL, studentsInSections[i], NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
+	}
     //join threads
+	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
+		threads[i].join();
+	}
+	//END THREADS FOR EACH CLASS SECTION...Sean Rogers
+
 //END -STUDENTS TO PROJECTS ASSIGNMENT
 
     //Tests
