@@ -26,7 +26,7 @@ class StudentsToProjects {
 		~StudentsToProjects(); //destructor
 
 		// Function to assign the students to projects.
-		void StudentsToProjectsAssignment(Student studentPool[],
+		string StudentsToProjectsAssignment(Student studentPool[],
 				Project projectPool[],const int numStudents,const int numProjects, const int numSkills,
 				const int teamSize,const int numTopTeams);
 

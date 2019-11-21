@@ -75,9 +75,9 @@ int getValueVirt(){ //Note: this value is in KB!
 //StudentsToProjectsAssignments will run in this method. This method is called by the threads.
 void threadFunction(Student studentPool[],
 		Project projectPool[], const int numStudents, const int numProjects, const int numSkills,
-		const int teamSize, const int numTopTeams) {
+		const int teamSize, const int numTopTeams, string results[], int classSection) {
 	StudentsToProjects x;
-	x.StudentsToProjectsAssignment(studentPool, projectPool,
+	results[classSection] = x.StudentsToProjectsAssignment(studentPool, projectPool,
 			numStudents, numProjects, numSkills, teamSize, numTopTeams);
 }
 
@@ -204,8 +204,9 @@ int main(){
     //projects will be partitioned by priority
 
 	//THREADS FOR EACH CLASS SECTION...Sean Rogers
-	//store the number of students in each class section
-	int *studentsInSections = new int[NUM_CLASS_SECTIONS];
+
+	string *results = new string[NUM_CLASS_SECTIONS]; //Stores the results the assignment of students to projects each class section
+	int *studentsInSections = new int[NUM_CLASS_SECTIONS]; //stores the number of students in each class section
 
 	//initialize to 0
 	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
@@ -251,17 +252,24 @@ int main(){
 			cout << STUDENT_POOL_SECTION_X[j].StudentID << " ";
 		}
 
-		cout << endl;
+		cout << "Total: " + to_string(studentsInSections[i]) << endl;
 
 		//threads[i] = thread (threadFunction, STUDENT_POOL, PROJECT_POOL, NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
-		threads[i] = thread (threadFunction, STUDENT_POOL_SECTION_X, PROJECT_POOL, studentsInSections[i], NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
+		threads[i] = thread (threadFunction, STUDENT_POOL_SECTION_X, PROJECT_POOL, studentsInSections[i], NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS, results, i);
 	}
 
     //join threads
 	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
 		threads[i].join();
-	} //END THREADS FOR EACH CLASS SECTION...Sean Rogers
-//END - STUDENTS TO PROJECTS ASSIGNMENT
+
+	}
+	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
+		cout << results[i] << endl;
+	}
+	//END THREADS FOR EACH CLASS SECTION...Sean Rogers
+
+//END -STUDENTS TO PROJECTS ASSIGNMENT
+
 
     //Tests
 	//Test t;

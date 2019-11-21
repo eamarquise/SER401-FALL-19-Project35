@@ -186,44 +186,45 @@ int StudentsToProjects::getValueVirt(){ //Note: this value is in KB!
  *		This was used as a reference when completing this portion of the function.
  *
  */
-void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
-		Project projectPool[], const int numStudents,const int numProjects,const int numSkills,
-		const int teamSize,const int numTopTeams) {
+string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
+	Project projectPool[], const int numStudents,const int numProjects,const int numSkills,
+	const int teamSize,const int numTopTeams) {
 
-	//cout << getValueVirt() + getValuePhy() << " KB of memory usage: Start of StudentsToProjectsAssignment" << endl;
+	string result = "";
+
 
 	//timer to keep track of program runtime
     auto start = high_resolution_clock::now();
 	srand(time(NULL));
 
-     //constants
-	 const int TOP_TEAMS = toConstInt(numTopTeams);
-	 const int TEAM_SIZE = toConstInt(5);
-	 int PxSskill_size = numStudents*numProjects;
-	 const int PROJECTXSTUDETNSKILL_SIZE = toConstInt(PxSskill_size);
+	//constants
+	const int TOP_TEAMS = toConstInt(numTopTeams);
+	const int TEAM_SIZE = toConstInt(5);
+	int PxSskill_size = numStudents*numProjects;
+	const int PROJECTXSTUDETNSKILL_SIZE = toConstInt(PxSskill_size);
 
     //used to store the current team combinaniton.
 	Team currentTeam;
 	Team temp;
 
-   //used to store the top teams for every project.
+    //used to store the top teams for every project.
 	Team currentTopTeams[TOP_TEAMS];
 
 	//array to store checks for the top scores.
 	int topscores[TOP_TEAMS];
 
-   //initialize arrays to 0,
-	 for(int j = 0; j < TOP_TEAMS; j++) {
-			 currentTopTeams[j]=temp;
-			 topscores[j] = 0;
-		 }
+    //initialize arrays to 0,
+	for(int j = 0; j < TOP_TEAMS; j++) {
+		currentTopTeams[j]=temp;
+		topscores[j] = 0;
+	}
 
-	 //2d array to store the top teams for every project
+	//2d array to store the top teams for every project
 	Team topTeams[numProjects][TOP_TEAMS];
 
-   //variable to store the team's skill score
+    //variable to store the team's skill score
     int teamskillscore = 0;
-   //counter to keep track of students on a team
+    //counter to keep track of students on a team
     int num =0;
 
  //------------------Do skill calculations for the student pool and the project pool.
@@ -256,7 +257,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
     	maxProjectScore = 0;
     }
 
-  //get project skill X student skill matrix
+    //get project skill X student skill matrix
     int ProjectXStudentSkills[PROJECTXSTUDETNSKILL_SIZE];
 
     Utility util;
@@ -748,16 +749,22 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             		cout << endl;
 	             		cout<< "All duplicates Swapped out "<<endl;
 	             		cout<< "==============================================="<<endl;
+	             		result.append("RESULT FOR SECTION " + to_string(studentPool[0].ClassID) + ":\n");
+	             		cout << "RESULT FOR SECTION " + to_string(studentPool[0].ClassID) << endl;
 	             		for(int i = 0; i < numProjects; i++){
 	             			cout << "Team for project#" + to_string(bestSet[i].projectID) + " ";
+
+	             			result.append("Project#" + to_string(bestSet[i].projectID) + ": ");
 	             		    for(int k = 0; k < teamSize; k++) {
 	             		        	cout<< to_string(bestSet[i].team[k].StudentID) + " ";
-	             		   }
+	             		        	result.append(to_string(bestSet[i].team[k].StudentID) + " ");
+	             		    }
+	             		    result.append("\n");
 	             		    cout << endl;
-	             		   cout << "Team Score: "<<bestSet[i].TeamScore <<endl;
-	             		     }
-	             		     cout<< "Best Project Set score: "<< newProjectSetScore<<endl;
-	             		     cout<< "Number of Duplicate Students: "<< 0 <<endl;
+	             		    cout << "Team Score: "<<bestSet[i].TeamScore <<endl;
+	             		    }
+	             		    cout<< "Best Project Set score: "<< newProjectSetScore<<endl;
+	             		    cout<< "Number of Duplicate Students: "<< 0 <<endl;
 
 
 
@@ -774,7 +781,7 @@ void StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	  	cout << endl;
 
 
-
+return result;
 }//END StudentsToProjectsAssignment
 
 
