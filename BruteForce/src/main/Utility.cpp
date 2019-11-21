@@ -222,7 +222,7 @@ void Utility::projectPriorityPartition(Project projectPool[], int numProjects,
 		}
 	}
 
-	endG = endO - 1;
+	endG = endO;
 
 	for (int i = 0; i < numProjects; i++) {
 		if (projectPool[i].Type == 'G') {
@@ -230,7 +230,7 @@ void Utility::projectPriorityPartition(Project projectPool[], int numProjects,
 		}
 	}
 
-	endH = endG - 1;
+	endH = endG;
 
 	for (int i = 0; i < numProjects; i++) {
 		if (projectPool[i].Type == 'H') {
@@ -278,7 +278,7 @@ void Utility::projectPriorityPartition(Project projectPool[], int numProjects,
 	}
 
 // SORT GROUND PROJECTS
-	start = endO - 1;
+	start = endO;
 	t0Index = start;
 	end = endG - 1;
 
@@ -292,7 +292,7 @@ void Utility::projectPriorityPartition(Project projectPool[], int numProjects,
 		};
 	}
 
-	t0Index = endO - 1;
+	t0Index = endO;
 
 	for (int i = 0; i <=end; ) {
 		if (projectPool[i].Priority == t0) {
@@ -304,7 +304,7 @@ void Utility::projectPriorityPartition(Project projectPool[], int numProjects,
 	}
 
 	start = t0Index;
-	end = endG - 1;
+	end = endG;
 
 	for (int i = t0Index; i <=end; ) {
 		if (projectPool[i].Priority == t1) {
@@ -317,7 +317,7 @@ void Utility::projectPriorityPartition(Project projectPool[], int numProjects,
 	}
 
 // SORT HYBRID PROJECTS
-	start = endG - 1;
+	start = endG;
 	t0Index = start;
 	end = endH - 1;
 
@@ -331,7 +331,7 @@ void Utility::projectPriorityPartition(Project projectPool[], int numProjects,
 		};
 	}
 
-	t0Index = endG - 1;
+	t0Index = endG;
 
 	for (int i = 0; i <=end; ) {
 		if (projectPool[i].Priority == t0) {
@@ -595,7 +595,7 @@ void Utility::arrayProjectToSectionPercentages(Project projectPool[],
 // ARRAY VERSION
 void Utility::projectToSectionAssignment(Project projectPool[],
         Student studentPool[], ClassSection classSectionPool[],
-		int percentMatrix[], int numProjects, int numStudents, int numClassSections,
+		int numProjects, int numStudents, int numClassSections,
 		int numSkills) {
 
 	//create a 2d array containing the sum of all the students skills, for each skill.
