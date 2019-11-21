@@ -130,9 +130,33 @@ void threadFunction(Student studentPool[],
 		Student STpriority0[numStudents - COUNT_2 - COUNT_1];
 		int COUNT_0 = numStudents - COUNT_2 - COUNT_1;
 
-		std::copy(studentPool + 0, studentPool+(COUNT_2-1), STpriority2);
-		std::copy(studentPool +(COUNT_2), studentPool +(COUNT_2+COUNT_1-1), STpriority1);
-		std::copy(studentPool +(COUNT_2+COUNT_1), studentPool +(numStudents), STpriority0);
+		//std::copy(studentPool + 0, studentPool+(COUNT_2-1), STpriority2);
+		//std::copy(studentPool +(COUNT_2), studentPool +(COUNT_2+COUNT_1-1), STpriority1);
+		//std::copy(studentPool +(COUNT_2+COUNT_1), studentPool +(numStudents), STpriority0);
+
+		int snum1 = 0;
+		int snum2 = 0;
+		int snum0 = 0;
+
+		for(int i=0; i<numStudents; i++){
+
+					if(i <  COUNT_2){
+
+						STpriority2[snum2] =studentPool[i];
+						snum2++;
+
+					}else if(i >= COUNT_2 && i< COUNT_2+COUNT_1){
+
+						STpriority1[snum1] = studentPool[i];
+						snum1++;
+
+					}else if(i >= COUNT_2+COUNT_1 ){
+
+						STpriority0[snum0] = studentPool[i];
+						snum0++;
+					}
+				}
+
 
 
 		//Pushing projects onto project priority arrays
@@ -161,7 +185,7 @@ void threadFunction(Student studentPool[],
 				pnum0++;}
 		}
 
-		cout << "Working " << endl;
+		cout << "Class section # " << classSection<<endl;
 
 		cout << "numProjects: " <<numProjects<<endl;
 		cout << "P2: " <<PCOUNT_2<<endl;
@@ -171,6 +195,19 @@ void threadFunction(Student studentPool[],
 	    cout << "S2: " <<COUNT_2<<endl;
 	    cout << "S1: " <<COUNT_1<<endl;
 		cout << "S0: " <<COUNT_0<<endl;
+/*if(classSection == 1){
+
+	for(int i=0; i<PCOUNT_2; i++){
+		cout<<"Project ID"<<PRpriority2[i].ProjectID<<endl;
+	}
+
+	cout<<"Students: ";
+	for(int i=0; i<COUNT_2; i++){
+			cout<<STpriority2[i].StudentID<<" "<<endl;
+		}
+	cout<<endl;
+}*/
+
 
 	StudentsToProjects x;
  if(COUNT_2 != 0 && PCOUNT_2 != 0){
@@ -222,8 +259,8 @@ int main(){
 
 	//const string PROJECT_FILE = "./newProjects.json";
 	//const string STUDENT_FILE = "./newStudents.json";
-	const string PROJECT_FILE = "./SampleJsonFiles/20Projects.json";
-	const string STUDENT_FILE = "./SampleJsonFiles/100Students.json";
+	const string PROJECT_FILE = "./SampleJsonFiles/80Projects.json";
+	const string STUDENT_FILE = "./SampleJsonFiles/400Students.json";
 	const string CLASS_SECTION_FILE = "./SampleJsonFiles/4ClassSections.json";
 
 	//Change this value to change the number of top teams stored.
