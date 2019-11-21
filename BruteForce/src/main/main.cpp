@@ -126,7 +126,8 @@ int main(){
 	ClassSection CLASS_SECTION_POOL[NUM_CLASS_SECTIONS];
 
 	int PROJECT_STUDENT_SKILLS[NUM_PROJECTS * NUM_STUDENTS];
-	int percentMatrix[NUM_PROJECTS * NUM_CLASS_SECTIONS];
+
+	Test t;
 
 	// INITIALIZE POOLS
 	util.initProjectPool(PROJECT_FILE, PROJECT_POOL, NUM_PROJECTS);
@@ -135,12 +136,17 @@ int main(){
             NUM_CLASS_SECTIONS, NUM_STUDENTS);
 	util.initProjectStudentSkills(PROJECT_POOL, STUDENT_POOL,
 			PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS, NUM_SKILLS);
-	util.arrayProjectToSectionPercentages(PROJECT_POOL, STUDENT_POOL, CLASS_SECTION_POOL,
-			percentMatrix, NUM_PROJECTS, NUM_STUDENTS, NUM_CLASS_SECTIONS, NUM_SKILLS);
-
 
 	// PARTITION POOLS BY TYPE (ONLINE/GROUND/HYBRID)
 	util.projectTypePartition(PROJECT_POOL, NUM_PROJECTS, 'O', 'G', 'H');
+	util.classSectionTypePartition(CLASS_SECTION_POOL, NUM_CLASS_SECTIONS, 'O', 'G');
+
+	// ASSIGN EACH PROJECT TO A CLASS SECTION BASED ON STUDENT-PROJECT SCORE
+	util.projectToSectionAssignment(PROJECT_POOL, STUDENT_POOL, CLASS_SECTION_POOL,
+				NUM_PROJECTS, NUM_STUDENTS, NUM_CLASS_SECTIONS, NUM_SKILLS);
+
+	cout << endl << "After Project to Class Section Assignment: " << endl ;
+	t.PrintProjectPool(PROJECT_POOL, NUM_PROJECTS, NUM_SKILLS);
 
 /***** SORTING STUDENTS BASED ON SKILL *****/
 	//creating student skill average
@@ -191,7 +197,8 @@ int main(){
 
 	cout << to_string(getValuePhy() + getValueVirt()) << " KB total memory usage" << endl;
 
-//START -STUDENTS TO PROJECTS ASSIGNMENT
+// BEGIN - STUDENTS TO PROJECTS ASSIGNMENT
+
     //Threads for each class section will start here
     //Students will be partitioned here by skill averages
     //projects will be partitioned by priority
@@ -199,10 +206,12 @@ int main(){
 	//THREADS FOR EACH CLASS SECTION...Sean Rogers
 	//store the number of students in each class section
 	int *studentsInSections = new int[NUM_CLASS_SECTIONS];
+
 	//initialize to 0
 	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
 		studentsInSections[i] = 0;
 	}
+
 	//set the number of students in each class section to the indexes of studentsInSections[]
 	for(int i = 0; i < NUM_STUDENTS; i++) {
 		for(int j = 0; j < NUM_CLASS_SECTIONS; j++) {
@@ -211,50 +220,55 @@ int main(){
 			}
 		}
 	}
+
 	cout << "StudentID|ClassID: ";
+
 	//Print out for testing
 	for(int i = 0; i < NUM_STUDENTS; i++) {
 		cout << STUDENT_POOL[i].StudentID << "|" << STUDENT_POOL[i].ClassID << "  ";
 	}
+
 	cout << endl;
 
 	//create a thread for each class section. store each thread in threads[]
 	thread threads[NUM_CLASS_SECTIONS];
-	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
 
+	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
 		//store students in a single class section to *STUDENT_POOL_SECTION_X
 		Student *STUDENT_POOL_SECTION_X = new Student[studentsInSections[i]];
 		int indexToAddStudent = 0; //used to add a student to STUDENT_POOL_SECTION_X[] from STUDENT_POOL[]
 
 		cout << "StudentIDs in Class Section " << to_string(i) << ": ";
+
 		for(int j = 0; j < NUM_STUDENTS; j++) {
 			if(STUDENT_POOL[j].ClassID == i) {
 				STUDENT_POOL_SECTION_X[indexToAddStudent] = STUDENT_POOL[j];
 				indexToAddStudent++;
 			}
 		}
+
 		for(int j = 0; j < studentsInSections[i]; j++) {
 			cout << STUDENT_POOL_SECTION_X[j].StudentID << " ";
 		}
+
 		cout << endl;
+
 		//threads[i] = thread (threadFunction, STUDENT_POOL, PROJECT_POOL, NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
 		threads[i] = thread (threadFunction, STUDENT_POOL_SECTION_X, PROJECT_POOL, studentsInSections[i], NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
 	}
+
     //join threads
 	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
 		threads[i].join();
-	}
-	//END THREADS FOR EACH CLASS SECTION...Sean Rogers
-
-//END -STUDENTS TO PROJECTS ASSIGNMENT
+	} //END THREADS FOR EACH CLASS SECTION...Sean Rogers
+//END - STUDENTS TO PROJECTS ASSIGNMENT
 
     //Tests
-	Test t;
+	//Test t;
 	//t.StructTest();
 	//t.PrintProjectPool(PROJECT_POOL, NUM_PROJECTS, NUM_SKILLS);
 	//t.PrintStudentPool(STUDENT_POOL, NUM_STUDENTS, NUM_SKILLS);
 	//t.PrintProjectStudentSkills(PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS);
-	//t.PrintPercentMatrix(percentMatrix, NUM_PROJECTS, NUM_CLASS_SECTIONS);
 
 	// Drivers to read in rules, like class section definitions
 	// ex - getRules(capStoneCourseDefinitions);
