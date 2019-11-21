@@ -173,18 +173,20 @@ void threadFunction(Student studentPool[],
 		cout << "S0: " <<COUNT_0<<endl;
 
 	StudentsToProjects x;
-
+ if(COUNT_2 != 0 && PCOUNT_2 != 0){
 	//1st Call to function: Highest priority projects and highest skill average students
 	results[classSection*3+0] = x.StudentsToProjectsAssignment(STpriority2, PRpriority2,
-			COUNT_2, PCOUNT_2, numSkills, teamSize, numTopTeams);
+			COUNT_2, PCOUNT_2, numSkills, teamSize, numTopTeams);}
 
+ if(COUNT_1 != 0 && PCOUNT_1 != 0){
 	//2nd Call to function: middle priority projects and middle skill average students
 	results[classSection*3+1] = x.StudentsToProjectsAssignment(STpriority1, PRpriority1,
-			COUNT_1, PCOUNT_1, numSkills, teamSize, numTopTeams);
+			COUNT_1, PCOUNT_1, numSkills, teamSize, numTopTeams);}
 
+ if(COUNT_0 != 0 && PCOUNT_0 != 0){
    //3rd Call to function: lowest priority projects and lowest skill average students
 	results[classSection*3+2] = x.StudentsToProjectsAssignment(STpriority0, PRpriority0,
-		    COUNT_0, PCOUNT_0, numSkills, teamSize, numTopTeams);
+		    COUNT_0, PCOUNT_0, numSkills, teamSize, numTopTeams);}
 
 
 
@@ -218,10 +220,10 @@ int main(){
 	util.makeProjectJSON(NUM_PROJECTS, NUM_SKILLS);
 	util.makeStudentJSON(NUM_STUDENTS, NUM_SKILLS);
 
-	const string PROJECT_FILE = "./newProjects.json";
-	const string STUDENT_FILE = "./newStudents.json";
-	//const string PROJECT_FILE = "./SampleJsonFiles/20Projects.json";
-	//const string STUDENT_FILE = "./SampleJsonFiles/60Students.json";
+	//const string PROJECT_FILE = "./newProjects.json";
+	//const string STUDENT_FILE = "./newStudents.json";
+	const string PROJECT_FILE = "./SampleJsonFiles/20Projects.json";
+	const string STUDENT_FILE = "./SampleJsonFiles/100Students.json";
 	const string CLASS_SECTION_FILE = "./SampleJsonFiles/4ClassSections.json";
 
 	//Change this value to change the number of top teams stored.
