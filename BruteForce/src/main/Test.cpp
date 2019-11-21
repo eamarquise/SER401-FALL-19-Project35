@@ -60,6 +60,10 @@ void Test::PrintProjectPool(Project projectPool[], int numProjects, int numSkill
 
 		cout << "Type:  " ;
 		cout << project.Type << endl;
+
+		cout << "Class ID:  " ;
+				cout << project.ClassID << endl;
+
 		cout << "Priority: ";
 		cout << project.Priority << endl;
 		cout << "Skills: ";

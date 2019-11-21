@@ -205,6 +205,175 @@ void Utility::projectTypePartition(Project projectPool[], int numProjects,
 	}
 }
 
+// PARTITION BY PROJECT PRIORITY (PRIMARY = 2 | SECONDARY = 1 | TERTIARY = 0
+void Utility::projectPriorityPartition(Project projectPool[], int numProjects,
+		int t0, int t1, int t2) {
+
+	int start = 0;
+	int end = numProjects - 1;
+	int t0Index = 0;
+	int endG = 0;
+	int endO = 0;
+	int endH = 0;
+
+	for (int i = 0; i < numProjects; i++) {
+		if (projectPool[i].Type == 'O') {
+			endO++;
+		}
+	}
+
+	endG = endO - 1;
+
+	for (int i = 0; i < numProjects; i++) {
+		if (projectPool[i].Type == 'G') {
+			endG++;
+		}
+	}
+
+	endH = endG - 1;
+
+	for (int i = 0; i < numProjects; i++) {
+		if (projectPool[i].Type == 'H') {
+			endH++;
+		}
+	}
+
+// SORT ONLINE PROJECTS
+	start = 0;
+	t0Index = start;
+	end = endO - 1;
+
+	for (int i = 0; i <=end; ) {
+		if (projectPool[i].Priority == t0) {
+			swap(projectPool[i++], projectPool[start++]);
+		} else if (projectPool[i].Priority != t0) {
+			swap(projectPool[i], projectPool[end--]);
+	    } else {
+	    	i++;
+	    };
+	}
+
+	t0Index = 0;
+
+	for (int i = 0; i <=end; ) {
+		if (projectPool[i].Priority == t0) {
+			t0Index++;
+			i++;
+		} else {
+			i++;
+		};
+	}
+
+	start = t0Index;
+	end = endO - 1;
+
+	for (int i = t0Index; i <=end; ) {
+		if (projectPool[i].Priority == t1) {
+			swap(projectPool[i++], projectPool[start++]);
+		} else if (projectPool[i].Priority != t1) {
+			swap(projectPool[i], projectPool[end--]);
+		} else {
+			i++;
+		};
+	}
+
+// SORT GROUND PROJECTS
+	start = endO - 1;
+	t0Index = start;
+	end = endG - 1;
+
+	for (int i = 0; i <=end; ) {
+		if (projectPool[i].Priority == t0) {
+			swap(projectPool[i++], projectPool[start++]);
+		} else if (projectPool[i].Priority != t0) {
+			swap(projectPool[i], projectPool[end--]);
+		} else {
+			i++;
+		};
+	}
+
+	t0Index = endO - 1;
+
+	for (int i = 0; i <=end; ) {
+		if (projectPool[i].Priority == t0) {
+			t0Index++;
+			i++;
+		} else {
+			i++;
+		};
+	}
+
+	start = t0Index;
+	end = endG - 1;
+
+	for (int i = t0Index; i <=end; ) {
+		if (projectPool[i].Priority == t1) {
+			swap(projectPool[i++], projectPool[start++]);
+		} else if (projectPool[i].Priority != t1) {
+			swap(projectPool[i], projectPool[end--]);
+		} else {
+			i++;
+		};
+	}
+
+// SORT HYBRID PROJECTS
+	start = endG - 1;
+	t0Index = start;
+	end = endH - 1;
+
+	for (int i = 0; i <=end; ) {
+		if (projectPool[i].Priority == t0) {
+			swap(projectPool[i++], projectPool[start++]);
+		} else if (projectPool[i].Priority != t0) {
+			swap(projectPool[i], projectPool[end--]);
+		} else {
+			i++;
+		};
+	}
+
+	t0Index = endG - 1;
+
+	for (int i = 0; i <=end; ) {
+		if (projectPool[i].Priority == t0) {
+			t0Index++;
+			i++;
+		} else {
+			i++;
+		};
+	}
+
+	start = t0Index;
+	end = endH - 1;
+
+	for (int i = t0Index; i <=end; ) {
+		if (projectPool[i].Priority == t1) {
+			swap(projectPool[i++], projectPool[start++]);
+		} else if (projectPool[i].Priority != t1) {
+			swap(projectPool[i], projectPool[end--]);
+		} else {
+			i++;
+		};
+	}
+}
+
+// PARTITION BY CLASS SECTION TYPE (PRIMARY = O | SECONDARY = G
+void Utility::classSectionTypePartition(ClassSection classSectionPool[],
+		int numClassSections, char t0, char t1) {
+
+	int start = 0;
+	int end = numClassSections - 1;
+
+	for (int i = 0; i <=end; ) {
+		if (classSectionPool[i].Type == t0) {
+			swap(classSectionPool[i++], classSectionPool[start++]);
+		} else if (classSectionPool[i].Type != t0) {
+			swap(classSectionPool[i], classSectionPool[end--]);
+	    } else {
+	    	i++;
+	    };
+	}
+}
+
 void Utility::printIntMatrix(vector<vector<int>> a){
 	cout << endl;
 	for (int i = 0; i < a.size() ; i++){
@@ -422,6 +591,102 @@ void Utility::arrayProjectToSectionPercentages(Project projectPool[],
     //return  percentMatrix;
 }//end ProjectToSectionPercentages
 
+
+// ARRAY VERSION
+void Utility::projectToSectionAssignment(Project projectPool[],
+        Student studentPool[], ClassSection classSectionPool[],
+		int percentMatrix[], int numProjects, int numStudents, int numClassSections,
+		int numSkills) {
+
+	//create a 2d array containing the sum of all the students skills, for each skill.
+	int SectionSkills[numClassSections * numSkills] = {0};
+
+    Student student;
+    Project project;
+    ClassSection classSection;
+
+    for(int i = 0; i < numClassSections; i++) {
+
+    	classSection = *(classSectionPool + i);
+
+        for(int j = 0; j < numStudents; j++) {
+            student = *(studentPool + j);
+            if (student.ClassID == classSection.ClassID) {
+            	for(int k = 0; k < numSkills; k++) {
+            		SectionSkills[(i * numSkills) + k] += student.Skills[k];
+            	}
+            }
+        }
+    }
+
+    //create skillXproject matrix
+	int skillXproject[numProjects * numSkills];
+
+	for (int i = 0; i < numProjects; i++){
+		for (int j = 0; j < numSkills; j++) {
+			project = *(projectPool + i);
+            skillXproject[(i * numSkills) + j] = project.Skills[j];
+        }
+    }
+
+    // Calculate Project x Section skills Matrix
+	int projectXsection[numProjects * numClassSections] = {0};
+
+	for (int i = 0; i < numProjects; i++) {
+
+		project = *(projectPool + i);
+
+	  	for (int j = 0; j < numClassSections; j++) {
+
+	  		classSection = *(classSectionPool + j);
+	  		projectXsection[(i * numClassSections) + j] = {0};
+
+	  		if (project.Type == classSection.Type || project.Type == 'H') {
+	  			for (int k = 0; k < numSkills; k++) {
+	  				projectXsection[(i * numClassSections) + j] +=
+                        (SectionSkills[(j * numSkills) + k] * skillXproject[(i * numSkills) + k]);
+	  			}
+	  		}
+        }
+    }
+
+	int highestScore;
+	int currentScore;
+	int highestClassSection;
+	int randInt;
+
+	for (int i = 0; i < numProjects; i++) {
+
+		project = *(projectPool + i);
+		highestScore = 0;
+		highestClassSection = 0;
+
+		for (int j = 0; j < numClassSections; j++) {
+
+			classSection = *(classSectionPool + j);
+			currentScore = projectXsection[(i * numClassSections) + j];
+
+			if (currentScore > highestScore) {
+				highestScore = currentScore;
+				highestClassSection = j;
+			} else if (currentScore == highestScore &&
+					currentScore != 0) {
+				randInt = rand()%2;
+				if (randInt == 1) {
+					highestClassSection = j;
+				}
+			}
+		}
+
+		// Checks to make sure the highest score is greater than 0
+		// If highest score = 0, then project and class section
+		// types did not match
+		if (highestScore > 0) {
+			classSection = *(classSectionPool + highestClassSection);
+			projectPool[i].ClassID = classSection.ClassID;
+		}
+	}
+}//end ProjectToSectionPercentages
 
 void Utility::makeProjectJSON(int numProj, int numSkill) {
 
