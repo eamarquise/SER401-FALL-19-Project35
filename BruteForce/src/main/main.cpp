@@ -257,10 +257,10 @@ int main(){
 	util.makeProjectJSON(NUM_PROJECTS, NUM_SKILLS);
 	util.makeStudentJSON(NUM_STUDENTS, NUM_SKILLS);
 
-	//const string PROJECT_FILE = "./newProjects.json";
-	//const string STUDENT_FILE = "./newStudents.json";
-	const string PROJECT_FILE = "./SampleJsonFiles/80Projects.json";
-	const string STUDENT_FILE = "./SampleJsonFiles/400Students.json";
+	const string PROJECT_FILE = "./newProjects.json";
+	const string STUDENT_FILE = "./newStudents.json";
+	//const string PROJECT_FILE = "./SampleJsonFiles/80Projects.json";
+	//const string STUDENT_FILE = "./SampleJsonFiles/400Students.json";
 	const string CLASS_SECTION_FILE = "./SampleJsonFiles/4ClassSections.json";
 
 	//Change this value to change the number of top teams stored.

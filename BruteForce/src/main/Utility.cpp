@@ -750,15 +750,16 @@ void Utility::makeProjectJSON(int numProj, int numSkill) {
 	        /*Prints out schema: "Type": O/G/H, right now 80% is hybrid
 	         * 10% online and 10% ground projects    */
 	        file << " \"Type\": ";
-	        int percent = (int) numProjects * (0.10);
-	        if(projectID < (percent+1)) {
+	        file << "\"H\" },\n\n";
+	        //int percent = (int) numProjects * (0.10);
+	       /* if(projectID < (percent+1)) {
 	            file << "\"O\" }, \n\n"; }
 	        else if ( projectID > percent && projectID < ((percent+percent+1))) {
 	            file << "\"G\" }, \n\n"; }
 	        else if ( projectID == numProjects) {
 	            file << "\"H\" }\n\n"; }
 	        else {
-	            file << "\"H\" },\n\n"; }
+	            file << "\"H\" },\n\n"; }*/
 
 	    }
 	    file << "]\n}";
