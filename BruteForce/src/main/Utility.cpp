@@ -792,13 +792,13 @@ void Utility::makeStudentJSON(int numStud, int numSkill) {
 
         /*Prints out schema: "ClassID": (classID), classID is divided
          * equally into 4 sections   */
-        if(studentID < student_25) {
+        if(studentID <= student_25) {
            file << " \"ClassID\": 0,\n";   }
-        if(studentID >= student_25 && studentID < student_50) {
+        if(studentID > student_25 && studentID <= student_50) {
             file << " \"ClassID\": 1,\n";   }
-        if(studentID >= student_50 && studentID < student_75) {
+        if(studentID > student_50 && studentID <= student_75) {
             file << " \"ClassID\": 2,\n";   }
-        if(studentID >= student_75 && studentID <= numStudent) {
+        if(studentID > student_75 && studentID <= numStudent) {
             file << " \"ClassID\": 3,\n";   }
 
 
