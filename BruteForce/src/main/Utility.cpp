@@ -654,6 +654,11 @@ void Utility::projectToSectionAssignment(Project projectPool[],
 	int currentScore;
 	int highestClassSection;
 	int randInt;
+	vector <ClassSection> ClassSections;
+	for (int i = 0; i < numClassSections; i++) {
+		ClassSections.push_back(*(classSectionPool + i));
+	}
+
 
 	for (int i = 0; i < numProjects; i++) {
 
@@ -661,19 +666,27 @@ void Utility::projectToSectionAssignment(Project projectPool[],
 		highestScore = 0;
 		highestClassSection = 0;
 
-		for (int j = 0; j < numClassSections; j++) {
+		//refill vector if empty
+		if(ClassSections.empty()){
+		for (int i = 0; i < numClassSections; i++) {
+			ClassSections.push_back(*(classSectionPool + i));
+		}}
 
-			classSection = *(classSectionPool + j);
-			currentScore = projectXsection[(i * numClassSections) + j];
+
+
+		for (int j = 0; j < ClassSections.size(); j++) {
+
+			classSection = ClassSections[j];
+			currentScore = projectXsection[(i * numClassSections) + ClassSections[j].ClassID];
 
 			if (currentScore > highestScore) {
 				highestScore = currentScore;
-				highestClassSection = j;
+				highestClassSection = ClassSections[j].ClassID;
 			} else if (currentScore == highestScore &&
 					currentScore != 0) {
 				randInt = rand()%2;
 				if (randInt == 1) {
-					highestClassSection = j;
+					highestClassSection = ClassSections[j].ClassID;
 				}
 			}
 		}
@@ -682,9 +695,16 @@ void Utility::projectToSectionAssignment(Project projectPool[],
 		// If highest score = 0, then project and class section
 		// types did not match
 		if (highestScore > 0) {
-			classSection = *(classSectionPool + highestClassSection);
+			for (int j = 0; j < ClassSections.size(); j++) {
+
+			if(ClassSections[j].ClassID==highestClassSection){
+			classSection = ClassSections[j];
 			projectPool[i].ClassID = classSection.ClassID;
+			ClassSections.erase(ClassSections.begin() + j);
+			}
 		}
+
+	  }
 	}
 }//end ProjectToSectionPercentages
 
@@ -730,15 +750,16 @@ void Utility::makeProjectJSON(int numProj, int numSkill) {
 	        /*Prints out schema: "Type": O/G/H, right now 80% is hybrid
 	         * 10% online and 10% ground projects    */
 	        file << " \"Type\": ";
-	        int percent = (int) numProjects * (0.10);
-	        if(projectID < (percent+1)) {
+	        file << "\"H\" },\n\n";
+	        //int percent = (int) numProjects * (0.10);
+	       /* if(projectID < (percent+1)) {
 	            file << "\"O\" }, \n\n"; }
 	        else if ( projectID > percent && projectID < ((percent+percent+1))) {
 	            file << "\"G\" }, \n\n"; }
 	        else if ( projectID == numProjects) {
 	            file << "\"H\" }\n\n"; }
 	        else {
-	            file << "\"H\" },\n\n"; }
+	            file << "\"H\" },\n\n"; }*/
 
 	    }
 	    file << "]\n}";
