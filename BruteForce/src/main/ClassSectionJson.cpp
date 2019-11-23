@@ -1,18 +1,19 @@
-/*
- * ClassSectionJson.cpp
- *
- *  Created on: Oct 28, 2019
- *  Author: Myles Colina
- *
- *  File revised from archive the file: mainStudent.cpp
- *  Author: Myles Colina
- *
- *
- *  Description:
- *      A class to store all the functions for student Json data.
- *      Includes reading in Student Json Files.
- *
- */
+/****************
+* ClassSectionJson.cpp
+*
+*Author(s) Myles Colina
+*
+*Description: (what the class does) - A class to store all the functions for student Json data.
+*      Includes reading in Student Json Files.
+*
+* ClassSectionWriter(string filename) - to be implemented in a later sprint.
+*
+* getClassSectionJsonObject(string filename, int i) - Reads in a json file pertaining to class sections.
+* Retrieves the class section in the json file at index int i.
+* Stores that information into a ClassSection instance.
+* Returns that instance.
+*
+*/
 
 #include "ClassSectionJson.h"
 #include "ClassSection.h"
@@ -34,7 +35,22 @@ void ClassSectionJson::ClassSectionWriter(string filename){
 	//to be implemented in a later sprint.
 }
 
-// Returns a Class Section object
+/*********************
+* getClassSectionJsonObject(string filename, int i)
+*
+* Description:
+* Reads in a json file pertaining to class sections.
+* Retrieves the class section in the json file at index int i.
+* Stores that information into a ClassSection instance.
+* Returns that instance.
+*
+*Arguments:
+*	string filename, int i
+*
+*Returns:
+*	ClassSection classSection
+*
+*/
 ClassSection ClassSectionJson::getClassSectionJsonObject(string filename, int i){
 	ifstream ifs(filename);
 	Json::Reader reader;

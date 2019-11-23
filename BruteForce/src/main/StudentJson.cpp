@@ -1,18 +1,26 @@
-/*
- * StudentJson.cpp
- *
- *  Created on: Oct 28, 2019
- *      Author: Myles Colina
- *
- *     File revised from archive the file: mainStudent.cpp
- *      Author: Myles Colina
- *
- *
- *      Description:
- *      A class to store all the functions for student Json data.
- *      Includes reading in Student Json Files.
- *
- */
+/****************
+* StudentJson.cpp
+*
+*Author(s) Myles
+*
+*Description:
+*A class to store all the functions for Student Json data.
+*Includes reading in Student Json Files.
+*
+*
+* StudentJson() - Constructor
+* ~StudentJson()- Destructor
+* StudentWriter - to be implemented in a later sprint
+*
+* getStudentJsonObject(string filename, int i) - Reads a json file given by string filename then reads a Student object from the json file.
+* int i selects the Student object to be read. The Student object from the json file is
+* then stored into a c++ Student object with all the properties defined by the json Student object.
+*
+* StudentReaderVector(string filename)  - Reads a json file given by string filename, gets the number of Students in the json file,
+* gets the information of each Student, stores each Student in a c++ Student instance,
+* then pushes that into vector<Student> allStudents.
+*
+*/
 
 #include "StudentJson.h"
 #include "Student.h"
@@ -36,7 +44,26 @@ void StudentJson::StudentWriter(string filename){
 	//to be implemented in a later sprint.
 }
 
-// Returns a Student object
+/*********************************************************
+ * getStudentJsonObject
+ *
+ *Authors: Myles
+ *
+ *Description:
+ * Reads a json file given by string filename then reads a Student object from the json file.
+ * int i selects the Student object to be read. The Student object from the json file is
+ * then stored into a c++ Student object with all the properties defined by the json Student object.
+ *
+ *Arguments:
+ *	string filename, int i
+ *
+ *Returns:
+ *	Student object
+ *
+ *	NOTES:
+ *
+ *
+ */
 Student StudentJson::getStudentJsonObject(string filename, int i){
 
 	ifstream ifs(filename);
@@ -69,6 +96,26 @@ Student StudentJson::getStudentJsonObject(string filename, int i){
 	return student;
 }
 
+/*********************************************************
+ * StudentReaderVector
+ *
+ *Authors: Myles
+ *
+ *Description:
+ * Reads a json file given by string filename, gets the number of Students in the json file,
+ * gets the information of each Student, stores each Student in a c++ Student instance,
+ * then pushes that into vector<Student> allStudents.
+ *
+ *Arguments:
+ *	string filename
+ *
+ *Returns:
+ *	void
+ *
+ *	NOTES:
+ *
+ *
+ */
 void StudentJson::StudentReader(string filename){
 
 	ifstream ifs(filename);
