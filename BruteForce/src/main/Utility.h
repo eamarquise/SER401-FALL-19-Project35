@@ -1,8 +1,18 @@
 /*
  * Utility.h
  *
+ * Description:
+ * The Utility class is a series of external functions that can be called
+ * to perform repeated calculations in the system. These include methods
+ * such as initializing student and project pools, determining the size of
+ * an incoming data file, and performing matrix multiplication to extract
+ * weighted values.
+ *
+ *
  *  Created on: Oct. 29, 2019
- *      Author: mcilibra
+ *      Author: Matt Cilibraise
+ *      		Cristi Deleo
+ *      		Fall 2019 Team 35
  */
 
 #ifndef UTILITY_H_
