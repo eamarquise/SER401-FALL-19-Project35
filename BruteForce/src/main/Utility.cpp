@@ -1,8 +1,18 @@
 /*
  * Utility.cpp
  *
+ * Description:
+ * The Utility class is a series of external functions that can be called
+ * to perform repeated calculations in the system. These include methods
+ * such as initializing student and project pools, determining the size of
+ * an incoming data file, and performing matrix multiplication to extract
+ * weighted values.
+ *
+ *
  *  Created on: Oct. 29, 2019
- *      Author: mcilibra
+ *      Author: Matt Cilibraise
+ *      		Cristi Deleo
+ *      		Fall 2019 Team 35
  */
 #include "Utility.h"
 #include "json/json.h"
@@ -33,21 +43,62 @@ Utility::Utility() {
 Utility::~Utility() {
 	// TODO Auto-generated destructor stub
 }
-
+/*
+ * initProjectPool
+ *
+ * Description:
+ * Initializes the project pool
+ *
+ * Arguments:
+ * filename - name of data file
+ * projectPool[] - pointer to the project pool
+ * numProjects - integer value of the number of projects to be initialized
+ *
+ * returns -
+ * void method.
+ */
 void Utility::initProjectPool(string filename, Project projectPool[], int numProjects) {
 	ProjectJson PJson;
 	for (int i = 0; i < numProjects; i++) {
 		*(projectPool + i) = PJson.getProjectJsonObject(filename, i);
 	}
 }
-
+/*
+ * initStudentPool
+ *
+ * Description:
+ * Initializes the student pool
+ *
+ * Arguments:
+ * filename - name of data file
+ * studentPool[] - pointer to the student pool
+ * numStudents - integer value of the number of students to be initialized
+ *
+ * returns -
+ * void method.
+ */
 void Utility::initStudentPool(string filename, Student studentPool[], int numStudents) {
 	StudentJson SJson;
 	for (int i = 0; i < numStudents; i++) {
 		*(studentPool + i) = SJson.getStudentJsonObject(filename, i);
 	}
 }
-
+/*
+ * initClassSectionPool
+ *
+ * Description:
+ * Initializes the classSection pool
+ *
+ * Arguments:
+ * filename - name of data file
+ * classSectionPool[] - pointer to the classSection pool
+ * studentPool[] - pointer to the studentPool
+ * numClassSections - integer value of the number of classSections.
+ * numStudents - integer value of the number of students to be initialized
+ *
+ * returns -
+ * void method.
+ */
 void Utility::initClassSectionPool(string filename, ClassSection classSectionPool[],
         Student studentPool[], int numClassSections, int numStudents) {
 	ClassSectionJson CSJson;
@@ -67,7 +118,25 @@ void Utility::initClassSectionPool(string filename, ClassSection classSectionPoo
     	*(classSectionPool + i) = classSection;
     }
 }
-
+/*
+ * initProjectStudentSkills
+ *
+ * Description:
+ * completes a dot product matrix of project skills x student skills
+ * in order to created weighted values representing a student's skill strength
+ * compared to a projects recommended skills.
+ *
+ * Arguments:
+ * projectPool[] - pointer to the projectPool
+ * studentPool[] - pointer to the studentPool
+ * projectStudentSkills[] - pointer to the array storing weighted values
+ * numProjects - integer value of the number of projects.
+ * numStudents - integer value of the number of students
+ * numSkills - integer value of the number of skills evaluated
+ *
+ * returns -
+ * void method.
+ */
 void Utility::initProjectStudentSkills(Project projectPool[], Student studentPool[],
 		int projectStudentSkills[], int numProjects, int numStudents, int numSkills) {
 
@@ -88,7 +157,19 @@ void Utility::initProjectStudentSkills(Project projectPool[], Student studentPoo
 		}
 	}
 }
-
+/*
+ * getSizeOfJson
+ *
+ * Description:
+ * returns the size of a Json data file
+ *
+ * Arguments-
+ * filename - name of Json data file
+ * key - value to be targeted and counted
+ *
+ * returns -
+ * obj[key].size()
+ */
 int Utility::getSizeOfJson(string filename, string key) {
 	ifstream ifs(filename);
 	Json::Reader reader;
@@ -98,18 +179,51 @@ int Utility::getSizeOfJson(string filename, string key) {
 	return obj[key].size();
 }
 
+/*
+ * getProjectXskill
+ *
+ * Description:
+ * returns a project's skill value to be used in matrix multiplication
+ *
+ * Arguments:
+ * projectPool[] - pointer to the project pool
+ * i - row value of project
+ * j - column value of skill
+ *
+ * Returns:
+ * project.Skills[j] - current iteration project's skill value.
+ */
 int Utility::getProjectXskill(Project projectPool[], int i, int j){
 	Project project;
 	project = *(projectPool + i);
 	return project.Skills[j];
 }
-
+/*
+ * getSkillXstudent
+ *
+ * Description:
+ * returns a student's skill value to be used in matrix multiplication
+ *
+ * Arguments:
+ * studentPool[] - pointer to the project pool
+ * i - row value of Student
+ * j - column value of skill
+ *
+ * Returns:
+ * student.Skills[j] - current iteration student's skill value.
+ */
 int Utility::getSkillXstudent(Student studentPool[], int i, int j){
 	Student student;
 	student = *(studentPool + i);
 	return student.Skills[j];
 }
-
+/*
+ * calcProjectXStudentMatrix
+ *
+ * Description:
+ * Deprecated method used to calculate and return vector of ProjectxStudent weighted skills.
+ * use initProjectStudentSkills instead for better runtime.
+ */
 vector<vector<int>> Utility::calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects){
 	int numStudents = students.size();
 	int numProjects = projects.size();
