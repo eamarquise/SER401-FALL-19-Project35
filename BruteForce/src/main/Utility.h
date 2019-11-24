@@ -56,7 +56,7 @@ class Utility {
 				int numProjects, int numStudents, int numClassSections,	int numSkills);
 		void projectToSectionAssignment(Project projectPool[],
 		        Student studentPool[], ClassSection classSectionPool[],
-				int numProjects, int numStudents, int numClassSections, int numSkills);
+				int numProjects, int numStudents, int numClassSections, int numSkills, int studentsInSections[]);
 		void makeProjectJSON(int numProj, int numSkill);
 		void makeStudentJSON(int numStud, int numSkill);
 		int calc_projects(int numStudents, int teamSize, int minTeamSize);
