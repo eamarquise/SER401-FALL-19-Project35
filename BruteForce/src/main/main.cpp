@@ -361,19 +361,18 @@ void threadFunction(Student studentPool[],
 	//1st Call to function: Highest priority projects and highest skill average students
 	*(results+(classSection*3+0)) = x.StudentsToProjectsAssignment(STpriority2, PRpriority2,
 			COUNT_2, PCOUNT_2, numSkills, teamSize, numTopTeams);}
- cout<<"Call 1 done"<<endl;
+
 
  if(COUNT_1 != 0 && PCOUNT_1 != 0){
 	//2nd Call to function: middle priority projects and middle skill average students
 	*(results+(classSection*3+1)) = x.StudentsToProjectsAssignment(STpriority1, PRpriority1,
 			COUNT_1, PCOUNT_1, numSkills, teamSize, numTopTeams);}
- cout<<"Call 2 done"<<endl;
+
 
  if(COUNT_0 != 0 && PCOUNT_0 != 0){
    //3rd Call to function: lowest priority projects and lowest skill average students
 	*(results+(classSection*3+2)) = x.StudentsToProjectsAssignment(STpriority0, PRpriority0,
 		    COUNT_0, PCOUNT_0, numSkills, teamSize, numTopTeams);}
- cout<<"Call 3 done"<<endl;
 
 
 }
@@ -517,12 +516,12 @@ int main(){
 	cout << endl;
 
 	//create a thread for each class section. store each thread in threads[]
-	//thread threads[NUM_CLASS_SECTIONS];
+     thread threads[NUM_CLASS_SECTIONS];
 
 	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
 		//store students in a single class section to *STUDENT_POOL_SECTION_X
-		Student STUDENT_POOL_SECTION_X[studentsInSections[i]];
-		//Student *STUDENT_POOL_SECTION_X = new Student[studentsInSections[i]];
+		//Student STUDENT_POOL_SECTION_X[studentsInSections[i]];
+		Student *STUDENT_POOL_SECTION_X = new Student[studentsInSections[i]];
 		int indexToAddStudent = 0; //used to add a student to STUDENT_POOL_SECTION_X[] from STUDENT_POOL[]
 
 		cout << "StudentIDs in Class Section " << to_string(i) << ": ";
@@ -534,8 +533,8 @@ int main(){
 			}
 		}
 
-		Project PROJECT_POOL_SECTION_X[projectsInSections[i]];
-		//Project *PROJECT_POOL_SECTION_X = new Project[projectsInSections[i]];
+		//Project PROJECT_POOL_SECTION_X[projectsInSections[i]];
+		Project *PROJECT_POOL_SECTION_X = new Project[projectsInSections[i]];
 		int indexToAddProject = 0; //used to add a student to STUDENT_POOL_SECTION_X[] from STUDENT_POOL[]
 
 		//separate the projects into an array by class section
@@ -552,20 +551,19 @@ int main(){
 		}
 
 		cout << "Total: " + to_string(studentsInSections[i]) << endl;
-		threadFunction(STUDENT_POOL_SECTION_X, PROJECT_POOL_SECTION_X, studentsInSections[i], projectsInSections[i], NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS, results, i);
+	    //threadFunction(STUDENT_POOL_SECTION_X, PROJECT_POOL_SECTION_X, studentsInSections[i], projectsInSections[i], NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS, results, i);
 
 		//threads[i] = thread (threadFunction, STUDENT_POOL, PROJECT_POOL, NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
-		//threads[i] = thread (threadFunction, STUDENT_POOL_SECTION_X, PROJECT_POOL_SECTION_X, studentsInSections[i], projectsInSections[i], NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS, results, i);
+		threads[i] = thread (threadFunction, STUDENT_POOL_SECTION_X, PROJECT_POOL_SECTION_X, studentsInSections[i], projectsInSections[i], NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS, results, i);
 	}
 
 
-
-
     //join threads
-/*	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
+	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
 		threads[i].join();
 
-	}*/
+	}
+
     for(int i = 0; i < NUM_CLASS_SECTIONS*3; i++) {
 		cout << results[i] << endl;
 	}
