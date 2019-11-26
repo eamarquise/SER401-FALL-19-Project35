@@ -83,6 +83,29 @@ void threadFunction(Student studentPool[],
 		Project projectPool[], const int numStudents, const int numProjects, const int numSkills,
 		const int teamSize, const int numTopTeams, string results[], int classSection) {
 
+
+	//Find the number of teams of 5 and number of teams of 4 needed for this class section.
+	Utility util;
+	int numTeamsOf4 = util.NumOfTeamsOf4(numStudents, teamSize);
+	int numTeamsOf5 = abs(numTeamsOf4*4 - numStudents)/5;
+	int count4T = 0;
+	int count5T = 0;
+	vector <int> TeamsNeeded;
+
+	for(int i=0; i<numProjects; i++) {
+
+		if(count5T < numTeamsOf5){
+		TeamsNeeded.push_back(5);
+		count5T++;
+
+		}else if(count4T < numTeamsOf4){
+			TeamsNeeded.push_back(4);
+			count4T++;
+		}
+	}
+
+
+
 	/***** SORTING STUDENTS BASED ON SKILL *****/
 		//creating student skill average
 		for(int i=0; i<numStudents; i++) {
@@ -115,20 +138,127 @@ void threadFunction(Student studentPool[],
 			if(projectPool[i].Priority ==1) { count1++; }
 		}
 
-		const int count1C = count1*5;
-		const int count2C = count2*5;
+     	int count0 = abs(numProjects - count2 - count1);
 
+		//make sure each priority section does not have 1 project.(should have 0, or 2 or more.)
+		if (count2==1){
+			if(count1 > 2){
+				count1--;
+				count2++;
+			}else if(count1 == 1){
+				count1--;
+				count2++;
+			}else if(count1 == 2){
+					count1--;
+					count2++;
+					count1--;
+					count2++;
+			}else if(count0 > 2){
+				count0--;
+				count2++;
+			}else if(count0 == 1){
+				count0--;
+				count2++;
+		}else if(count0 == 2){
+			count0--;
+			count2++;
+			count0--;
+			count2++;
+		}}
+
+		if (count1==1){
+			if (count2>=1 && count2 !=2){
+			count2++;
+			count1--;
+			}else if (count0>=1 && count0 !=2){
+				count1--;
+				count0++;
+			}else if (count0==2){
+				count1++;
+				count1++;
+				count0--;
+				count0--;
+			}
+		}
+
+
+		if (count0==1){
+			if (count2>=1 && count2 !=2){
+			count2++;
+			count0--;
+			}else if (count1>=1&& count1 !=2){
+			 count0--;
+			 count1++;
+			}else if (count1==2){
+				count0++;
+				count0++;
+				count1--;
+				count1--;
+			}
+		}
+
+
+		if(count1==2){
+			count1--;
+			count1--;
+			count2++;
+			count2++;
+		}
+
+		if(count0==2){
+					count0--;
+					count0--;
+					count2++;
+					count2++;
+				}
+
+
+
+		int newcount0 = 0;
+		int newcount1 = 0;
+		int newcount2 = 0;
+		int c0 = 0;
+		int c1 = 0;
+		int c2 = 0;
+
+		for(int i=0; i<numProjects; i++) {
+
+			if(c2 < count2){
+			newcount2 += TeamsNeeded[i];
+			c2++;
+			}else if(c1 < count1){
+				newcount1 += TeamsNeeded[i];
+				c1++;
+				}else if(c0 < count0){
+					newcount0 += TeamsNeeded[i];
+					c0++;
+					}
+
+		}
+
+
+
+		//const int count1C = count1*5;
+		//const int count2C = count2*5;
+
+		const int count0C = newcount0;
+		const int count1C = newcount1;
+		const int count2C = newcount2;
+
+		const int COUNT_0 = toConstInt(count0C);
 		const int COUNT_1 = toConstInt(count1C);
 		const int COUNT_2 = toConstInt(count2C);
 
+		const int PCOUNT_0 = toConstInt(count0);
 		const int PCOUNT_1 = toConstInt(count1);
 		const int PCOUNT_2 = toConstInt(count2);
 
 		//Pushing students onto project priority arrays
 		Student STpriority1[COUNT_1];
 		Student STpriority2[COUNT_2];
-		Student STpriority0[numStudents - COUNT_2 - COUNT_1];
-		int COUNT_0 = numStudents - COUNT_2 - COUNT_1;
+		Student STpriority0[COUNT_0];
+		//Student STpriority0[numStudents - COUNT_2 - COUNT_1];
+		//int COUNT_0 = numStudents - COUNT_2 - COUNT_1;
 
 		//std::copy(studentPool + 0, studentPool+(COUNT_2-1), STpriority2);
 		//std::copy(studentPool +(COUNT_2), studentPool +(COUNT_2+COUNT_1-1), STpriority1);
@@ -162,13 +292,14 @@ void threadFunction(Student studentPool[],
 		//Pushing projects onto project priority arrays
 		Project PRpriority1[PCOUNT_1];
 		Project PRpriority2[PCOUNT_2];
-		Project PRpriority0[numProjects - count1 - count2];
-		int PCOUNT_0 = numProjects - count1 - count2;
+		Project PRpriority0[PCOUNT_0];
+		//Project PRpriority0[numProjects - count1 - count2];
+		//int PCOUNT_0 = numProjects - count1 - count2;
 
 		int pnum1 = 0;
 		int pnum2 = 0;
 		int pnum0 = 0;
-
+/*
 		for(int i=0; i<numProjects; i++){
 
 			if(projectPool[i].Priority == 2){
@@ -183,7 +314,23 @@ void threadFunction(Student studentPool[],
 
 				PRpriority0[pnum0] = projectPool[i];
 				pnum0++;}
-		}
+		}*/
+
+		for(int i=0; i<numProjects; i++){
+
+					if(i < count2){
+
+						PRpriority2[pnum2] = projectPool[i];
+						pnum2++;
+					}else if(i >= count2 && i< count2+count1){
+
+						PRpriority1[pnum1] = projectPool[i];
+						pnum1++;
+					}else if(i >= count2 + count1){
+
+						PRpriority0[pnum0] = projectPool[i];
+						pnum0++;}
+				}
 
 		cout << "Class section # " << classSection<<endl;
 
@@ -212,19 +359,21 @@ void threadFunction(Student studentPool[],
 	StudentsToProjects x;
  if(COUNT_2 != 0 && PCOUNT_2 != 0){
 	//1st Call to function: Highest priority projects and highest skill average students
-	results[classSection*3+0] = x.StudentsToProjectsAssignment(STpriority2, PRpriority2,
+	*(results+(classSection*3+0)) = x.StudentsToProjectsAssignment(STpriority2, PRpriority2,
 			COUNT_2, PCOUNT_2, numSkills, teamSize, numTopTeams);}
+ cout<<"Call 1 done"<<endl;
 
  if(COUNT_1 != 0 && PCOUNT_1 != 0){
 	//2nd Call to function: middle priority projects and middle skill average students
-	results[classSection*3+1] = x.StudentsToProjectsAssignment(STpriority1, PRpriority1,
+	*(results+(classSection*3+1)) = x.StudentsToProjectsAssignment(STpriority1, PRpriority1,
 			COUNT_1, PCOUNT_1, numSkills, teamSize, numTopTeams);}
+ cout<<"Call 2 done"<<endl;
 
  if(COUNT_0 != 0 && PCOUNT_0 != 0){
    //3rd Call to function: lowest priority projects and lowest skill average students
-	results[classSection*3+2] = x.StudentsToProjectsAssignment(STpriority0, PRpriority0,
+	*(results+(classSection*3+2)) = x.StudentsToProjectsAssignment(STpriority0, PRpriority0,
 		    COUNT_0, PCOUNT_0, numSkills, teamSize, numTopTeams);}
-
+ cout<<"Call 3 done"<<endl;
 
 
 }
@@ -274,8 +423,10 @@ int main(){
 	ProjectJson PJson;
 	ClassSectionJson CSJson;
 
-	Project *PROJECT_POOL = new Project[NUM_PROJECTS];
-	Student *STUDENT_POOL = new Student[NUM_STUDENTS];
+	//Project *PROJECT_POOL = new Project[NUM_PROJECTS];
+	//Student *STUDENT_POOL = new Student[NUM_STUDENTS];
+	Project PROJECT_POOL[NUM_PROJECTS];
+	Student STUDENT_POOL[NUM_STUDENTS];
 	ClassSection CLASS_SECTION_POOL[NUM_CLASS_SECTIONS];
 
 	int PROJECT_STUDENT_SKILLS[NUM_PROJECTS * NUM_STUDENTS];
@@ -291,15 +442,22 @@ int main(){
 			PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS, NUM_SKILLS);
 
 
-	string *results = new string[NUM_CLASS_SECTIONS*3]; //Stores the results the assignment of students to projects each class section
-	int *studentsInSections = new int[NUM_CLASS_SECTIONS]; //stores the number of students in each class section
-	int *projectsInSections = new int[NUM_CLASS_SECTIONS]; //stores the number of students in each class section
+	//string *results = new string[NUM_CLASS_SECTIONS*3]; //Stores the results the assignment of students to projects each class section
+	string results[NUM_CLASS_SECTIONS*3];
+	//int *studentsInSections = new int[NUM_CLASS_SECTIONS]; //stores the number of students in each class section
+	//int *projectsInSections = new int[NUM_CLASS_SECTIONS]; //stores the number of students in each class section
+	int studentsInSections[NUM_CLASS_SECTIONS]; //stores the number of students in each class section
+    int projectsInSections[NUM_CLASS_SECTIONS]; //stores the number of students in each class section
 
 	//initialize to 0
 	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
 		studentsInSections[i] = 0;
 		projectsInSections[i] = 0;
 	}
+
+	for(int i = 0; i < NUM_CLASS_SECTIONS*3; i++) {
+				results[i] = "x";
+		}
 
 	//set the number of students in each class section to the indexes of studentsInSections[]
 	for(int i = 0; i < NUM_STUDENTS; i++) {
@@ -359,11 +517,12 @@ int main(){
 	cout << endl;
 
 	//create a thread for each class section. store each thread in threads[]
-	thread threads[NUM_CLASS_SECTIONS];
+	//thread threads[NUM_CLASS_SECTIONS];
 
 	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
 		//store students in a single class section to *STUDENT_POOL_SECTION_X
-		Student *STUDENT_POOL_SECTION_X = new Student[studentsInSections[i]];
+		Student STUDENT_POOL_SECTION_X[studentsInSections[i]];
+		//Student *STUDENT_POOL_SECTION_X = new Student[studentsInSections[i]];
 		int indexToAddStudent = 0; //used to add a student to STUDENT_POOL_SECTION_X[] from STUDENT_POOL[]
 
 		cout << "StudentIDs in Class Section " << to_string(i) << ": ";
@@ -375,7 +534,8 @@ int main(){
 			}
 		}
 
-		Project *PROJECT_POOL_SECTION_X = new Project[projectsInSections[i]];
+		Project PROJECT_POOL_SECTION_X[projectsInSections[i]];
+		//Project *PROJECT_POOL_SECTION_X = new Project[projectsInSections[i]];
 		int indexToAddProject = 0; //used to add a student to STUDENT_POOL_SECTION_X[] from STUDENT_POOL[]
 
 		//separate the projects into an array by class section
@@ -392,16 +552,20 @@ int main(){
 		}
 
 		cout << "Total: " + to_string(studentsInSections[i]) << endl;
+		threadFunction(STUDENT_POOL_SECTION_X, PROJECT_POOL_SECTION_X, studentsInSections[i], projectsInSections[i], NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS, results, i);
 
 		//threads[i] = thread (threadFunction, STUDENT_POOL, PROJECT_POOL, NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
-		threads[i] = thread (threadFunction, STUDENT_POOL_SECTION_X, PROJECT_POOL_SECTION_X, studentsInSections[i], projectsInSections[i], NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS, results, i);
+		//threads[i] = thread (threadFunction, STUDENT_POOL_SECTION_X, PROJECT_POOL_SECTION_X, studentsInSections[i], projectsInSections[i], NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS, results, i);
 	}
+
+
+
 
     //join threads
-	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
+/*	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
 		threads[i].join();
 
-	}
+	}*/
     for(int i = 0; i < NUM_CLASS_SECTIONS*3; i++) {
 		cout << results[i] << endl;
 	}
