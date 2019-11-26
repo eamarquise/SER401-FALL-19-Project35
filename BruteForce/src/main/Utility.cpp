@@ -823,54 +823,54 @@ void Utility::projectToSectionAssignment(Project projectPool[],
 
 
 			//refill vector if empty
-			if(OnlineClassSections.empty()){
-			for (int k = 0; k < numClassSections; k++) {
-				classSection = *(classSectionPool + k);
-				if(classSection.Type == 'O'){
-				OnlineClassSections.push_back(*(classSectionPool + k));
+									if(OnlineClassSections.empty()){
+									for (int k = 0; k < numClassSections; k++) {
+										classSection = *(classSectionPool + k);
+										if(classSection.Type == 'G'){
+											OnlineClassSections.push_back(*(classSectionPool + k));
 
-			}}}
+									}}}
 
 
 
-			for (int j = 0; j < OnlineClassSections.size(); j++) {
-				classSection = OnlineClassSections[j];
-				currentScore = projectXsection[(i * numClassSections) + OnlineClassSections[j].ClassID];
+									for (int j = 0; j < OnlineClassSections.size(); j++) {
 
-			 //make sure that this class section has not reached the minNumOfProjects added.
-	         if(ProjectsToClassCount[OnlineClassSections[j].ClassID] < MinProjectsPerClassSection[OnlineClassSections[j].ClassID]){
+										classSection = OnlineClassSections[j];
+										currentScore = projectXsection[(i * numClassSections) + OnlineClassSections[j].ClassID];
 
-	        	 if (currentScore > highestScore) {
-					highestScore = currentScore;
-					highestClassSection = OnlineClassSections[j].ClassID;
-				} else if (currentScore == highestScore &&
-						currentScore != 0) {
-					randInt = rand()%2;
-					if (randInt == 1) {
-						highestClassSection = OnlineClassSections[j].ClassID;
-					}
-				}
-			}
-			}
+									 //make sure that this class section has not reached the minNumOfProjects added.
+							         if(ProjectsToClassCount[OnlineClassSections[j].ClassID] < MinProjectsPerClassSection[OnlineClassSections[j].ClassID]){
+										if (currentScore > highestScore) {
+											highestScore = currentScore;
+											highestClassSection = OnlineClassSections[j].ClassID;
+										} else if (currentScore == highestScore &&
+												currentScore != 0) {
+											randInt = rand()%2;
+											if (randInt == 1) {
+												highestClassSection = OnlineClassSections[j].ClassID;
+											}
+										}
+									}
+									}
 
-			// Checks to make sure the highest score is greater than 0
-			// If highest score = 0, then project and class section
-			// types did not match
-			if (highestScore > 0 || OnlineClassSections.size()==1) {
-				for (int j = 0; j < OnlineClassSections.size(); j++) {
+									// Checks to make sure the highest score is greater than 0
+									// If highest score = 0, then project and class section
+									// types did not match
+									if (highestScore > 0 || OnlineClassSections.size()==1) {
+										for (int j = 0; j < OnlineClassSections.size(); j++) {
 
-				if(OnlineClassSections[j].ClassID==highestClassSection || OnlineClassSections.size()==1){
-					if(ProjectsToClassCount[OnlineClassSections[j].ClassID] < MinProjectsPerClassSection[OnlineClassSections[j].ClassID]){
-				classSection = OnlineClassSections[j];
-				projectPool[i].ClassID = classSection.ClassID;
-				OnlineClassSections.erase(OnlineClassSections.begin() + j);
-				//increment the number of projects added to this class section
-				ProjectsToClassCount[classSection.ClassID]++;
-					}
-				}
-			}
+										if(OnlineClassSections[j].ClassID==highestClassSection || OnlineClassSections.size()==1){
+											if(ProjectsToClassCount[OnlineClassSections[j].ClassID] < MinProjectsPerClassSection[OnlineClassSections[j].ClassID]){
+										classSection = OnlineClassSections[j];
+										projectPool[i].ClassID = classSection.ClassID;
+										OnlineClassSections.erase(OnlineClassSections.begin() + j);
+										//increment the number of projects added to this class section
+										ProjectsToClassCount[classSection.ClassID]++;
+											}
+										}
+									}
 
-		  }
+								  }
 
 
 //Assign the Ground Projects
@@ -968,9 +968,10 @@ void Utility::projectToSectionAssignment(Project projectPool[],
 				if(ProjectsToClassCount[ClassSections[j].ClassID] < MinProjectsPerClassSection[ClassSections[j].ClassID]){
 			classSection = ClassSections[j];
 			projectPool[i].ClassID = classSection.ClassID;
-			ClassSections.erase(ClassSections.begin() + j);
 			//increment the number of projects added to this class section
 			ProjectsToClassCount[classSection.ClassID]++;
+			ClassSections.erase(ClassSections.begin() + j);
+
 				}
 			}
 		}
@@ -989,7 +990,7 @@ void Utility::projectToSectionAssignment(Project projectPool[],
 
 			  projectPool[i].ClassID = ClassSections[j].ClassID;
 			  ProjectsToClassCount[ClassSections[j].ClassID]++;
-
+			  break;
 
 		  }else{
 		  //No more room in any class Section for this project, so

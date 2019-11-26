@@ -315,6 +315,7 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 
         				currentTeam.TeamScore = teamskillscore;
         				currentTeam.projectID = projectPool[i].ProjectID;
+
                         //loop to compare the new team's score to the top scores.
         				for(int k = 0; k < TOP_TEAMS; k++) {
         						    if (k == 0){
@@ -330,6 +331,7 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
         						        	    currentTopTeams[k] = currentTeam;
         						        	    break;
         								 }
+
         				}}
 
         		    }//end affinity check
@@ -576,12 +578,12 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             	//(array version) Student reservePool[NUM_UNASSIGNED];
 	             	vector <Student> reserveStudents;
 
-	             	int element;
+
 	             	for (int i = 0; i < numStudents; i++) {
 	             	       if (studentPool[i].Assigned == false){
 	             	        		//(array version) reservePool[element] = studentPool[i];
 	             	        		reserveStudents.push_back(studentPool[i]);
-	     							element++;
+
 	             	        }
 	             	 }
 
@@ -595,11 +597,31 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             		fakeStudents.push_back(fakeStudent);
 	             	}
 
+	             	//if number of teams of 4 needed is the same as the number of projects,
+	             	//swap a fake student into the first team
+	             	int minTeamCount = 0;
+	             	if(numPlaceholderStudents == numProjects){
+	             		//studentPool[bestSet[0].team[4].PoolID].Assigned = false;
+	             		reserveStudents.push_back(studentPool[bestSet[0].team[4].PoolID]);
+	             		bestSet[0].team[4] = fakeStudents[minTeamCount];
+	             		fakeStudents.erase(fakeStudents.begin()+minTeamCount);
+	             		 bestSet[0].team[4].ProjectID= bestSet[0].team[3].ProjectID;
+	             		minTeamCount++;
+	             	}
+	             	if(numProjects == 1){
+
+	             		//reserveStudents.push_back(studentPool[bestSet[0].team[4].PoolID]);
+	                    //bestSet[0].team[4] = fakeStudents[minTeamCount];
+	             		//minTeamCount++;
+
+	             	}else{
+
 	          ///-------swapping mechanism------
 
 	             	 int numDuplicates = 0;
 	             	 int toptempscore =0;
 	             	 int tempBestStudent;
+
 	             	 //array to store all the unique student IDs in bestSet
 	             	 int uniqueStudents[num_assigned];
 
@@ -607,8 +629,14 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             	         uniqueStudents[k]=-1;
 	             	     }
 	             	     //fill unique students with the students in the first team.
-	             	     for (int i = 0 ; i < 5 ; i++){
+	             	     if(minTeamCount == 1){
+	             	     for (int i = 0 ; i < 4 ; i++){
 	             	         uniqueStudents[i] = bestSet[0].team[i].StudentID;
+	             	     }}else{
+	             	    	for (int i = 0 ; i < 5 ; i++){
+	             	    	 uniqueStudents[i] = bestSet[0].team[i].StudentID;
+	             	        }
+
 	             	     }
 
 	             	     int num1 = TEAM_SIZE;
@@ -616,7 +644,10 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             	     bool isduplicate =false;
 	             	     bool fakeST = false;
 	             	     bool fakeSTNeeded = true;
-	             	     int minTeamCount = 0;
+	             	     bool DuplicateFound = false;
+
+
+
 	             	     for (int i= 1; i< numProjects; i ++){
 
 	             	    	fakeST = false;
@@ -625,7 +656,8 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             	    	}else{
 	             	    		fakeSTNeeded = true;
 	             	    	}
-	             	         for (int j= 0; j< 5; j ++){
+
+
 
 								 //Get the project that the current team is assigned to.
 	             	        	 Project CurrentProject;
@@ -649,6 +681,7 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             	        	  //sort based on the first pair element, (the reserve students skill score for that project.)
 	             	        	  sort(replacements.begin(), replacements.end());
 
+	             	        	 for (int j= 0; j< 5; j ++){
 
 
 	             	             for (int k= 0; k< num1; k ++){
@@ -658,7 +691,7 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             	                 if (uniqueStudents[k] == bestSet[i].team[j].StudentID){
 	             	                     numDuplicates++;
 	             	                     isduplicate =true;
-
+	             	                     DuplicateFound = true;
 
 	             	                     for (int x= 0; x< replacements.size(); x ++){
 	             	                    	 //replace the duplicate with the highest scoring student
@@ -669,7 +702,8 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             	                    	if(minTeamCount < numPlaceholderStudents){
 
 	             	                    		 bestSet[i].team[j] = fakeStudents[minTeamCount];
-
+	             	                    		fakeStudents.erase(fakeStudents.begin()+minTeamCount);
+	             	                    		 bestSet[i].team[j].ProjectID= CurrentProject.ProjectID;
 		             	                    		minTeamCount++;
 		             	                    		fakeSTNeeded=false;
 		             	                    		break;
@@ -695,34 +729,61 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             	                 }
 	             	             }//end k loop
 
+
 	             	             if (isduplicate==false){
 	             	                 for (int k= 0; k< num_assigned; k ++){
 
 	             	                     if (uniqueStudents[k] == -1){
 	             	                         uniqueStudents[k] = bestSet[i].team[j].StudentID;
 	             	                         num2++;
-	             	                         break;}
+	             	                         break;
+	             	                         }
 	             	                 }}
 	             	             isduplicate = false;
 
-	             	             //recalculate team score, now that all the duplicate
-	             	             //students have been swapped out.
-	             	            for (int x= 0; x< TEAM_SIZE; x ++){
-
-	             	            if(bestSet[i].team[x].StudentID != 99999){
-	             	           	studentSkills[x] =*(ProjectXStudentSkills + (CurrentProject.PoolID * numStudents) + bestSet[i].team[x].PoolID);
-	             	            skillSums[x] = studentSkillSums[bestSet[i].team[x].PoolID];
-	             	            }else{
-	             	            	studentSkills[x] = 0;
-	             	            	skillSums[x] = 0;
-	             	            }
-	             	            }
-	             	            bestSet[i].TeamScore = ProjectCompareTeamScore(studentSkills, maxProjectSkills[CurrentProject.PoolID]) +
-	             	            SkillCompareTeamScore(skillSums) + AvailabilityTeamScore(bestSet[i].team);
 
 	             	         }//end j loop
-	             	         num1 += num2;
-	             	         num2=0;
+
+             	            //recalculate team score, now that all the duplicate
+             	           	//students have been swapped out.
+             	           	 for (int x= 0; x< TEAM_SIZE; x ++){
+
+             	           	 if(bestSet[i].team[x].StudentID != 99999){
+             	           	 studentSkills[x] =*(ProjectXStudentSkills + (CurrentProject.PoolID * numStudents) + bestSet[i].team[x].PoolID);
+             	           	 skillSums[x] = studentSkillSums[bestSet[i].team[x].PoolID];
+             	           	 }else{
+             	           	  studentSkills[x] = 0;
+             	           	   skillSums[x] = 0;
+             	           	 }
+             	           	 }
+             	           	bestSet[i].TeamScore = ProjectCompareTeamScore(studentSkills, maxProjectSkills[CurrentProject.PoolID]) +
+             	           	 SkillCompareTeamScore(skillSums) + AvailabilityTeamScore(bestSet[i].team);
+
+	             	        	 if(DuplicateFound == false){
+	             	        		if(minTeamCount < numPlaceholderStudents){
+
+	             	        		   reserveStudents.push_back(bestSet[i].team[4]);
+
+	             	        		   //Fix this here
+	             	        		  for (int k= 0; k< num1; k ++){
+	             	        		  if (uniqueStudents[k] == bestSet[i].team[4].StudentID){
+	             	        			 uniqueStudents[k] = 88888;
+	             	        			 //break;
+	             	        		  }
+	             	        		  }
+
+	             	        		   bestSet[i].team[4] = fakeStudents[minTeamCount];
+	             	        		  fakeStudents.erase(fakeStudents.begin()+minTeamCount);
+	             	        		  bestSet[i].team[4].ProjectID= bestSet[i].team[3].ProjectID;
+	             	        		   minTeamCount++;
+
+	             	        		 }
+	             	        	}
+
+
+	             	        DuplicateFound = false;
+	             	        num1 += num2;
+	             	        num2 = 0;
 
 	             	     }//end i loop
 
@@ -732,11 +793,13 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	 	             	    for (int j = 0; j < TEAM_SIZE; j++){
 	 	             	     bestSet[i].team[j].Assigned = true;
 	 	             	     bestSet[i].team[j].ProjectID =  bestSet[i].projectID;
+	 	             	     if(bestSet[i].team[j].StudentID != 99999){
 	 	             	     studentPool[bestSet[i].team[j].PoolID] = bestSet[i].team[j];
-	 	             	     bestSet[i].team[j] = *(studentPool+(bestSet[i].team[j].PoolID));
-	 	             	    }
-	 	             	}
 
+	 	             	     *(studentPool+(bestSet[i].team[j].PoolID))=bestSet[i].team[j];
+	 	             	    }}
+	 	             	}
+	             	}
 // END -------------------Duplicate Student Swapping
 
 	             	     int newProjectSetScore = 0;
@@ -751,6 +814,7 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             		cout<< "==============================================="<<endl;
 	             		result.append("RESULT FOR SECTION " + to_string(studentPool[0].ClassID) + ":\n");
 	             		cout << "RESULT FOR SECTION " + to_string(studentPool[0].ClassID) << endl;
+
 	             		for(int i = 0; i < numProjects; i++){
 	             			cout << "Team for project#" + to_string(bestSet[i].projectID) + " ";
 
