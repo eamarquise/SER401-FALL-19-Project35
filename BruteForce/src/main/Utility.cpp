@@ -10,9 +10,11 @@
  *
  *
  *  Created on: Oct. 29, 2019
- *      Author: Matt Cilibraise
- *      		Cristi Deleo
- *      		Fall 2019 Team 35
+ *      Authors: Fall 2019 Team 35 (Matthew, Cristi, Myles, Elizabeth, Sean)
+ *
+ * List of function:
+ *  (see header file Utility.h)
+ *
  */
 #include "Utility.h"
 #include "json/json.h"
@@ -43,7 +45,8 @@ Utility::Utility() {
 Utility::~Utility() {
 	// TODO Auto-generated destructor stub
 }
-/*
+
+/***********************************************
  * initProjectPool
  *
  * Description:
@@ -63,7 +66,8 @@ void Utility::initProjectPool(string filename, Project projectPool[], int numPro
 		*(projectPool + i) = PJson.getProjectJsonObject(filename, i);
 	}
 }
-/*
+
+/***********************************************
  * initStudentPool
  *
  * Description:
@@ -83,7 +87,8 @@ void Utility::initStudentPool(string filename, Student studentPool[], int numStu
 		*(studentPool + i) = SJson.getStudentJsonObject(filename, i);
 	}
 }
-/*
+
+/***********************************************
  * initClassSectionPool
  *
  * Description:
@@ -118,7 +123,7 @@ void Utility::initClassSectionPool(string filename, ClassSection classSectionPoo
     	*(classSectionPool + i) = classSection;
     }
 }
-/*
+/***********************************************
  * initProjectStudentSkills
  *
  * Description:
@@ -157,7 +162,8 @@ void Utility::initProjectStudentSkills(Project projectPool[], Student studentPoo
 		}
 	}
 }
-/*
+
+/***********************************************
  * getSizeOfJson
  *
  * Description:
@@ -179,7 +185,7 @@ int Utility::getSizeOfJson(string filename, string key) {
 	return obj[key].size();
 }
 
-/*
+/*************************************************
  * getProjectXskill
  *
  * Description:
@@ -198,7 +204,8 @@ int Utility::getProjectXskill(Project projectPool[], int i, int j){
 	project = *(projectPool + i);
 	return project.Skills[j];
 }
-/*
+
+/*/*************************************************
  * getSkillXstudent
  *
  * Description:
@@ -217,7 +224,8 @@ int Utility::getSkillXstudent(Student studentPool[], int i, int j){
 	student = *(studentPool + i);
 	return student.Skills[j];
 }
-/*
+
+/*/*************************************************
  * calcProjectXStudentMatrix
  *
  * Description:
@@ -275,8 +283,22 @@ vector<vector<int>> Utility::calcProjectXStudentMatrix(vector<Student> students,
 	return projectXstudentMatrix;
 } // end calcProjectXStudentMatrix
 
-// TASK: 107 AUTHOR: CRISTI DELEO
-// PARTITION BY PROJECT TYPE (PRIMARY = O | SECONDARY = G | TERTIARY = H
+/*************************************************
+ * projectTypePartition
+ * AUTHOR: CRISTI DELEO
+ *
+ * Description:
+ *  Partitions the project pool by project type
+ *  (ONLINE = O | GROUND = G | HYBRID = H)
+ *
+ * Arguments:
+ * Project projectPool[],
+ * int numProjects,
+ *	char t0, char t1, char t2
+ *
+ * Returns:
+ *    nothing
+ */
 void Utility::projectTypePartition(Project projectPool[], int numProjects,
 		char t0, char t1, char t2) {
 
@@ -319,7 +341,23 @@ void Utility::projectTypePartition(Project projectPool[], int numProjects,
 	}
 }
 
-// PARTITION BY PROJECT PRIORITY (PRIMARY = 2 | SECONDARY = 1 | TERTIARY = 0
+
+/*************************************************
+ * projectPriorityPartition
+ * AUTHOR: CRISTI DELEO
+ *
+ * Description:
+ *  Partitions the project pool by project priority
+ *  (PRIMARY = 2 | SECONDARY = 1 | TERTIARY = 0)
+ *
+ * Arguments:
+ * Project projectPool[],
+ * int numProjects,
+ *	int t0, int t1, int t2
+ *
+ * Returns:
+ *    nothing
+ */
 void Utility::projectPriorityPartition(Project projectPool[], int numProjects,
 		int t0, int t1, int t2) {
 
@@ -470,7 +508,21 @@ void Utility::projectPriorityPartition(Project projectPool[], int numProjects,
 	}
 }
 
-// PARTITION BY CLASS SECTION TYPE (PRIMARY = O | SECONDARY = G
+/*************************************************
+* classSectionTypePartition
+*
+* Description:
+*  Partitions the class section by type.
+*  (ONLINE = O | GROUND = G )
+*
+* Arguments:
+* Project projectPool[],
+* int numProjects,
+*	char t0, char t1
+*
+* Returns:
+*    nothing
+*/
 void Utility::classSectionTypePartition(ClassSection classSectionPool[],
 		int numClassSections, char t0, char t1) {
 
@@ -488,6 +540,18 @@ void Utility::classSectionTypePartition(ClassSection classSectionPool[],
 	}
 }
 
+/*************************************************
+* printIntMatrix
+*
+* Description:
+*  Prints an int matrix
+*
+* Arguments:
+* vector<vector<int>> a
+*
+* Returns:
+*    nothing
+*/
 void Utility::printIntMatrix(vector<vector<int>> a){
 	cout << endl;
 	for (int i = 0; i < a.size() ; i++){
@@ -498,13 +562,23 @@ void Utility::printIntMatrix(vector<vector<int>> a){
 	}
 }
 
-/*  ProjectToSectionPercentages(vector<vector<Student>> studentList, vector<Project> projectList)
- *
- *    Function returns a 2d array [number of projects] [ number of class sections]
- *   containing the percentages, 0-100, of how the students in a class section compare to that project
- *
- *      Author: Myles Colina
- */
+
+/*************************************************
+* ProjectToSectionPercentages
+*
+* Description:
+*   Function returns a 2d array [number of projects] [ number of class sections]
+*   containing the percentages, 0-100, of how the students in a class section compare to that project
+*
+* Arguments:
+* vector<vector<Student>> studentList,
+* vector<Project> projectList,
+* int numProjects,
+* int NumOfClassSections
+*
+* Returns:
+*    int 2d array
+*/
 int** Utility::ProjectToSectionPercentages(vector<vector<Student>> studentList,
         vector<Project> projectList, int numProjects, int NumOfClassSections) {
 
@@ -626,6 +700,23 @@ int** Utility::ProjectToSectionPercentages(vector<vector<Student>> studentList,
 
 
 // ARRAY VERSION
+/*************************************************
+* arrayProjectToSectionPercentages
+*
+* Description:
+*   ARRAY VERSION. Function calculates the percentages, 0-100, of how the students
+*    in a class section compare to that project
+*
+* Arguments:
+* Project projectPool[],
+* Student studentPool[],
+* ClassSection classSectionPool[],
+* int percentMatrix[], int numProjects, int numStudents,
+* int numClassSections, int numSkills
+*
+* Returns:
+*    nothing
+*/
 void Utility::arrayProjectToSectionPercentages(Project projectPool[],
         Student studentPool[], ClassSection classSectionPool[],
 		int percentMatrix[], int numProjects, int numStudents, int numClassSections,
@@ -706,7 +797,27 @@ void Utility::arrayProjectToSectionPercentages(Project projectPool[],
 }//end ProjectToSectionPercentages
 
 
-// ARRAY VERSION
+/*************************************************
+* projectToSectionAssignment
+*
+* Description:
+*   This function assigns the projects to class sections based on the
+*   Project's type and priority, the class section percentage scores, and
+*   the minimum number of projects each class section can have.
+*   This function assigns the minimum number of projects to each class section,
+*   based on the number of students in that class section.
+*   The extra projects are discarded (assigned to non-existent class section, 99999).
+*
+* Arguments:
+* Project projectPool[],
+* Student studentPool[],
+* ClassSection classSectionPool[],
+* int numProjects, int numStudents, int numClassSections,
+* int numSkills, int studentsInSections[]
+*
+* Returns:
+*    nothing
+*/
 void Utility::projectToSectionAssignment(Project projectPool[],
         Student studentPool[], ClassSection classSectionPool[],
 		int numProjects, int numStudents, int numClassSections,
@@ -999,7 +1110,6 @@ void Utility::projectToSectionAssignment(Project projectPool[],
 
 	  }}
 
-
 		}
 
 	}// end i num projects loop
@@ -1013,6 +1123,21 @@ void Utility::projectToSectionAssignment(Project projectPool[],
 
 }//end ProjectToSectionPercentages
 
+
+/*************************************************
+* makeProjectJSON
+*
+* Description:
+*   This function creates a new Json file with random data for
+*   a specified number of projects.
+*
+* Arguments:
+* int numProj, - number of projects to create in the Json file
+* int numSkill
+*
+* Returns:
+*    nothing
+*/
 void Utility::makeProjectJSON(int numProj, int numSkill) {
 
 	   // Variables
@@ -1076,6 +1201,21 @@ void Utility::makeProjectJSON(int numProj, int numSkill) {
 
 }
 
+
+/*************************************************
+* makeStudentJSON
+*
+* Description:
+*   This function creates a new Json file with random data for
+*   a specified number of students.
+*
+* Arguments:
+* int numStud, - number of students to create in the Json file
+* int numSkill
+*
+* Returns:
+*    nothing
+*/
 void Utility::makeStudentJSON(int numStud, int numSkill) {
 
 	  // Variables
@@ -1232,6 +1372,22 @@ void Utility::makeStudentJSON(int numStud, int numSkill) {
 // Task #7 - Cristi DeLeo
 // Calculates the number of projects required for any given
 // number of students with a specified minimum team size.
+
+/*************************************************
+* calc_projects
+*
+* Description:
+*   This function finds the minimum number of projects needed for a given
+*   number of students. Takes into consideration the team size, and the minimum team size.
+*
+* Arguments:
+* int numStudents,
+* int teamSize,
+* int minTeamSize
+*
+* Returns:
+*    nothing
+*/
 int Utility::calc_projects(int numStudents, int teamSize, int minTeamSize){
     int numProjects;
     int numStudentsModTeamSize;

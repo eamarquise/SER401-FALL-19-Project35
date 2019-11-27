@@ -1,7 +1,7 @@
 /****************
 * ProjectJson.h
 *
-*Author(s) Myles
+*Author(s) Myles, Cristi, Sean
 *
 *Description:
 *A class to store all the functions for Project Json data.

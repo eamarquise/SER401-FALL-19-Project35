@@ -78,6 +78,7 @@ StudentsToProjects::StudentsToProjects() {
 StudentsToProjects::~StudentsToProjects() {
 }
 
+//Function to convert integers into constant expressions.
 constexpr int StudentsToProjects::toConstInt(int constInt) {
 	return constInt;
 }
@@ -110,6 +111,7 @@ int StudentsToProjects::parseLine(char* line){
  * Author: Sean Rogers
  *
  * Description:
+ *    Gets the physical memory usage of the program
  *
  *Arguments:
  *	nothing
@@ -137,6 +139,7 @@ int StudentsToProjects::getValuePhy(){ //Note: this value is in KB!
  * Author: Sean Rogers
  *
  * Description:
+ *   Gets the virtual memory usage of the program
  *
  *Arguments:
  *	nothing
@@ -438,19 +441,19 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 
         	        currentSet[teamNum] = topTeams[i][indices[i]];
 
-        	        // return number of duplicates in currentSet
-        	        duplicateCount = getDuplicatesOfStudents(currentSet, i+1);
-
         	        ProjectSetScore += topTeams[i][indices[i]].TeamScore;
         	        teamNum++;
 
-        	        //if the current set has more duplicates than the threshold,
-        	        //end the loop.
-        	        if (duplicateCount > threshold){
-        	               	        flag = true;
-        	               	        break;
-        	        }
         	    }
+        	    // return number of duplicates in currentSet
+        	    duplicateCount = getDuplicatesOfStudents(currentSet, numProjects);
+        	    //if the current set has more duplicates than the threshold,
+        	    //end the loop.
+        	    if (duplicateCount > threshold){
+        	     flag = true;
+
+        	     }
+
         	    if (flag==false){
         	    //Project teams combination formed,
 
@@ -573,9 +576,7 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             	int numPlaceholderStudents = util.NumOfTeamsOf4(numStudents,  teamSize);
 
 
-
 	             	//reserve pool of students
-	             	//(array version) Student reservePool[NUM_UNASSIGNED];
 	             	vector <Student> reserveStudents;
 
 
@@ -583,7 +584,6 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             	       if (studentPool[i].Assigned == false){
 	             	        		//(array version) reservePool[element] = studentPool[i];
 	             	        		reserveStudents.push_back(studentPool[i]);
-
 	             	        }
 	             	 }
 
@@ -609,11 +609,6 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             		minTeamCount++;
 	             	}
 	             	if(numProjects == 1){
-
-	             		//reserveStudents.push_back(studentPool[bestSet[0].team[4].PoolID]);
-	                    //bestSet[0].team[4] = fakeStudents[minTeamCount];
-	             		//minTeamCount++;
-
 	             	}else{
 
 	          ///-------swapping mechanism------
@@ -646,8 +641,6 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             	     bool fakeSTNeeded = true;
 	             	     bool DuplicateFound = false;
 
-
-
 	             	     for (int i= 1; i< numProjects; i ++){
 
 	             	    	fakeST = false;
@@ -656,8 +649,6 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             	    	}else{
 	             	    		fakeSTNeeded = true;
 	             	    	}
-
-
 
 								 //Get the project that the current team is assigned to.
 	             	        	 Project CurrentProject;
@@ -681,9 +672,10 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             	        	  //sort based on the first pair element, (the reserve students skill score for that project.)
 	             	        	  sort(replacements.begin(), replacements.end());
 
+	             	        	  //J loop for each student in the current team.
 	             	        	 for (int j= 0; j< 5; j ++){
 
-
+	             	        	 //K loop to check each J student against all the unique students to find a duplicate.
 	             	             for (int k= 0; k< num1; k ++){
 
 	             	            	 //If a duplicate is found, find the best replacement student,
@@ -764,11 +756,11 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 
 	             	        		   reserveStudents.push_back(bestSet[i].team[4]);
 
-	             	        		   //Fix this here
+
 	             	        		  for (int k= 0; k< num1; k ++){
 	             	        		  if (uniqueStudents[k] == bestSet[i].team[4].StudentID){
 	             	        			 uniqueStudents[k] = 88888;
-	             	        			 //break;
+
 	             	        		  }
 	             	        		  }
 

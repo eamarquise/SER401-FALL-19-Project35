@@ -1,7 +1,37 @@
-/*
- * Filename: main.cpp
- * Created On: 10/27/2019
- * Purpose: driver for BruteForce prototype.
+/*************************************************************************************
+ * main.cpp
+ *
+ *  Created on: 10/27/2019
+ *      Created by: Team#35 (Sean, Myles, Cristi, Matthew, Elizabeth)
+ *
+ *
+ * Description:
+ *		This class is the main driver for the skills based assignment of Capstone project teams.
+ *	    The algorithm takes in all the projects via Json files, and assigns them to each student
+ *	    class section. The class sections are either Online, or Ground. The algorithm, then partitions each
+ *	    class sections, projects and students into 3 separate pools, and performs the assignment of student teams
+ *	    to projects for each pool. This takes into account negative affinity between students, insuring that
+ *	    students who do not want to work with each other will not be assigned to the same team. It scores each team
+ *	    assignment based on student to student skills, and availability, and finds the best combination of student teams
+ *	    to projects for a given pool.
+ *
+ * List of Functions:
+ *
+ *
+ *		int main(void)  -The main driver for the skills based assignment of Capstone project teams.
+ *
+ *	 	void threadFunction(Student studentPool[],
+ *		Project projectPool[], const int numStudents, const int numProjects, const int numSkills,
+ *		const int teamSize, const int numTopTeams, string results[], int classSection)
+ *
+ *		int parseLine(char* line) - a function to monitor system memory usage
+ *
+ *		int getValuePhy() - a function to monitor system memory usage
+ *
+ *		int getValueVirt() - a function to monitor system memory usage
+ *
+ *		constexpr int toConstInt(int constInt) - a function to convert an int to a constant
+ *
  */
 #include "Student.h"
 #include "Project.h"
@@ -34,7 +64,18 @@ using namespace std;
 using namespace std::chrono;
 
 
-
+/*********************************************************
+ * parseLine
+ *
+ * Author: Sean Rogers
+ *
+ * Description:
+ *
+ *Arguments:
+ *	char* line
+ *Returns:
+ *  integer value.
+ */
 int parseLine(char* line){
     // This assumes that a digit will be found and the line ends in " Kb".
     int i = strlen(line);
@@ -44,6 +85,20 @@ int parseLine(char* line){
     i = atoi(p);
     return i;
 }
+
+/*********************************************************
+ * getValuePhy
+ *
+ * Author: Sean Rogers
+ *
+ * Description:
+ *    Gets the physical memory usage of the program
+ *
+ *Arguments:
+ *	nothing
+ *Returns:
+ *  integer value.
+ */
 int getValuePhy(){ //Note: this value is in KB!
     FILE* file = fopen("/proc/self/status", "r");
     int result = -1;
@@ -59,6 +114,19 @@ int getValuePhy(){ //Note: this value is in KB!
     return result;
 }
 
+/*********************************************************
+ * getValueVirt
+ *
+ * Author: Sean Rogers
+ *
+ * Description:
+ * 	Gets the virtual memory usage of the program.
+ *
+ *Arguments:
+ *	nothing
+ *Returns:
+ *  integer value.
+ */
 int getValueVirt(){ //Note: this value is in KB!
     FILE* file = fopen("/proc/self/status", "r");
     int result = -1;
@@ -74,11 +142,31 @@ int getValueVirt(){ //Note: this value is in KB!
     return result;
 }
 
+//Function to convert integers into constant expressions.
 constexpr int toConstInt(int constInt) {
 	return constInt;
 }
 
-//StudentsToProjectsAssignments will run in this method. This method is called by the threads.
+
+/*********************************************************
+ * threadFunction
+ *
+ *Authors: Sean, Myles, Elizabeth
+ *
+ *Description:
+ *  This function is called by the threads inside main. It takes in all the students and projects for a given class section,
+ *  and partitions each section based on student skill, and project priority into 3 pools.
+ *  (3 arrays for students, 3 arrays for projects).
+ *  It passes this data, along with the other parameters into 3 calls to StudetnsToProjectsAssignment function.
+ *
+ *Arguments:
+ *	Student studentPool[],
+ *	Project projectPool[], const int numStudents, const int numProjects, const int numSkills,
+ *		const int teamSize, const int numTopTeams, string results[], int classSection
+ *
+ *Returns:
+ *	void
+ */
 void threadFunction(Student studentPool[],
 		Project projectPool[], const int numStudents, const int numProjects, const int numSkills,
 		const int teamSize, const int numTopTeams, string results[], int classSection) {
@@ -140,7 +228,7 @@ void threadFunction(Student studentPool[],
 
      	int count0 = abs(numProjects - count2 - count1);
 
-		//make sure each priority section does not have 1 project.(should have 0, or 2 or more.)
+		//make sure each priority section does not have 1 project.(should have 0, or 3 or more. (P2 can have 2))
 		if (count2==1){
 			if(count1 > 2){
 				count1--;
@@ -212,6 +300,72 @@ void threadFunction(Student studentPool[],
 					count2++;
 				}
 
+    //make sure each priority has no more than 10 projects each,(if the number of projects is 30 or less).
+    //if there are 30 or less projects.
+
+		if(numProjects <= 30){
+
+			while(count2 >10){
+				if(count1<10){
+					count2--;
+					count1++;
+
+				}else if(count0<10){
+					count2--;
+					count0++;
+				}
+			}
+
+			while(count1 >10){
+				if(count2<10){
+					count1--;
+					count2++;
+
+				}else if(count0<10){
+					count1--;
+					count0++;
+				}
+			}
+
+			while(count0 >10){
+				if(count2<10){
+					count0--;
+					count2++;
+
+				}else if(count1<10){
+					count0--;
+					count1++;
+				}
+			}
+		}
+  //If there are more than 30 projects, evenly distribute the projects by priority
+		if(numProjects > 30){
+			bool A = true;
+			bool B = true;
+			bool C = true;
+			count2 = 10;
+			count1 = 10;
+			count0 = 10;
+
+			for(int i =30; i < numProjects ;i++){
+
+				if(A==true){
+					count2++;
+					A=false;
+					B=true;
+
+				}else if(B==true){
+					count1++;
+					B=false;
+					C=true;
+
+				}else if(C==true){
+					count0++;
+					C=false;
+					A=true;
+				}
+			}
+		}
 
 
 		int newcount0 = 0;
@@ -233,13 +387,8 @@ void threadFunction(Student studentPool[],
 					newcount0 += TeamsNeeded[i];
 					c0++;
 					}
-
 		}
 
-
-
-		//const int count1C = count1*5;
-		//const int count2C = count2*5;
 
 		const int count0C = newcount0;
 		const int count1C = newcount1;
@@ -257,12 +406,6 @@ void threadFunction(Student studentPool[],
 		Student STpriority1[COUNT_1];
 		Student STpriority2[COUNT_2];
 		Student STpriority0[COUNT_0];
-		//Student STpriority0[numStudents - COUNT_2 - COUNT_1];
-		//int COUNT_0 = numStudents - COUNT_2 - COUNT_1;
-
-		//std::copy(studentPool + 0, studentPool+(COUNT_2-1), STpriority2);
-		//std::copy(studentPool +(COUNT_2), studentPool +(COUNT_2+COUNT_1-1), STpriority1);
-		//std::copy(studentPool +(COUNT_2+COUNT_1), studentPool +(numStudents), STpriority0);
 
 		int snum1 = 0;
 		int snum2 = 0;
@@ -293,28 +436,11 @@ void threadFunction(Student studentPool[],
 		Project PRpriority1[PCOUNT_1];
 		Project PRpriority2[PCOUNT_2];
 		Project PRpriority0[PCOUNT_0];
-		//Project PRpriority0[numProjects - count1 - count2];
-		//int PCOUNT_0 = numProjects - count1 - count2;
+
 
 		int pnum1 = 0;
 		int pnum2 = 0;
 		int pnum0 = 0;
-/*
-		for(int i=0; i<numProjects; i++){
-
-			if(projectPool[i].Priority == 2){
-
-				PRpriority2[pnum2] = projectPool[i];
-				pnum2++;
-			}else if(projectPool[i].Priority == 1){
-
-				PRpriority1[pnum1] = projectPool[i];
-				pnum1++;
-			}else if(projectPool[i].Priority == 0){
-
-				PRpriority0[pnum0] = projectPool[i];
-				pnum0++;}
-		}*/
 
 		for(int i=0; i<numProjects; i++){
 
@@ -332,8 +458,8 @@ void threadFunction(Student studentPool[],
 						pnum0++;}
 				}
 
+		//print out information to the console for debugging purposes
 		cout << "Class section # " << classSection<<endl;
-
 		cout << "numProjects: " <<numProjects<<endl;
 		cout << "P2: " <<PCOUNT_2<<endl;
 		cout << "P1: " <<PCOUNT_1<<endl;
@@ -342,18 +468,6 @@ void threadFunction(Student studentPool[],
 	    cout << "S2: " <<COUNT_2<<endl;
 	    cout << "S1: " <<COUNT_1<<endl;
 		cout << "S0: " <<COUNT_0<<endl;
-/*if(classSection == 1){
-
-	for(int i=0; i<PCOUNT_2; i++){
-		cout<<"Project ID"<<PRpriority2[i].ProjectID<<endl;
-	}
-
-	cout<<"Students: ";
-	for(int i=0; i<COUNT_2; i++){
-			cout<<STpriority2[i].StudentID<<" "<<endl;
-		}
-	cout<<endl;
-}*/
 
 
 	StudentsToProjects x;
@@ -379,7 +493,22 @@ void threadFunction(Student studentPool[],
 
 
 
-
+/*************************************************************************************
+ * main
+ *
+ *  Created on: 10/27/2019
+ *      Created by: Team#35 (Sean, Myles, Cristi, Matthew, Elizabeth)
+ *
+ * Description:
+ *		This class is the main driver for the skills based assignment of Capstone project teams.
+ *	   (see class description)
+ *
+ *Arguments:
+ *	void
+ *
+ *Returns:
+ *	int value 0.
+ */
 int main(){
 
 	//timer to keep track of program runtime
@@ -402,13 +531,13 @@ int main(){
 
 	Utility util;
 
+	//creating random sample Json data based inputs
+	//of number of projects, and number of students
 	util.makeProjectJSON(NUM_PROJECTS, NUM_SKILLS);
 	util.makeStudentJSON(NUM_STUDENTS, NUM_SKILLS);
 
 	const string PROJECT_FILE = "./newProjects.json";
 	const string STUDENT_FILE = "./newStudents.json";
-	//const string PROJECT_FILE = "./SampleJsonFiles/80Projects.json";
-	//const string STUDENT_FILE = "./SampleJsonFiles/400Students.json";
 	const string CLASS_SECTION_FILE = "./SampleJsonFiles/4ClassSections.json";
 
 	//Change this value to change the number of top teams stored.
@@ -422,8 +551,6 @@ int main(){
 	ProjectJson PJson;
 	ClassSectionJson CSJson;
 
-	//Project *PROJECT_POOL = new Project[NUM_PROJECTS];
-	//Student *STUDENT_POOL = new Student[NUM_STUDENTS];
 	Project PROJECT_POOL[NUM_PROJECTS];
 	Student STUDENT_POOL[NUM_STUDENTS];
 	ClassSection CLASS_SECTION_POOL[NUM_CLASS_SECTIONS];
@@ -441,10 +568,7 @@ int main(){
 			PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS, NUM_SKILLS);
 
 
-	//string *results = new string[NUM_CLASS_SECTIONS*3]; //Stores the results the assignment of students to projects each class section
-	string results[NUM_CLASS_SECTIONS*3];
-	//int *studentsInSections = new int[NUM_CLASS_SECTIONS]; //stores the number of students in each class section
-	//int *projectsInSections = new int[NUM_CLASS_SECTIONS]; //stores the number of students in each class section
+	string results[NUM_CLASS_SECTIONS*3];//Stores the results the assignment of students to projects each class section
 	int studentsInSections[NUM_CLASS_SECTIONS]; //stores the number of students in each class section
     int projectsInSections[NUM_CLASS_SECTIONS]; //stores the number of students in each class section
 
@@ -453,7 +577,7 @@ int main(){
 		studentsInSections[i] = 0;
 		projectsInSections[i] = 0;
 	}
-
+	//initialize to "x"
 	for(int i = 0; i < NUM_CLASS_SECTIONS*3; i++) {
 				results[i] = "x";
 		}
@@ -466,11 +590,6 @@ int main(){
 			}
 		}
 	}
-
-
-
-
-
 
 
 	// PARTITION POOLS BY TYPE (ONLINE/GROUND/HYBRID)
@@ -496,7 +615,6 @@ int main(){
 	//THREADS FOR EACH CLASS SECTION...Sean Rogers
 
 
-
 	//set the number of projects in each class section to the indexes of projectsInSections[]
 		for(int i = 0; i < NUM_PROJECTS; i++) {
 			for(int j = 0; j < NUM_CLASS_SECTIONS; j++) {
@@ -520,6 +638,7 @@ int main(){
 
 	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
 		//store students in a single class section to *STUDENT_POOL_SECTION_X
+
 		//Student STUDENT_POOL_SECTION_X[studentsInSections[i]];
 		Student *STUDENT_POOL_SECTION_X = new Student[studentsInSections[i]];
 		int indexToAddStudent = 0; //used to add a student to STUDENT_POOL_SECTION_X[] from STUDENT_POOL[]
@@ -532,10 +651,11 @@ int main(){
 				indexToAddStudent++;
 			}
 		}
+		//store projects in a single class section to *PROJECT_POOL_SECTION_X
 
 		//Project PROJECT_POOL_SECTION_X[projectsInSections[i]];
 		Project *PROJECT_POOL_SECTION_X = new Project[projectsInSections[i]];
-		int indexToAddProject = 0; //used to add a student to STUDENT_POOL_SECTION_X[] from STUDENT_POOL[]
+		int indexToAddProject = 0; //used to add a project to PROJECT_POOL_SECTION_X[] from PROJECT_POOL[]
 
 		//separate the projects into an array by class section
 		for(int j = 0; j < NUM_PROJECTS; j++) {
@@ -552,8 +672,9 @@ int main(){
 
 		cout << "Total: " + to_string(studentsInSections[i]) << endl;
 	    //threadFunction(STUDENT_POOL_SECTION_X, PROJECT_POOL_SECTION_X, studentsInSections[i], projectsInSections[i], NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS, results, i);
-
 		//threads[i] = thread (threadFunction, STUDENT_POOL, PROJECT_POOL, NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
+
+		//call the thread (once for each class section)
 		threads[i] = thread (threadFunction, STUDENT_POOL_SECTION_X, PROJECT_POOL_SECTION_X, studentsInSections[i], projectsInSections[i], NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS, results, i);
 	}
 
@@ -564,6 +685,7 @@ int main(){
 
 	}
 
+	//print out the results
     for(int i = 0; i < NUM_CLASS_SECTIONS*3; i++) {
 		cout << results[i] << endl;
 	}
@@ -591,16 +713,5 @@ int main(){
 	//t.PrintStudentPool(STUDENT_POOL, NUM_STUDENTS, NUM_SKILLS);
 	//t.PrintProjectStudentSkills(PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS);
 
-	// Drivers to read in rules, like class section definitions
-	// ex - getRules(capStoneCourseDefinitions);
-
-	// Drivers to crunch stuff
-	// ex - mapProjectsToClasses(rules);
-
-	// Drivers to write Json
-	// ex - composeReport();
-
-	// Drivers to convert Json into some kind of report, like excel or json to pdf?
-	// ex - writeReport();
 	return 0;
 }
