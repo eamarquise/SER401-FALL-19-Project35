@@ -508,6 +508,56 @@ void Utility::projectPriorityPartition(Project projectPool[], int numProjects,
 	}
 }
 
+void Utility::PriorityPartition(Project projectPool[], int numProjects,
+		int t0, int t1, int t2) {
+
+	int start = 0;
+	int end = numProjects - 1;
+	int t0Index = 0;
+
+// SORT PROJECTS
+	start = 0;
+	t0Index = start;
+
+	for (int i = 0; i <=end; ) {
+		if (projectPool[i].Priority == t0) {
+			swap(projectPool[i++], projectPool[start++]);
+		} else if (projectPool[i].Priority != t0) {
+			swap(projectPool[i], projectPool[end--]);
+	    } else {
+	    	i++;
+	    };
+	}
+
+	t0Index = 0;
+	end = numProjects - 1;
+
+	for (int i = 0; i <=end; ) {
+		if (projectPool[i].Priority == t0) {
+			t0Index++;
+			i++;
+		} else {
+			i++;
+		};
+	}
+
+	start = t0Index;
+	end = numProjects - 1;
+
+	for (int i = t0Index; i <=end; ) {
+		if (projectPool[i].Priority == t1) {
+			swap(projectPool[i++], projectPool[start++]);
+		} else if (projectPool[i].Priority != t1) {
+			swap(projectPool[i], projectPool[end--]);
+		} else {
+			i++;
+		};
+	}
+
+
+}
+
+
 /*************************************************
 * classSectionTypePartition
 *

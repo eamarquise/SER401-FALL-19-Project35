@@ -665,6 +665,9 @@ int main(){
 					}
 				}
 
+		//sort the projects based on priority
+		cout<<endl;
+		util.PriorityPartition(PROJECT_POOL_SECTION_X, projectsInSections[i], 2, 1, 0);
 
 		for(int j = 0; j < studentsInSections[i]; j++) {
 			cout << STUDENT_POOL_SECTION_X[j].StudentID << " ";

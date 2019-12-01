@@ -665,12 +665,11 @@ string StudentsToProjects::StudentsToProjectsAssignment(Student studentPool[],
 	             	        		  pair <int, int> temp = {*(ProjectXStudentSkills + (CurrentProject.PoolID * numStudents)
 	             	        				  + reserveStudents[x].PoolID), reserveStudents[x].PoolID};
 	             	        		  replacements.push_back(temp);
-
-
 	             	        	  }
 
 	             	        	  //sort based on the first pair element, (the reserve students skill score for that project.)
-	             	        	  sort(replacements.begin(), replacements.end());
+	             	        	  sort(replacements.begin(), replacements.end(), greater<>());
+
 
 	             	        	  //J loop for each student in the current team.
 	             	        	 for (int j= 0; j< 5; j ++){
