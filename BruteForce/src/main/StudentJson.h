@@ -1,7 +1,7 @@
 /****************
 * StudentJson.h
 *
-*Author(s) Myles
+*Author(s) Myles, Cristi, Sean
 *
 *Description:
 *A class to store all the functions for Student Json data.

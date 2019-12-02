@@ -1,7 +1,7 @@
 /****************
 * ProjectJson.cpp
 *
-*Author(s) Myles
+*Author(s) Myles, Crsti, Sean
 *
 *Description:
 *A class to store all the functions for Project Json data.
@@ -51,7 +51,7 @@ void ProjectJson::ProjectWriter(string filename){
 /*********************************************************
  * getProjectJsonObject
  *
- *Authors: Myles
+ *Authors: Cristi
  *
  *Description:
  * Reads a json file given by string filename then reads a project object from the json file.
@@ -97,7 +97,7 @@ Project ProjectJson::getProjectJsonObject(string filename, int i){
 /*********************************************************
  * ProjectReaderVector
  *
- *Authors: Myles
+ *Authors: Myles, Sean
  *
  *Description:
  * Reads a json file given by string filename, gets the number of projects in the json file,
