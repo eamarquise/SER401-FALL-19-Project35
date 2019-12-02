@@ -1,8 +1,18 @@
 /*
  * Utility.h
  *
+ * Description:
+ * The Utility class is a series of external functions that can be called
+ * to perform repeated calculations in the system. These include methods
+ * such as initializing student and project pools, determining the size of
+ * an incoming data file, and performing matrix multiplication to extract
+ * weighted values.
+ *
+ *
  *  Created on: Oct. 29, 2019
- *      Author: mcilibra
+ *      Author: Matt Cilibraise
+ *      		Cristi Deleo
+ *      		Fall 2019 Team 35
  */
 
 #ifndef UTILITY_H_
@@ -34,14 +44,25 @@ class Utility {
 		vector<vector<int>> calcProjectXStudentMatrix(vector<Student> students, vector<Project> projects);
 		void projectTypePartition(Project projectPool[], int numProjects,
 				char t0, char t1, char t2);
+		void projectPriorityPartition(Project projectPool[], int numProjects,
+				int t0, int t1, int t2);
+		void PriorityPartition(Project projectPool[], int numProjects,
+				int t0, int t1, int t2);
+		void classSectionTypePartition(ClassSection classSectionPool[], int numClassSections,
+				char t0, char t1);
 		void printIntMatrix(vector<vector<int>> a);
 		int** ProjectToSectionPercentages(vector<vector<Student>> studentList,
 				vector<Project> projectList, int numProjects, int NumOfClassSections);
 		void arrayProjectToSectionPercentages(Project projectPool[],
 		        Student studentPool[], ClassSection classSectionPool[], int percentMatrix[],
 				int numProjects, int numStudents, int numClassSections,	int numSkills);
+		void projectToSectionAssignment(Project projectPool[],
+		        Student studentPool[], ClassSection classSectionPool[],
+				int numProjects, int numStudents, int numClassSections, int numSkills, int studentsInSections[]);
 		void makeProjectJSON(int numProj, int numSkill);
 		void makeStudentJSON(int numStud, int numSkill);
+		int calc_projects(int numStudents, int teamSize, int minTeamSize);
+		int NumOfTeamsOf4(int numStudents, int teamSize);
 		~Utility();
 };
 

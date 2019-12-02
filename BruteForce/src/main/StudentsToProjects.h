@@ -2,7 +2,10 @@
  * StudentsToProjects.h
  *
  *  Created on: Oct 30, 2019
- *      Author: sean
+ *      Created by: Sean, Myles, Cristi, Matthew
+ *
+ *Description:
+ *		This header file stores function declarations for StudentsToProjects.cpp.
  */
 
 #ifndef STUDENTSTOPROJECTS_H_
@@ -19,26 +22,31 @@ using namespace std;
 
 class StudentsToProjects {
 	public:
-		StudentsToProjects();
-		~StudentsToProjects();
+		StudentsToProjects(); //constructor
+		~StudentsToProjects(); //destructor
 
-		//void StudentsToProjectsAssignment(vector <Student> studentlist,
-		//	vector <Project> projectlist);
-		void StudentsToProjectsAssignment(Student studentPool[],
+		// Function to assign the students to projects.
+		string StudentsToProjectsAssignment(Student studentPool[],
 				Project projectPool[],const int numStudents,const int numProjects, const int numSkills,
 				const int teamSize,const int numTopTeams);
 
+		bool NegativeAffinityCheck(Student team[5]); //checks a student team to see if their is any negative affinity.
+		int getDuplicatesOfStudents(Team currentSet[], int size); //finds the number of duplicate students in a set of teams.
+
+		//Team scoring functions
+		int AvailabilityTeamScore(Student team[5]); //compares the availability of students on a team, returns a score 0-20
+		int SkillCompareTeamScore(int studentSkills[5]); //compares the skills of students on a team, returns a score 0-40
+		//compares the student's skills to the project, returns a score 0-40
+	    int ProjectCompareTeamScore( int studentSkills[5], int maxProjectScore);
+		int StudentToStudentSkill( int skillsum1, int skillsum2);   //helper function for SkillCompareTeamScore
+		int StudentToStudentAvailibility(Student s1, Student s2);   //helper function for AvailabilityTeamScore
+
+		//memory evaluation functions
 		int parseLine(char* line);
 		int getValuePhy();
 		int getValueVirt();
-		bool negativeAffinityCheck(Student team[5]);
-		int getDuplicatesOfStudents(Team currentSet[], int size);
 
-		int AvailabilityTeamScore(Student team[5]);
-		int SkillCompareTeamScore(int studentSkills[5]);
-	    int ProjectCompareTeamScore( int studentSkills[5], int maxProjectScore);
-		int StudentToStudentSkill( int skillsum1, int skillsum2);      //helper function for SkillCompareTeamScore
-		int StudentToStudentAvailibility(Student s1, Student s2);   //helper function for AvailabilityTeamScore
+		//function to convert an int to a constant
 		constexpr int toConstInt(int constInt);
 };
 
