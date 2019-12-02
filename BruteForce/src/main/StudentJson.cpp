@@ -1,7 +1,7 @@
 /****************
 * StudentJson.cpp
 *
-*Author(s) Myles
+*Author(s)  Myles, Crsti, Sean
 *
 *Description:
 *A class to store all the functions for Student Json data.
@@ -47,7 +47,7 @@ void StudentJson::StudentWriter(string filename){
 /*********************************************************
  * getStudentJsonObject
  *
- *Authors: Myles
+ *Authors: Cristi
  *
  *Description:
  * Reads a json file given by string filename then reads a Student object from the json file.
@@ -99,7 +99,7 @@ Student StudentJson::getStudentJsonObject(string filename, int i){
 /*********************************************************
  * StudentReaderVector
  *
- *Authors: Myles
+ *Authors: Myles, Sean
  *
  *Description:
  * Reads a json file given by string filename, gets the number of Students in the json file,
