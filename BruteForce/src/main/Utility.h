@@ -46,6 +46,8 @@ class Utility {
 				char t0, char t1, char t2);
 		void projectPriorityPartition(Project projectPool[], int numProjects,
 				int t0, int t1, int t2);
+		void PriorityPartition(Project projectPool[], int numProjects,
+				int t0, int t1, int t2);
 		void classSectionTypePartition(ClassSection classSectionPool[], int numClassSections,
 				char t0, char t1);
 		void printIntMatrix(vector<vector<int>> a);
