@@ -77,6 +77,7 @@ Student StudentJson::getStudentJsonObject(string filename, int i){
 	int numTimes = obj["students"].get((int)i, "")["Availability"].size();
 	int numAffinities = obj["students"].get((int)i, "")["StudentAffinity"].size();
 
+	student.ASUriteID = obj["students"].get((int)i, "")["ASUriteID"].asString();
 	student.StudentID = obj["students"].get((int)i, "")["StudentID"].asInt();
 	student.ClassID = obj["students"].get((int)i, "")["ClassID"].asInt();
 

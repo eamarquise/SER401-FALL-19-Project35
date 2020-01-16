@@ -60,6 +60,8 @@
 #include "sys/types.h"
 #include "sys/sysinfo.h"
 
+
+
 using namespace std;
 using namespace std::chrono;
 
@@ -624,11 +626,11 @@ int main(){
 			}
 		}
 
-	cout << "StudentID|ClassID: ";
+	cout << "ASUriteID|StudentID|ClassID: ";
 
 	//Print out for testing
 	for(int i = 0; i < NUM_STUDENTS; i++) {
-		cout << STUDENT_POOL[i].StudentID << "|" << STUDENT_POOL[i].ClassID << "  ";
+		cout << STUDENT_POOL[i].ASUriteID << "|" << STUDENT_POOL[i].StudentID << "|"<< STUDENT_POOL[i].ClassID << "  ";
 	}
 
 	cout << endl;
