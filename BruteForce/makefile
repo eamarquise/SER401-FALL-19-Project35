@@ -5,7 +5,7 @@ SRC_DIRS ?= ./src/main
 JSONS ?= ./*.json
 
 CXX := -c++
-LDFLAGS := -L/usr/lib -lstdc++ -lm -pthread
+LDFLAGS := -L/usr/lib -lstdc++ -pthread -lm -lfltk -lX11 -ldl
 SRCS := $(shell find $(SRC_DIRS) -name *.cpp -or -name *.c -or -name *.s)
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
