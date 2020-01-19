@@ -495,27 +495,31 @@ void threadFunction(Student studentPool[],
 
 
 }
-
-void dobut(Fl_Widget *){
-	cout << "Button clicked" << endl;
+int tempProj, tempStud;
+void dobut(Fl_Widget *, long num){
+	cout << "Button clicked" << num << endl;
+	cout << "#Projects: ";
+	cin >> tempProj;
+	cout << "#Students: ";
+	cin >> tempStud;
 }
 int showWindow() {
 	Fl_Window *window = new Fl_Window(340,180);
-		  Fl_Button *button = new Fl_Button(20,40,100,50);
-		  Fl_Box *box = new Fl_Box(20,40,300,100,"Hello, Worldsssss!");
-		  box->box(FL_UP_BOX);
-		  box->labelfont(FL_BOLD+FL_ITALIC);
-		  box->labelsize(36);
-		  box->labeltype(FL_SHADOW_LABEL);
-		  window->show();
-		  window->end();
+	Fl_Box *box = new Fl_Box(20,40,300,100,"Hello, Worldsssss!");
+	Fl_Button *button = new Fl_Button(20,40,100,50, "Click me");
+	box->box(FL_UP_BOX);
+	box->labelfont(FL_BOLD+FL_ITALIC);
+	box->labelsize(36);
+	box->labeltype(FL_SHADOW_LABEL);
+	window->show();
+	window->end();
+	long a = 5;
+	button->callback(dobut, a);
 
-		  button->callback(dobut);
-
-		  cout << "Hi Team 35" << endl;
-		  Fl::run();
-		  delete window;
-		  return 0;
+	cout << "Hi Team 35" << endl;
+	Fl::run();
+	window->hide();
+	return 0;
 }
 
 /*************************************************************************************
@@ -534,6 +538,7 @@ int showWindow() {
  *Returns:
  *	int value 0.
  */
+
 int main(){
 
 	//timer to keep track of program runtime
@@ -545,11 +550,8 @@ int main(){
 
 
 	//reading in inputs
-	int tempProj, tempStud;
-	cout << "#Projects: ";
-	cin >> tempProj;
-	cout << "#Students: ";
-	cin >> tempStud;
+
+
 
 	const int NUM_PROJECTS = toConstInt(tempProj);
 	const int NUM_STUDENTS = toConstInt(tempStud);
