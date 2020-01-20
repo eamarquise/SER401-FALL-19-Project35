@@ -1,7 +1,9 @@
 /*************************************************************************************
  * gtk_test.cpp
  *
+ *
  * 
+ *
  */
 
 #include <iostream>
@@ -21,8 +23,36 @@
 
 
 using namespace std;
-using namespace std::chrono;
 
+static void
+print_hello (GtkWidget *widget,
+             gpointer   data)
+{
+  g_print ("Hi Team 35\n");
+}
+
+static void
+activate (GtkApplication *app,
+          gpointer        user_data)
+{
+  GtkWidget *window;
+  GtkWidget *button;
+  GtkWidget *button_box;
+
+  window = gtk_application_window_new (app);
+  gtk_window_set_title (GTK_WINDOW (window), "GTK test Window");
+  gtk_window_set_default_size (GTK_WINDOW (window), 200, 200);
+
+  button_box = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
+  gtk_container_add (GTK_CONTAINER (window), button_box);
+
+  button = gtk_button_new_with_label ("Hi Team 35");
+  g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
+  //g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_widget_destroy), window);
+  gtk_container_add (GTK_CONTAINER (button_box), button);
+
+  gtk_widget_show_all (window);
+}
 
 /*************************************************************************************
  * main
@@ -42,16 +72,13 @@ int main(int argc, char* argv[]){
 
 	cout << "Hi Team 35" << endl;
 
+  	GtkApplication *app;
+  	int status;
 
-  	gtk_init(&argc, &argv);
-	GtkWidget *window;
+  	app = gtk_application_new ("org.gtk.example", G_APPLICATION_FLAGS_NONE);
+  	g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
+  	status = g_application_run (G_APPLICATION (app), argc, argv);
+  	g_object_unref (app);
 
-  	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  	gtk_widget_show(window);
-  
-  	g_signal_connect(window, "destroy",
-     	 G_CALLBACK(gtk_main_quit), NULL);  
-
-  	gtk_main();
-	return 0;
+  return status;
 }
