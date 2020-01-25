@@ -43,6 +43,7 @@
 #include "ClassSectionJson.h"
 #include "Utility.h"
 #include "StudentsToProjects.h"
+#include "MainWindow.h"
 
 #include <iostream>
 #include <utility>
@@ -498,12 +499,6 @@ void threadFunction(Student studentPool[],
 
 }
 
-Fl_Window *window;
-Fl_Box *box;
-Fl_Button *button;
-Fl_Input *input;
-Fl_Output *output;
-
 int tempProj, tempStud, textInput;
 void dobut(Fl_Widget *){
 	bool validNumber = true;
@@ -528,6 +523,12 @@ void dobut(Fl_Widget *){
 		cout << "Invalid number" << endl;
 	}
 }
+
+Fl_Window *window;
+Fl_Box *box;
+Fl_Button *button;
+Fl_Input *input;
+Fl_Output *output;
 
 /*************************************************************************************
  * main
@@ -576,8 +577,6 @@ int main(){
 	cin >> tempStud;
 
 	//reading in inputs
-
-
 
 	const int NUM_PROJECTS = toConstInt(tempProj);
 	const int NUM_STUDENTS = toConstInt(tempStud);
@@ -669,7 +668,6 @@ int main(){
 
 	//THREADS FOR EACH CLASS SECTION...Sean Rogers
 
-
 	//set the number of projects in each class section to the indexes of projectsInSections[]
 		for(int i = 0; i < NUM_PROJECTS; i++) {
 			for(int j = 0; j < NUM_CLASS_SECTIONS; j++) {
@@ -749,8 +747,10 @@ int main(){
 	}
 	//END THREADS FOR EACH CLASS SECTION...Sean Rogers
 
-//END -STUDENTS TO PROJECTS ASSIGNMENT
+	delete STUDENT_POOL_SECTION_X;
+	delete PROJECT_POOL_SECTION_X;
 
+//END -STUDENTS TO PROJECTS ASSIGNMENT
 
     //KEEP TRACK OF TIME THE PROGRAM TAKES TO RUN
 	  	auto stop = high_resolution_clock::now();
