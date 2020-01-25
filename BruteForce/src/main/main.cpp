@@ -60,6 +60,13 @@
 #include "sys/types.h"
 #include "sys/sysinfo.h"
 
+#include <FL/Fl.H>
+#include <FL/Fl_Window.H>
+#include <FL/Fl_Button.H>
+#include <FL/Fl_Box.H>
+#include <FL/Fl_Input.H>
+#include <FL/Fl_Output.H>
+
 using namespace std;
 using namespace std::chrono;
 
@@ -491,7 +498,36 @@ void threadFunction(Student studentPool[],
 
 }
 
+Fl_Window *window;
+Fl_Box *box;
+Fl_Button *button;
+Fl_Input *input;
+Fl_Output *output;
 
+int tempProj, tempStud, textInput;
+void dobut(Fl_Widget *){
+	bool validNumber = true;
+	cout << input->value() << endl;
+	string str = input->value();
+	if(str.length() == 0) {
+			validNumber = false;
+	} else if(str.at(0) > 48 && str.at(0) <= 57) {
+		for(int i = 1; i < str.length(); i++) {
+			if(str.at(i) < 48 || str.at(i) > 57) {
+				validNumber = false;
+			}
+		}
+	} else {
+		validNumber = false;
+	}
+
+	if(validNumber) {
+		output->value(input->value());
+		cout << "valid number" << endl;
+	} else {
+		cout << "Invalid number" << endl;
+	}
+}
 
 /*************************************************************************************
  * main
@@ -509,20 +545,39 @@ void threadFunction(Student studentPool[],
  *Returns:
  *	int value 0.
  */
+
 int main(){
 
 	//timer to keep track of program runtime
 	    auto start = high_resolution_clock::now();
 		srand(time(NULL));
 
-	cout << "Hi Team 35" << endl;
 
-	//reading in inputs
-	int tempProj, tempStud;
+		window = new Fl_Window(340,340);
+		box = new Fl_Box(20,40,300,100,"Hello, Worldsssss!");
+		button = new Fl_Button(20,140,100,50, "Click me");
+		input = new Fl_Input(20, 190, 80, 40);
+		output = new Fl_Output(20, 230, 80, 40);
+		box->box(FL_UP_BOX);
+		box->labelfont(FL_BOLD+FL_ITALIC);
+		box->labelsize(36);
+		box->labeltype(FL_SHADOW_LABEL);
+		window->show();
+		window->end();
+
+		button->callback(dobut);
+
+		cout << "Hi Team 35" << endl;
+		Fl::run();
+
 	cout << "#Projects: ";
 	cin >> tempProj;
 	cout << "#Students: ";
 	cin >> tempStud;
+
+	//reading in inputs
+
+
 
 	const int NUM_PROJECTS = toConstInt(tempProj);
 	const int NUM_STUDENTS = toConstInt(tempStud);
