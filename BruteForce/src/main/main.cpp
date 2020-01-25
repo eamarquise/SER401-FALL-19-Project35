@@ -67,9 +67,23 @@
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Output.H>
 
+#include <FL/Fl_File_Chooser.H>
+#include <FL/Fl_Double_Window.H>
+#include <string.h>
+
 using namespace std;
 using namespace std::chrono;
 
+Fl_Window *window;
+Fl_Box *box;
+Fl_Button *button;
+Fl_Input *input;
+Fl_Output *output;
+
+Fl_Double_Window *dblWindow;
+Fl_File_Chooser *fc;
+Fl_File_Browser *files;
+Fl_Input *filter;
 
 /*********************************************************
  * parseLine
@@ -498,14 +512,8 @@ void threadFunction(Student studentPool[],
 
 }
 
-Fl_Window *window;
-Fl_Box *box;
-Fl_Button *button;
-Fl_Input *input;
-Fl_Output *output;
-
 int tempProj, tempStud, textInput;
-void dobut(Fl_Widget *){
+/*void dobut(Fl_Widget *){
 	bool validNumber = true;
 	cout << input->value() << endl;
 	string str = input->value();
@@ -526,6 +534,45 @@ void dobut(Fl_Widget *){
 		cout << "valid number" << endl;
 	} else {
 		cout << "Invalid number" << endl;
+	}
+}*/
+void fc_callback(Fl_File_Chooser *fc, void *data) {
+	const char *filename;
+	cout << "fc = " << fc << ", data = " << data << endl;
+	filename = fc->value();
+	if(filename) {
+		cout << "filename = " << filename << endl;
+	} else {
+		cout << "(Null)";
+	}
+}
+void show_callback(void) {
+	int i;
+	int count;
+	char relative[FL_PATH_MAX];
+
+	if(filter->value()[0])
+		fc->filter(filter->value());
+
+	fc->show();
+
+	while (fc->visible()) {
+		Fl::wait();
+	}
+
+	count = fc->count();
+	if(count > 0) {
+		files->clear();
+		for(i = 1; i <= count; i++) {
+			if(!fc->value(i))
+				break;
+
+		fl_filename_relative(relative, sizeof(relative), fc->value(i));
+
+		files->add(relative, Fl_File_Icon::find(fc->value(i), Fl_File_Icon::PLAIN));
+		}
+
+		files->redraw();
 	}
 }
 
@@ -553,7 +600,23 @@ int main(){
 		srand(time(NULL));
 
 
-		window = new Fl_Window(340,340);
+		dblWindow = new Fl_Double_Window(500, 300, "Pick a file");
+		fc = new Fl_File_Chooser(".", "*", Fl_File_Chooser::SINGLE, "Fl_FileChooser Tesst");
+		fc->callback(fc_callback);
+		filter = new Fl_Input(50,10,315,25,"Filter:");
+		filter->value("PDF Files (*.pdf)\t"
+                		"PostScript Files (*.ps)\t"
+						"Image Files (*.{bmp,gif,jpg,png})\t"
+						"C/C++ Source Files (*.{c,C,cc,cpp,cxx})");
+		button = new Fl_Button(365, 10, 25, 25);
+		button->callback((Fl_Callback *)show_callback);
+
+		dblWindow->resizable(files);
+		dblWindow->end();
+		dblWindow->show();
+
+
+		/*window = new Fl_Window(340,340);
 		box = new Fl_Box(20,40,300,100,"Hello, Worldsssss!");
 		button = new Fl_Button(20,140,100,50, "Click me");
 		input = new Fl_Input(20, 190, 80, 40);
@@ -564,8 +627,8 @@ int main(){
 		box->labeltype(FL_SHADOW_LABEL);
 		window->show();
 		window->end();
+		button->callback(dobut);*/
 
-		button->callback(dobut);
 
 		cout << "Hi Team 35" << endl;
 		Fl::run();
