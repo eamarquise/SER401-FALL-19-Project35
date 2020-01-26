@@ -32,7 +32,7 @@ clean:
 
 run:
 	./build/main.exe $(ARGS)
-	
+
 
 -include $(DEPS)
 
