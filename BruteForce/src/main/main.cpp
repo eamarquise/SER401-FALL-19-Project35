@@ -44,6 +44,9 @@
 #include "Utility.h"
 #include "StudentsToProjects.h"
 
+#include "MainWindow.h"
+
+
 #include <iostream>
 #include <utility>
 #include <array>
@@ -59,6 +62,15 @@
 #include <bits/stdc++.h>
 #include "sys/types.h"
 #include "sys/sysinfo.h"
+
+#include <FL/Fl.H>
+#include <FL/Fl_Window.H>
+
+#include <FL/Fl_Button.H>
+#include <FL/Fl_Box.H>
+#include <FL/Fl_Input.H>
+#include <FL/Fl_Output.H>
+
 
 using namespace std;
 using namespace std::chrono;
@@ -491,7 +503,41 @@ void threadFunction(Student studentPool[],
 
 }
 
+int tempProj, tempStud, textInput;
 
+/*
+void dobut(Fl_Widget *){
+	bool validNumber = true;
+	cout << input->value() << endl;
+	string str = input->value();
+	if(str.length() == 0) {
+			validNumber = false;
+	} else if(str.at(0) > 48 && str.at(0) <= 57) {
+		for(int i = 1; i < str.length(); i++) {
+			if(str.at(i) < 48 || str.at(i) > 57) {
+				validNumber = false;
+			}
+		}
+	} else {
+		validNumber = false;
+	}
+
+	if(validNumber) {
+		output->value(input->value());
+		cout << "valid number" << endl;
+	} else {
+		cout << "Invalid number" << endl;
+	}
+}
+*/
+
+/*
+Fl_Window *window;
+Fl_Box *box;
+Fl_Button *button;
+Fl_Input *input;
+Fl_Output *output;
+*/
 
 /*************************************************************************************
  * main
@@ -509,20 +555,43 @@ void threadFunction(Student studentPool[],
  *Returns:
  *	int value 0.
  */
+
 int main(){
 
 	//timer to keep track of program runtime
 	    auto start = high_resolution_clock::now();
 		srand(time(NULL));
 
-	cout << "Hi Team 35" << endl;
+/*
+		window = new Fl_Window(340,340);
+		box = new Fl_Box(20,40,300,100,"Hello, Worldsssss!");
+		button = new Fl_Button(20,140,100,50, "Click me");
+		input = new Fl_Input(20, 190, 80, 40);
+		output = new Fl_Output(20, 230, 80, 40);
+		box->box(FL_UP_BOX);
+		box->labelfont(FL_BOLD+FL_ITALIC);
+		box->labelsize(36);
+		box->labeltype(FL_SHADOW_LABEL);
+		window->show();
+		window->end();
 
-	//reading in inputs
-	int tempProj, tempStud;
+		button->callback(dobut);
+*/
+		cout << "Hi Team 35" << endl;
+
+
+
+		//Fl::run();
+
+MainWindow mainWin;
+
+
 	cout << "#Projects: ";
 	cin >> tempProj;
 	cout << "#Students: ";
 	cin >> tempStud;
+
+	//reading in inputs
 
 	const int NUM_PROJECTS = toConstInt(tempProj);
 	const int NUM_STUDENTS = toConstInt(tempStud);
@@ -614,7 +683,6 @@ int main(){
 
 	//THREADS FOR EACH CLASS SECTION...Sean Rogers
 
-
 	//set the number of projects in each class section to the indexes of projectsInSections[]
 		for(int i = 0; i < NUM_PROJECTS; i++) {
 			for(int j = 0; j < NUM_CLASS_SECTIONS; j++) {
@@ -624,11 +692,11 @@ int main(){
 			}
 		}
 
-	cout << "StudentID|ClassID: ";
+	cout << "ASUriteID|StudentID|ClassID: ";
 
 	//Print out for testing
 	for(int i = 0; i < NUM_STUDENTS; i++) {
-		cout << STUDENT_POOL[i].StudentID << "|" << STUDENT_POOL[i].ClassID << "  ";
+		cout << STUDENT_POOL[i].ASUriteID << "|" << STUDENT_POOL[i].StudentID << "|"<< STUDENT_POOL[i].ClassID << "  ";
 	}
 
 	cout << endl;
@@ -679,8 +747,10 @@ int main(){
 
 		//call the thread (once for each class section)
 		threads[i] = thread (threadFunction, STUDENT_POOL_SECTION_X, PROJECT_POOL_SECTION_X, studentsInSections[i], projectsInSections[i], NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS, results, i);
-	}
 
+        //delete STUDENT_POOL_SECTION_X;
+        //delete PROJECT_POOL_SECTION_X;
+	}
 
     //join threads
 	for(int i = 0; i < NUM_CLASS_SECTIONS; i++) {
@@ -695,7 +765,6 @@ int main(){
 	//END THREADS FOR EACH CLASS SECTION...Sean Rogers
 
 //END -STUDENTS TO PROJECTS ASSIGNMENT
-
 
     //KEEP TRACK OF TIME THE PROGRAM TAKES TO RUN
 	  	auto stop = high_resolution_clock::now();

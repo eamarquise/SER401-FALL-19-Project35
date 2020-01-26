@@ -1285,8 +1285,12 @@ void Utility::makeStudentJSON(int numStud, int numSkill) {
       //Loops through studentIDs to print
       for(int studentID = 1; studentID <= numStudent; studentID++) {
 
+       string asuID = "ASU"+to_string(studentID);
        /*Prints out schema: {"StudentID": (studentID#), */
-       file << "{\"StudentID\": " << studentID << ",\n";
+       file << "{\"ASUriteID\": \"" << asuID << "\",\n";
+
+       /*Prints out schema: {"StudentID": (studentID#), */
+       file << "\"StudentID\": " << studentID << ",\n";
 
         /*Prints out schema: "ClassID": (classID), classID is divided
          * equally into 4 sections   */
