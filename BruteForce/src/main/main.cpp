@@ -43,7 +43,9 @@
 #include "ClassSectionJson.h"
 #include "Utility.h"
 #include "StudentsToProjects.h"
+
 #include "MainWindow.h"
+
 
 #include <iostream>
 #include <utility>
@@ -560,7 +562,6 @@ int main(){
 	    auto start = high_resolution_clock::now();
 		srand(time(NULL));
 
-
 /*
 		window = new Fl_Window(340,340);
 		box = new Fl_Box(20,40,300,100,"Hello, Worldsssss!");
@@ -578,8 +579,10 @@ int main(){
 */
 		cout << "Hi Team 35" << endl;
 
+
 		//Fl::run();
-    MainWindow mainWin;
+
+MainWindow mainWin;
 
 
 	cout << "#Projects: ";
