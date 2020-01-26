@@ -43,6 +43,7 @@
 #include "ClassSectionJson.h"
 #include "Utility.h"
 #include "StudentsToProjects.h"
+#include "SimpleGUI.h"
 
 #include <iostream>
 #include <utility>
@@ -552,7 +553,7 @@ int main(){
 	    auto start = high_resolution_clock::now();
 		srand(time(NULL));
 
-
+/*
 		window = new Fl_Window(340,340);
 		box = new Fl_Box(20,40,300,100,"Hello, Worldsssss!");
 		button = new Fl_Button(20,140,100,50, "Click me");
@@ -569,11 +570,21 @@ int main(){
 
 		cout << "Hi Team 35" << endl;
 		Fl::run();
+*/
+		cout << "Hi Team 35" << endl;
 
+     SimpleGUI gui;
+     gui.new_window();
+     Fl::run();
+	/*
 	cout << "#Projects: ";
 	cin >> tempProj;
 	cout << "#Students: ";
 	cin >> tempStud;
+*/
+
+     tempProj = gui.num_projects;
+     tempStud = gui.num_students ;
 
 	//reading in inputs
 
