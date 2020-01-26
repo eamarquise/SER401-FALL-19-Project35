@@ -43,7 +43,9 @@
 #include "ClassSectionJson.h"
 #include "Utility.h"
 #include "StudentsToProjects.h"
+
 #include "MainWindow.h"
+
 
 #include <iostream>
 #include <utility>
@@ -63,10 +65,12 @@
 
 #include <FL/Fl.H>
 #include <FL/Fl_Window.H>
+
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Output.H>
+
 
 using namespace std;
 using namespace std::chrono;
@@ -575,8 +579,12 @@ int main(){
 */
 		cout << "Hi Team 35" << endl;
 
+
+
 		//Fl::run();
-    MainWindow mainWin;
+
+MainWindow mainWin;
+
 
 	cout << "#Projects: ";
 	cin >> tempProj;
@@ -684,11 +692,11 @@ int main(){
 			}
 		}
 
-	cout << "StudentID|ClassID: ";
+	cout << "ASUriteID|StudentID|ClassID: ";
 
 	//Print out for testing
 	for(int i = 0; i < NUM_STUDENTS; i++) {
-		cout << STUDENT_POOL[i].StudentID << "|" << STUDENT_POOL[i].ClassID << "  ";
+		cout << STUDENT_POOL[i].ASUriteID << "|" << STUDENT_POOL[i].StudentID << "|"<< STUDENT_POOL[i].ClassID << "  ";
 	}
 
 	cout << endl;

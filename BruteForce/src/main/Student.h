@@ -28,6 +28,7 @@
 using namespace std;
 
 struct Student {
+	string ASUriteID; //unique String ID for each ASU student.
 	int StudentID; //Unique integer identifying the student uniquely in the whole student population.
 	int StID; //Common integer to keep track of student in data structures. ID depicting from [0 - NumOfStudents] in that class section.
 	int ClassID; //Unique integer depicting the Class/Section the student is assigned to.
