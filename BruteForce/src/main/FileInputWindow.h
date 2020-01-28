@@ -8,6 +8,11 @@
 #ifndef SRC_MAIN_FILEINPUTWINDOW_H_
 #define SRC_MAIN_FILEINPUTWINDOW_H_
 
+#include <FL/Fl.H>
+#include <FL/Fl_Window.H>
+#include <FL/Fl_Menu_Bar.H>
+#include <FL/Fl_File_Chooser.H>
+
 namespace std {
 
 class FileInputWindow {

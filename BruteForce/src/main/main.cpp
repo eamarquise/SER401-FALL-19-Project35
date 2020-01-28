@@ -45,7 +45,7 @@
 #include "StudentsToProjects.h"
 
 #include "MainWindow.h"
-
+#include "FileInputWindow.h"
 
 #include <iostream>
 #include <utility>
@@ -583,8 +583,9 @@ int main(){
 
 		//Fl::run();
 
-MainWindow mainWin;
+	//MainWindow mainWin;
 
+	FileInputWindow fiw;
 
 	cout << "#Projects: ";
 	cin >> tempProj;
