@@ -45,7 +45,7 @@
 #include "StudentsToProjects.h"
 
 #include "MainWindow.h"
-
+#include "main.h"
 
 #include <iostream>
 #include <utility>
@@ -501,7 +501,7 @@ void threadFunction(Student studentPool[],
 		    COUNT_0, PCOUNT_0, numSkills, teamSize, numTopTeams);}
 
 
-}
+}//end threadFunction
 
 int tempProj, tempStud, textInput;
 
@@ -539,8 +539,33 @@ Fl_Input *input;
 Fl_Output *output;
 */
 
+
 /*************************************************************************************
  * main
+ *
+ *  Created on: 01/28/2020
+ *      Created by: Team#35 (Sean, Myles, Cristi, Matthew, Elizabeth)
+ *
+ * Description:
+ *		This function is the main method, and creates the MianWindow GUI.
+ *
+ *Arguments:
+ *	void
+ *
+ *Returns:
+ *	int value 0.
+ */
+int main(){
+
+	MainWindow mainWin;
+
+	return 0;
+}
+
+
+
+/*************************************************************************************
+ * main_run
  *
  *  Created on: 10/27/2019
  *      Created by: Team#35 (Sean, Myles, Cristi, Matthew, Elizabeth)
@@ -556,7 +581,7 @@ Fl_Output *output;
  *	int value 0.
  */
 
-int main(){
+int main::main_run(int projects_input, int students_input){
 
 	//timer to keep track of program runtime
 	    auto start = high_resolution_clock::now();
@@ -579,18 +604,17 @@ int main(){
 */
 		cout << "Hi Team 35" << endl;
 
+	//Fl::run();
 
+	//MainWindow mainWin;
 
-		//Fl::run();
-
-MainWindow mainWin;
-
-
-	cout << "#Projects: ";
+  /*cout << "#Projects: ";
 	cin >> tempProj;
 	cout << "#Students: ";
-	cin >> tempStud;
+	cin >> tempStud;*/
 
+	tempProj = projects_input;
+    tempStud = students_input ;
 	//reading in inputs
 
 	const int NUM_PROJECTS = toConstInt(tempProj);
