@@ -92,7 +92,15 @@ void Utility::initStudentPool(string filename, Student studentPool[], int numStu
 
 
 	/* New code reading in CSV student roster from canvas */
+	ifstream ifs(filename);
+	ifs.open(filename, ios::in);
 
+	/* read csv into temp */
+	vector<vector<string> > parseCSV;
+	string line, word;
+	while (getline(ifs, line)) {
+
+	}
 
 }
 
