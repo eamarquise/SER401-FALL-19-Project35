@@ -12,6 +12,7 @@
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_File_Chooser.H>
+#include <FL/Fl_Box.H>
 
 namespace std {
 

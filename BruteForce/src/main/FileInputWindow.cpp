@@ -10,19 +10,15 @@
 namespace std {
 
 FileInputWindow::FileInputWindow() {
+
+
 	Fl_Window *window = new Fl_Window(1000,500,"Capstone Team Assignment File Selection" );
-	Fl_Box *box = new Fl_Box(10,10,480,100,"This is a box");
-	box->box(FL_UP_BOX);
-	box->labelfont(FL_BOLD+FL_ITALIC);
-	box->labelsize(36);
-	box->labeltype(FL_NORMAL_LABEL);
-	Fl_Box *box2 = new Fl_Box(510,10,480,100);
-	box2->box(FL_UP_BOX);
-	box2->label("@+5fileopen");
-	Fl_Button *button = new Fl_Button(10,120,50,50,"@+5fileopen");
-	button->color(FL_YELLOW);
-	Fl_Input *input1 = new Fl_Input(10,180,480,20);
-	input1->value("Now is the time for all good men...");
+	Fl_Box *labelIntroduction = new Fl_Box(100,50,300,20,"Student File");
+	Fl_File_Input *fileInput_Student = new Fl_File_Input(100,75,300,30);
+
+	window->begin();
+	labelIntroduction->box(FL_FRAME_BOX);
+	labelIntroduction->color(FL_WHITE);
 	window->end();
 	window->show();
 	Fl::run();
