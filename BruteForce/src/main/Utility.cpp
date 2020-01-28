@@ -82,10 +82,18 @@ void Utility::initProjectPool(string filename, Project projectPool[], int numPro
  * void method.
  */
 void Utility::initStudentPool(string filename, Student studentPool[], int numStudents) {
+
+	/* Old code from reading in a JSON student file
 	StudentJson SJson;
 	for (int i = 0; i < numStudents; i++) {
 		*(studentPool + i) = SJson.getStudentJsonObject(filename, i);
 	}
+	*/
+
+
+	/* New code reading in CSV student roster from canvas */
+
+
 }
 
 /***********************************************

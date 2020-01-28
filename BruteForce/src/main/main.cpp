@@ -43,6 +43,7 @@
 #include "ClassSectionJson.h"
 #include "Utility.h"
 #include "StudentsToProjects.h"
+#include "studentCSV.h"
 
 #include "MainWindow.h"
 
@@ -608,8 +609,12 @@ MainWindow mainWin;
 	const string PROJECT_FILE = "./newProjects.json";
 	const string STUDENT_FILE = "./newStudents.json";
 	const string CLASS_SECTION_FILE = "./SampleJsonFiles/4ClassSections.json";
+	const string ROSTER_FILE = "./2020-01-26T1830_Grades-DEV-2020Spring-Capstone-Tool-Testing.csv";
 
-	//Change this value to change the number of top teams stored.
+
+
+	//Change this value to change the number of top teams stored
+	// and the max taem size
     int tempNumTopTeams = 5;
     int tempTeamSize = 5;
 
@@ -630,7 +635,7 @@ MainWindow mainWin;
 
 	// INITIALIZE POOLS
 	util.initProjectPool(PROJECT_FILE, PROJECT_POOL, NUM_PROJECTS);
-	util.initStudentPool(STUDENT_FILE, STUDENT_POOL, NUM_STUDENTS);
+	util.initStudentPool(ROSTER_FILE, STUDENT_POOL, NUM_STUDENTS);
 	util.initClassSectionPool(CLASS_SECTION_FILE, CLASS_SECTION_POOL, STUDENT_POOL,
             NUM_CLASS_SECTIONS, NUM_STUDENTS);
 	util.initProjectStudentSkills(PROJECT_POOL, STUDENT_POOL,
