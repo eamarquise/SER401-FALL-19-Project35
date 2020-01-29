@@ -97,8 +97,19 @@ void Utility::initStudentPool(string filename, Student studentPool[], int numStu
 
 	/* read csv into temp */
 	vector<vector<string> > parseCSV;
-	string line, word;
+	string line, word, cell;
 	while (getline(ifs, line)) {
+
+        stringstream lineStream(line);
+        vector<string> parsedRow;
+        while(getline(lineStream,cell,',')) {
+            parsedRow.push_back(cell);
+        }
+
+        parseCSV.push_back(parsedRow);
+    }
+
+
 
 	}
 
