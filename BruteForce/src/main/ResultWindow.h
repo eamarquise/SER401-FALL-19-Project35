@@ -14,6 +14,7 @@
 #include <FL/Fl_Int_Input.H>
 #include <FL/Fl_RGB_Image.H>
 #include <FL/Fl_Output.H>
+#include <FL/Fl_Text_Display.H>
 
 
 using namespace std;
@@ -24,7 +25,9 @@ class ResultWindow {
     public:
 
 		Fl_Window *windowResult;
-		Fl_Box *boxHeader;
+		//Fl_Box *boxHeader;
+		Fl_Text_Display *textDisplay;
+		Fl_Text_Buffer *buffer;
         ResultWindow();
         ~ResultWindow();
 

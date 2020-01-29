@@ -166,7 +166,7 @@ MainWindow::MainWindow() {
 
 // DESTRUCTOR
 MainWindow::~MainWindow() {
-    // TODO
+    //TODO
 }
 
 
