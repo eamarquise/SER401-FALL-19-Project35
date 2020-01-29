@@ -43,7 +43,7 @@
 #include "ClassSectionJson.h"
 #include "Utility.h"
 #include "StudentsToProjects.h"
-
+#include "ResultWindow.h"
 #include "MainWindow.h"
 #include "main.h"
 
@@ -587,31 +587,6 @@ int main::main_run(int projects_input, int students_input){
 	    auto start = high_resolution_clock::now();
 		srand(time(NULL));
 
-/*
-		window = new Fl_Window(340,340);
-		box = new Fl_Box(20,40,300,100,"Hello, Worldsssss!");
-		button = new Fl_Button(20,140,100,50, "Click me");
-		input = new Fl_Input(20, 190, 80, 40);
-		output = new Fl_Output(20, 230, 80, 40);
-		box->box(FL_UP_BOX);
-		box->labelfont(FL_BOLD+FL_ITALIC);
-		box->labelsize(36);
-		box->labeltype(FL_SHADOW_LABEL);
-		window->show();
-		window->end();
-
-		button->callback(dobut);
-*/
-		cout << "Hi Team 35" << endl;
-
-	//Fl::run();
-
-	//MainWindow mainWin;
-
-  /*cout << "#Projects: ";
-	cin >> tempProj;
-	cout << "#Students: ";
-	cin >> tempStud;*/
 
 	tempProj = projects_input;
     tempStud = students_input ;
@@ -789,6 +764,8 @@ int main::main_run(int projects_input, int students_input){
 	//END THREADS FOR EACH CLASS SECTION...Sean Rogers
 
 //END -STUDENTS TO PROJECTS ASSIGNMENT
+
+    ResultWindow windowResult;
 
     //KEEP TRACK OF TIME THE PROGRAM TAKES TO RUN
 	  	auto stop = high_resolution_clock::now();
