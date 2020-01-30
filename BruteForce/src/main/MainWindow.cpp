@@ -49,7 +49,7 @@ constexpr int toConstInt(int constInt) {
 /*****************************************************************************
  * TeamsButtonClick
  *
- * Author(s): Myles,
+ * Author(s): Team#35
  *
  * Description:
  *		When the Generate Teams button is clicked, this callback function

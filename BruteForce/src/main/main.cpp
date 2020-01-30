@@ -45,6 +45,7 @@
 #include "StudentsToProjects.h"
 
 #include "MainWindow.h"
+#include "ClassSelectorGUI.h"
 #include "main.h"
 
 #include <iostream>
@@ -558,6 +559,9 @@ Fl_Output *output;
 int main(){
 
 	MainWindow mainWin;
+
+	//Class Section Selection window -uncomment to test the window.
+	//ClassSelectorGUI classGUI;
 
 	return 0;
 }
