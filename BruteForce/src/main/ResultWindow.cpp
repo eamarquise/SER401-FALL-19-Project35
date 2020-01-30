@@ -64,20 +64,35 @@ ResultWindow::ResultWindow() {
     boxHeader->labeltype(_FL_SHADOW_LABEL);
     boxHeader->labelcolor(FL_BLUE);*/
 
-    // Text Box
+    // Buffer
     buffer = new Fl_Text_Buffer();
+    buffer->text("Team Assignment");
+
+    //Text Display
     textDisplay = new Fl_Text_Display(20,20,640-40,480-40, "Results:");
     textDisplay->buffer(buffer);
-    windowResult->resizable(textDisplay);
 
 
     // INITIALIZE COMPONENTS
 
-
+    //windowResult->resizable(textDisplay);
     windowResult->show();
     windowResult->end();
 
     Fl::run();
+}
+
+
+void ResultWindow::addText(string resultArray[]) {
+    char temp;
+    const char *ptr = &temp;
+    for(int i=0; i<resultArray->length(); i ++) {
+    	for(int j=0; j<resultArray[i].length(); j ++) {
+    		temp = resultArray[i][j];
+    		buffer->append(ptr);
+    	}
+    }
+
 }
 
 // DESTRUCTOR

@@ -765,7 +765,10 @@ int main::main_run(int projects_input, int students_input){
 
 //END -STUDENTS TO PROJECTS ASSIGNMENT
 
+
     ResultWindow windowResult;
+    windowResult.addText(results);
+
 
     //KEEP TRACK OF TIME THE PROGRAM TAKES TO RUN
 	  	auto stop = high_resolution_clock::now();

@@ -14,6 +14,7 @@ class main {
 
     public:
         int main_run(int projects_input, int students_input);
+
 };
 
 
