@@ -66,33 +66,21 @@ ResultWindow::ResultWindow() {
 
     // Buffer
     buffer = new Fl_Text_Buffer();
-    buffer->text("Team Assignment");
 
     //Text Display
     textDisplay = new Fl_Text_Display(20,20,640-40,480-40, "Results:");
     textDisplay->buffer(buffer);
 
 
-    // INITIALIZE COMPONENTS
+}
 
+
+void ResultWindow::addText() {
     //windowResult->resizable(textDisplay);
     windowResult->show();
     windowResult->end();
 
     Fl::run();
-}
-
-
-void ResultWindow::addText(string resultArray[]) {
-    char temp;
-    const char *ptr = &temp;
-    for(int i=0; i<resultArray->length(); i ++) {
-    	for(int j=0; j<resultArray[i].length(); j ++) {
-    		temp = resultArray[i][j];
-    		buffer->append(ptr);
-    	}
-    }
-
 }
 
 // DESTRUCTOR

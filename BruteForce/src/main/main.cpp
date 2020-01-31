@@ -558,6 +558,9 @@ Fl_Output *output;
 int main(){
 
 	MainWindow mainWin;
+	ResultWindow windowResult;
+	windowResult.buffer->loadfile("results.txt", 1000000);
+	windowResult.addText();
 
 	return 0;
 }
@@ -758,16 +761,16 @@ int main::main_run(int projects_input, int students_input){
 	}
 
 	//print out the results
+	ofstream resultFile;
+	resultFile.open("results.txt");
     for(int i = 0; i < NUM_CLASS_SECTIONS*3; i++) {
-		cout << results[i] << endl;
+		resultFile << results[i] << endl;
 	}
+    resultFile.close();
 	//END THREADS FOR EACH CLASS SECTION...Sean Rogers
 
 //END -STUDENTS TO PROJECTS ASSIGNMENT
 
-
-    ResultWindow windowResult;
-    windowResult.addText(results);
 
 
     //KEEP TRACK OF TIME THE PROGRAM TAKES TO RUN

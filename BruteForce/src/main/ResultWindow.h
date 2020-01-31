@@ -30,7 +30,7 @@ class ResultWindow {
 		Fl_Text_Buffer *buffer;
         ResultWindow();
         ~ResultWindow();
-        void addText(string resultArray[]);
+        void addText(void);
 
 };
 
