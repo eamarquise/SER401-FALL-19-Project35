@@ -71,6 +71,8 @@
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Output.H>
 
+#include <curl/curl.h>
+
 
 using namespace std;
 using namespace std::chrono;
@@ -555,8 +557,54 @@ Fl_Output *output;
  *Returns:
  *	int value 0.
  */
+
+size_t writeFunction(void*ptr, size_t size, size_t nmemb, string* data) {
+	data->append((char*) ptr, size * nmemb);
+	cout << "WRRIITTEEE FUNCTIONNNNN" << endl;
+	return size * nmemb;
+}
+
 int main(){
 
+	CURL *curl = curl_easy_init();
+
+	if(curl) {
+		cout << "this ran1" << endl;
+		const char *data = "submit = 1";
+
+		curl_easy_setopt(curl, CURLOPT_URL, "http://api.github.com/repos/whoshuu/cpr/contributors?anon=true&key=value");
+		cout << "this ran2" << endl;
+		curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
+		curl_easy_setopt(curl, CURLOPT_USERPWD, "user:pass");
+		curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/7.42.0");
+		curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 50L);
+		curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
+		cout << "this ran3" << endl;
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);
+		string response;
+		string header;
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeFunction);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &header);
+		cout << "this ran4" << endl;
+		char* url;
+		long response_code;
+		double elapsed;
+
+		curl_easy_perform(curl);
+
+		curl_easy_getinfo(curl, CURLINFO_EFFECTIVE_URL, &url);
+		curl_easy_getinfo(curl, CURLINFO_TOTAL_TIME, &elapsed);
+		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+
+		cout << url << endl;
+		cout << elapsed << endl;
+		cout << response_code << endl;
+		cout << "Response: " << response << endl;
+		cout << "this ran5" << endl;
+		curl_easy_cleanup(curl);
+
+	}
 	MainWindow mainWin;
 
 	return 0;
