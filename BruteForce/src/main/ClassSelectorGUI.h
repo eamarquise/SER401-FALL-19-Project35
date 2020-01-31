@@ -40,13 +40,27 @@ class ClassSelectorGUI {
 		((ClassSelectorGUI*)data)->FindCoursesClick(w);
 	}
 
+
+	static void static_GobackClick(Fl_Widget* w,void * data) {
+			((ClassSelectorGUI*)data)->GobackClick(w);
+		}
+
+	static void static_ContinueClick(Fl_Widget* w, void * data) {
+			((ClassSelectorGUI*)data)->ContinueClick(w);
+		}
+
+
 //callback functions
 	void BrowserSelection(Fl_Widget* w);
 	void FindCoursesClick(Fl_Widget* w);
+	void GobackClick(Fl_Widget* w);
+	void ContinueClick(Fl_Widget* w);
 
 public:
 
-	Fl_Window *classWindow;
+	Fl_Window* classWindow;
+	Fl_Window* prevWindow;
+	Fl_Window* nextWindow;
 	Fl_Box *boxHeader;
 	Fl_Check_Browser *classBrowser;
 	Fl_Button *findCourses;
@@ -54,7 +68,7 @@ public:
 	Fl_Button *goBack;
 	Fl_Input* inputYear;
 	Fl_Input_Choice* inputSemester;
-	ClassSelectorGUI();
+	ClassSelectorGUI(Fl_Window* win);
 	virtual ~ClassSelectorGUI();
 
 	//string array of courses for use in testing.

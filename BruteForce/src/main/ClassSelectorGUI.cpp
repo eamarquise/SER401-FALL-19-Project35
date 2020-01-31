@@ -16,6 +16,7 @@
  *
  */
 #include "ClassSelectorGUI.h"
+#include "MainWindow.h"
 #include "main.h"
 
 #include <iostream>
@@ -35,6 +36,66 @@
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_File_Chooser.H>
 
+
+/*************************************************************************************
+ * ClassSelectorGUI
+ *
+ * Description:
+ *		Constructor function for the class section selector GUI window.
+ *
+ *Arguments:
+ *	nonthing
+ *
+ *Returns:
+ *	nothing
+ */
+ClassSelectorGUI::ClassSelectorGUI(Fl_Window* win) {
+
+	//previous window
+	  prevWindow = win;
+
+	// INITIALIZE COMPONENTS
+	    classWindow = new Fl_Window(600, 400, "Class Section Selector");
+	    //FL_(X, Y, W, H, STRING)
+	    boxHeader = new Fl_Box(20,20,560,50, "Select The Capstone Class Sections To Create Teams For");
+	    classBrowser = new Fl_Check_Browser(20,100,300,250, "Browser");
+	    inputYear = new Fl_Input(450, 100, 100, 30, "Enter Year (YYYY)");
+	    inputSemester = new Fl_Input_Choice(450, 150, 100, 30, "Select Semester");
+	    findCourses = new Fl_Button(450, 200, 100, 30, "Find Courses");
+	    goBack = new Fl_Button(400, 350, 80, 30, "Go_Back");
+	    Continue = new Fl_Button(500, 350, 80, 30, "Continue");
+
+	     //callbacks
+	    findCourses->callback(static_FindCoursesClick, this);
+	    classBrowser->callback(static_BrowserSelection, this);
+	    goBack->callback(static_GobackClick, this);
+	    Continue->callback(static_ContinueClick, this);
+
+	    //Additions to the components
+	    classBrowser->scrollbar;
+
+	    inputSemester->add("Spring");
+	    inputSemester->add("Summer");
+	    inputSemester->add("Fall");
+	    inputSemester->value("Fall");
+
+	    boxHeader->box(FL_UP_BOX);
+	    boxHeader->labelfont(FL_BOLD);
+	    boxHeader->labelsize(40);
+	    boxHeader->labelcolor(FL_BLUE);
+
+
+	    classWindow->show();
+	    classWindow->end();
+
+	    Fl::run();
+
+}//end constructor
+
+
+ClassSelectorGUI::~ClassSelectorGUI() {
+	// TODO Auto-generated destructor stub
+}
 
 
 //TODO
@@ -90,59 +151,46 @@ void ClassSelectorGUI::FindCoursesClick(Fl_Widget* w){
 
 }
 
-
-
 /*************************************************************************************
- * ClassSelectorGUI
+ * GobackClick
  *
  * Description:
- *		Constructor function for the class section selector GUI window.
+ *		This function is the callback for the Go back button.
+ *		This button returns to the previous GUI window.
  *
  *Arguments:
- *	nonthing
+ *	FL_Widget* w
  *
  *Returns:
  *	nothing
  */
-ClassSelectorGUI::ClassSelectorGUI() {
+void ClassSelectorGUI::GobackClick(Fl_Widget* w){
 
-	// INITIALIZE COMPONENTS
-	    classWindow = new Fl_Window(600, 400, "Class Section Selector");
-	    //FL_(X, Y, W, H, STRING)
-	    boxHeader = new Fl_Box(20,20,560,50, "Select The Capstone Class Sections To Create Teams For");
-	    classBrowser = new Fl_Check_Browser(20,100,300,250, "Browser");
-	    inputYear = new Fl_Input(450, 100, 100, 30, "Enter Year (YYYY)");
-	    inputSemester = new Fl_Input_Choice(450, 150, 100, 30, "Select Semester");
-	    findCourses = new Fl_Button(450, 200, 100, 30, "Find Courses");
-	    goBack = new Fl_Button(400, 350, 80, 30, "Go_Back");
-	    Continue = new Fl_Button(500, 350, 80, 30, "Continue");
+	classWindow->hide();
 
-	     //callbacks
-	    findCourses->callback(static_FindCoursesClick, this);
-	    classBrowser->callback(static_BrowserSelection, this);
+	prevWindow->show();
 
-	    //Additions to the components
-	    classBrowser->scrollbar;
-
-	    inputSemester->add("Spring");
-	    inputSemester->add("Summer");
-	    inputSemester->add("Fall");
-	    inputSemester->value("Fall");
-
-	    boxHeader->box(FL_UP_BOX);
-	    boxHeader->labelfont(FL_BOLD);
-	    boxHeader->labelsize(40);
-	    boxHeader->labelcolor(FL_BLUE);
-
-
-	    classWindow->show();
-	    classWindow->end();
-
-	    Fl::run();
 
 }
 
-ClassSelectorGUI::~ClassSelectorGUI() {
-	// TODO Auto-generated destructor stub
+/*************************************************************************************
+ * ContinueClick
+ *
+ * Description:
+ *		This function is the callback for the Continue button.
+ *		This button opens the next GUI window.
+ *
+ *Arguments:
+ *	FL_Widget* w
+ *
+ *Returns:
+ *	nothing
+ */
+void ClassSelectorGUI::ContinueClick(Fl_Widget* w){
+
+	classWindow->hide();
+
 }
+
+
 

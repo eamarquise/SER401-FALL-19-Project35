@@ -558,10 +558,8 @@ Fl_Output *output;
  */
 int main(){
 
-	MainWindow mainWin;
+	 MainWindow mainWin;
 
-	//Class Section Selection window -uncomment to test the window.
-	//ClassSelectorGUI classGUI;
 
 	return 0;
 }
