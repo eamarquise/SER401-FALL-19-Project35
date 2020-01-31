@@ -12,6 +12,7 @@
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Int_Input.H>
+#include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_RGB_Image.H>
 #include <FL/Fl_Output.H>
 

@@ -20,6 +20,7 @@
 
 #include "MainWindow.h"
 #include "ClassSelectorGUI.h"
+#include "AuthTokenGUI.h"
 #include "main.h"
 
 #include <iostream>
@@ -96,8 +97,6 @@ void MainWindow::TeamsButtonClick(Fl_Widget* w) {
  */
 void MainWindow::StartButtonClick(Fl_Widget* w) {
 
-
-
 	cout <<"'Start' button clicked" <<endl;
 	cout<<endl;
 
@@ -106,13 +105,11 @@ void MainWindow::StartButtonClick(Fl_Widget* w) {
 	//call to next GUI window.
 
 	if(nextWindowFlag == false){
-
-	ClassSelectorGUI classGUI(windowMain);
-	nextWindow = classGUI.classWindow;
+	AuthTokenGUI tokenGUI(windowMain);
+	nextWindow = tokenGUI.tokenWindow;
 	nextWindowFlag = true;
 
 	}else{
-
 	nextWindow->show();
 
 	}
