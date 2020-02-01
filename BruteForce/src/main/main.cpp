@@ -574,17 +574,29 @@ int main(){
 
 	while(getline(file,line)) {
 		vector<string> vec;
-		vec.push_back(line);
+		string element = "";
+		for(int i = 0; i < line.length(); i++) {
+
+			if(line.at(i) == ',') {
+				vec.push_back(element);
+				element = "";
+			} else {
+				element.push_back(line.at(i));
+			}
+		}
 		dataList.push_back(vec);
 	}
 	file.close();
 	for(int i = 0; i < dataList.size(); i++) {
 		for(int j = 0; j < dataList.at(i).size(); j++) {
-			cout << dataList.at(i).at(j) << " | ";
+			cout << dataList.at(i).at(j);
+			if(j+1 != dataList.at(i).size()) {
+				cout << ", ";
+			}
+
 		}
-		cout << "next line" << endl;
+		cout << endl;
 	}
-	cout << "FU";
 	MainWindow mainWin;
 
 	return 0;
