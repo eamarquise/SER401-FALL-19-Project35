@@ -10,16 +10,19 @@
 
 #include <FL/Fl.H>
 #include <FL/Fl_Window.H>
-#include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_Box.H>
+#include <FL/Fl_Button.H>
+#include <FL/fl_ask.H>
 
 namespace std {
 
 class FileInputWindow {
 public:
+
 	FileInputWindow();
 	virtual ~FileInputWindow();
+
 };
 
 } /* namespace std */
