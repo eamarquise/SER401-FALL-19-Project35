@@ -6,7 +6,7 @@
  *
  * Created on: Jan 31, 2020
  *
- * Authors:   Myles Colina
+ * Authors:  Team #35
  *
  * List of functions:
  *    - AuthTokenGUI() //constructor
@@ -31,6 +31,7 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Window.H>
 #include <FL/Fl_File_Chooser.H>
+#include <FL/Fl_Native_File_Chooser.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_File_Browser.H>
@@ -82,9 +83,8 @@ AuthTokenGUI::AuthTokenGUI(Fl_Window* prev, Fl_Window* next) {
 	    boxHeader->labelsize(40);
 	    boxHeader->labelcolor(FL_BLUE);
 
-	    tokenWindow->show();
-
 	    tokenWindow->end();
+	    tokenWindow->show();
 
 	    Fl::run();
 
@@ -116,45 +116,45 @@ AuthTokenGUI::~AuthTokenGUI() {
  */
 void AuthTokenGUI::FindFileClick(Fl_Widget* w){
 
- tokenChooser = new Fl_File_Chooser("/home/","*",FL_SINGLE, "Authentication Token");
-// tokenChooser = new Fl_File_Chooser(".","*",FL_SINGLE, "Authentication Token");
- tokenChooser->show();
+	Fl_Native_File_Chooser fileChooser;
+		fileChooser.title("Choose Authentication Token File");
+		fileChooser.type(Fl_Native_File_Chooser::BROWSE_FILE);
 
- //wait until the user selects a file.
- while(tokenChooser->shown()){
-	 Fl::wait();
- }
-
- //if cancel was selected
- if ( tokenChooser->value() == NULL )
-      {  return; }
-
-
- cout<<tokenChooser->value()<<endl;
-
-
- //read in the file
-
-  ifstream AuthtokenFile;
-  AuthtokenFile.open(tokenChooser->value());
-  char output[100];
-  if (AuthtokenFile.is_open()) {
-  while (!AuthtokenFile.eof()) {
-	 AuthtokenFile >> output;
-     Authentication_Token = output;
-  }
- }
-  AuthtokenFile.close();
-
-  cout<<"The Authentication Token is: "<<Authentication_Token<<endl;
-
-  //convert the string to char*
-  int length = Authentication_Token.length();
-  char token_char[length+1];
-  strcpy(token_char, Authentication_Token.c_str());
+		//fileChooser.preset_file(fileInput_Student->value());
+		switch ( fileChooser.show() ) {
+			default:
+				if ( fileChooser.filename() ) {
+					//fileInput_Student->value(fileChooser.filename());
+				} else {
+					//fileInput_Student->value("NULL");
+				}
+				break;
+		}
 
 
-  outputToken->value(token_char);
+		//read in the file
+		  ifstream AuthtokenFile;
+		  AuthtokenFile.open(fileChooser.filename());
+		  char output[100];
+		  if (AuthtokenFile.is_open()) {
+		  while (!AuthtokenFile.eof()) {
+			 AuthtokenFile >> output;
+		     Authentication_Token = output;
+		  }
+		 }
+		  AuthtokenFile.close();
+
+		  cout<<"The Authentication Token is: "<<Authentication_Token<<endl;
+
+		  //convert the string to char*
+		  int length = Authentication_Token.length();
+		  char token_char[length+1];
+		  strcpy(token_char, Authentication_Token.c_str());
+
+
+		  outputToken->value(token_char);
+
+
 }
 
 
