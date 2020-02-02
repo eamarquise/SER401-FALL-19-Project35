@@ -17,6 +17,7 @@
 #include <FL/Fl_Output.H>
 
 #include "ClassSelectorGUI.h"
+#include "AuthTokenGUI.h"
 
 using namespace std;
 
@@ -45,7 +46,7 @@ class MainWindow {
 
 		Fl_Window *windowMain;
 		//ClassSelectorGUI *nextWindow;
-		Fl_Window *nextWindow;
+		Fl_Window* nextWindow;
 		Fl_Box *boxHeader;
 		Fl_Button *buttonStart;
 		Fl_Button *buttonOpenProject;

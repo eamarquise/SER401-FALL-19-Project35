@@ -1,8 +1,20 @@
 /*
  * AuthTokenGUI.cpp
  *
- *  Created on: Jan 31, 2020
- *      Author: myles
+ * Description:  Contains functions relating to the creation and user
+ * interaction with the Authentication Token File chooser of the GUI/application.
+ *
+ * Created on: Jan 31, 2020
+ *
+ * Authors:   Myles Colina
+ *
+ * List of functions:
+ *    - AuthTokenGUI() //constructor
+ *    -~AuthTokenGUI() //destructor
+ *    -FindFileClick(Fl_Widget* w) //callback function
+ *    -GobackClick(Fl_Widget* w) //callback function
+ *    -ContinueClick(Fl_Widget* w) //callback function
+ *
  */
 
 #include "AuthTokenGUI.h"
@@ -29,11 +41,23 @@
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_File_Chooser.H>
 
-
-AuthTokenGUI::AuthTokenGUI(Fl_Window* win) {
+/*************************************************************************************
+ * AuthTokenGUI
+ *
+ * Description:
+ *		Constructor function for the Authentication Token GUI window.
+ *
+ *Arguments:
+ *	nonthing
+ *
+ *Returns:
+ *	nothing
+ */
+AuthTokenGUI::AuthTokenGUI(Fl_Window* prev, Fl_Window* next) {
 	//previous window
-	  prevWindow = win;
-	  nextWindowFlag = false;
+	  prevWindow = prev;
+	  next = tokenWindow;
+
 
 	//INITIALIZE COMPONENTS
 	    tokenWindow = new Fl_Window(450, 250, "Authentication Token");
@@ -59,12 +83,15 @@ AuthTokenGUI::AuthTokenGUI(Fl_Window* win) {
 	    boxHeader->labelcolor(FL_BLUE);
 
 	    tokenWindow->show();
+
 	    tokenWindow->end();
 
 	    Fl::run();
 
 }//end constructor
 
+
+//destructor
 AuthTokenGUI::~AuthTokenGUI() {
 	// TODO Auto-generated destructor stub
 }
@@ -76,7 +103,10 @@ AuthTokenGUI::~AuthTokenGUI() {
  * FindFileClick
  *
  * Description:
- *
+ *		Opens a file chooser window, and allows thw user to select the Authentication Token
+ *		file. Once the file is selected, and OK clicked, the output window is updated with the
+ *		authentication token. (The authentication token is read into the code, and stored as a string
+ *		for later use.
  *
  *Arguments:
  *	FL_Widget* w
@@ -183,8 +213,8 @@ void AuthTokenGUI::GobackClick(Fl_Widget* w){
 void AuthTokenGUI::ContinueClick(Fl_Widget* w){
 
 	tokenWindow->hide();
-	 //call to next GUI window.
 
+	 //call to next GUI window.
 	    if(nextWindowFlag == false){
 	    ClassSelectorGUI classGUI(tokenWindow);
 	    nextWindow = classGUI.classWindow;
@@ -192,6 +222,7 @@ void AuthTokenGUI::ContinueClick(Fl_Widget* w){
 
 	    }else{
 	    nextWindow->show();
+	    cout<<"nextWindow is shown"<<endl;
 
 	    }
 

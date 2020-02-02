@@ -105,7 +105,9 @@ void MainWindow::StartButtonClick(Fl_Widget* w) {
 	//call to next GUI window.
 
 	if(nextWindowFlag == false){
-	AuthTokenGUI tokenGUI(windowMain);
+
+	AuthTokenGUI tokenGUI(windowMain, nextWindow);
+	//nextWindow = tokenGUI.tokenWindow;
 	nextWindow = tokenGUI.tokenWindow;
 	nextWindowFlag = true;
 
@@ -113,7 +115,11 @@ void MainWindow::StartButtonClick(Fl_Widget* w) {
 	nextWindow->show();
 
 	}
+
+
 }
+
+
 
 // CONSTRUCTOR
 MainWindow::MainWindow() {
@@ -203,6 +209,7 @@ MainWindow::MainWindow() {
     //buttonNewProject->callback(newProjectButtonClick);
 
     Fl::run();
+
 }
 
 // DESTRUCTOR

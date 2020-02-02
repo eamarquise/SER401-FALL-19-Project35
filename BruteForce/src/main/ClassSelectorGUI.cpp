@@ -58,7 +58,7 @@ ClassSelectorGUI::ClassSelectorGUI(Fl_Window* win) {
 	    classWindow = new Fl_Window(600, 400, "Class Section Selector");
 	    //FL_(X, Y, W, H, STRING)
 	    boxHeader = new Fl_Box(20,20,560,50, "Select The Capstone Class Sections To Create Teams For");
-	    classBrowser = new Fl_Check_Browser(20,100,300,250, "Browser");
+	    classBrowser = new Fl_Check_Browser(20,100,300,250, "Class Section List");
 	    inputYear = new Fl_Input(450, 100, 100, 30, "Enter Year (YYYY)");
 	    inputSemester = new Fl_Input_Choice(450, 150, 100, 30, "Select Semester");
 	    findCourses = new Fl_Button(450, 200, 100, 30, "Find Courses");
@@ -189,6 +189,7 @@ void ClassSelectorGUI::GobackClick(Fl_Widget* w){
 void ClassSelectorGUI::ContinueClick(Fl_Widget* w){
 
 	classWindow->hide();
+	//nextWindow->show();
 
 }
 

@@ -24,6 +24,8 @@
 #include <FL/Fl_File_Browser.H>
 #include <FL/Fl_Output.H>
 
+#include "MainWindow.h"
+
 using namespace std;
 
 class AuthTokenGUI {
@@ -62,13 +64,14 @@ public:
 	Fl_Window* tokenWindow;
 	Fl_Window* prevWindow;
 	Fl_Window* nextWindow;
+
 	Fl_Box *boxHeader;
 	Fl_Output *outputToken;
 	Fl_Button *findFile;
 	Fl_Button *Continue;
 	Fl_Button *goBack;
 
-	AuthTokenGUI(Fl_Window* win);
+	AuthTokenGUI(Fl_Window* prev, Fl_Window* next);
 	virtual ~AuthTokenGUI();
 };
 

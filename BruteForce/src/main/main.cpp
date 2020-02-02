@@ -46,6 +46,7 @@
 
 #include "MainWindow.h"
 #include "ClassSelectorGUI.h"
+#include "AuthTokenGUI.h"
 #include "main.h"
 
 #include <iostream>
@@ -558,8 +559,7 @@ Fl_Output *output;
  */
 int main(){
 
-	 MainWindow mainWin;
-
+	MainWindow mainWin;
 
 	return 0;
 }
