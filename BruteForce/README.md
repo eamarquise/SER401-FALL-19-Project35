@@ -18,3 +18,5 @@ $ make clean
 $ make
 $ make run
 ```
+May need to install:
+sudo apt-get install libcanberra-gtk-module
