@@ -763,10 +763,13 @@ int main::main_run(int projects_input, int students_input){
 	//print out the results
 	ofstream resultFile;
 	resultFile.open("results.txt");
-    for(int i = 0; i < NUM_CLASS_SECTIONS*3; i++) {
+	for(int i = 0; i < NUM_CLASS_SECTIONS*3; i++) {
 		resultFile << results[i] << endl;
 	}
-    resultFile.close();
+	resultFile.close();
+
+
+
 	//END THREADS FOR EACH CLASS SECTION...Sean Rogers
 
 //END -STUDENTS TO PROJECTS ASSIGNMENT

@@ -36,52 +36,48 @@
 
 using namespace std;
 
+
 //Function to convert integers into constant expressions.
 constexpr int toConstInt(int constInt) {
 	return constInt;
 }
 
-// CONSTRUCTOR
+
+/* constructor, preps the results window and buffer */
 ResultWindow::ResultWindow() {
 
     // MAIN WINDOW
-    const int windowResultW = 640;
-    const int windowResultH = 480;
-    const char windowResultStr[] = "Project 35";
-    windowResult = new Fl_Window(windowResultW, windowResultH, windowResultStr);
-
-    /* HEADER BOX
-    const int boxHeaderX = 20;
-    const int boxHeaderY = 20;
-    const int boxHeaderW = toConstInt(windowResultW - (boxHeaderX * 2));
-    const int boxHeaderH = 75;
-    const char boxHeaderStr[] = "Hi Team 35!";
-    boxHeader = new Fl_Box(boxHeaderX, boxHeaderY, boxHeaderW,
-        boxHeaderH, boxHeaderStr);
-    boxHeader->box(FL_UP_BOX);
-    boxHeader->labelfont(FL_BOLD + FL_ITALIC);
-    boxHeader->labelsize(18);
-    boxHeader->labeltype(_FL_SHADOW_LABEL);
-    boxHeader->labelcolor(FL_BLUE);*/
+    windowResult = new Fl_Window(640, 480, "Project 35");
 
     // Buffer
     buffer = new Fl_Text_Buffer();
 
     //Text Display
-    textDisplay = new Fl_Text_Display(20,20,640-40,480-40, "Results:");
+    textDisplay = new Fl_Text_Display(20,90,640-40,480-110, "Results:");
     textDisplay->buffer(buffer);
 
+    //Save BUTTON
+    buttonSave = new Fl_Button(20,20,100,50, "Save Report");
+    buttonSave->callback(static_saveClicked, this);
 
 }
 
 
+/* event handler for the save button. Saves file as .txt */
+void ResultWindow::saveClicked(Fl_Widget* w) {
+	cout <<"Saving Report as PDF" <<endl;
+	buffer->savefile("results.csv", 1000000);
+}
+
+
+/* method to show the results window once the buffer has been filled */
 void ResultWindow::addText() {
-    //windowResult->resizable(textDisplay);
+    windowResult->resizable(textDisplay);
     windowResult->show();
     windowResult->end();
-
     Fl::run();
 }
+
 
 // DESTRUCTOR
 ResultWindow::~ResultWindow() {

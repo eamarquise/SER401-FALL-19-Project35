@@ -21,13 +21,19 @@ using namespace std;
 
 class ResultWindow {
 
+	static void static_saveClicked(Fl_Widget* w, void * data) {
+		((ResultWindow*)data)->saveClicked(w);
+	}
+
+	void saveClicked(Fl_Widget* w);
+
 
     public:
 
 		Fl_Window *windowResult;
-		//Fl_Box *boxHeader;
 		Fl_Text_Display *textDisplay;
 		Fl_Text_Buffer *buffer;
+		Fl_Button *buttonSave;
         ResultWindow();
         ~ResultWindow();
         void addText(void);

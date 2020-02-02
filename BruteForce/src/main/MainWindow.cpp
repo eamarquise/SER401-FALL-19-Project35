@@ -37,7 +37,6 @@
 #include <FL/Fl_Widget.H>
 
 
-
 using namespace std;
 
 //Function to convert integers into constant expressions.
@@ -166,7 +165,7 @@ MainWindow::MainWindow() {
 
 // DESTRUCTOR
 MainWindow::~MainWindow() {
-    //TODO
+
 }
 
 
