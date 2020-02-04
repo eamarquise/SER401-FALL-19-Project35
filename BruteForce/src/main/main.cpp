@@ -68,7 +68,6 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Window.H>
 
-#include <FL/Fl_Progress.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Input.H>
@@ -162,8 +161,6 @@ constexpr int toConstInt(int constInt) {
 	return constInt;
 }
 
-//progress bar
-Fl_Progress *progressBar;
 
 /*********************************************************
  * threadFunction
@@ -179,17 +176,14 @@ Fl_Progress *progressBar;
  *Arguments:
  *	Student studentPool[],
  *	Project projectPool[], const int numStudents, const int numProjects, const int numSkills,
- *		const int teamSize, const int numTopTeams, string results[], int classSection, int numClasses
+ *		const int teamSize, const int numTopTeams, string results[], int classSection
  *
  *Returns:
  *	void
  */
 void threadFunction(Student studentPool[],
 		Project projectPool[], const int numStudents, const int numProjects, const int numSkills,
-		const int teamSize, const int numTopTeams, string results[], int classSection, int numClasses) {
-
-	//Progress Bar window- calculate the percentage to increment the bar by
-	int progressIncrement = (110/numClasses)/3;
+		const int teamSize, const int numTopTeams, string results[], int classSection) {
 
 
 	//Find the number of teams of 5 and number of teams of 4 needed for this class section.
@@ -211,6 +205,8 @@ void threadFunction(Student studentPool[],
 			count4T++;
 		}
 	}
+
+
 
 	/***** SORTING STUDENTS BASED ON SKILL *****/
 		//creating student skill average
@@ -492,21 +488,19 @@ void threadFunction(Student studentPool[],
  if(COUNT_2 != 0 && PCOUNT_2 != 0){
 	//1st Call to function: Highest priority projects and highest skill average students
 	*(results+(classSection*3+0)) = x.StudentsToProjectsAssignment(STpriority2, PRpriority2,
-			COUNT_2, PCOUNT_2, numSkills, teamSize, numTopTeams, progressBar, progressIncrement);}
+			COUNT_2, PCOUNT_2, numSkills, teamSize, numTopTeams);}
 
 
  if(COUNT_1 != 0 && PCOUNT_1 != 0){
 	//2nd Call to function: middle priority projects and middle skill average students
 	*(results+(classSection*3+1)) = x.StudentsToProjectsAssignment(STpriority1, PRpriority1,
-			COUNT_1, PCOUNT_1, numSkills, teamSize, numTopTeams, progressBar, progressIncrement);}
+			COUNT_1, PCOUNT_1, numSkills, teamSize, numTopTeams);}
 
 
  if(COUNT_0 != 0 && PCOUNT_0 != 0){
    //3rd Call to function: lowest priority projects and lowest skill average students
 	*(results+(classSection*3+2)) = x.StudentsToProjectsAssignment(STpriority0, PRpriority0,
-		    COUNT_0, PCOUNT_0, numSkills, teamSize, numTopTeams, progressBar, progressIncrement);}
-
-
+		    COUNT_0, PCOUNT_0, numSkills, teamSize, numTopTeams);}
 
 
 }//end threadFunction
@@ -555,7 +549,7 @@ Fl_Output *output;
  *      Created by: Team#35 (Sean, Myles, Cristi, Matthew, Elizabeth)
  *
  * Description:
- *		This function is the main method, and creates the MainWindow GUI.
+ *		This function is the main method, and creates the MianWindow GUI.
  *
  *Arguments:
  *	void
@@ -592,26 +586,12 @@ int main(){
  *	int value 0.
  */
 
-int main::main_run(int projects_input, int students_input, Fl_Progress* pb){
+int main::main_run(int projects_input, int students_input){
 
 	//timer to keep track of program runtime
-	  auto start = high_resolution_clock::now();
+	    auto start = high_resolution_clock::now();
 		srand(time(NULL));
 
-		cout << "Hi Team 35" << endl;
-
-		//set up the progress bar with 5 percent
-		progressBar = pb;
-		pb->value(5/100.0);
-		char percent[10];
-		sprintf(percent, "%d%%", int((5/100.0)*100.0));
-		pb->label(percent);
-		Fl::check();
-
-
-	//Fl::run();
-
-	//MainWindow mainWin;
 
 	tempProj = projects_input;
     tempStud = students_input ;
@@ -770,8 +750,7 @@ int main::main_run(int projects_input, int students_input, Fl_Progress* pb){
 		//threads[i] = thread (threadFunction, STUDENT_POOL, PROJECT_POOL, NUM_STUDENTS, NUM_PROJECTS, NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS);
 
 		//call the thread (once for each class section)
-		threads[i] = thread (threadFunction, STUDENT_POOL_SECTION_X, PROJECT_POOL_SECTION_X, studentsInSections[i],
-				projectsInSections[i], NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS, results, i, NUM_CLASS_SECTIONS);
+		threads[i] = thread (threadFunction, STUDENT_POOL_SECTION_X, PROJECT_POOL_SECTION_X, studentsInSections[i], projectsInSections[i], NUM_SKILLS, TEAM_SIZE, NUM_TOP_TEAMS, results, i);
 
         //delete STUDENT_POOL_SECTION_X;
         //delete PROJECT_POOL_SECTION_X;
@@ -810,15 +789,6 @@ int main::main_run(int projects_input, int students_input, Fl_Progress* pb){
 	  	cout << "time in milliseconds: ";
 	  	cout << duration.count() << endl;;
 	  	cout << endl;
-
-		//Set the progress bar to 100%
-		pb->value(100);
-		sprintf(percent, "%d%%", int(100));
-		pb->label(percent);
-		Fl::check();
-
-		//reset the global progress bar value
-		progressBarValue = 0;
 
     //Tests
 	//Test t;
