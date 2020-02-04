@@ -561,48 +561,7 @@ Fl_Output *output;
 
 int main(){
 
-	//read data from csv file
-	string filename = "sampleStudentCSVfile.csv";
-	Utility u1;
-	vector<vector<string>> dataList = u1.toCSVcse(filename);
 
-	/*ifstream file("sampleStudentCSVfile.csv");
-
-	vector<vector<string>> dataList;
-
-	string line = "";
-
-	int bracketCount = 0;
-	while(getline(file,line)) {
-		vector<string> vec;
-		string element = "";
-		for(int i = 0; i < line.length(); i++) {
-			if(line.at(i) == '[') {
-				bracketCount++;
-			}
-			if(line.at(i) == ']') {
-				bracketCount--;
-			}
-			if(line.at(i) == ',' && bracketCount == 0) {
-				vec.push_back(element);
-				element = "";
-			} else {
-				element.push_back(line.at(i));
-			}
-		}
-		dataList.push_back(vec);
-	}
-	file.close();*/
-	for(int i = 0; i < dataList.size(); i++) {
-		for(int j = 0; j < dataList.at(i).size(); j++) {
-			cout << dataList.at(i).at(j);
-			if(j+1 != dataList.at(i).size()) {
-				cout << ", ";
-			}
-
-		}
-		cout << endl;
-	}
 	MainWindow mainWin;
 
 	return 0;
