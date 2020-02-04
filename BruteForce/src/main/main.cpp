@@ -43,7 +43,7 @@
 #include "ClassSectionJson.h"
 #include "Utility.h"
 #include "StudentsToProjects.h"
-
+#include "ResultWindow.h"
 #include "MainWindow.h"
 #include "ClassSelectorGUI.h"
 #include "AuthTokenGUI.h"
@@ -566,6 +566,9 @@ Fl_Output *output;
 int main(){
 
 	MainWindow mainWin;
+	ResultWindow windowResult;
+	windowResult.buffer->loadfile("results.txt", 1000000);
+	windowResult.addText();
 
 	return 0;
 }
@@ -592,24 +595,9 @@ int main(){
 int main::main_run(int projects_input, int students_input, Fl_Progress* pb){
 
 	//timer to keep track of program runtime
-	    auto start = high_resolution_clock::now();
+	  auto start = high_resolution_clock::now();
 		srand(time(NULL));
 
-/*
-		window = new Fl_Window(340,340);
-		box = new Fl_Box(20,40,300,100,"Hello, Worldsssss!");
-		button = new Fl_Button(20,140,100,50, "Click me");
-		input = new Fl_Input(20, 190, 80, 40);
-		output = new Fl_Output(20, 230, 80, 40);
-		box->box(FL_UP_BOX);
-		box->labelfont(FL_BOLD+FL_ITALIC);
-		box->labelsize(36);
-		box->labeltype(FL_SHADOW_LABEL);
-		window->show();
-		window->end();
-
-		button->callback(dobut);
-*/
 		cout << "Hi Team 35" << endl;
 
 		//set up the progress bar with 5 percent
@@ -796,12 +784,20 @@ int main::main_run(int projects_input, int students_input, Fl_Progress* pb){
 	}
 
 	//print out the results
-    for(int i = 0; i < NUM_CLASS_SECTIONS*3; i++) {
-		cout << results[i] << endl;
+	ofstream resultFile;
+	resultFile.open("results.txt");
+	for(int i = 0; i < NUM_CLASS_SECTIONS*3; i++) {
+		resultFile << results[i] << endl;
 	}
+	resultFile.close();
+
+
+
 	//END THREADS FOR EACH CLASS SECTION...Sean Rogers
 
 //END -STUDENTS TO PROJECTS ASSIGNMENT
+
+
 
     //KEEP TRACK OF TIME THE PROGRAM TAKES TO RUN
 	  	auto stop = high_resolution_clock::now();
@@ -830,6 +826,4 @@ int main::main_run(int projects_input, int students_input, Fl_Progress* pb){
 	//t.PrintProjectPool(PROJECT_POOL, NUM_PROJECTS, NUM_SKILLS);
 	//t.PrintStudentPool(STUDENT_POOL, NUM_STUDENTS, NUM_SKILLS);
 	//t.PrintProjectStudentSkills(PROJECT_STUDENT_SKILLS, NUM_PROJECTS, NUM_STUDENTS);
-
-	return 0;
 }
